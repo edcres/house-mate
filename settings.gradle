@@ -1,0 +1,2 @@
+rootProject.name='House Mate'
+include ':app'
