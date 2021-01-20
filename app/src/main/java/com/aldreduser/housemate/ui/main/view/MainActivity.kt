@@ -6,9 +6,11 @@ import com.aldreduser.housemate.R
 
 // https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide
 
+// todo: change recycler item UI, according to my own design
 // todo: In the ApiServiceImpl class in the api package. There's a placeholder website to get the data,
 //  CHANGE where to get the data, and get it from my own remote storage.
 // todo: I'm gonna add the things for the chore item later, that way I can follow up with the example better.
+// todo: change the main activity UI, make it more tailored to my app
 
 class MainActivity : AppCompatActivity() {
 

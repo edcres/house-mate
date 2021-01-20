@@ -19,6 +19,7 @@ class MainViewModel (private val mainRepository: MainRepository): ViewModel() {
         fetchShoppingItems()
     }
 
+    // gets data from the repo
     private fun fetchShoppingItems() {
         shoppingItems.postValue(Resource.loading(null))
         compositeDisposable.add(
@@ -38,6 +39,7 @@ class MainViewModel (private val mainRepository: MainRepository): ViewModel() {
         compositeDisposable.dispose()
     }
 
+    // will be used by other classes
     fun getShoppingItems(): LiveData<Resource<List<ShoppingItem>>> {
         return shoppingItems
     }
