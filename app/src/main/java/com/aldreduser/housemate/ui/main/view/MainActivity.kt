@@ -1,7 +1,8 @@
-package com.aldreduser.housemate
+package com.aldreduser.housemate.ui.main.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.aldreduser.housemate.R
 
 // https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide
 

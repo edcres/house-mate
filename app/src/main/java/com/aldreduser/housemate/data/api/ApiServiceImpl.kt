@@ -14,5 +14,4 @@ class ApiServiceImpl : ApiService {
             .build()
             .getObjectListSingle(ShoppingItem::class.java)
     }
-
 }
