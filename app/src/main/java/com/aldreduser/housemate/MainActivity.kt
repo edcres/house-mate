@@ -5,7 +5,9 @@ import android.os.Bundle
 
 // https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide
 
-//todo: I'm gonna add the things for the chore item later, that way i can follow up with the example better
+// todo: In the ApiServiceImpl class in the api package. There's a placeholder website to get the data,
+//  CHANGE where to get the data, and get it from my own remote storage.
+// todo: I'm gonna add the things for the chore item later, that way I can follow up with the example better.
 
 class MainActivity : AppCompatActivity() {
 
