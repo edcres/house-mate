@@ -9,7 +9,7 @@ import com.aldreduser.housemate.data.model.ShoppingItem
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.shopping_item_layout.view.*
 
-// I think this is for the recyclerview
+// This is the recyclerview adapter
 class MainAdapter(private val shoppingItems: ArrayList<ShoppingItem>):
     RecyclerView.Adapter<MainAdapter.DataViewHolder>() {
 

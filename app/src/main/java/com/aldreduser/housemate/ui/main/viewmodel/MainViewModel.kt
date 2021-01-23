@@ -10,6 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
+// gets data from the repo
 class MainViewModel (private val mainRepository: MainRepository): ViewModel() {
 
     private val shoppingItems = MutableLiveData<Resource<List<ShoppingItem>>>()
@@ -34,12 +35,13 @@ class MainViewModel (private val mainRepository: MainRepository): ViewModel() {
         )
     }
 
+    // todo: idk what this does
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
     }
 
-    // will be used by other classes
+    // will be called by other classes
     fun getShoppingItems(): LiveData<Resource<List<ShoppingItem>>> {
         return shoppingItems
     }

@@ -2,7 +2,7 @@ package com.aldreduser.housemate.data.model
 
 import com.google.gson.annotations.SerializedName
 
-// I wanna have the properties well organized bc it might make the recyclerview and storage easier.
+// have the properties well organized bc it might make the recyclerview and storage easier.
 
 data class ShoppingItem (
     // Necessary
@@ -10,9 +10,9 @@ data class ShoppingItem (
     val id: Int = 0,
     @SerializedName("name")
     val name: String = "",
-    @SerializedName("quantity") // Chores didn't have this property, but i put it here
+    @SerializedName("quantity") // Chores didn't have this Qty property, but i put it here
     val quantity: Double = 0.0,
-    @SerializedName("addedBy") // todo: idk the format for the value, i just did camelCase
+    @SerializedName("addedBy") // idk the format for the value, i just did camelCase
     val addedBy: String = "",
     @SerializedName("purchased")
     val purchased: Boolean = false,
