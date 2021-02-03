@@ -22,8 +22,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // ui
 // todo: change the main activity UI, make it more tailored to my app
-// todo: change shopping item UI, according to my own design
+//  'edit' button to the right
+//  edit the style of the app (colors, etc)
+//  navigation in all activities (except the one that opens when the app opens): navigation icon - back arrow to the left
+//  floating point button to go to new shopping item activity
 // todo: make an add shoppingList activity
+//  change shopping item activity title
+//  when user click '+' button, app goes to shopping item activity
+//  when user goes back in navigation, app asks to cancel adding new activity
+//  flatting point to add changes to storage (no functionality yet)
+// todo: change shopping item UI, according to my own design
 
 // storage
 // todo: make room with a view database first (i think it's only local storage)
@@ -64,6 +72,10 @@ class MainActivity : AppCompatActivity() {
 
     // UI
     private fun setupUI() {
+        // change toolbar title todo: ActionBar is supposed to be replaces with 'App Bar' and a 'Toolbar UI widget' (but using the support library might be okay)
+        val actionBar = supportActionBar
+        actionBar!!.title = getString(R.string.shopping_list_activity_title)
+        // populate recyclerview
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MainAdapter(arrayListOf())
 

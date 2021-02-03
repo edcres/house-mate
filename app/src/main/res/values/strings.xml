@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">House Mate</string>
+
+    <string name="shopping_list_activity_title">Shopping List</string>
 </resources>

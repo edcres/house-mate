@@ -11,6 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 // gets data from the repo
+// can't pass parameters to viewModel by default, therefore use a viewModel factory
 class MainViewModel (private val mainRepository: MainRepository): ViewModel() {
 
     private val shoppingItems = MutableLiveData<Resource<List<ShoppingItem>>>()
@@ -35,7 +36,8 @@ class MainViewModel (private val mainRepository: MainRepository): ViewModel() {
         )
     }
 
-    // todo: idk what this does
+    // This method will be called when this ViewModel is no longer used and will be destroyed.
+    // It is useful when ViewModel observes some data and you need to clear this subscription to prevent a memory leak of this ViewModel.
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.dispose()
