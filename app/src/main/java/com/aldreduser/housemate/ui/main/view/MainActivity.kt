@@ -22,10 +22,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // ui
 // todo: change the main activity UI, make it more tailored to my app
-//  'edit' button to the right
+//  'edit' button to the right of toolbar
 //  edit the style of the app (colors, etc)
 //  navigation in all activities (except the one that opens when the app opens): navigation icon - back arrow to the left
-//  floating point button to go to new shopping item activity
+//  floating action button to go to new shopping item activity     -->      https://material.io/components/buttons-floating-action-button/android#regular-fabs
 // todo: make an add shoppingList activity
 //  change shopping item activity title
 //  when user click '+' button, app goes to shopping item activity
@@ -41,11 +41,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 // recyclerview
 // todo: have placeholder data to get from storage, before getting it remotely
 // todo: adjust recyclerview to work with the items in my own app
-// todo: change recyclerview and make it have clickable buttons and stuff
+// todo: change recyclerview and make it have clickable buttons and stuff       -->       https://material.io/components/cards
+// todo: more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
+//  -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
 
 /*
  chore item
  todo: add the things for the chore item later
+    -Make tabs to switch between shopping items and chore items
+        -to differentiate an active tab from an inactive tab, apply an underline and color change to the active tab’s text and icon.   -->  https://material.io/design/navigation/understanding-navigation.html#lateral-navigation
     -make a model for it
     -make an item layout
     -make an add shoppingList activity
@@ -55,7 +59,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 
 // better MVVM architecture
-// todo: do the things at the bottom of this page to improve the architecture
+// todo: do the comments at the bottom of this page to improve the architecture
 
 class MainActivity : AppCompatActivity() {
 
@@ -73,8 +77,9 @@ class MainActivity : AppCompatActivity() {
     // UI
     private fun setupUI() {
         // change toolbar title todo: ActionBar is supposed to be replaces with 'App Bar' and a 'Toolbar UI widget' (but using the support library might be okay)
-        val actionBar = supportActionBar
-        actionBar!!.title = getString(R.string.shopping_list_activity_title)
+        // contextual action bar
+
+
         // populate recyclerview
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MainAdapter(arrayListOf())
