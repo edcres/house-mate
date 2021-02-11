@@ -2,4 +2,7 @@
     <string name="app_name">House Mate</string>
 
     <string name="shopping_list_activity_title">Shopping List</string>
+
+    <string name="appbar_edit">Edit</string>
+    <string name="appbar_more_place_holder">Place Holder</string>
 </resources>

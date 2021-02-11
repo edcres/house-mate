@@ -69,17 +69,40 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //todo: eventually when adding chore items, put the code in this activity to a shopping items activity
+        setUpAppBar()
         setupUI()
         setupViewModel()
         setupObserver()
     }
 
+    private fun setUpAppBar() {
+        topAppBar.title = "Shopping Items"
+        topAppBar.setNavigationOnClickListener {
+            //todo: handle navigation icon press
+            //the navigation icon is the icon to the left
+            // command+f 'Navigation icon attributes' in material design website
+        }
+
+        topAppBar.setOnMenuItemClickListener {menuItem ->
+            when (menuItem.itemId) {
+                R.id.edit -> {
+                    //todo: handle edit icon press
+                    //user presses this icon and edit icons pop up next to each recyclerView item
+                    true
+                }
+                R.id.more_options -> {
+                    //todo: if this will not be given functionality, delete it
+                    //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
     // UI
     private fun setupUI() {
-        // change toolbar title todo: ActionBar is supposed to be replaces with 'App Bar' and a 'Toolbar UI widget' (but using the support library might be okay)
-        // contextual action bar
-
-
         // populate recyclerview
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MainAdapter(arrayListOf())
@@ -99,19 +122,16 @@ class MainActivity : AppCompatActivity() {
             when(it.status) {
                 Status.SUCCESS -> {
                     // when status is Success: hide bar
-                    progressBar.visibility = View.GONE
                     it.data?.let { shoppingItems -> renderList(shoppingItems) }
                     recyclerView.visibility = View.VISIBLE
                 }
                 Status.LOADING -> {
                     // when status is Loading: show progress bar
-                    progressBar.visibility = View.VISIBLE
                     recyclerView.visibility = View.GONE
                 }
                 Status.ERROR -> {
                     // handle error (idk if the error is already handled or not)
                     // when status is error: hide progress bar
-                    progressBar.visibility = View.GONE
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
 
                 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/edit"
+        android:icon="@drawable/ic_edit_24dp"
+        android:title="@string/appbar_edit"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/more_options"
+        android:icon="@drawable/ic_more_options_24dp"
+        android:title="More Options"
+        app:showAsAction="ifRoom">
+
+        <item
+            android:id="@+id/option_1"
+            android:title="Item" />
+        <item
+            android:id="@+id/option_2"
+            android:title="Item" />
+
+    </item>
+
+
+</menu>
