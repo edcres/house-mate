@@ -78,6 +78,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpAppBar() {
         topAppBar.title = "Shopping Items"
+        // overflow icon is only changed to the drawables of android version is lollipop or above
+        // (~Samsung Galaxy S6 and above. Current in 2021 is Samsung Galaxy S21)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            topAppBar.overflowIcon = getDrawable(R.drawable.ic_more_options_24dp)
+        }
         topAppBar.setNavigationOnClickListener {
             //todo: handle navigation icon press
             //the navigation icon is the icon to the left
@@ -99,6 +104,9 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+    private fun changeOverflowIcon() {
+
     }
 
     // UI
