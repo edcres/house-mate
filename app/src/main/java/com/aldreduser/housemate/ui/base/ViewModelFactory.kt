@@ -2,8 +2,8 @@ package com.aldreduser.housemate.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aldreduser.housemate.data.api.ApiHelper
-import com.aldreduser.housemate.data.repository.MainRepository
+import com.aldreduser.housemate.data.model.api.ApiHelper
+import com.aldreduser.housemate.data.MainRepository
 import com.aldreduser.housemate.ui.main.viewmodel.MainViewModel
 
 // ViewModelFactory exists to pass arguments to the viewModel. Bc arguments can't be passes to the viewModel directly

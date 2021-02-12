@@ -15,10 +15,7 @@
         app:showAsAction="ifRoom">
 
         <item
-            android:id="@+id/option_1"
-            android:title="Item" />
-        <item
-            android:id="@+id/option_2"
+            android:id="@+id/option_delete"
             android:title="Item" />
 
     </item>

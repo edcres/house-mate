@@ -2,6 +2,10 @@ package com.aldreduser.housemate.ui.main.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.view.ActionMode
+//import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -9,8 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aldreduser.housemate.R
-import com.aldreduser.housemate.data.api.ApiHelper
-import com.aldreduser.housemate.data.api.ApiServiceImpl
+import com.aldreduser.housemate.data.model.api.ApiHelper
+import com.aldreduser.housemate.data.model.api.ApiServiceImpl
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.ui.base.ViewModelFactory
 import com.aldreduser.housemate.ui.main.adapter.MainAdapter
@@ -42,6 +46,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 // todo: have placeholder data to get from storage, before getting it remotely
 // todo: adjust recyclerview to work with the items in my own app
 // todo: change recyclerview and make it have clickable buttons and stuff       -->       https://material.io/components/cards
+//      - long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
 // todo: more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
 //  -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
 
@@ -81,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         // overflow icon is only changed to the drawables of android version is lollipop or above
         // (~Samsung Galaxy S6 and above. Current in 2021 is Samsung Galaxy S21)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            topAppBar.overflowIcon = getDrawable(R.drawable.ic_more_options_24dp)
+            topAppBar.overflowIcon = getDrawable(R.drawable.ic_more_options_24dp) // might have to do this in every activity.
         }
         topAppBar.setNavigationOnClickListener {
             //todo: handle navigation icon press
@@ -96,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                     //user presses this icon and edit icons pop up next to each recyclerView item
                     true
                 }
-                R.id.more_options -> {
+                R.id.option_delete -> {
                     //todo: if this will not be given functionality, delete it
                     //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
                     true
@@ -105,9 +110,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun changeOverflowIcon() {
+    // Contextual Action Bar
+    // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views
+    val callback = object : ActionMode.Callback {
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            TODO("Not yet implemented")
+        }
 
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            TODO("Not yet implemented")
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode?) {
+            TODO("Not yet implemented")
+        }
     }
+    //androidx.appcompat.view.ActionMode.Callback       required
+    //android.view.ActionMode.Callback      found
+    val actionMode = startSupportActionMode(callback)
+    actionMode?.title = "1 selected"
 
     // UI
     private fun setupUI() {
@@ -159,7 +184,6 @@ class MainActivity : AppCompatActivity() {
         ).get(MainViewModel::class.java)
 
     }
-
 }
 
 /*

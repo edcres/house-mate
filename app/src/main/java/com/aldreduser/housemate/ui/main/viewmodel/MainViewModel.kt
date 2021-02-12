@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aldreduser.housemate.data.model.ShoppingItem
-import com.aldreduser.housemate.data.repository.MainRepository
+import com.aldreduser.housemate.data.MainRepository
 import com.aldreduser.housemate.utils.Resource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
