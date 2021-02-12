@@ -22,8 +22,6 @@ import com.aldreduser.housemate.ui.main.viewmodel.MainViewModel
 import com.aldreduser.housemate.utils.Status
 import kotlinx.android.synthetic.main.activity_main.*
 
-// https://blog.mindorks.com/mvvm-architecture-android-tutorial-for-beginners-step-by-step-guide
-
 // ui
 // todo: change the main activity UI, make it more tailored to my app
 //  'edit' button to the right of toolbar
@@ -76,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //todo: eventually when adding chore items, put the code in this activity to a shopping items activity
         setUpAppBar()
+        setUpContextualAppBar()
         setupUI()
         setupViewModel()
         setupObserver()
@@ -110,29 +109,37 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     // Contextual Action Bar
     // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views
-    val callback = object : ActionMode.Callback {
-        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            TODO("Not yet implemented")
-        }
+    private fun setUpContextualAppBar() {
+        // this might not work bc it's in a function, but i think it will
+        val callback = object : ActionMode.Callback {
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                menuInflater.inflate(R.menu.contextual_action_bar, menu)
+                return true
+            }
 
-        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            TODO("Not yet implemented")
-        }
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                return false
+            }
 
-        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-            TODO("Not yet implemented")
-        }
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                return when (item?.itemId) {
+                    R.id.delete -> {
+                        // todo: Handle delete icon press
+                        true
+                    }
+                    else -> false
+                }
+            }
 
-        override fun onDestroyActionMode(mode: ActionMode?) {
-            TODO("Not yet implemented")
+            override fun onDestroyActionMode(mode: ActionMode?) {
+            }
         }
+        val actionMode = startSupportActionMode(callback)   // I changed the import from 'android.view.ActionMode.Callback' to 'androidx.appcompat.view.ActionMode.Callback'
+        actionMode?.title = "1 selected"
     }
-    //androidx.appcompat.view.ActionMode.Callback       required
-    //android.view.ActionMode.Callback      found
-    val actionMode = startSupportActionMode(callback)
-    actionMode?.title = "1 selected"
 
     // UI
     private fun setupUI() {

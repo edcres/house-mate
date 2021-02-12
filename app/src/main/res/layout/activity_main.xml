@@ -9,19 +9,20 @@
     tools:context=".ui.main.view.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:liftOnScroll="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:titleTextColor="@color/toolbarItemsLight"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/ic_navigation_24dp"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary" />
+            app:titleTextColor="@color/toolbarItemsLight" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
