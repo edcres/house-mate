@@ -19,17 +19,16 @@ import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.ui.base.ViewModelFactory
 import com.aldreduser.housemate.ui.main.adapter.MainAdapter
 import com.aldreduser.housemate.ui.main.viewmodel.MainViewModel
-import com.aldreduser.housemate.utils.Status
+import com.aldreduser.housemate.util.Status
 import kotlinx.android.synthetic.main.activity_main.*
 
 // ui
-// todo: change the main activity UI, make it more tailored to my app
-//  floating action button to go to new shopping item activity     -->      https://material.io/components/buttons-floating-action-button/android#regular-fabs
 // todo: make an add shoppingList item activity
 //  change shopping item activity title
-//  when user click '+' button, app goes to shopping item activity
-//  when user goes back in navigation, app asks to cancel adding new activity
+//  when user click '+' FAB, app goes to shopping item activity
 //  flatting point to add changes to storage (no functionality yet)
+//  add the UI widgets
+//  when user goes back in navigation, app asks to cancel adding new activity
 // todo: change shopping item UI, according to my own design
 
 // storage
@@ -44,6 +43,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 //      - long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
 // todo: more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
 //  -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
+// todo: 'more options' icon pops up a select box in each recycler item, each selected has the option to be deleted or duplicated.
+//  alternatively: use contextual action bar to long click items, these can be deleted or duplicated
+
+// dataBinding
+// todo: make all necessary data dataBindable
+//  enable dataBinding, wrap layout root element in <layout>
+//  layout variables in <data>
+//  layout expressions and element attributes: @{expression}
+// Todo: use LiveData for observables
+//https://www.youtube.com/watch?v=omml4lK_b-A&t=509s
+//https://developer.android.com/topic/libraries/data-binding/
+//https://developer.android.com/codelabs/android-databinding#0
 
 // todo: (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
 
@@ -74,14 +85,16 @@ class MainActivity : AppCompatActivity() {
         //todo: eventually when adding chore items, put the code in this activity to a shopping items activity
         setUpAppBar()
         setUpContextualAppBar()
-        setupUI()
+        setupRecyclerView()
         setupViewModel()
         setupObserver()
+        fabOnClick()
     }
 
     private fun fabOnClick() {
         fab.setOnClickListener() {
-            //todo: handle fab click
+            // todo: handle fab click
+            // navigate to the  add shoppingList item activity
         }
     }
 
@@ -142,12 +155,12 @@ class MainActivity : AppCompatActivity() {
             override fun onDestroyActionMode(mode: ActionMode?) {
             }
         }
-        val actionMode = startSupportActionMode(callback)   // I changed the import from 'android.view.ActionMode.Callback' to 'androidx.appcompat.view.ActionMode.Callback'
+        val actionMode = startSupportActionMode(callback)   //I changed the import from 'android.view.ActionMode.Callback' to 'androidx.appcompat.view.ActionMode.Callback'
         actionMode?.title = "1 selected"
     }
 
-    // UI
-    private fun setupUI() {
+    // RecyclerView
+    private fun setupRecyclerView() {
         // populate recyclerview
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MainAdapter(arrayListOf())
@@ -161,7 +174,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 
-    // observe data
+    // Observer
     private fun setupObserver() {
         mainViewModel.getShoppingItems().observe(this, Observer {
             when(it.status) {
@@ -183,12 +196,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-    // put items in the recyclerview
+    // Populate Recyclerview
     private fun renderList(shoppingItems: List<ShoppingItem>) {
         adapter.addData(shoppingItems)
         adapter.notifyDataSetChanged()
     }
-
+    // ViewModel
     private fun setupViewModel() {
         mainViewModel = ViewModelProviders.of(
             this,

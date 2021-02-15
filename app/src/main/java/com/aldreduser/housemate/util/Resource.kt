@@ -1,4 +1,4 @@
-package com.aldreduser.housemate.utils
+package com.aldreduser.housemate.util
 
 // When using this class in another file, make sure u're using the correct import.
 

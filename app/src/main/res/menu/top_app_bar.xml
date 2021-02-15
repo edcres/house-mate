@@ -15,8 +15,11 @@
         app:showAsAction="ifRoom">
 
         <item
+            android:id="@+id/option_duplicate"
+            android:title="Duplicate"/>
+        <item
             android:id="@+id/option_delete"
-            android:title="Item" />
+            android:title="Delete" />
 
     </item>
 
