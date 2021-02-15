@@ -118,8 +118,12 @@ class MainActivity : AppCompatActivity() {
                     //user presses this icon and edit icons pop up next to each recyclerView item
                     true
                 }
-                R.id.option_delete -> {
-                    //todo: if this will not be given functionality, delete it
+                R.id.option_duplicate -> {
+                    //todo: add functionality
+                    //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
+                    true
+                }R.id.option_delete -> {
+                    //todo: add functionality
                     //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
                     true
                 }
@@ -144,7 +148,10 @@ class MainActivity : AppCompatActivity() {
 
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
                 return when (item?.itemId) {
-                    R.id.delete -> {
+                    R.id.contextual_duplicate -> {
+                        // todo: Handle duplicate icon press
+                        true
+                    }R.id.contextual_delete -> {
                         // todo: Handle delete icon press
                         true
                     }
