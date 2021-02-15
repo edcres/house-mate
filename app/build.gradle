@@ -6,6 +6,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true    // for the fab
         applicationId "com.aldreduser.housemate"
         minSdkVersion 16
         targetSdkVersion 29

@@ -24,11 +24,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // ui
 // todo: change the main activity UI, make it more tailored to my app
-//  'edit' button to the right of toolbar
-//  edit the style of the app (colors, etc)
-//  navigation in all activities (except the one that opens when the app opens): navigation icon - back arrow to the left
 //  floating action button to go to new shopping item activity     -->      https://material.io/components/buttons-floating-action-button/android#regular-fabs
-// todo: make an add shoppingList activity
+// todo: make an add shoppingList item activity
 //  change shopping item activity title
 //  when user click '+' button, app goes to shopping item activity
 //  when user goes back in navigation, app asks to cancel adding new activity
@@ -47,6 +44,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 //      - long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
 // todo: more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
 //  -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
+
+// todo: (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
 
 /*
  chore item
@@ -78,6 +77,12 @@ class MainActivity : AppCompatActivity() {
         setupUI()
         setupViewModel()
         setupObserver()
+    }
+
+    private fun fabOnClick() {
+        fab.setOnClickListener() {
+            //todo: handle fab click
+        }
     }
 
     private fun setUpAppBar() {
