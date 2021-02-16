@@ -1,5 +1,6 @@
 package com.aldreduser.housemate.ui.main.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.view.ActionMode
@@ -12,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aldreduser.housemate.AddShoppingItemActivity
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.api.ApiHelper
 import com.aldreduser.housemate.data.model.api.ApiServiceImpl
@@ -23,13 +25,10 @@ import com.aldreduser.housemate.util.Status
 import kotlinx.android.synthetic.main.activity_main.*
 
 // ui
-// todo: make an add shoppingList item activity
-//  change shopping item activity title
-//  when user click '+' FAB, app goes to shopping item activity
-//  flatting point to add changes to storage (no functionality yet)
-//  add the UI widgets
-//  when user goes back in navigation, app asks to cancel adding new activity
 // todo: change shopping item UI, according to my own design
+
+// viewModel
+// todo: learn about viewModels
 
 // storage
 // todo: make room with a view database first (i think it's only local storage)
@@ -56,7 +55,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 //https://developer.android.com/topic/libraries/data-binding/
 //https://developer.android.com/codelabs/android-databinding#0
 
+// navigation
 // todo: (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
+// todo: when user backs out of adding a new item, ask if they sure they wanna cancel. Might have to learn about activity lifecycles
+// todo: when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
 /*
  chore item
@@ -92,9 +94,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fabOnClick() {
+        // navigate to the  add shoppingList item activity
         fab.setOnClickListener() {
-            // todo: handle fab click
-            // navigate to the  add shoppingList item activity
+            val newIntent = Intent(this, AddShoppingItemActivity::class.java)
+            startActivity(newIntent)
         }
     }
 
@@ -214,7 +217,6 @@ class MainActivity : AppCompatActivity() {
             this,
             ViewModelFactory(ApiHelper(ApiServiceImpl()))
         ).get(MainViewModel::class.java)
-
     }
 }
 
