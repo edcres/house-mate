@@ -355,7 +355,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material/icons/materialicons/add/baseline_add_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/expand_less/baseline_expand_less_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -365,7 +365,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_add_24" />
+                            <entry key="outputName" value="ic_expand_less_24" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>
