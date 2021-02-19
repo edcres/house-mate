@@ -1,5 +1,6 @@
 package com.aldreduser.housemate.ui.main.view
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,15 +21,12 @@ import com.aldreduser.housemate.data.model.api.ApiServiceImpl
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.ui.base.ViewModelFactory
 import com.aldreduser.housemate.ui.main.adapter.MainAdapter
-import com.aldreduser.housemate.ui.main.viewmodel.MainViewModel
+import com.aldreduser.housemate.ui.main.viewmodel.ShoppingListViewModel
 import com.aldreduser.housemate.util.Status
 import kotlinx.android.synthetic.main.activity_main.*
 
-// ui
-// todo: change shopping item UI, according to my own design
-
-// viewModel
-// todo: learn about viewModels
+// todo: make a shopping list view, with a shopping list class
+//  make the main activity the home screen
 
 // storage
 // todo: make room with a view database first (i think it's only local storage)
@@ -55,6 +53,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 //https://developer.android.com/topic/libraries/data-binding/
 //https://developer.android.com/codelabs/android-databinding#0
 
+// usr
+// todo: In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
+//  user can choose anonymous
+// todo: in home activity, check if user has name registered (in shared preferences), if not ask for name
+// todo: make feature so that user can change their name later on
+
 // navigation
 // todo: (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
 // todo: when user backs out of adding a new item, ask if they sure they wanna cancel. Might have to learn about activity lifecycles
@@ -78,7 +82,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var shoppingListViewModel: ShoppingListViewModel
     private lateinit var adapter: MainAdapter       // for RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -186,7 +190,7 @@ class MainActivity : AppCompatActivity() {
 
     // Observer
     private fun setupObserver() {
-        mainViewModel.getShoppingItems().observe(this, Observer {
+        shoppingListViewModel.getShoppingItems().observe(this, Observer {
             when(it.status) {
                 Status.SUCCESS -> {
                     // when status is Success: hide bar
@@ -200,8 +204,7 @@ class MainActivity : AppCompatActivity() {
                 Status.ERROR -> {
                     // handle error (idk if the error is already handled or not)
                     // when status is error: hide progress bar
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
-
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -213,10 +216,11 @@ class MainActivity : AppCompatActivity() {
     }
     // ViewModel
     private fun setupViewModel() {
-        mainViewModel = ViewModelProviders.of(
+        // very important, declare which view-model interacts with this activity
+        shoppingListViewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(ApiHelper(ApiServiceImpl()))
-        ).get(MainViewModel::class.java)
+        ).get(ShoppingListViewModel::class.java)
     }
 }
 

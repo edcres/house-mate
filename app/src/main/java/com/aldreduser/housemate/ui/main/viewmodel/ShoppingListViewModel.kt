@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 
 // gets data from the repo
 // can't pass parameters to viewModel by default, therefore use a viewModel factory
-class MainViewModel (private val mainRepository: MainRepository): ViewModel() {
+class ShoppingListViewModel (private val mainRepository: MainRepository): ViewModel() {
 
     private val shoppingItems = MutableLiveData<Resource<List<ShoppingItem>>>()
     private val compositeDisposable = CompositeDisposable()
@@ -48,3 +48,28 @@ class MainViewModel (private val mainRepository: MainRepository): ViewModel() {
         return shoppingItems
     }
 }
+
+
+
+
+/* basic main viewmodel from raywonderlich
+class BasicMainViewModel(private val repository: Repository) : ViewModel() {
+  val uiModel: MutableLiveData<UiModel> by lazy {
+    MutableLiveData< UiModel >()
+  }
+
+  fun generateReport (){
+    // TO DO Add complicated report computation
+  }
+
+  fun deleteUser(user: User?) {
+    deleteUserFromRepository(user)
+    uiModel.value?.userList?.remove(user)
+  }
+
+  fun deleteUserFromRepository(user: User?) {
+    if(user != null) { repository.delete(user) }
+  }
+}
+
+ */
