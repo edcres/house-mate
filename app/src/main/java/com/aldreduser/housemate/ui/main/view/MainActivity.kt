@@ -8,9 +8,6 @@ import com.aldreduser.housemate.ui.main.adapter.ShoppingListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-// todo: make a shopping list view, with a shopping list class
-//  make the main activity the home screen
-
 // storage
 // todo: make room with a view database first (i think it's only local storage)
 // todo: look up how to do the local and remote part of the data package, and how to connect it
@@ -36,7 +33,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 //https://developer.android.com/topic/libraries/data-binding/
 //https://developer.android.com/codelabs/android-databinding#0
 
-// usr
+// user
 // todo: In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
 //  user can choose anonymous
 // todo: in home activity, check if user has name registered (in shared preferences), if not ask for name
@@ -86,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // todo: check if user already input a name previously (from shared preferences)
+        // todo: check if user already input a name previously (from shared preferences) (have the logic in a viewmodel)
         //  if not send to shopping list activity (or last activity visited)
         // todo: ask user to put their name (so that others can see who added to do items)
         //  user can choose anon

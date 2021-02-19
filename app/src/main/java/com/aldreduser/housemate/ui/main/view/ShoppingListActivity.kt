@@ -16,7 +16,7 @@ import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.api.ApiHelper
 import com.aldreduser.housemate.data.model.api.ApiServiceImpl
-import com.aldreduser.housemate.ui.base.ViewModelFactory
+import com.aldreduser.housemate.ui.base.ShoppingListViewModelFactory
 import com.aldreduser.housemate.ui.main.adapter.ShoppingListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
 import com.aldreduser.housemate.util.Status
@@ -163,7 +163,7 @@ class ShoppingListActivity : AppCompatActivity() {
         // very important, declare which view-model interacts with this activity
         shoppingListViewModel = ViewModelProviders.of(
             this,
-            ViewModelFactory(ApiHelper(ApiServiceImpl()))
+            ShoppingListViewModelFactory(ApiHelper(ApiServiceImpl()))
         ).get(ShoppingListViewModel::class.java)
     }
 

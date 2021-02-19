@@ -8,7 +8,7 @@ import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
 
 // ViewModelFactory exists to pass arguments to the viewModel. Bc arguments can't be passes to the viewModel directly
 // i think this gives u an error if the model class doesn't show up
-class ViewModelFactory(private val apiHelper: ApiHelper): ViewModelProvider.Factory {
+class ShoppingListViewModelFactory(private val apiHelper: ApiHelper): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ShoppingListViewModel::class.java)) {
             return ShoppingListViewModel(MainRepository(apiHelper)) as T
