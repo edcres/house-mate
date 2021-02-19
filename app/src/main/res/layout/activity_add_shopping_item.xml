@@ -8,7 +8,7 @@
     tools:context=".AddShoppingItemActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/shoppingListAppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/shoppingListAppBarLayout">
 
         <LinearLayout
             android:layout_width="match_parent"

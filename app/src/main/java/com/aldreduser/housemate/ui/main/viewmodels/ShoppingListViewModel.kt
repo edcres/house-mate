@@ -1,4 +1,4 @@
-package com.aldreduser.housemate.ui.main.viewmodel
+package com.aldreduser.housemate.ui.main.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

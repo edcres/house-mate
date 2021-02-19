@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/edit"
+        android:id="@+id/shopping_list_edit"
         android:icon="@drawable/ic_edit_24dp"
         android:title="@string/appbar_edit"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/more_options"
+        android:id="@+id/shopping_list_more_options"
         android:icon="@drawable/ic_more_options_24dp"
         android:title="More Options"
         app:showAsAction="ifRoom">
 
         <item
-            android:id="@+id/option_duplicate"
+            android:id="@+id/shopping_list_option_duplicate"
             android:title="Duplicate"/>
         <item
-            android:id="@+id/option_delete"
+            android:id="@+id/shopping_list_option_delete"
             android:title="Delete" />
 
     </item>
