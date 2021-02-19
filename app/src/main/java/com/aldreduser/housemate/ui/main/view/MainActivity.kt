@@ -1,5 +1,6 @@
 package com.aldreduser.housemate.ui.main.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aldreduser.housemate.R
@@ -85,10 +86,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // todo: check if user already input a name previously (from shared preferences)
+        //  if not send to shopping list activity (or last activity visited)
+        // todo: ask user to put their name (so that others can see who added to do items)
+        //  user can choose anon
+
         setUpAppBar()
+        navigateToActivity() // todo: put this first after checking if user already input their name
     }
 
-    //todo: go to shopping activity
+    private fun navigateToActivity () {
+        // todo: pass a parameter here after checking what's the last activity the user used (shopping/chores) (shopping activity is the default)
+        // navigate to shopping list activity
+        val newIntent = Intent(this, ShoppingListActivity::class.java)
+        startActivity(newIntent)
+    }
 
     private fun setUpAppBar() {
         homeScreenTopAppBar.title = "House Mate"
