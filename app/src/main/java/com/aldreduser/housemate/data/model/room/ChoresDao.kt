@@ -3,12 +3,13 @@ package com.aldreduser.housemate.data.model.room
 import androidx.room.*
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ChoresDao {
 
     @Query("SELECT * FROM chore_item_table ORDER BY id ASC")    //ASC -> ascending
-    fun getIDsInOrder(): List<ChoresItem>
+    fun getIDsInOrder(): Flow<List<ChoresItem>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(shoppingItem: ChoresItem)

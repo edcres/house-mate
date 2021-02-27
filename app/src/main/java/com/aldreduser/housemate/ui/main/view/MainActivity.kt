@@ -9,13 +9,17 @@ import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 // storage
+//local
 // todo: make room with a view database first (i think it's only local storage)
-// https://www.youtube.com/watch?v=SKWh4ckvFPM
-// todo: look up how to do the local and remote part of the data package, and how to connect it
+// todo: repository
+//  -get @Update and @Delete implemented throughout the app https://www.youtube.com/watch?v=5rfBU75sguk
+//  -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
+//remote
+// todo: remote database
 // todo: when getting data from remote storage, edit 'ApiServiceImpl' file
 
 // Contextual actionbar bug
-// todo: fix contextual actionbar bug
+// todo: fix contextual actionbar bug. Its activates by default at the beginning of the app
 
 // recyclerview
 // todo: have placeholder data to get from storage, before getting it remotely
@@ -29,6 +33,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // dataBinding
 // todo: make all necessary data dataBindable
+//  -im using kotlin flow (new), will maybe also use liveData
 //  enable dataBinding, wrap layout root element in <layout>
 //  layout variables in <data>
 //  layout expressions and element attributes: @{expression}
