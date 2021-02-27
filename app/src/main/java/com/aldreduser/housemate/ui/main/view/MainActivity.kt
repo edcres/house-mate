@@ -10,8 +10,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // storage
 // todo: make room with a view database first (i think it's only local storage)
+// https://www.youtube.com/watch?v=SKWh4ckvFPM
 // todo: look up how to do the local and remote part of the data package, and how to connect it
 // todo: when getting data from remote storage, edit 'ApiServiceImpl' file
+
+// Contextual actionbar bug
+// todo: fix contextual actionbar bug
 
 // recyclerview
 // todo: have placeholder data to get from storage, before getting it remotely

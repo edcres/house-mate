@@ -1,5 +1,8 @@
 package com.aldreduser.housemate.data.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 /*
@@ -16,26 +19,28 @@ Chores properties:
 -priority 1-3 (compared to others shopping items)
 */
 
+@Entity
 data class ChoresItem (
     // Necessary
-    @SerializedName("id")
+    @PrimaryKey(autoGenerate = true)    // 'autogenerate' increments by 1 from each list item added
+    @ColumnInfo(name = "id")
     val id: Int = 0,
-    @SerializedName("name")
+    @ColumnInfo(name = "name")
     val name: String = "",
-    @SerializedName("addedBy") // idk the format for the value, i just did camelCase
+    @ColumnInfo(name = "addedBy") // idk the format for the value, i just did camelCase
     val addedBy: String = "",
-    @SerializedName("done")
+    @ColumnInfo(name = "done")
     val purchased: Boolean = false,
 
     // Not necessary and not used in shoppingItem
-    @SerializedName("difficulty") // 1 to 3
+    @ColumnInfo(name = "difficulty") // 1 to 3
     val difficulty: Int = 1,
 
     // Not necessary and used in shoppingItem
-    @SerializedName("neededBy")
+    @ColumnInfo(name = "neededBy")
     val neededBy: String = "",  //date
-    @SerializedName("volunteer")
+    @ColumnInfo(name = "volunteer")
     val volunteer: String = "", //who's buying it
-    @SerializedName("priority")
+    @ColumnInfo(name = "priority")
     val priority: Int = 2
 )

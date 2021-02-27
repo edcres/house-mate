@@ -13,8 +13,8 @@ class ShoppingListAdapter(private val shoppingItems: ArrayList<ShoppingItem>):
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(shoppingItem: ShoppingItem) {
-            itemView.textViewUserName.text = shoppingItem.name   //todo: change the view name to an appropriate one
-            itemView.textViewUserEmail.text = shoppingItem.quantity.toString()     //todo: change the view name to an appropriate one
+            //itemView.textViewUserName.text = shoppingItem.name   //todo: change the view name to an appropriate one
+            //itemView.textViewUserEmail.text = shoppingItem.quantity.toString()     //todo: change the view name to an appropriate one
 
             // todo: the image in the recyclerview goes here (it's just an edit button, the same in every item)
         }

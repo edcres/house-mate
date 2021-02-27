@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aldreduser.housemate.AddShoppingItemActivity
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
-import com.aldreduser.housemate.data.model.api.ApiHelper
-import com.aldreduser.housemate.data.model.api.ApiServiceImpl
+import com.aldreduser.housemate.data.model.remote.api.ApiHelper
+import com.aldreduser.housemate.data.model.remote.api.ApiServiceImpl
 import com.aldreduser.housemate.ui.base.ShoppingListViewModelFactory
 import com.aldreduser.housemate.ui.main.adapter.ShoppingListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
