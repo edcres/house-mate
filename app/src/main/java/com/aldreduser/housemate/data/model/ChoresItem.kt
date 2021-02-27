@@ -19,7 +19,7 @@ Chores properties:
 -priority 1-3 (compared to others shopping items)
 */
 
-@Entity
+@Entity(tableName = "chore_item_table")
 data class ChoresItem (
     // Necessary
     @PrimaryKey(autoGenerate = true)    // 'autogenerate' increments by 1 from each list item added
