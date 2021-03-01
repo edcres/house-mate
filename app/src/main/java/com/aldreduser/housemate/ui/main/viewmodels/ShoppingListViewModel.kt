@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aldreduser.housemate.data.model.ShoppingItem
-import com.aldreduser.housemate.data.Repository
+import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.util.Resource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 
 // gets data from the repo
 // can't pass parameters to viewModel by default, therefore use a viewModel factory
-class ShoppingListViewModel (private val repository: Repository): ViewModel() {
+class ShoppingListViewModel (private val listsRepository: ListsRepository): ViewModel() {
 
     private val shoppingItems = MutableLiveData<Resource<List<ShoppingItem>>>()
     private val compositeDisposable = CompositeDisposable()
@@ -25,7 +25,7 @@ class ShoppingListViewModel (private val repository: Repository): ViewModel() {
     private fun fetchShoppingItems() {
         shoppingItems.postValue(Resource.loading(null))
         compositeDisposable.add(
-            repository.getShoppingItems()
+            listsRepository.getShoppingItems()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({shoppingItemList ->

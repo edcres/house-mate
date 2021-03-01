@@ -3,7 +3,7 @@ package com.aldreduser.housemate.ui.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.data.model.remote.api.ApiHelper
-import com.aldreduser.housemate.data.Repository
+import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
 
 // ViewModelFactory exists to pass arguments to the viewModel. Bc arguments can't be passes to the viewModel directly
@@ -11,7 +11,7 @@ import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
 class ShoppingListViewModelFactory(private val apiHelper: ApiHelper): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ShoppingListViewModel::class.java)) {
-            return ShoppingListViewModel(Repository(apiHelper)) as T
+            return ShoppingListViewModel(ListsRepository(apiHelper)) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }
