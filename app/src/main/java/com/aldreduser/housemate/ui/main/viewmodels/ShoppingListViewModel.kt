@@ -18,23 +18,25 @@ class ShoppingListViewModel (private val listsRepository: ListsRepository): View
     private val compositeDisposable = CompositeDisposable()
 
     init {
-        fetchShoppingItems()
+        //fetchShoppingItems()  todo: uncomment this while implementing remote database
     }
 
+    //todo work on this when doing remote database
+    // -rememeber will only be talking to the repository (which should already have local and remote data synchronized)
     // gets data from the repo
-    private fun fetchShoppingItems() {
-        shoppingItems.postValue(Resource.loading(null))
-        compositeDisposable.add(
-            listsRepository.getShoppingItems()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({shoppingItemList ->
-                    shoppingItems.postValue(Resource.success(shoppingItemList))
-                }, {throwable ->
-                    shoppingItems.postValue(Resource.error("Something Went Wrong.", null))
-                })
-        )
-    }
+//    private fun fetchShoppingItems() {
+//        shoppingItems.postValue(Resource.loading(null))
+//        compositeDisposable.add(
+//            listsRepository.getShoppingItems()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({shoppingItemList ->
+//                    shoppingItems.postValue(Resource.success(shoppingItemList))
+//                }, {throwable ->
+//                    shoppingItems.postValue(Resource.error("Something Went Wrong.", null))
+//                })
+//        )
+//    }
 
     // This method will be called when this ViewModel is no longer used and will be destroyed.
     // It is useful when ViewModel observes some data and you need to clear this subscription to prevent a memory leak of this ViewModel.
