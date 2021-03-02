@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.ui.main.adapter.ShoppingListAdapter
-import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.lists.ShoppingListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 // storage
@@ -14,7 +14,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 // todo: repository
 //  -get @Update and @Delete implemented throughout the app https://www.youtube.com/watch?v=5rfBU75sguk
 //  -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
-//remote
+// remote
+// rn shopping list has remote implemented, and chores list has local implemented
+//  -change repository
 // todo: remote database
 // todo: when getting data from remote storage, edit 'ApiServiceImpl' file
 
@@ -22,9 +24,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 // todo: fix contextual actionbar bug. Its activates by default at the beginning of the app
 
 // recyclerview
+// todo: continue the codelab at part 11 ->    https://developer.android.com/codelabs/android-room-with-a-view-kotlin/#9
 // todo: have placeholder data to get from storage, before getting it remotely
 // todo: adjust recyclerview to work with the items in my own app
-// todo: change recyclerview and make it have clickable buttons and stuff       -->       https://material.io/components/cards
+// todo: change recyclerview and make it have clickable buttons and stuff       -->       https://material.io/components/cards  https://material.io/components/lists#anatomy
 //      - long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
 // todo: more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
 //  -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
@@ -41,6 +44,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 //https://www.youtube.com/watch?v=omml4lK_b-A&t=509s
 //https://developer.android.com/topic/libraries/data-binding/
 //https://developer.android.com/codelabs/android-databinding#0
+
+// delete/update features
+// todo: implement delete feature
+// todo: implement update feature
 
 // user
 // todo: In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
@@ -67,8 +74,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 
 // better MVVM architecture
-// todo: do the comments at the bottom of this page to improve the architecture
-
+// todo: do the comments below to improve the architecture (unless already used or impractical/unnecessary)
 /*
 Improve architecture by:
 -Implement Dependency Inject Framework - Dagger in the project.

@@ -1,13 +1,12 @@
-package com.aldreduser.housemate.ui.base
+package com.aldreduser.housemate.ui.main.viewmodels.lists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.data.model.remote.api.ApiHelper
 import com.aldreduser.housemate.data.ListsRepository
-import com.aldreduser.housemate.ui.main.viewmodels.ShoppingListViewModel
 
 // ViewModelFactory exists to pass arguments to the viewModel. Bc arguments can't be passes to the viewModel directly
-// i think this gives u an error if the model class doesn't show up
+// this returns list items <OR> gives u an error if the model class doesn't show up
 class ShoppingListViewModelFactory(private val apiHelper: ApiHelper): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ShoppingListViewModel::class.java)) {

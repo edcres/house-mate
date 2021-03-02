@@ -7,8 +7,6 @@ import androidx.room.RoomDatabase
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 
-// todo: Possible bug: not sure about how to write the database with multiple netitites
-//  like: am i supposed to have one object for each entity? (i think i don't bc both entities should probably be part of the same database)
 @Database (entities = arrayOf(
     ShoppingItem::class,
     ChoresItem::class),
