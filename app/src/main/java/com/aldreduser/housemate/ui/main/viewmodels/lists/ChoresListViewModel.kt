@@ -12,7 +12,7 @@ class ChoresListViewModel (private val listsRepository: ListsRepository) : ViewM
 
     // Use LiveData to cache what allWords returns
     //  -then put an observer on the data and only update the the UI when the data actually changes.
-    val allChoreItems: LiveData<List<ChoresItem>> = listsRepository.allChoreItems.asLiveData()
+    val allChoreItems: LiveData<List<ChoresItem>> = listsRepository.allChoreItems.asLiveData() //convert Flow to LiveData
 
     // Launch a new coroutine to insert the data in a non-blocking way
     fun insert(item: ChoresItem) = viewModelScope.launch {

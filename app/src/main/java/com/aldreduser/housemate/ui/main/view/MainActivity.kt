@@ -9,16 +9,14 @@ import com.aldreduser.housemate.ui.main.viewmodels.lists.ShoppingListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 // storage
-//local
-// todo: make room with a view database first (i think it's only local storage)
-// todo: repository
-//  -get @Update and @Delete implemented throughout the app https://www.youtube.com/watch?v=5rfBU75sguk
-//  -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
-// remote
-// rn shopping list has remote implemented, and chores list has local implemented
-//  -change repository
-// todo: remote database
+//remote
+// todo: use remote storage in shopping items
+// todo: edit: api folder files, repository, viewmodel/viewmodelfactory
 // todo: when getting data from remote storage, edit 'ApiServiceImpl' file
+//local + remote
+// todo: conncet local to remote repository (rn chores has local, shopping items has remote)
+// -get @Update and @Delete implemented throughout the app https://www.youtube.com/watch?v=5rfBU75sguk
+// -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
 
 // Contextual actionbar bug
 // todo: fix contextual actionbar bug. Its activates by default at the beginning of the app
@@ -43,11 +41,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 // Todo: use LiveData for observables
 //https://www.youtube.com/watch?v=omml4lK_b-A&t=509s
 //https://developer.android.com/topic/libraries/data-binding/
-//https://developer.android.com/codelabs/android-databinding#0
-
-// delete/update features
-// todo: implement delete feature
-// todo: implement update feature
+//databinding codelab: https://developer.android.com/codelabs/android-databinding#0
 
 // user
 // todo: In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
