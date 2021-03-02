@@ -14,7 +14,7 @@ class ChoresListViewModel (private val listsRepository: ListsRepository) : ViewM
     //  -then put an observer on the data and only update the the UI when the data actually changes.
     val allChoreItems: LiveData<List<ChoresItem>> = listsRepository.allChoreItems.asLiveData()
 
-    // Launching a new coroutine to insert the data in a non-blocking way
+    // Launch a new coroutine to insert the data in a non-blocking way
     fun insert(item: ChoresItem) = viewModelScope.launch {
         listsRepository.insertChoresItem(item)
     }
