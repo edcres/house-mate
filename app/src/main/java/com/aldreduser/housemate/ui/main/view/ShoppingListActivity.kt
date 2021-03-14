@@ -11,7 +11,6 @@ import androidx.appcompat.view.ActionMode
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aldreduser.housemate.AddShoppingItemActivity
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.remote.api.ApiHelper
@@ -42,6 +41,7 @@ class ShoppingListActivity : AppCompatActivity() {
     }
 
     private fun fabOnClick() {
+        // todo: pass some data to that activity
         // navigate to the  add shoppingList item activity
         shoppingListFab.setOnClickListener() {
             val newIntent = Intent(this, AddShoppingItemActivity::class.java)
