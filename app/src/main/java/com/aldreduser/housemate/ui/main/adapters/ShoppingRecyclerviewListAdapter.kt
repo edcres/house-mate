@@ -1,4 +1,4 @@
-package com.aldreduser.housemate.ui.main.adapter
+package com.aldreduser.housemate.ui.main.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,8 @@ import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 
 // This is the recyclerview adapter
-class ShoppingListAdapter(private val shoppingItems: ArrayList<ShoppingItem>):
-    RecyclerView.Adapter<ShoppingListAdapter.DataViewHolder>() {
+class ShoppingRecyclerviewListAdapter(private val shoppingItems: ArrayList<ShoppingItem>):
+    RecyclerView.Adapter<ShoppingRecyclerviewListAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(shoppingItem: ShoppingItem) {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.main.view.AddShoppingItemActivity">
+    tools:context=".ui.main.views.AddShoppingItemActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/shoppingListAppBarLayout"

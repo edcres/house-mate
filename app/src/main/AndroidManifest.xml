@@ -11,9 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.view.ShoppingListActivity"></activity>
-        <activity android:name=".ui.main.view.AddShoppingItemActivity" />
-        <activity android:name=".ui.main.view.MainActivity">
+        <activity android:name=".ui.main.views.AddShoppingItemActivity" />
+        <activity android:name=".ui.main.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
