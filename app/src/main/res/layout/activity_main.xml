@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:tabTextColor="@color/colorPrimaryDark"
-        app:tabIndicatorColor="@color/colorSecondaryDark"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabSelectedTextColor="@color/colorSecondaryDark"
         app:tabMode="fixed">
 

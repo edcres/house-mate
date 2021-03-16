@@ -9,7 +9,6 @@ import com.aldreduser.housemate.R
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.lists.ShoppingListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_shopping_list.*
 
 // ui
 // todo: shopping list and chores list should be in their own fragment
@@ -106,6 +105,9 @@ Improve architecture by:
 -and so on.
 */
 
+//future
+// if more lists are added, make base classes
+
 // Home Screen
 class MainActivity : AppCompatActivity() {
 
@@ -130,15 +132,15 @@ class MainActivity : AppCompatActivity() {
         // overflow icon is only changed to the drawables of android version is lollipop or above
         // (~Samsung Galaxy S6 and above. Current in 2021 is Samsung Galaxy S21)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            shoppingListTopAppBar.overflowIcon = getDrawable(R.drawable.ic_more_options_24dp) // might have to do this in every activity.
+            homeScreenTopAppBar.overflowIcon = getDrawable(R.drawable.ic_more_options_24dp) // might have to do this in every activity.
         }
-        shoppingListTopAppBar.setNavigationOnClickListener {
+        homeScreenTopAppBar.setNavigationOnClickListener {
             //todo: handle navigation icon press
             //the navigation icon is the icon to the left
             // command+f 'Navigation icon attributes' in material design website
         }
 
-        shoppingListTopAppBar.setOnMenuItemClickListener { menuItem ->
+        homeScreenTopAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.shopping_list_edit -> {
                     //todo: handle edit icon press

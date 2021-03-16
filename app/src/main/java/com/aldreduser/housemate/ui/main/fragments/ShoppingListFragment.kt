@@ -69,8 +69,7 @@ class ShoppingListFragment : Fragment() {
         // navigate to the  add shoppingList item activity
         shoppingListFab.setOnClickListener() {
 
-            //todo: navigate to:
-            // AddShoppingItemActivity or AddChoreItemActivity
+            //todo: navigate to: AddShoppingItemActivity
         }
     }
 
@@ -119,11 +118,11 @@ class ShoppingListFragment : Fragment() {
     }
     // ViewModel
     private fun setupViewModel() {
-        // very important, declare which view-model interacts with this activity
-        shoppingListViewModel = ViewModelProviders.of(
-            this,
-            ShoppingListViewModelFactory(ApiHelper(ApiServiceImpl()))
-        ).get(ShoppingListViewModel::class.java)
+//        // very important, declare which view-model interacts with this activity
+//        shoppingListViewModel = ViewModelProviders.of(
+//            this,
+//            ShoppingListViewModelFactory(ApiHelper(ApiServiceImpl()))
+//        ).get(ShoppingListViewModel::class.java)
     }
 
 

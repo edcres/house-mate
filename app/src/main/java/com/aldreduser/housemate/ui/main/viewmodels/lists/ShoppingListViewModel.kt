@@ -22,7 +22,7 @@ class ShoppingListViewModel (private val listsRepository: ListsRepository): View
     }
 
     //todo work on this when doing remote database
-    // -rememeber will only be talking to the repository (which should already have local and remote data synchronized)
+    // -remember will only be talking to the repository (which should already have local and remote data synchronized)
     // gets data from the repo
     private fun fetchShoppingItems() {
 //        shoppingItems.postValue(Resource.loading(null))

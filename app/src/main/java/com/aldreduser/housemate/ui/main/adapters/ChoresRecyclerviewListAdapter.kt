@@ -5,14 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aldreduser.housemate.R
-import com.aldreduser.housemate.data.model.ShoppingItem
+import com.aldreduser.housemate.data.model.ChoresItem
 
 // This is the list recyclerview adapter
-class ShoppingRecyclerviewListAdapter(private val shoppingItems: ArrayList<ShoppingItem>):
-    RecyclerView.Adapter<ShoppingRecyclerviewListAdapter.DataViewHolder>() {
+class ChoresRecyclerviewListAdapter(private val choreItems: ArrayList<ChoresItem>):
+    RecyclerView.Adapter<ChoresRecyclerviewListAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(shoppingItem: ShoppingItem) {
+        fun bind(choreItem: ChoresItem) {
             //itemView.textViewUserName.text = shoppingItem.name   //todo: change the view name to an appropriate one
             //itemView.textViewUserEmail.text = shoppingItem.quantity.toString()     //todo: change the view name to an appropriate one
         }
@@ -20,17 +20,17 @@ class ShoppingRecyclerviewListAdapter(private val shoppingItems: ArrayList<Shopp
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DataViewHolder(
         LayoutInflater.from(parent.context).inflate(
-            R.layout.shopping_item_layout, parent, false
+            R.layout.chores_item_layout, parent, false
         )
     )
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) =
-        holder.bind(shoppingItems[position])
+        holder.bind(choreItems[position])
 
-    override fun getItemCount(): Int = shoppingItems.size
+    override fun getItemCount(): Int = choreItems.size
 
     // not a default function from the interface
-    fun addData(list: List<ShoppingItem>) {
-        shoppingItems.addAll(list)
+    fun addData(list: List<ChoresItem>) {
+        choreItems.addAll(list)
     }
 }
