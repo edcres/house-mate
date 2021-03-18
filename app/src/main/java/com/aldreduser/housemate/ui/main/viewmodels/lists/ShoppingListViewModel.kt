@@ -3,6 +3,7 @@ package com.aldreduser.housemate.ui.main.viewmodels.lists
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.util.Resource
@@ -10,6 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
+// shoppingList has only remote viewModel for now. Chores has local
 // gets data from the repo
 // can't pass parameters to viewModel by default, therefore use a viewModel factory
 class ShoppingListViewModel (private val listsRepository: ListsRepository): ViewModel() {
@@ -50,6 +52,19 @@ class ShoppingListViewModel (private val listsRepository: ListsRepository): View
         return shoppingItems
     }
 }
+
+// ViewModelFactory exists to pass arguments to the viewModel. Bc arguments can't be passes to the viewModel directly
+// this returns a repository to the viewModel <OR> gives u an error if the model class doesn't show up
+class ShoppingListViewModelFactory(private val repository: ListsRepository): ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ShoppingListViewModel::class.java)) {
+//            return ShoppingListViewModel(ListsRepository(, ,apiHelper)) as T
+        }
+        throw IllegalArgumentException("Unknown class name")
+    }
+}
+
+
 
 
 
