@@ -9,6 +9,7 @@ import com.aldreduser.housemate.data.model.room.ShoppingDao
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
+
 // only the DAOs are exposed to the repository, not the entire database
 
 // get items from storage. Rn it's only from remote storage
@@ -17,25 +18,36 @@ class ListsRepository(
     private val choresDao: ChoresDao,
     private val apiHelper: ApiHelper) {
 
-    // local
-    val allShoppingItems: Flow<List<ShoppingItem>> = shoppingDao.getIDsInOrder()
-    val allChoreItems: Flow<List<ChoresItem>> = choresDao.getIDsInOrder()
+    // LOCAL //
 
-    // shopping item
+    //Shopping Items
+    // get list of items
+    val allShoppingItems: Flow<List<ShoppingItem>> = shoppingDao.getIDsInOrder()
+    // insert
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertShoppingItem(shoppingItem: ShoppingItem) {
         shoppingDao.insert(shoppingItem)
     }
+    // update
+    // delete
+    // delete all
 
-    // chores item
+    //Chores Items
+    // getIDsInOrder
+    val allChoreItems: Flow<List<ChoresItem>> = choresDao.getIDsInOrder()
+    // insert
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertChoresItem(choresItem: ChoresItem) {
         choresDao.insert(choresItem)
     }
+    // update
+    // delete item
+    // delete all
 
-    // remote
+    // REMOTE //
+
     // todo: make remote database work with local database
     // this is code for the remote database
 //    fun getShoppingItems(): Single<List<ShoppingItem>> {

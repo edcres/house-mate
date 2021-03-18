@@ -14,20 +14,20 @@ interface ShoppingDao {
     fun getIDsInOrder(): Flow<List<ShoppingItem>>
 
     // onConflict strategy ignores a new word if it's exactly the same as one already in the list.
-    // add a new item
+    // insert
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(shoppingItem: ShoppingItem)
     //'suspend' is for coroutines
 
-    //Update item
+    // update
     @Update
     suspend fun updateShoppingItem(shoppingItem: ShoppingItem)
 
-    //Delete item
+    // delete item
     @Delete
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
 
-    // delete all items
+    // delete all
     @Query("DELETE FROM shopping_item_table")
     suspend fun deleteAll()
 }

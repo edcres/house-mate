@@ -29,7 +29,7 @@ data class ShoppingItem (
     // Necessary
     @PrimaryKey(autoGenerate = true)    // 'autogenerate' increments by 1 from each list item added
     @ColumnInfo(name = "id")
-    val id: Int = 0,
+    val id: Long = 0,
     @ColumnInfo(name = "name")
     val name: String = "",
     @ColumnInfo(name = "quantity") // Chores didn't have this Qty property, but i put it here

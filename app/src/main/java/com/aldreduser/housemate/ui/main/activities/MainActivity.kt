@@ -1,4 +1,4 @@
-package com.aldreduser.housemate.ui.main.views
+package com.aldreduser.housemate.ui.main.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

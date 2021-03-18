@@ -8,20 +8,23 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ChoresDao {
 
+    // get list of items
     @Query("SELECT * FROM chore_item_table ORDER BY id ASC")    //ASC -> ascending
     fun getIDsInOrder(): Flow<List<ChoresItem>>
 
+    // insert
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(shoppingItem: ChoresItem)
 
-    //@Update
+    // update
     @Update
     suspend fun updateShoppingItem(shoppingItem: ShoppingItem)
 
-    //@Delete item
+    // delete item
     @Delete
     suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
 
+    // delete all
     @Query("DELETE FROM chore_item_table")
     suspend fun deleteAll()
 }

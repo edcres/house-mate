@@ -24,7 +24,7 @@ data class ChoresItem (
     // Necessary
     @PrimaryKey(autoGenerate = true)    // 'autogenerate' increments by 1 from each list item added
     @ColumnInfo(name = "id")
-    val id: Int = 0,
+    val id: Long = 0,
     @ColumnInfo(name = "name")
     val name: String = "",
     @ColumnInfo(name = "addedBy") // idk the format for the value, i just did camelCase
