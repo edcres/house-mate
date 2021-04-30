@@ -1,116 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:background="@color/colorSecondary"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <Space
-        android:id="@+id/shoppingHeightComponent"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<layout>
+    
+    <data>
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="" />-->
+    </data>
 
-    <CheckBox
-        android:id="@+id/shoppingItIsDone"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"/>
+        android:background="@color/colorSecondary">
 
-    <TextView
-        android:id="@+id/shoppingItemQty"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="80dp"
-        android:layout_height="45dp"
-        android:layout_margin="8dp"
-        android:gravity="center_vertical"
-        app:layout_constraintStart_toEndOf="@id/shoppingItIsDone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
-        tools:text="Qty" />
+        <Space
+            android:id="@+id/shoppingHeightComponent"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/shoppingItemName"
-        style="@style/TextAppearance.AppCompat.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        app:layout_constraintStart_toEndOf="@+id/shoppingItemQty"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
-        tools:text="Name" />
-
-    <Button
-        android:id="@+id/shoppingExpandButton"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:backgroundTint="@color/colorAccent"
-        android:drawableBottom="@drawable/ic_expand_more_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/shoppingExpandableContainer"
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toStartOf="@+id/shoppingItemQty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shoppingHeightComponent"
-        android:visibility="invisible">
+        <CheckBox
+            android:id="@+id/shoppingItIsDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/shoppingWhenNeededDoneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/shoppingWhereText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/shoppingCostText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"/>
-        <EditText
-            android:id="@+id/shoppingWhosGettingItText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/shoppingPriorityText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/shoppingAddedByText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"/>
+            android:id="@+id/shoppingItemQty"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_margin="8dp"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
+            app:layout_constraintStart_toEndOf="@id/shoppingItIsDone"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Qty" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/shoppingItemName"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
+            app:layout_constraintStart_toEndOf="@+id/shoppingItemQty"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Name" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/shoppingExpandButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/colorAccent"
+            android:drawableBottom="@drawable/ic_expand_more_24"
+            app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/shoppingExpandableContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/shoppingItemQty"
+            app:layout_constraintTop_toBottomOf="@id/shoppingHeightComponent">
+
+            <TextView
+                android:id="@+id/shoppingWhenNeededDoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/shoppingWhereText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/shoppingCostText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/shoppingWhosGettingItText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/shoppingPriorityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/shoppingAddedByText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

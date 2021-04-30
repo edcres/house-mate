@@ -10,6 +10,8 @@ import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.lists.ShoppingListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
+// todo: instantiate objects
+
 // ui
 // todo: shopping list and chores list should be in their own fragment
 // todo: make navigation tabs with viewpager2
