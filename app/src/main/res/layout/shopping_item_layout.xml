@@ -64,7 +64,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/colorAccent"
+            app:backgroundTint="@color/colorAccent"
             android:drawableBottom="@drawable/ic_expand_more_24"
             app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
             app:layout_constraintEnd_toEndOf="parent"

@@ -66,8 +66,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="quantity"
-                        android:inputType="number|numberDecimal" />
+                        android:hint="@string/hint_quantity"
+                        android:inputType="number|numberDecimal"
+                        android:importantForAutofill="no" />
 
                     <EditText
                         android:id="@+id/itemNameBox"
@@ -75,8 +76,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:hint="name"
-                        android:inputType="textShortMessage" />
+                        android:hint="@string/hint_name"
+                        android:inputType="textShortMessage"
+                        android:importantForAutofill="no" />
                 </LinearLayout>
 
                 <EditText
@@ -85,8 +87,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
-                    android:hint="when needed"
-                    android:inputType="datetime" />
+                    android:hint="@string/hint_when_needed"
+                    android:inputType="datetime"
+                    android:importantForAutofill="no" />
 
                 <EditText
                     android:id="@+id/whereToGetBox"
@@ -94,8 +97,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
-                    android:hint="where to get"
-                    android:inputType="textShortMessage" />
+                    android:hint="@string/hint_where_to_get"
+                    android:inputType="textShortMessage"
+                    android:importantForAutofill="no" />
 
                 <EditText
                     android:id="@+id/costBox"
@@ -103,13 +107,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
-                    android:hint="cost"
-                    android:inputType="text" />
+                    android:hint="@string/hint_cost"
+                    android:inputType="text"
+                    android:importantForAutofill="no" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Priority:" />
+                    android:text="@string/label_priority" />
 
                 <RadioGroup
                     android:id="@+id/choosePriorityButton"
@@ -124,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:text="1" />
+                        android:text="@string/label_priority_1" />
 
                     <RadioButton
                         android:id="@+id/radioButton2"
@@ -133,7 +138,7 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:checked="true"
-                        android:text="2" />
+                        android:text="@string/label_priority_2" />
 
                     <RadioButton
                         android:id="@+id/radioButton3"
@@ -141,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:text="3" />
+                        android:text="@string/label_priority_3" />
                 </RadioGroup>
 
             </LinearLayout>
@@ -150,12 +155,13 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fab_add_item"
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/colorAccent"
-            android:text="  add item"
+            android:gravity="center"
+            app:backgroundTint="@color/colorAccent"
+            android:text="@string/add_item_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

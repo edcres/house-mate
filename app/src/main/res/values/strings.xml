@@ -1,14 +1,26 @@
 <resources>
     <string name="app_name">House Mate</string>
 
-    <string name="shopping_list_activity_title">Shopping List</string>
+    <string name="label_shopping_list">Shopping List</string>
+    <string name="label_chores_list">Chores</string>
 
+    <string name="appbar_more_options">More Options</string>
+    <string name="appbar_duplicate">Duplicate</string>
+    <string name="appbar_delete">Delete</string>
     <string name="appbar_edit">Edit</string>
     <string name="appbar_more_place_holder">Place Holder</string>
 
-    <string name="tab_layout_shopping_list">Shopping List</string>
-    <string name="tab_layout_chores_list">Chores</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_quantity">quantity</string>
+    <string name="hint_name">name</string>
+    <string name="hint_when_needed">when needed</string>
+    <string name="hint_where_to_get">where to get it</string>
+    <string name="hint_cost">cost</string>
+
+    <string name="label_priority">Priority:</string>
+    <string name="label_priority_1">1</string>
+    <string name="label_priority_2">2</string>
+    <string name="label_priority_3">3</string>
+
+    <string name="add_item_button">add item</string>
 
 </resources>
