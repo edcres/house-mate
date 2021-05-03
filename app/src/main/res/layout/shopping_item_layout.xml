@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     
     <data>
 <!--        <variable-->
@@ -8,56 +10,53 @@
 <!--            type="" />-->
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorSecondary">
 
         <Space
-            android:id="@+id/shoppingHeightComponent"
+            android:id="@+id/shopping_height_component"
             android:layout_width="0dp"
             android:layout_height="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
-            android:id="@+id/shoppingItIsDone"
+            android:id="@+id/shopping_it_is_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
+            app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/shoppingItemQty"
+            android:id="@+id/shopping_item_qty"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="80dp"
             android:layout_height="45dp"
             android:layout_margin="8dp"
             android:gravity="center_vertical"
-            app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
-            app:layout_constraintStart_toEndOf="@id/shoppingItIsDone"
+            app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container"
+            app:layout_constraintStart_toEndOf="@id/shopping_it_is_done"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Qty" />
 
         <TextView
-            android:id="@+id/shoppingItemName"
+            android:id="@+id/shopping_item_name"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
-            app:layout_constraintStart_toEndOf="@+id/shoppingItemQty"
+            app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container"
+            app:layout_constraintStart_toEndOf="@+id/shopping_item_qty"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Name" />
 
         <Button
-            android:id="@+id/shoppingExpandButton"
+            android:id="@+id/shopping_expand_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="16dp"
@@ -66,12 +65,12 @@
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/colorAccent"
             android:drawableBottom="@drawable/ic_expand_more_24"
-            app:layout_constraintBottom_toTopOf="@id/shoppingExpandableContainer"
+            app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/shoppingExpandableContainer"
+            android:id="@+id/shopping_expandable_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -79,46 +78,46 @@
             android:orientation="vertical"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/shoppingItemQty"
-            app:layout_constraintTop_toBottomOf="@id/shoppingHeightComponent">
+            app:layout_constraintStart_toStartOf="@+id/shopping_item_qty"
+            app:layout_constraintTop_toBottomOf="@id/shopping_height_component">
 
             <TextView
-                android:id="@+id/shoppingWhenNeededDoneText"
+                android:id="@+id/shopping_when_needed_done_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/shoppingWhereText"
+                android:id="@+id/shopping_where_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/shoppingCostText"
+                android:id="@+id/shopping_cost_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
             <EditText
-                android:id="@+id/shoppingWhosGettingItText"
+                android:id="@+id/shopping_who_is_getting_it_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/shoppingPriorityText"
+                android:id="@+id/shopping_priority_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/shoppingAddedByText"
+                android:id="@+id/shopping_added_by_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

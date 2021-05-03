@@ -11,41 +11,40 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorSecondary">
 
         <Space
-            android:id="@+id/choresHeightComponent"
+            android:id="@+id/chores_height_component"
             android:layout_width="0dp"
             android:layout_height="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
-            android:id="@+id/choresItIsDone"
+            android:id="@+id/chores_it_is_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            app:layout_constraintBottom_toTopOf="@id/choresExpandableContainer"
+            app:layout_constraintBottom_toTopOf="@id/chores_expandable_container"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/choresItemName"
+            android:id="@+id/chores_item_name"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            app:layout_constraintBottom_toTopOf="@id/choresExpandableContainer"
-            app:layout_constraintStart_toEndOf="@+id/choresItIsDone"
+            app:layout_constraintBottom_toTopOf="@id/chores_expandable_container"
+            app:layout_constraintStart_toEndOf="@+id/chores_it_is_done"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Name" />
 
         <Button
-            android:id="@+id/choresExpandButton"
+            android:id="@+id/chores_expand_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="16dp"
@@ -54,13 +53,13 @@
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/colorAccent"
             android:drawableBottom="@drawable/ic_expand_more_24"
-            app:layout_constraintBottom_toTopOf="@id/choresExpandableContainer"
+            app:layout_constraintBottom_toTopOf="@id/chores_expandable_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UnusedAttribute" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/choresExpandableContainer"
+            android:id="@+id/chores_expandable_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -68,25 +67,25 @@
             android:orientation="vertical"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/choresItemName"
-            app:layout_constraintTop_toBottomOf="@id/choresHeightComponent">
+            app:layout_constraintStart_toStartOf="@id/chores_item_name"
+            app:layout_constraintTop_toBottomOf="@id/chores_height_component">
 
             <TextView
-                android:id="@+id/choresWhenNeededDoneText"
+                android:id="@+id/chores_when_needed_done_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/choresDifficulty"
+                android:id="@+id/chores_difficulty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
             <EditText
-                android:id="@+id/choresWhoIsDoingItText"
+                android:id="@+id/chores_who_is_doing_it_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -95,14 +94,14 @@
                 android:inputType="text|number" />
 
             <TextView
-                android:id="@+id/choresPriorityText"
+                android:id="@+id/chores_priority_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
             <TextView
-                android:id="@+id/choresAddedByText"
+                android:id="@+id/chores_added_by_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

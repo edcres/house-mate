@@ -109,6 +109,7 @@ Improve architecture by:
 
 //future
 // if more lists are added, make base classes
+// set icons on the material inputs
 
 // Home Screen
 class MainActivity : AppCompatActivity() {
