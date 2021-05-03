@@ -34,9 +34,10 @@
 
         <TextView
             android:id="@+id/shopping_item_qty"
-            style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="80dp"
             android:layout_height="45dp"
+            style="@style/Widget.TipTime.TextView"
+            android:textSize="24sp"
             android:layout_margin="8dp"
             android:gravity="center_vertical"
             app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container"
@@ -46,9 +47,10 @@
 
         <TextView
             android:id="@+id/shopping_item_name"
-            style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            style="@style/Widget.TipTime.TextView"
+            android:textSize="24sp"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container"
             app:layout_constraintStart_toEndOf="@+id/shopping_item_qty"
@@ -85,6 +87,7 @@
                 android:id="@+id/shopping_when_needed_done_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
@@ -92,6 +95,7 @@
                 android:id="@+id/shopping_where_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
@@ -99,6 +103,7 @@
                 android:id="@+id/shopping_cost_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
@@ -106,6 +111,7 @@
                 android:id="@+id/shopping_who_is_getting_it_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
@@ -113,6 +119,7 @@
                 android:id="@+id/shopping_priority_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
@@ -120,6 +127,7 @@
                 android:id="@+id/shopping_added_by_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 

@@ -26,6 +26,7 @@
             android:id="@+id/chores_it_is_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/Widget.TipTime.TextView"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             app:layout_constraintBottom_toTopOf="@id/chores_expandable_container"
@@ -34,10 +35,11 @@
 
         <TextView
             android:id="@+id/chores_item_name"
-            style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            style="@style/Widget.TipTime.TextView"
             android:gravity="center"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@id/chores_expandable_container"
             app:layout_constraintStart_toEndOf="@+id/chores_it_is_done"
             app:layout_constraintTop_toTopOf="parent"
@@ -74,6 +76,7 @@
                 android:id="@+id/chores_when_needed_done_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
@@ -81,6 +84,7 @@
                 android:id="@+id/chores_difficulty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
@@ -97,6 +101,7 @@
                 android:id="@+id/chores_priority_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 
@@ -104,6 +109,7 @@
                 android:id="@+id/chores_added_by_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/Widget.TipTime.TextView"
                 android:layout_marginBottom="8dp"
                 android:visibility="gone" />
 

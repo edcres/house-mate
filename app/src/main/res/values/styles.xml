@@ -21,4 +21,9 @@
          <item name="background">@color/material_grey_900</item>
      </style>
 
+     <!--    textView-->
+     <style name="Widget.TipTime.TextView" parent="Widget.MaterialComponents.TextView">
+         <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+     </style>
+
 </resources>
