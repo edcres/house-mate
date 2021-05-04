@@ -5,10 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import kotlinx.android.synthetic.main.fragment_add_shopping_item.*
 
+// todo: make this an addItem fragment (works for shopping or chore items)
+//  -widgets are hidden depending on which list is being manipulated
 class AddShoppingItemFragment : Fragment() {
+
+    private val listsViewModel: ListsViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +24,7 @@ class AddShoppingItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_shopping_item, container, false)
+        return inflater.inflate(R.layout.fragment_add_shopping_item, container, false)      //todo: dataBind
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

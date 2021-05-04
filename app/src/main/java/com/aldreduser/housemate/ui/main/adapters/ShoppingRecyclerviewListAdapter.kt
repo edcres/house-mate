@@ -11,6 +11,8 @@ import com.aldreduser.housemate.data.model.ShoppingItem
 class ShoppingRecyclerviewListAdapter(private val shoppingItems: ArrayList<ShoppingItem>):
     RecyclerView.Adapter<ShoppingRecyclerviewListAdapter.DataViewHolder>() {
 
+    private val shoppingItemLayout = R.layout.shopping_item_layout
+
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(shoppingItem: ShoppingItem) {
             //itemView.textViewUserName.text = shoppingItem.name   //todo: change the view name to an appropriate one
@@ -19,9 +21,7 @@ class ShoppingRecyclerviewListAdapter(private val shoppingItems: ArrayList<Shopp
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DataViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.shopping_item_layout, parent, false
-        )
+        LayoutInflater.from(parent.context).inflate(shoppingItemLayout, parent, false)
     )
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) =

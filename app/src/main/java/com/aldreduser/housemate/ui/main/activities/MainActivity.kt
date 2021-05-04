@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.view.ActionMode
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.databinding.ActivityMainBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
-import com.aldreduser.housemate.ui.main.viewmodels.lists.ShoppingListViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 // todo: instantiate objects
@@ -114,17 +116,24 @@ Improve architecture by:
 // Home Screen
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var shoppingListViewModel: ShoppingListViewModel
+    private lateinit var binding: ActivityMainBinding
+    private val sharedViewModel: ListsViewModel by viewModels()
     private lateinit var adapterRecyclerview: ShoppingRecyclerviewListAdapter       // for RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // todo: check if user already input a name previously (from shared preferences) (have the logic in a viewmodel)
         //  if not send to shopping list activity (or last activity visited)
         // todo: ask user to put their name (so that others can see who added to do items)
         //  user can choose anon
+
+        binding?.apply {
+            lifecycleOwner = this@MainActivity
+            viewModel = sharedViewModel
+        }
 
         setUpAppBar()
         setUpContextualAppBar()

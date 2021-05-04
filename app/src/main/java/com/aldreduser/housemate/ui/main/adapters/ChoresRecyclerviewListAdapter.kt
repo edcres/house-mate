@@ -11,6 +11,8 @@ import com.aldreduser.housemate.data.model.ChoresItem
 class ChoresRecyclerviewListAdapter(private val choreItems: ArrayList<ChoresItem>):
     RecyclerView.Adapter<ChoresRecyclerviewListAdapter.DataViewHolder>() {
 
+    private val choresItemLayout = R.layout.chores_item_layout
+
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(choreItem: ChoresItem) {
             //itemView.textViewUserName.text = shoppingItem.name   //todo: change the view name to an appropriate one
@@ -19,9 +21,7 @@ class ChoresRecyclerviewListAdapter(private val choreItems: ArrayList<ChoresItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DataViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-            R.layout.chores_item_layout, parent, false
-        )
+        LayoutInflater.from(parent.context).inflate(choresItemLayout, parent, false)
     )
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) =

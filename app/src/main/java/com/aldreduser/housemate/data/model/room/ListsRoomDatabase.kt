@@ -7,9 +7,8 @@ import androidx.room.RoomDatabase
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 
-@Database (entities = arrayOf(
-    ShoppingItem::class,
-    ChoresItem::class),
+@Database (
+    entities = [ShoppingItem::class, ChoresItem::class],
     version = 1,
     exportSchema = false)       // use exportSchema when dealing with migrations
 public abstract class ListsRoomDatabase : RoomDatabase() {
@@ -17,9 +16,8 @@ public abstract class ListsRoomDatabase : RoomDatabase() {
     abstract fun shoppingDao(): ShoppingDao
     abstract fun ChoresDao(): ChoresDao
 
+    // A Singleton prevents multiple instances of database opening at the same time.
     companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
         @Volatile
         private var INSTANCE: ListsRoomDatabase? = null
 
@@ -41,6 +39,3 @@ public abstract class ListsRoomDatabase : RoomDatabase() {
         }
     }
 }
-// A Repository manages queries and allows you to use multiple backends.
-//  In the most common example, the Repository implements the logic for deciding
-//  whether to fetch data from a network or use results cached in a local database.

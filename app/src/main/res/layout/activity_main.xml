@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<!--        <variable-->
-<!--            name="viewModel"-->
-<!--            type="" />-->
+        <variable
+            name="viewModel"
+            type="com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

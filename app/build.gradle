@@ -39,9 +39,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
+    def nav_version = "2.3.1"
 
     //default
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -87,4 +91,6 @@ dependencies {
     })
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 
+    // fragment
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
 }

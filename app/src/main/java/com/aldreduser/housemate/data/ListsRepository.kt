@@ -9,9 +9,10 @@ import com.aldreduser.housemate.data.model.room.ShoppingDao
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
-// only the DAOs are exposed to the repository, not the entire database
-
-// get items from storage. Rn it's only from remote storage
+// A Repository manages queries and allows you to use multiple backends.
+//  -In the most common example, the Repository implements the logic for deciding
+//    whether to fetch data from a network or use results cached in a local database.
+// Only the DAOs are exposed to the repository, not the entire database
 class ListsRepository(
     private val shoppingDao: ShoppingDao,
     private val choresDao: ChoresDao,
