@@ -14,15 +14,15 @@ interface ChoresDao {
 
     // insert
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(shoppingItem: ChoresItem)
+    suspend fun insert(choresItem: ChoresItem)
 
     // update
     @Update
-    suspend fun updateShoppingItem(shoppingItem: ShoppingItem)
+    suspend fun updateChoresItem(choresItem: ChoresItem)
 
     // delete item
     @Delete
-    suspend fun deleteShoppingItem(shoppingItem: ShoppingItem)
+    suspend fun deleteChoresItem(choresItem: ChoresItem)
 
     // delete all
     @Query("DELETE FROM chore_item_table")

@@ -9,7 +9,6 @@ import com.aldreduser.housemate.data.model.room.ShoppingDao
 import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
-
 // only the DAOs are exposed to the repository, not the entire database
 
 // get items from storage. Rn it's only from remote storage
@@ -19,7 +18,6 @@ class ListsRepository(
     private val apiHelper: ApiHelper) {
 
     // LOCAL //
-
     //Shopping Items
     // get list of items
     val allShoppingItems: Flow<List<ShoppingItem>> = shoppingDao.getIDsInOrder()
@@ -47,7 +45,6 @@ class ListsRepository(
     // delete all
 
     // REMOTE //
-
     // todo: make remote database work with local database
     // this is code for the remote database
 //    fun getShoppingItems(): Single<List<ShoppingItem>> {
