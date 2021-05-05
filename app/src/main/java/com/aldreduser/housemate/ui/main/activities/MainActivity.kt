@@ -94,6 +94,13 @@ import kotlinx.android.synthetic.main.activity_main.*
  todo: when i start implementing chore items, command+f 'ShoppingItem' throughout the project
  */
 
+/*
+         todo: check if user already input a name previously (from shared preferences) (have the logic in a viewmodel)
+          if not send to shopping list activity (or last activity visited)
+         todo: ask user to put their name (so that others can see who added to do items)
+          user can choose anon
+*/
+
 // better MVVM architecture
 // todo: do the comments below to improve the architecture (unless already used or impractical/unnecessary)
 /*
@@ -125,45 +132,43 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // todo: check if user already input a name previously (from shared preferences) (have the logic in a viewmodel)
-        //  if not send to shopping list activity (or last activity visited)
-        // todo: ask user to put their name (so that others can see who added to do items)
-        //  user can choose anon
-
         binding?.apply {
             lifecycleOwner = this@MainActivity
             viewModel = sharedViewModel
         }
-
         setUpAppBar()
         setUpContextualAppBar()
     }
 
     private fun setUpAppBar() {
-        homeScreenTopAppBar.title = "House Mate"
+        val moreOptionsDrawable = R.drawable.ic_more_options_24dp
+        binding.homeScreenTopAppbar.title = "House Mate"
         // overflow icon is only changed to the drawables of android version is lollipop or above
         // (~Samsung Galaxy S6 and above. Current in 2021 is Samsung Galaxy S21)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            homeScreenTopAppBar.overflowIcon = getDrawable(R.drawable.ic_more_options_24dp) // might have to do this in every activity.
+            binding.homeScreenTopAppbar.overflowIcon = getDrawable(moreOptionsDrawable) // might have to do this in every activity.
         }
-        homeScreenTopAppBar.setNavigationOnClickListener {
+        binding.homeScreenTopAppbar.setNavigationOnClickListener {
             //todo: handle navigation icon press
             //the navigation icon is the icon to the left
             // command+f 'Navigation icon attributes' in material design website
         }
 
-        homeScreenTopAppBar.setOnMenuItemClickListener { menuItem ->
+        binding.homeScreenTopAppbar.setOnMenuItemClickListener { menuItem ->
+            val shoppingListEdit = R.id.shopping_list_edit
+            val shoppingListOptionDuplicate = R.id.shopping_list_option_duplicate
+            val shoppingListOptionDelete = R.id.shopping_list_option_delete
+
             when (menuItem.itemId) {
-                R.id.shopping_list_edit -> {
+                shoppingListEdit -> {
                     //todo: handle edit icon press
                     //user presses this icon and edit icons pop up next to each recyclerView item
                     true
-                }
-                R.id.shopping_list_option_duplicate -> {
+                } shoppingListOptionDuplicate -> {
                     //todo: add functionality
                     //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
                     true
-                }R.id.shopping_list_option_delete -> {
+                } shoppingListOptionDelete -> {
                 //todo: add functionality
                 //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
                 true
@@ -176,10 +181,15 @@ class MainActivity : AppCompatActivity() {
     // Contextual Action Bar
     // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views
     private fun setUpContextualAppBar() {
+        val contextualActionBar = R.menu.contextual_action_bar
+        val contextualDuplicate = R.id.contextual_duplicate
+        val contextualDelete = R.id.contextual_delete
+
+
         // this might not work bc it's in a function, but i think it will
         val callback = object : ActionMode.Callback {
             override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                menuInflater.inflate(R.menu.contextual_action_bar, menu)
+                menuInflater.inflate(contextualActionBar, menu)
                 return true
             }
             override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
@@ -187,10 +197,10 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
                 return when (item?.itemId) {
-                    R.id.contextual_duplicate -> {
+                    contextualDuplicate -> {
                         // todo: Handle duplicate icon press
                         true
-                    }R.id.contextual_delete -> {
+                    } contextualDelete -> {
                         // todo: Handle delete icon press
                         true
                     }
