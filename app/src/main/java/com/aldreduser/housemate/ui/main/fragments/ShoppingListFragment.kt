@@ -5,24 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
-import com.aldreduser.housemate.data.model.remote.api.ApiHelper
-import com.aldreduser.housemate.data.model.remote.api.ApiServiceImpl
+import com.aldreduser.housemate.databinding.FragmentShoppingListBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import kotlinx.android.synthetic.main.fragment_shopping_list.*
 
 class ShoppingListFragment : Fragment() {
 
+    private var binding: FragmentShoppingListBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
-    private lateinit var adapterRecyclerview: ShoppingRecyclerviewListAdapter       // for RecyclerView
+    private lateinit var recyclerviewAdapter: ShoppingRecyclerviewListAdapter       // for RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,47 +27,56 @@ class ShoppingListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shopping_list, container, false)
+        val fragmentBinding = FragmentShoppingListBinding.inflate(inflater, container, false)
+        binding = fragmentBinding
+        return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding?.apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = listsViewModel
+            shoppingListFab.setOnClickListener { fabOnClick() }
+        }
+
         //in a fragment, these don't belong inside the onCreate() function
         setupRecyclerView()
         setupViewModel()
-        fabOnClick()
     }
+
+    // CLICK HANDLERS //
 
     private fun fabOnClick() {
         // todo: pass some data to that activity
-        // navigate to the  add shoppingList item activity
-        shoppingListFab.setOnClickListener() {
-
-            //todo: navigate to: AddShoppingItemActivity
-        }
+        // navigate to the addListItem activity
     }
+
+    // SETUP FUNCTIONS //
 
     // RecyclerView
     private fun setupRecyclerView() {
         // populate recyclerview
-        shoppingListRecyclerView.layoutManager = LinearLayoutManager(context)  //todo: possible bug: 'context' was 'this'
-        adapterRecyclerview = ShoppingRecyclerviewListAdapter(arrayListOf())
+        binding?.shoppingListRecyclerview?.layoutManager =
+            LinearLayoutManager(context)  //todo: possible bug: 'context' was 'this'
+        recyclerviewAdapter = ShoppingRecyclerviewListAdapter(arrayListOf())
 
-        shoppingListRecyclerView.addItemDecoration(
+        binding?.shoppingListRecyclerview?.addItemDecoration(
             DividerItemDecoration(
-                shoppingListRecyclerView.context,
-                (shoppingListRecyclerView.layoutManager as LinearLayoutManager).orientation
+                binding?.shoppingListRecyclerview?.context,
+                (binding?.shoppingListRecyclerview?.layoutManager as LinearLayoutManager).orientation
             )
         )
-        shoppingListRecyclerView.adapter = adapterRecyclerview
+        binding?.shoppingListRecyclerview?.adapter = recyclerviewAdapter
     }
+
     // Populate Recyclerview
     private fun renderList(shoppingItems: List<ShoppingItem>) {
-        adapterRecyclerview.addData(shoppingItems)
-        adapterRecyclerview.notifyDataSetChanged()
+        recyclerviewAdapter.addData(shoppingItems)
+        recyclerviewAdapter.notifyDataSetChanged()
     }
+
     // ViewModel
     private fun setupViewModel() {
 //        // very important, declare which view-model interacts with this activity
@@ -82,9 +86,6 @@ class ShoppingListFragment : Fragment() {
 //        ).get(ListsViewModel::class.java)
     }
 }
-
-
-
 
 
 // in case i need this later
