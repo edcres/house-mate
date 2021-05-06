@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
+import com.aldreduser.housemate.databinding.FragmentChoresListBinding
 import com.aldreduser.housemate.ui.main.adapters.ChoresRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import kotlinx.android.synthetic.main.fragment_chores_list.*
 
 class ChoresListFragment : Fragment() {
 
+    private var binding: FragmentChoresListBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
     private lateinit var adapterRecyclerview: ChoresRecyclerviewListAdapter
 
@@ -27,49 +27,48 @@ class ChoresListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chores_list, container, false)
+        val fragmentBinding = FragmentChoresListBinding.inflate(inflater, container, false)
+        binding = fragmentBinding
+        return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding?.apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = listsViewModel
+            choresListFab.setOnClickListener { fabOnClick() }
+        }
+
         setupRecyclerView()
         setupViewModel()
-
-        fabOnClick()
     }
+
+    // CLICK HANDLERS //
 
     private fun fabOnClick() {
-        // todo: pass some data to that activity
-        // navigate to the  addChoreList item activity
-        choresListFab.setOnClickListener() {
-
-            //todo: navigate to: AddChoreItemActivity
-        }
+        // todo: pass some data to that fragment
+        // navigate to the  addListItem item activity
     }
+
+    // SETUP FUNCTIONS //
 
     // RecyclerView
     private fun setupRecyclerView() {
         // populate recyclerview
-        choresListRecyclerView.layoutManager = LinearLayoutManager(context)  //todo: possible bug: 'context' was 'this'
+        binding?.choresListRecyclerview?.layoutManager = LinearLayoutManager(context)
         adapterRecyclerview = ChoresRecyclerviewListAdapter(arrayListOf())
 
-        choresListRecyclerView.addItemDecoration(
+        binding?.choresListRecyclerview?.addItemDecoration(
             DividerItemDecoration(
-                choresListRecyclerView.context,
-                (choresListRecyclerView.layoutManager as LinearLayoutManager).orientation
+                binding?.choresListRecyclerview?.context,
+                (binding?.choresListRecyclerview?.layoutManager as LinearLayoutManager).orientation
             )
         )
-        choresListRecyclerView.adapter = adapterRecyclerview
+        binding?.choresListRecyclerview?.adapter = adapterRecyclerview
     }
 
-
-    // Populate Recyclerview
-    private fun renderList(choreItems: List<ChoresItem>) {
-        adapterRecyclerview.addData(choreItems)
-        adapterRecyclerview.notifyDataSetChanged()
-    }
     // ViewModel
     private fun setupViewModel() {
 //        // very important, declare which view-model interacts with this activity
@@ -78,5 +77,12 @@ class ChoresListFragment : Fragment() {
 //            listsViewModellFactory(ApiHelper(ApiServiceImpl()))
 //        ).get(ListsViewModel::class.java)
     }
-}
 
+    // HELPER FUNCTIONS //
+
+    // Populate Recyclerview
+    private fun renderList(choreItems: List<ChoresItem>) {
+        adapterRecyclerview.addData(choreItems)
+        adapterRecyclerview.notifyDataSetChanged()
+    }
+}

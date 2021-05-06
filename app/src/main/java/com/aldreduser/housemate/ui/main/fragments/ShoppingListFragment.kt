@@ -17,7 +17,7 @@ class ShoppingListFragment : Fragment() {
 
     private var binding: FragmentShoppingListBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
-    private lateinit var recyclerviewAdapter: ShoppingRecyclerviewListAdapter       // for RecyclerView
+    private lateinit var recyclerviewAdapter: ShoppingRecyclerviewListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,7 @@ class ShoppingListFragment : Fragment() {
     // CLICK HANDLERS //
 
     private fun fabOnClick() {
-        // todo: pass some data to that activity
+        // todo: pass some data to that fragment
         // navigate to the addListItem activity
     }
 
@@ -58,8 +58,7 @@ class ShoppingListFragment : Fragment() {
     // RecyclerView
     private fun setupRecyclerView() {
         // populate recyclerview
-        binding?.shoppingListRecyclerview?.layoutManager =
-            LinearLayoutManager(context)  //todo: possible bug: 'context' was 'this'
+        binding?.shoppingListRecyclerview?.layoutManager = LinearLayoutManager(context)
         recyclerviewAdapter = ShoppingRecyclerviewListAdapter(arrayListOf())
 
         binding?.shoppingListRecyclerview?.addItemDecoration(
