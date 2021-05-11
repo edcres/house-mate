@@ -17,7 +17,7 @@ class ChoresListFragment : Fragment() {
 
     private var binding: FragmentChoresListBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
-    private lateinit var adapterRecyclerview: ChoresRecyclerviewListAdapter
+    private lateinit var recyclerviewAdapter: ChoresRecyclerviewListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +45,11 @@ class ChoresListFragment : Fragment() {
         setupViewModel()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     // CLICK HANDLERS //
 
     private fun fabOnClick() {
@@ -58,7 +63,7 @@ class ChoresListFragment : Fragment() {
     private fun setupRecyclerView() {
         // populate recyclerview
         binding?.choresListRecyclerview?.layoutManager = LinearLayoutManager(context)
-        adapterRecyclerview = ChoresRecyclerviewListAdapter(arrayListOf())
+        recyclerviewAdapter = ChoresRecyclerviewListAdapter(arrayListOf())
 
         binding?.choresListRecyclerview?.addItemDecoration(
             DividerItemDecoration(
@@ -66,7 +71,7 @@ class ChoresListFragment : Fragment() {
                 (binding?.choresListRecyclerview?.layoutManager as LinearLayoutManager).orientation
             )
         )
-        binding?.choresListRecyclerview?.adapter = adapterRecyclerview
+        binding?.choresListRecyclerview?.adapter = recyclerviewAdapter
     }
 
     // ViewModel
@@ -82,7 +87,7 @@ class ChoresListFragment : Fragment() {
 
     // Populate Recyclerview
     private fun renderList(choreItems: List<ChoresItem>) {
-        adapterRecyclerview.addData(choreItems)
-        adapterRecyclerview.notifyDataSetChanged()
+        recyclerviewAdapter.addData(choreItems)
+        recyclerviewAdapter.notifyDataSetChanged()
     }
 }

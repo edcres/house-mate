@@ -46,6 +46,11 @@ class ShoppingListFragment : Fragment() {
         setupViewModel()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     // CLICK HANDLERS //
 
     private fun fabOnClick() {

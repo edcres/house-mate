@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.view.ActionMode
+import androidx.core.content.ContextCompat
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.databinding.ActivityMainBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
@@ -143,10 +144,8 @@ class MainActivity : AppCompatActivity() {
     private fun setUpAppBar() {
         val moreOptionsDrawable = R.drawable.ic_more_options_24dp
         binding.homeScreenTopAppbar.title = "House Mate"
-        // overflow icon is only changed to the drawables of android version is lollipop or above
-        // (~Samsung Galaxy S6 and above. Current in 2021 is Samsung Galaxy S21)
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            binding.homeScreenTopAppbar.overflowIcon = getDrawable(moreOptionsDrawable) // might have to do this in every activity.
+            binding.homeScreenTopAppbar.overflowIcon = ContextCompat.getDrawable(this, moreOptionsDrawable) // might have to do this in every activity.
         }
         binding.homeScreenTopAppbar.setNavigationOnClickListener {
             //todo: handle navigation icon press
@@ -184,7 +183,6 @@ class MainActivity : AppCompatActivity() {
         val contextualActionBar = R.menu.contextual_action_bar
         val contextualDuplicate = R.id.contextual_duplicate
         val contextualDelete = R.id.contextual_delete
-
 
         // this might not work bc it's in a function, but i think it will
         val callback = object : ActionMode.Callback {

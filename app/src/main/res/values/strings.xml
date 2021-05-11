@@ -23,4 +23,7 @@
 
     <string name="add_item_button">add item</string>
 
+    <!--dataBound values-->
+    <string name="shopping">shopping</string>
+    <string name="chores">chores</string>
 </resources>

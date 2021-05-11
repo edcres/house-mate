@@ -35,12 +35,17 @@ class AddListItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
-            lifecycleOwner = viewLifecycleOwner
+            lifecycleOwner = viewLifecycleOwner     //used so that the binding can observe LiveData updates
             viewModel = listsViewModel
             fabAddItem.setOnClickListener { fabOnClick() }
         }
         setupAppBar()
         setupViewModel()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     // CLICK HANDLERS //
