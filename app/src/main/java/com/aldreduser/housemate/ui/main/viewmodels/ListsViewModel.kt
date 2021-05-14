@@ -32,6 +32,8 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
     private val _cost = MutableLiveData<String>()   // convert to double in the code
     val cost: LiveData<String> = _cost
     // Only Chores
+    private val _difficulty = MutableLiveData<String>()
+    val difficulty: LiveData<String> = _difficulty
 
     // Complete Lists
     private val shoppingItems = MutableLiveData<List<ShoppingItem>>()
@@ -71,6 +73,10 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
     fun setPriority(desiredPriority: String) {
         // might have to check if there is a flavor set, if so use the cupcake app as refference
         _priority.value = desiredPriority
+    }
+    fun setDifficulty(desiredDifficulty: String) {
+        // might have to check if there is a flavor set, if so use the cupcake app as refference
+        _difficulty.value = desiredDifficulty
     }
 
     // HELPER FUNCTIONS //

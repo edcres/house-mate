@@ -16,6 +16,7 @@
     <string name="hint_where_to_get">where to get it</string>
     <string name="hint_cost">cost</string>
 
+    <string name="label_difficulty">Difficulty:</string>
     <string name="label_priority">Priority:</string>
     <string name="label_priority_1">1</string>
     <string name="label_priority_2">2</string>
