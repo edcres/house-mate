@@ -255,6 +255,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
+                        android:checked="@{viewModel.priority.equals(@string/label_priority_1)}"
+                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_1)}"
                         android:text="@string/label_priority_1" />
 
                     <RadioButton
@@ -263,8 +265,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:checked="true"
-                        android:text="@string/label_priority_2" />
+                        android:checked="@{viewModel.priority.equals(@string/label_priority_2)}"
+                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_2)}"
+                        android:text="@string/label_priority_2"
+                        tools:checked="true"/>
 
                     <RadioButton
                         android:id="@+id/radio_button_3"
@@ -272,6 +276,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
+                        android:checked="@{viewModel.priority.equals(@string/label_priority_3)}"
+                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_3)}"
                         android:text="@string/label_priority_3" />
                 </RadioGroup>
 

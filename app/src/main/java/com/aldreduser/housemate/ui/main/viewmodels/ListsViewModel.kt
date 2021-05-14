@@ -49,8 +49,8 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
         compositeDisposable.dispose()    //Useful when ViewModel observes some data and you need to clear this subscription to prevent a memory leak of this ViewModel.
     }
 
-    //todo: if Shopping list is chosen, hide only chores widgets
-    //todo: if Chores list is chosen, hide only shopping widgets
+    //todo: if Shopping list is chosen, hide only chores widgets, and show shopping widgets
+    //todo: if Chores list is chosen, hide only shopping widgets, and show chores widgets
 
     // DATABASE QUERIES //
     //get items
@@ -67,6 +67,10 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
     // SETTERS //
     fun setListToDisplay(listType: String) {
         _listChosen.value = listType
+    }
+    fun setPriority(desiredPriority: String) {
+        // might have to check if there is a flavor set, if so use the cupcake app as refference
+        _priority.value = desiredPriority
     }
 
     // HELPER FUNCTIONS //

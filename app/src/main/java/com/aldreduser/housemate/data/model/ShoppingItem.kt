@@ -36,7 +36,7 @@ data class ShoppingItem (
     val quantity: Double = 0.0,
     @ColumnInfo(name = "addedBy") // idk the format for the value, i just did camelCase
     val addedBy: String = "",
-    @ColumnInfo(name = "purchased")
+    @ColumnInfo(name = "completed")
     val purchased: Boolean = false,
 
     // Not necessary and not used in Chores
