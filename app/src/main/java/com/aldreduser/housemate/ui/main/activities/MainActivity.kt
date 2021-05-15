@@ -138,9 +138,16 @@ class MainActivity : AppCompatActivity() {
         binding?.apply {
             lifecycleOwner = this@MainActivity
             viewModel = sharedViewModel
+            addItemListFab.setOnClickListener { fabOnClick() }
         }
         setUpAppBar()
         setUpContextualAppBar()
+    }
+
+    // handle fab click
+    private fun fabOnClick() {
+        // add workout
+        // todo: handle click
     }
 
     private fun setUpAppBar() {

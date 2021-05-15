@@ -1,26 +1,29 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android.extensions'
+}
 
 android {
 
-    compileSdkVersion 29
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
-        vectorDrawables.useSupportLibrary = true    // for the fab
         applicationId "com.aldreduser.housemate"
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true    // for the fab
+
+        //multiDexEnabled true todo:if i keep getting that weird dex error
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    // to exclude the atomic functions module from the package and prevent warnings.
-    packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
-    }
+
     // for some APIs (idk which)
     kotlinOptions {
         jvmTarget = "1.8"
@@ -38,58 +41,60 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    // to exclude the atomic functions module from the package and prevent warnings.
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
+    }
+
     buildFeatures {
         dataBinding = true
     }
 }
 
 dependencies {
-    def nav_version = "2.3.1"
+//   error: methods: 74097 > 65536)    todo: uncomment this 2 if the dex error keeps on
+//    def multidex_version = "2.0.1"
+//    implementation "androidx.multidex:multidex:$multidex_version"
 
     //default
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    // from mindorks.com
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'com.amitshekhar.android:rx2-android-networking:1.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.18'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-
-    // architecture
     // Room components
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
+
     // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
-    // UI
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
 
     // Testing
-    testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     androidTestImplementation("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 
-    // fragment
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    // Activity ktx
+    implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
+
+    // Fragment
+    implementation "androidx.fragment:fragment-ktx:1.3.3"       // i just added this one, but might give e the erros as in gym routine
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.nav_version"
+
+    // ViewPager2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }

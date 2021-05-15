@@ -38,7 +38,6 @@ class ChoresListFragment : Fragment() {
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listsViewModel
-            choresListFab.setOnClickListener { fabOnClick() }
         }
 
         setupRecyclerView()
@@ -51,11 +50,6 @@ class ChoresListFragment : Fragment() {
     }
 
     // CLICK HANDLERS //
-
-    private fun fabOnClick() {
-        // todo: pass some data to that fragment
-        // navigate to the  addListItem item activity
-    }
 
     // SETUP FUNCTIONS //
 

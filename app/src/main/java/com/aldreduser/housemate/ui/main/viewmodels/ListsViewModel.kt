@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.launch
 
 // todo: If i need to null check the dataBinding properties for the views.:
@@ -16,31 +15,30 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
 
     // DataBound Variables
     private val _listChosen = MutableLiveData<String>()      // Shopping or Chores. Use this to determine which list 'AddListItemFragment' is manipulating
-    val listChosen: LiveData<String> = _listChosen
+    val listChosen: MutableLiveData<String> = _listChosen
     // Both Shopping and Chores
     private val _name = MutableLiveData<String>()
-    val name: LiveData<String> = _name
+    val name: MutableLiveData<String> = _name
     private val _neededBy = MutableLiveData<String>()
-    val neededBy: LiveData<String> = _neededBy
+    val neededBy: MutableLiveData<String> = _neededBy
     private val _priority = MutableLiveData<String>()
-    val priority: LiveData<String> = _priority
+    val priority: MutableLiveData<String> = _priority
     // Only Shopping
     private val _quantity = MutableLiveData<String>()   // convert to double in the code
-    val quantity: LiveData<String> = _quantity
+    val quantity: MutableLiveData<String> = _quantity
     private val _purchaseLocation = MutableLiveData<String>()
-    val purchaseLocation: LiveData<String> = _purchaseLocation
+    val purchaseLocation: MutableLiveData<String> = _purchaseLocation
     private val _cost = MutableLiveData<String>()   // convert to double in the code
-    val cost: LiveData<String> = _cost
+    val cost: MutableLiveData<String> = _cost
     // Only Chores
     private val _difficulty = MutableLiveData<String>()
-    val difficulty: LiveData<String> = _difficulty
+    val difficulty: MutableLiveData<String> = _difficulty
 
     // Complete Lists
     private val shoppingItems = MutableLiveData<List<ShoppingItem>>()
     private val choresItems = MutableLiveData<List<ChoresItem>>()
 
     // Objects
-    private val compositeDisposable = CompositeDisposable()     // to dispose of multiple disposables at once
 
     init {
         //fetchShoppingItems()  //maybe use this
@@ -48,7 +46,6 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
 
     override fun onCleared() {
         super.onCleared()
-        compositeDisposable.dispose()    //Useful when ViewModel observes some data and you need to clear this subscription to prevent a memory leak of this ViewModel.
     }
 
     //todo: if Shopping list is chosen, hide only chores widgets, and show shopping widgets (helper function)

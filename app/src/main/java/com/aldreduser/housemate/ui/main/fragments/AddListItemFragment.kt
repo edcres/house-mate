@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import com.aldreduser.housemate.R
 import com.aldreduser.housemate.databinding.FragmentAddListItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 

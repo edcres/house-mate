@@ -38,7 +38,6 @@ class ShoppingListFragment : Fragment() {
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listsViewModel
-            shoppingListFab.setOnClickListener { fabOnClick() }
         }
 
         //in a fragment, these don't belong inside the onCreate() function
@@ -52,11 +51,6 @@ class ShoppingListFragment : Fragment() {
     }
 
     // CLICK HANDLERS //
-
-    private fun fabOnClick() {
-        // todo: pass some data to that fragment
-        // navigate to the addListItem activity
-    }
 
     // SETUP FUNCTIONS //
 
