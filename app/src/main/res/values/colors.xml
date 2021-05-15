@@ -6,6 +6,7 @@
 
     <color name="colorSecondary">#AFDD10</color>
     <color name="colorSecondaryDark">#6B8D00</color>
+    <color name="colorItemContainer">#D6E94D</color>
 
     <color name="colorAccent">#FFFF00</color>
     <color name="colorInactiveItem">#B36B6B1C</color>

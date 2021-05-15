@@ -15,12 +15,17 @@
     <string name="hint_when_needed">when needed</string>
     <string name="hint_where_to_get">where to get it</string>
     <string name="hint_cost">cost</string>
+    <string name="hint_volunteer">volunteer</string>
+
+    <string name="label_priority">Priority:</string>
+    <string name="label_priority_1">Urgent</string>
+    <string name="label_priority_2">Not Urgent</string>
+    <string name="label_priority_3">Needed Eventually</string>
 
     <string name="label_difficulty">Difficulty:</string>
-    <string name="label_priority">Priority:</string>
-    <string name="label_priority_1">1</string>
-    <string name="label_priority_2">2</string>
-    <string name="label_priority_3">3</string>
+    <string name="label_difficulty_1">Simple</string>
+    <string name="label_difficulty_2">Medium Challenge</string>
+    <string name="label_difficulty_3">Challenging</string>
 
     <string name="add_item_button">add item</string>
 

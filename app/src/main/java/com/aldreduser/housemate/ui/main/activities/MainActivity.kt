@@ -121,6 +121,7 @@ Improve architecture by:
 // if more lists are added, make base classes
 // set icons on the material inputs
 // for the cost in shopping list, have a converter so it displays the currency, and get the correct currency
+// make when neededDoneBy into a date picker
 
 // Home Screen
 class MainActivity : AppCompatActivity() {

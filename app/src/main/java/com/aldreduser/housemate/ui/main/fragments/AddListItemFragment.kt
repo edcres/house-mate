@@ -81,23 +81,23 @@ class AddListItemFragment : Fragment() {
     //todo: call this function when user clicks add FAB
     //if this doesn't work just use 'radioButton1.checked'
     private fun priorityChosen() {
-
-        var priority:Int = 2
-        var buttonChosen = binding?.choosePriorityButton?.checkedRadioButtonId
-        when (buttonChosen) {
-            binding?.radioButton1?.id -> {
-                //todo: handle this
-                true
-            }
-            binding?.radioButton2?.id -> {
-                //todo: handle this
-                true
-            }
-            binding?.radioButton3?.id -> {
-                //todo: handle this
-                true
-            }
-            else -> false
-        }
+//
+//        var priority:Int = 2
+//        var buttonChosen = binding?.choosePriorityButton?.checkedRadioButtonId
+//        when (buttonChosen) {
+//            binding?.radioButton1?.id -> {
+//                //todo: handle this
+//                true
+//            }
+//            binding?.radioButton2?.id -> {
+//                //todo: handle this
+//                true
+//            }
+//            binding?.radioButton3?.id -> {
+//                //todo: handle this
+//                true
+//            }
+//            else -> false
+//        }
     }
 }

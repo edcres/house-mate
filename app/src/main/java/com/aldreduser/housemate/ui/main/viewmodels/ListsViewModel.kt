@@ -51,8 +51,8 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
         compositeDisposable.dispose()    //Useful when ViewModel observes some data and you need to clear this subscription to prevent a memory leak of this ViewModel.
     }
 
-    //todo: if Shopping list is chosen, hide only chores widgets, and show shopping widgets
-    //todo: if Chores list is chosen, hide only shopping widgets, and show chores widgets
+    //todo: if Shopping list is chosen, hide only chores widgets, and show shopping widgets (helper function)
+    //todo: if Chores list is chosen, hide only shopping widgets, and show chores widgets (helper function)
 
     // DATABASE QUERIES //
     //get items
