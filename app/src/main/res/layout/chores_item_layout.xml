@@ -9,7 +9,6 @@
         <variable
             name="viewModel"
             type="com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel" />
-
     </data>
 
     <androidx.cardview.widget.CardView

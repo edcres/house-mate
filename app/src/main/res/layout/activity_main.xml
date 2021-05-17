@@ -11,6 +11,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_activity_root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
@@ -35,6 +36,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/main_activity_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -44,30 +46,45 @@
             app:tabTextColor="@color/colorPrimaryDark">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/main_activity_tab_shopping_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.setListToDisplay(@string/shopping)}"
                 android:text="@string/label_shopping_list" />
+<!--            android:onClick="@{() -> viewModel}"-->
+<!--            android:onClick="@{() -> viewModel.setListToDisplay(@string/shopping)}"-->
+
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/main_activity_tab_chores_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.setListToDisplay(@string/chores)}"
                 android:text="@string/label_chores_list" />
+<!--            android:onClick="@{() -> viewModel.setListToDisplay(@string/chores)}"-->
 
         </com.google.android.material.tabs.TabLayout>
 
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel}"/>
+        </LinearLayout>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/lists_view_pager_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--        <androidx.core.widget.NestedScrollView-->
+<!--            android:id="@+id/main_activity_scroll_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
 
-        </androidx.core.widget.NestedScrollView>
+<!--            <androidx.viewpager2.widget.ViewPager2-->
+<!--                android:id="@+id/lists_view_pager_2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
+
+<!--        </androidx.core.widget.NestedScrollView>-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_item_list_fab"

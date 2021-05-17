@@ -3,7 +3,6 @@ package com.aldreduser.housemate.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import java.util.*
 
 // have the properties well organized bc it might make the recyclerview and storage easier.

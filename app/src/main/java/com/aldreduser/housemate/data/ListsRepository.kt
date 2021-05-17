@@ -6,7 +6,6 @@ import com.aldreduser.housemate.data.model.remote.api.ApiHelper
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.room.ChoresDao
 import com.aldreduser.housemate.data.model.room.ShoppingDao
-import io.reactivex.Single
 import kotlinx.coroutines.flow.Flow
 
 // A Repository manages queries and allows you to use multiple backends.
