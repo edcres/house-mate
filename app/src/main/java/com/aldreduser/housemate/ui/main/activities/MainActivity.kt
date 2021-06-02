@@ -58,6 +58,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 // todo: edit: api folder files, repository, viewmodel/viewmodelfactory
 // todo: when getting data from remote storage, edit 'ApiServiceImpl' file
 //local + remote
+// https://developer.android.com/codelabs/kotlin-android-training-repository?index=..%2F..android-kotlin-fundamentals#7
 // Data in the remote database is a priority bc different users will be interacting with it.
 //  - compare local database to remote database for data differences, update local database with differences
 //  - if there's a conflict with the same item ask user if they want to overwrite it with his local database data
@@ -135,12 +136,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)       // todo: bug here
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding?.apply {
             lifecycleOwner = this@MainActivity
-            viewModel = sharedViewModel
+            viewModel = sharedViewModel         // todo: bug here
             addItemListFab.setOnClickListener { fabOnClick() }
         }
         //setUpAppBar()

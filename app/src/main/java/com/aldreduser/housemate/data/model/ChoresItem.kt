@@ -26,7 +26,7 @@ data class ChoresItem (
     val id: Long = 0,
     @ColumnInfo(name = "name")
     val name: String = "",
-    @ColumnInfo(name = "addedBy") // idk the format for the value, i just did camelCase
+    @ColumnInfo(name = "added_by") // idk the format for the value, i just did camelCase
     val addedBy: String = "",
     @ColumnInfo(name = "completed")
     val purchased: Boolean = false,
@@ -36,7 +36,7 @@ data class ChoresItem (
     val difficulty: Int = 1,
 
     // Not necessary and used in shoppingItem
-    @ColumnInfo(name = "neededBy")
+    @ColumnInfo(name = "needed_by")
     val neededBy: String = "",  //date
     @ColumnInfo(name = "volunteer")
     val volunteer: String = "", //who's buying it

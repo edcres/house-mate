@@ -59,7 +59,8 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
         listsRepository.insertChoresItem(choresItem)
     }
     //delete item
-    fun deleteShoppingItem(shoppingItem: ShoppingItem) {
+    fun delete(shoppingItem: ShoppingItem) = viewModelScope.launch {
+//        listsRepository.delete
     }
     //other queries...
 
@@ -87,8 +88,8 @@ class ListsViewModelFactory(private val repository: ListsRepository): ViewModelP
     // returns a repository to the viewModel <OR> gives u an error if the model class doesn't show up
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ListsViewModel::class.java)) {
-//            listsViewModel = ListsViewModel(ListsRepository(, ,apiHelper))
-//            return listsViewModel as T
+//            listsViewModel = ListsViewModel(ListsRepository())
+            return listsViewModel as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

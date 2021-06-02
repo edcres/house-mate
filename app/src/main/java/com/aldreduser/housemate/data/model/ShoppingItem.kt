@@ -33,7 +33,7 @@ data class ShoppingItem (
     val name: String = "",
     @ColumnInfo(name = "quantity") // Chores didn't have this Qty property, but i put it here
     val quantity: Double = 0.0,
-    @ColumnInfo(name = "addedBy") // idk the format for the value, i just did camelCase
+    @ColumnInfo(name = "added_by") // idk the format for the value, i just did camelCase
     val addedBy: String = "",
     @ColumnInfo(name = "completed")
     val purchased: Boolean = false,
@@ -41,11 +41,11 @@ data class ShoppingItem (
     // Not necessary and not used in Chores
     @ColumnInfo(name = "cost")
     val cost: Double = 0.0,
-    @ColumnInfo(name = "purchaseLocation")
+    @ColumnInfo(name = "purchase_location")
     val purchaseLocation: String = "",
 
     // Not necessary and used in chores
-    @ColumnInfo(name = "neededBy")
+    @ColumnInfo(name = "needed_by")
     val neededBy: String = "",  //date
     @ColumnInfo(name = "volunteer")
     val volunteer: String = "", //who's buying it
