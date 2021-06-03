@@ -11,7 +11,7 @@ import com.aldreduser.housemate.data.model.ShoppingItem
     entities = [ShoppingItem::class, ChoresItem::class],
     version = 1,
     exportSchema = false)       // use exportSchema when dealing with migrations
-public abstract class ListsRoomDatabase : RoomDatabase() {
+abstract class ListsRoomDatabase : RoomDatabase() {
 
     abstract fun shoppingDao(): ShoppingDao
     abstract fun ChoresDao(): ChoresDao
@@ -20,6 +20,7 @@ public abstract class ListsRoomDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: ListsRoomDatabase? = null
+        private const val DATABASE_NAME = "lists_database"
 
         // returns the 'ListsRoomDatabase' singleton. It'll create the database the first time it's accessed
         // names it "word_database"
@@ -30,10 +31,10 @@ public abstract class ListsRoomDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ListsRoomDatabase::class.java,
-                    "lists_database"
-                ).build()
-                // return instance
+                    DATABASE_NAME
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
+                // return instance
                 instance
             }
         }
