@@ -46,4 +46,19 @@ class ListsRepository(private val database: ListsRoomDatabase) {
 
     // REMOTE //
     // todo: make remote database work with local database
+
+    // Singleton for repository
+    companion object {
+
+        private var instance: ListsRepository? = null
+
+        // Helper function to get the repository.
+        fun getInstance(database: ListsRoomDatabase): ListsRepository {
+            return instance ?: synchronized(this) {
+                instance ?: ListsRepository(database).also {
+                    instance = it
+                }
+            }
+        }
+    }
 }
