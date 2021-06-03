@@ -81,16 +81,16 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
 }
 
 // ViewModelFactory exists to pass arguments to the viewModel. Bc arguments can't be passes to the viewModel directly
-class ListsViewModelFactory(private val repository: ListsRepository): ViewModelProvider.Factory {
-
-    lateinit var listsViewModel: ListsViewModel
-
-    // returns a repository to the viewModel <OR> gives u an error if the model class doesn't show up
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ListsViewModel::class.java)) {
-//            listsViewModel = ListsViewModel(ListsRepository())
-            return listsViewModel as T
-        }
-        throw IllegalArgumentException("Unknown class name")
-    }
-}
+//class ListsViewModelFactory(private val repository: ListsRepository): ViewModelProvider.Factory {
+//
+//    lateinit var listsViewModel: ListsViewModel
+//
+//    // returns a repository to the viewModel <OR> gives u an error if the model class doesn't show up
+//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(ListsViewModel::class.java)) {
+////            listsViewModel = ListsViewModel(ListsRepository())
+//            return listsViewModel as T
+//        }
+//        throw IllegalArgumentException("Unknown class name")
+//    }
+//}

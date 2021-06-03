@@ -106,6 +106,8 @@ import kotlinx.android.synthetic.main.activity_main.*
           user can choose anon
 */
 
+// todo: clean up unused imports
+
 // better MVVM architecture
 // todo: do the comments below to improve the architecture (unless already used or impractical/unnecessary)
 /*
