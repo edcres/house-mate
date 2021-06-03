@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.data.model.ShoppingItem
+import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.FragmentShoppingListBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 
 class ShoppingListFragment : Fragment() {
 
     private var binding: FragmentShoppingListBinding? = null
-    private val listsViewModel: ListsViewModel by activityViewModels()
+    private lateinit var listsViewModel: ListsViewModel
     private lateinit var recyclerviewAdapter: ShoppingRecyclerviewListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +33,7 @@ class ShoppingListFragment : Fragment() {
     ): View? {
         val fragmentBinding = FragmentShoppingListBinding.inflate(inflater, container, false)
         binding = fragmentBinding
+        setUpViewModel()
         return fragmentBinding.root
     }
 
@@ -42,7 +47,6 @@ class ShoppingListFragment : Fragment() {
 
         //in a fragment, these don't belong inside the onCreate() function
         setupRecyclerView()
-        setupViewModel()
     }
 
     override fun onDestroyView() {
@@ -52,7 +56,15 @@ class ShoppingListFragment : Fragment() {
 
     // CLICK HANDLERS //
 
-    // SETUP FUNCTIONS //
+    // SET UP FUNCTIONS //
+    private fun setUpViewModel() {
+        val application = requireNotNull(this.activity).application
+        val database = ListsRoomDatabase.getInstance(application)
+        val repository = ListsRepository.getInstance(database)
+        val viewModelFactory = ListsViewModelFactory(repository, application)
+        listsViewModel = ViewModelProvider(
+            this, viewModelFactory).get(ListsViewModel::class.java)
+    }
 
     // RecyclerView
     private fun setupRecyclerView() {
@@ -73,15 +85,6 @@ class ShoppingListFragment : Fragment() {
     private fun renderList(shoppingItems: List<ShoppingItem>) {
         recyclerviewAdapter.addData(shoppingItems)
         recyclerviewAdapter.notifyDataSetChanged()
-    }
-
-    // ViewModel
-    private fun setupViewModel() {
-//        // very important, declare which view-model interacts with this activity
-//        listsViewModel = ViewModelProviders.of(
-//            this,
-//            listsViewModel(ApiHelper(ApiServiceImpl()))
-//        ).get(ListsViewModel::class.java)
     }
 }
 

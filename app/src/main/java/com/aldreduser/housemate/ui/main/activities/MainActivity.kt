@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.view.ActionMode
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.ListsRepository
@@ -134,11 +132,13 @@ Improve architecture by:
 // for the cost in shopping list, have a converter so it displays the currency, and get the correct currency
 // make when neededDoneBy into a date picker
 
+// todo: make binding null when activity is destroyed
+
 // Home Screen
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var sharedViewModel: ListsViewModel
+    private lateinit var listsViewModel: ListsViewModel
     private lateinit var adapterRecyclerview: ShoppingRecyclerviewListAdapter       // for RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         setUpViewModel()
         binding?.apply {
             lifecycleOwner = this@MainActivity
-            viewModel = sharedViewModel         // todo: bug here
+            viewModel = listsViewModel         // todo: bug here
             addItemListFab.setOnClickListener { fabOnClick() }
         }
         //setUpAppBar()
@@ -168,7 +168,7 @@ class MainActivity : AppCompatActivity() {
         val database = ListsRoomDatabase.getInstance(application)
         val repository = ListsRepository.getInstance(database)
         val viewModelFactory = ListsViewModelFactory(repository, application)
-        sharedViewModel = ViewModelProvider(
+        listsViewModel = ViewModelProvider(
                 this, viewModelFactory).get(ListsViewModel::class.java)
     }
 

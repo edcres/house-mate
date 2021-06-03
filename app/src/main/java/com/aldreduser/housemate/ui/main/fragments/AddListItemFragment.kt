@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
+import com.aldreduser.housemate.data.ListsRepository
+import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.FragmentAddListItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 
 // todo: make this an addItem fragment (works for shopping or chore items)
 //  -widgets are hidden depending on which list is being manipulated
@@ -15,7 +19,7 @@ import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 class AddListItemFragment : Fragment() {
 
     private var binding: FragmentAddListItemBinding? = null
-    private val listsViewModel: ListsViewModel by activityViewModels()
+    private lateinit var listsViewModel: ListsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +31,7 @@ class AddListItemFragment : Fragment() {
     ): View? {
         val fragmentBinding = FragmentAddListItemBinding.inflate(inflater, container, false)
         binding = fragmentBinding
+        setUpViewModel()
         return fragmentBinding.root
     }
 
@@ -39,7 +44,6 @@ class AddListItemFragment : Fragment() {
             fabAddItem.setOnClickListener { fabOnClick() }
         }
         setupAppBar()
-        setupViewModel()
     }
 
     override fun onDestroyView() {
@@ -53,7 +57,15 @@ class AddListItemFragment : Fragment() {
         // todo: handle add item click
     }
 
-    // SETUP FUNCTIONS //
+    // SET UP FUNCTIONS //
+    private fun setUpViewModel() {
+        val application = requireNotNull(this.activity).application
+        val database = ListsRoomDatabase.getInstance(application)
+        val repository = ListsRepository.getInstance(database)
+        val viewModelFactory = ListsViewModelFactory(repository, application)
+        listsViewModel = ViewModelProvider(
+            this, viewModelFactory).get(ListsViewModel::class.java)
+    }
 
     private fun setupAppBar() {
         //title
@@ -63,16 +75,6 @@ class AddListItemFragment : Fragment() {
         binding?.addItemTopAppbar?.setNavigationOnClickListener {
             // todo: handle navigation click
         }
-    }
-
-    private fun setupViewModel() {
-        /* todo: bottom code is from main activity, edit it.w
-        //for sending parameters to the viewmodel
-        mainViewModel = ViewModelProviders.of(
-            this,
-            ViewModelFactory(ApiHelper(ApiServiceImpl()))
-        ).get(MainViewModel::class.java)
-         */
     }
 
     // HELPER FUNCTIONS //

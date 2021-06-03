@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.data.model.ChoresItem
+import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.FragmentChoresListBinding
 import com.aldreduser.housemate.ui.main.adapters.ChoresRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 
 class ChoresListFragment : Fragment() {
 
     private var binding: FragmentChoresListBinding? = null
-    private val listsViewModel: ListsViewModel by activityViewModels()
+    private lateinit var listsViewModel: ListsViewModel
     private lateinit var recyclerviewAdapter: ChoresRecyclerviewListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +33,7 @@ class ChoresListFragment : Fragment() {
     ): View? {
         val fragmentBinding = FragmentChoresListBinding.inflate(inflater, container, false)
         binding = fragmentBinding
+        setUpViewModel()
         return fragmentBinding.root
     }
 
@@ -41,7 +46,6 @@ class ChoresListFragment : Fragment() {
         }
 
         setupRecyclerView()
-        setupViewModel()
     }
 
     override fun onDestroyView() {
@@ -51,7 +55,15 @@ class ChoresListFragment : Fragment() {
 
     // CLICK HANDLERS //
 
-    // SETUP FUNCTIONS //
+    // SET UP FUNCTIONS //
+    private fun setUpViewModel() {
+        val application = requireNotNull(this.activity).application
+        val database = ListsRoomDatabase.getInstance(application)
+        val repository = ListsRepository.getInstance(database)
+        val viewModelFactory = ListsViewModelFactory(repository, application)
+        listsViewModel = ViewModelProvider(
+            this, viewModelFactory).get(ListsViewModel::class.java)
+    }
 
     // RecyclerView
     private fun setupRecyclerView() {
@@ -66,15 +78,6 @@ class ChoresListFragment : Fragment() {
             )
         )
         binding?.choresListRecyclerview?.adapter = recyclerviewAdapter
-    }
-
-    // ViewModel
-    private fun setupViewModel() {
-//        // very important, declare which view-model interacts with this activity
-//        listsViewModel = ViewModelProviders.of(
-//            this,
-//            listsViewModellFactory(ApiHelper(ApiServiceImpl()))
-//        ).get(ListsViewModel::class.java)
     }
 
     // HELPER FUNCTIONS //
