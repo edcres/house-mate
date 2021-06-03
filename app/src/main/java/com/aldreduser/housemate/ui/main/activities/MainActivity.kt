@@ -7,10 +7,14 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.view.ActionMode
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.data.ListsRepository
+import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.ActivityMainBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 // todo: instantiate objects
@@ -37,6 +41,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 // - solution: try to fix after making the viewpager, or don't use dataBinding and set the click listener through the kotlin file
 
 // Contextual actionbar bug
+// its probably bc I have the entire set up function for it commented out
 // todo: fix contextual actionbar bug. Its activates by default at the beginning of the app
 
 // recyclerview
@@ -133,7 +138,7 @@ Improve architecture by:
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val sharedViewModel: ListsViewModel by viewModels()
+    private lateinit var sharedViewModel: ListsViewModel
     private lateinit var adapterRecyclerview: ShoppingRecyclerviewListAdapter       // for RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -141,6 +146,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setUpViewModel()
         binding?.apply {
             lifecycleOwner = this@MainActivity
             viewModel = sharedViewModel         // todo: bug here
@@ -154,6 +160,16 @@ class MainActivity : AppCompatActivity() {
     private fun fabOnClick() {
         // add workout
         // todo: handle click
+    }
+
+    // SET UP FUNCTIONS //
+    private fun setUpViewModel() {
+        val application = requireNotNull(this).application
+        val database = ListsRoomDatabase.getInstance(application)
+        val repository = ListsRepository.getInstance(database)
+        val viewModelFactory = ListsViewModelFactory(repository, application)
+        sharedViewModel = ViewModelProvider(
+                this, viewModelFactory).get(ListsViewModel::class.java)
     }
 
 //    private fun setUpAppBar() {
@@ -226,4 +242,6 @@ class MainActivity : AppCompatActivity() {
         val actionMode = startSupportActionMode(callback)   //I changed the import from 'android.view.ActionMode.Callback' to 'androidx.appcompat.view.ActionMode.Callback'
         actionMode?.title = "1 selected"
     }
+
+    // HELPER FUNCTIONS //
 }

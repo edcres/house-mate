@@ -1,5 +1,6 @@
 package com.aldreduser.housemate.ui.main.viewmodels
 
+import android.app.Application
 import androidx.lifecycle.*
 import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.data.model.ChoresItem
@@ -11,7 +12,9 @@ import kotlinx.coroutines.launch
 
 // maybe have different viewmodels: mainActivity, shoppingList, choresList
 // Shared viewModel for MainActivity, ShoppingFragment, and ChoresFragment
-class ListsViewModel (private val listsRepository: ListsRepository): ViewModel() {
+class ListsViewModel(
+    private val listsRepository: ListsRepository,
+    private val application: Application): ViewModel() {
 
     // DataBound Variables
     private val _listChosen = MutableLiveData<String>()      // Shopping or Chores. Use this to determine which list 'AddListItemFragment' is manipulating
@@ -65,32 +68,11 @@ class ListsViewModel (private val listsRepository: ListsRepository): ViewModel()
     //other queries...
 
     // SETTERS //
-    fun setListToDisplay(listType: String) {
-        _listChosen.value = listType
-    }
-    fun setPriority(desiredPriority: String) {
-        // might have to check if there is a flavor set, if so use the cupcake app as refference
-        _priority.value = desiredPriority
-    }
-    fun setDifficulty(desiredDifficulty: String) {
-        // might have to check if there is a flavor set, if so use the cupcake app as refference
-        _difficulty.value = desiredDifficulty
-    }
+    fun setListToDisplay(listType: String) { _listChosen.value = listType }
+    // might have to check if there is a flavor set, if so use the cupcake app as reference
+    fun setPriority(desiredPriority: String) { _priority.value = desiredPriority }
+    // might have to check if there is a flavor set, if so use the cupcake app as refference
+    fun setDifficulty(desiredDifficulty: String) { _difficulty.value = desiredDifficulty }
 
     // HELPER FUNCTIONS //
 }
-
-// ViewModelFactory exists to pass arguments to the viewModel. Bc arguments can't be passes to the viewModel directly
-//class ListsViewModelFactory(private val repository: ListsRepository): ViewModelProvider.Factory {
-//
-//    lateinit var listsViewModel: ListsViewModel
-//
-//    // returns a repository to the viewModel <OR> gives u an error if the model class doesn't show up
-//    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-//        if (modelClass.isAssignableFrom(ListsViewModel::class.java)) {
-////            listsViewModel = ListsViewModel(ListsRepository())
-//            return listsViewModel as T
-//        }
-//        throw IllegalArgumentException("Unknown class name")
-//    }
-//}

@@ -24,7 +24,7 @@ abstract class ListsRoomDatabase : RoomDatabase() {
 
         // returns the 'ListsRoomDatabase' singleton. It'll create the database the first time it's accessed
         // names it "word_database"
-        fun getDatabase(context: Context): ListsRoomDatabase {
+        fun getInstance(context: Context): ListsRoomDatabase {
             // if the database INSTANCE is not null, then return it,
             // if it is, then create the database
             return INSTANCE ?: synchronized(this) {
