@@ -14,7 +14,7 @@ import com.aldreduser.housemate.data.model.ShoppingItem
 abstract class ListsRoomDatabase : RoomDatabase() {
 
     abstract fun shoppingDao(): ShoppingDao
-    abstract fun ChoresDao(): ChoresDao
+    abstract fun choresDao(): ChoresDao
 
     // A Singleton prevents multiple instances of database opening at the same time.
     companion object {
