@@ -132,19 +132,17 @@ Improve architecture by:
 // for the cost in shopping list, have a converter so it displays the currency, and get the correct currency
 // make when neededDoneBy into a date picker
 
-// todo: make binding null when activity is destroyed
-
 // Home Screen
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
     private lateinit var listsViewModel: ListsViewModel
     private lateinit var adapterRecyclerview: ShoppingRecyclerviewListAdapter       // for RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
 
         setUpViewModel()
         binding?.apply {
@@ -156,6 +154,12 @@ class MainActivity : AppCompatActivity() {
         setUpContextualAppBar()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
+    // CLICK HANDLERS //
     // handle fab click
     private fun fabOnClick() {
         // add workout
