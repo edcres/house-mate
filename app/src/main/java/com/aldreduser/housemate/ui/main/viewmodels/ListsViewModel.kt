@@ -41,8 +41,6 @@ class ListsViewModel(
     private val shoppingItems = MutableLiveData<List<ShoppingItem>>()
     private val choresItems = MutableLiveData<List<ChoresItem>>()
 
-    // Objects
-
     init {
         //fetchShoppingItems()  //maybe use this
     }

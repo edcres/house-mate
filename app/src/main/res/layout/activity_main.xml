@@ -50,7 +50,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_shopping_list" />
-<!--            android:onClick="@{() -> viewModel}"-->
 <!--            android:onClick="@{() -> viewModel.setListToDisplay(@string/shopping)}"-->
 
 
@@ -62,16 +61,6 @@
 <!--            android:onClick="@{() -> viewModel.setListToDisplay(@string/chores)}"-->
 
         </com.google.android.material.tabs.TabLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel}"/>
-        </LinearLayout>
 
 <!--        <androidx.core.widget.NestedScrollView-->
 <!--            android:id="@+id/main_activity_scroll_view"-->
