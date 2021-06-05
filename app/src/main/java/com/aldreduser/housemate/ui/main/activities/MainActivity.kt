@@ -15,118 +15,69 @@ import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
-// todo: instantiate objects
+//todo: recyclerview
+// Adapter:
+// -create it
+// -dataBinding
+// DataBinding in the recycler items might be wrong.
 
-// dataBinding
-// todo: make all necessary data dataBindable
-//  -im using kotlin flow (new), will maybe also use liveData
-//  enable dataBinding, wrap layout root element in <layout>
-//  layout variables in <data>
-//  layout expressions and element attributes: @{expression}
-// Todo: use LiveData for observables
-//https://www.youtube.com/watch?v=omml4lK_b-A&t=509s
-//https://developer.android.com/topic/libraries/data-binding/
-//databinding codelab: https://developer.android.com/codelabs/android-databinding#0
+// todo: ViewPager2
 
-// ui
-// todo: shopping list and chores list should be in their own fragment
-// todo: make navigation tabs with viewpager2
+// todo: AddListItemFragment should probably be an activity.
 
-// tab onclick dataBinding bug:
-// todo: for some reason the onclick function in the tab doesn't work when calling the viewmodel, or any other xml variable I make
-// - an empty onClick did work
-// - the onclick did work with the viewmodel on a button widget
-// - solution: try to fix after making the viewpager, or don't use dataBinding and set the click listener through the kotlin file
+// todo: tab onclick dataBinding bug:
+//  -solution: try to fix after making the viewpager, or don't use dataBinding and set the click listener through the kotlin file
 
 // Contextual actionbar bug
 // its probably bc I have the entire set up function for it commented out
 // todo: fix contextual actionbar bug. Its activates by default at the beginning of the app
 
 // recyclerview
-// todo: continue the codelab at part 11 ->    https://developer.android.com/codelabs/android-room-with-a-view-kotlin/#9
-// recyclerview codeLab https://developer.android.com/codelabs/kotlin-android-training-recyclerview-fundamentals#0
-// todo: have placeholder data to get from storage, before getting it remotely
-// todo: adjust recyclerview to work with the items in my own app
-// todo: change recyclerview and make it have clickable buttons and stuff       -->       https://material.io/components/cards  https://material.io/components/lists#anatomy
-//      - long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
-// todo: more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
+// todo: contexcual actionBar: long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
+//  more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
 //  -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
 // todo: 'more options' icon pops up a select box in each recycler item, each selected has the option to be deleted or duplicated.
 //  alternatively: use contextual action bar to long click items, these can be deleted or duplicated
 
 // storage
-//remote
-// todo: use remote storage in shopping items
-// todo: use web service to interact with remote data (maybe: firebase, mySQL). (maybe also a REST API)
-// todo: edit: api folder files, repository, viewmodel/viewmodelfactory
-// todo: when getting data from remote storage, edit 'ApiServiceImpl' file
-//local + remote
+//todo: remote
+// use firebase to store remote data (local database will be used as a cache)
+// edit: api folder files, repository, viewmodel/viewmodelfactory
+// when getting data from remote storage, edit 'ApiServiceImpl' file
+// todo: local + remote
 // https://developer.android.com/codelabs/kotlin-android-training-repository?index=..%2F..android-kotlin-fundamentals#7
 // Data in the remote database is a priority bc different users will be interacting with it.
 //  - compare local database to remote database for data differences, update local database with differences
 //  - if there's a conflict with the same item ask user if they want to overwrite it with his local database data
-//  - SQLLite for local storage and use Firebase for syncing
-//    -just translate record updates to JSON and push them out, and implement handlers that update the
-//     local database from the JSON they receive.
-// todo: conncet local to remote repository (rn chores has local, shopping items has remote)
-// -get @Update and @Delete implemented throughout the app https://www.youtube.com/watch?v=5rfBU75sguk
 // -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
-// todo: maybe it's better to just use firebase remotely and locally and get rid of room (use room in another app)
-//  -might need to use Room here if the user opens the app and doesn't have access to the network.
-//  -then update the changes to remote storage (from Room) when user has access to the network and the app is open.
-//      (this is if i can't update the database through firebase locally and without network access)
+// -maybe update the changes to remote storage (from Room) when user has access to the network and the app is open.
 
-// user
-// todo: In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
-//  user can choose anonymous
-// todo: in home activity, check if user has name registered (in shared preferences), if not ask for name
-// todo: make feature so that user can change their name later on
+// todo: user
+// In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
+// user can choose anonymous
+// in home activity, check if user has name registered (in shared preferences), if not ask for name
+// make feature so that user can change their name later on
 
-// navigation
-// todo: (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
-// todo: when user backs out of adding a new item, ask if they sure they wanna cancel. Might have to learn about activity lifecycles
-// todo: when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
-
-// todo: when the app opens, go to the shopping screen seamlessly. Or the home screen if necessary
-
-/*
- chore item
- todo: add the things for the chore item later
-    -Make tabs to switch between shopping items and chore items
-        -to differentiate an active tab from an inactive tab, apply an underline and color change to the active tab’s text and icon.   -->  https://material.io/design/navigation/understanding-navigation.html#lateral-navigation
-    -make a model for it
-    -make an item layout
-    -make an add shoppingList activity
-    -adjust recyclerview (or make a new one for Chores)
-
- todo: when i start implementing chore items, command+f 'ShoppingItem' throughout the project
- */
-
-/*
-         todo: check if user already input a name previously (from shared preferences) (have the logic in a viewmodel)
-          if not send to shopping list activity (or last activity visited)
-         todo: ask user to put their name (so that others can see who added to do items)
-          user can choose anon
-*/
+// todo: navigation
+// (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
+// when user backs out of adding a new item, ask if they're sure they wanna cancel.
+// when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
 // todo: clean up unused imports
 
-// better MVVM architecture
-// todo: do the comments below to improve the architecture (unless already used or impractical/unnecessary)
 /*
-Improve architecture by:
+Improve MVVM architecture by:
 -Implement Dependency Inject Framework - Dagger in the project.
--Make ApiService Singleton and reuse the same instance for all the features.
 -Create base classes such as BaseActivity.
--Handle all the API errors at a single place in a better way.
--Create Interfaces for the classes wherever required.
--You can learn Kotlin Coroutines from here step by step and migrate to Coroutines.
+-Create Interfaces for the classes wherever required. (maybe)
 -Take advantage of Android KTX - Kotlin Extensions.
 -Write Unit-Test
 -and so on.
 */
 
 //future
+// User can add many more sets (Maybe cap it at some point.)
+//      -have reusable layouts, databind it, and make it work with the remote and local repos
 // if more lists are added, make base classes
 // set icons on the material inputs
 // for the cost in shopping list, have a converter so it displays the currency, and get the correct currency
