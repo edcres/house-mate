@@ -29,7 +29,7 @@ data class ChoresItem (
     @ColumnInfo(name = "added_by") // idk the format for the value, i just did camelCase
     val addedBy: String = "",
     @ColumnInfo(name = "completed")
-    val purchased: Boolean = false,
+    val completed: Boolean = false,
 
     // Not necessary and not used in shoppingItem
     @ColumnInfo(name = "difficulty") // 1 to 3

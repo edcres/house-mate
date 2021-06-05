@@ -45,10 +45,6 @@ class ListsViewModel(
         //fetchShoppingItems()  //maybe use this
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
     //todo: if Shopping list is chosen, hide only chores widgets, and show shopping widgets (helper function)
     //todo: if Chores list is chosen, hide only shopping widgets, and show chores widgets (helper function)
 
@@ -71,6 +67,4 @@ class ListsViewModel(
     fun setPriority(desiredPriority: String) { _priority.value = desiredPriority }
     // might have to check if there is a flavor set, if so use the cupcake app as refference
     fun setDifficulty(desiredDifficulty: String) { _difficulty.value = desiredDifficulty }
-
-    // HELPER FUNCTIONS //
 }

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -7,8 +6,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel" />
+            name="shoppingEntity"
+            type="com.aldreduser.housemate.data.model.ShoppingItem" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -34,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
+                doCheck="@{shoppingEntity}"
                 app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container_cardview"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +46,7 @@
                 android:layout_margin="8dp"
                 android:gravity="center_vertical"
                 android:textSize="24sp"
+                quantity="@{shoppingEntity}"
                 app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container_cardview"
                 app:layout_constraintStart_toEndOf="@id/shopping_it_is_done"
                 app:layout_constraintTop_toTopOf="parent"
@@ -58,10 +59,11 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="24sp"
+                name="@{shoppingEntity}"
+                tools:text="Name"
                 app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container_cardview"
                 app:layout_constraintStart_toEndOf="@+id/shopping_item_qty"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Name" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/shopping_expand_button"
@@ -96,12 +98,13 @@
                     android:id="@+id/shopping_expandable_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/shopping_when_needed_done_text"
                         style="@style/Widget.TipTime.TextView"
+                        date="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -112,6 +115,7 @@
                     <TextView
                         android:id="@+id/shopping_where_text"
                         style="@style/Widget.TipTime.TextView"
+                        purchaseLocation="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -121,11 +125,12 @@
                     <TextView
                         android:id="@+id/shopping_cost_text"
                         style="@style/Widget.TipTime.TextView"
+                        price="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:visibility="visible"
-                        tools:text="Price 4.30" />
+                        tools:text="price: $4.30" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -137,16 +142,18 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/shopping_who_is_getting_it_text"
+                            volunteer="@{shoppingEntity}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
-                            tools:text="Eddy"/>
+                            tools:text="Eddy" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/shopping_priority_text"
                         style="@style/Widget.TipTime.TextView"
+                        priority="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -156,6 +163,7 @@
                     <TextView
                         android:id="@+id/shopping_added_by_text"
                         style="@style/Widget.TipTime.TextView"
+                        addedBy="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
