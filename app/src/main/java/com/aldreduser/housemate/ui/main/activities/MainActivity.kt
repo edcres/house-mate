@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.view.ActionMode
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.ListsRepository
@@ -15,7 +16,7 @@ import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
-//todo: recyclerview
+// todo: recyclerview
 // Adapter:
 // -create it
 // -dataBinding
@@ -23,10 +24,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // todo: ViewPager2
 
+// todo: learn about databases multiple entities with relations
+
 // todo: AddListItemFragment should probably be an activity.
 
 // todo: tab onclick dataBinding bug:
-//  -solution: try to fix after making the viewpager, or don't use dataBinding and set the click listener through the kotlin file
+// -solution: try to fix after making the viewpager, or don't use dataBinding and set the click listener through the kotlin file
 
 // Contextual actionbar bug
 // its probably bc I have the entire set up function for it commented out
@@ -34,13 +37,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // recyclerview
 // todo: contexcual actionBar: long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
-//  more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
-//  -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
+// more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
+// -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
 // todo: 'more options' icon pops up a select box in each recycler item, each selected has the option to be deleted or duplicated.
-//  alternatively: use contextual action bar to long click items, these can be deleted or duplicated
+// alternatively: use contextual action bar to long click items, these can be deleted or duplicated
 
 // storage
-//todo: remote
+// todo: remote
 // use firebase to store remote data (local database will be used as a cache)
 // edit: api folder files, repository, viewmodel/viewmodelfactory
 // when getting data from remote storage, edit 'ApiServiceImpl' file
@@ -64,6 +67,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
 // todo: clean up unused imports
+// todo: take care of warnings
 
 /*
 Improve MVVM architecture by:
@@ -101,7 +105,7 @@ class MainActivity : AppCompatActivity() {
             viewModel = listsViewModel         // todo: bug here
             addItemListFab.setOnClickListener { fabOnClick() }
         }
-        //setUpAppBar()
+        setUpAppBar()
         setUpContextualAppBar()
     }
 
@@ -110,7 +114,7 @@ class MainActivity : AppCompatActivity() {
         binding = null
     }
 
-    // CLICK HANDLERS //
+    // CLICK LISTENERS //
     // handle fab click
     private fun fabOnClick() {
         // add workout
@@ -127,41 +131,41 @@ class MainActivity : AppCompatActivity() {
                 this, viewModelFactory).get(ListsViewModel::class.java)
     }
 
-//    private fun setUpAppBar() {
-//        val moreOptionsDrawable = R.drawable.ic_more_options_24dp
-//        binding.homeScreenTopAppbar.title = "House Mate"
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            binding.homeScreenTopAppbar.overflowIcon = ContextCompat.getDrawable(this, moreOptionsDrawable) // might have to do this in every activity.
-//        }
-//        binding.homeScreenTopAppbar.setNavigationOnClickListener {
-//            //todo: handle navigation icon press
-//            //the navigation icon is the icon to the left
-//            // command+f 'Navigation icon attributes' in material design website
-//        }
-//
-//        binding.homeScreenTopAppbar.setOnMenuItemClickListener { menuItem ->
-//            val shoppingListEdit = R.id.shopping_list_edit
-//            val shoppingListOptionDuplicate = R.id.shopping_list_option_duplicate
-//            val shoppingListOptionDelete = R.id.shopping_list_option_delete
-//
-//            when (menuItem.itemId) {
-//                shoppingListEdit -> {
-//                    //todo: handle edit icon press
-//                    //user presses this icon and edit icons pop up next to each recyclerView item
-//                    true
-//                } shoppingListOptionDuplicate -> {
-//                    //todo: add functionality
-//                    //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
-//                    true
-//                } shoppingListOptionDelete -> {
-//                //todo: add functionality
-//                //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
-//                true
-//            }
-//                else -> false
-//            }
-//        }
-//    }
+    private fun setUpAppBar() {
+        val moreOptionsDrawable = R.drawable.ic_more_options_24dp
+        binding?.homeScreenTopAppbar?.title = "House Mate"
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            binding?.homeScreenTopAppbar?.overflowIcon = ContextCompat.getDrawable(this, moreOptionsDrawable) // might have to do this in every activity.
+        }
+        binding?.homeScreenTopAppbar?.setNavigationOnClickListener {
+            //todo: handle navigation icon press
+            //the navigation icon is the icon to the left
+            // command+f 'Navigation icon attributes' in material design website
+        }
+
+        binding?.homeScreenTopAppbar?.setOnMenuItemClickListener { menuItem ->
+            val shoppingListEdit = R.id.shopping_list_edit
+            val shoppingListOptionDuplicate = R.id.shopping_list_option_duplicate
+            val shoppingListOptionDelete = R.id.shopping_list_option_delete
+
+            when (menuItem.itemId) {
+                shoppingListEdit -> {
+                    //todo: handle edit icon press
+                    //user presses this icon and edit icons pop up next to each recyclerView item
+                    true
+                } shoppingListOptionDuplicate -> {
+                    //todo: add functionality
+                    //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
+                    true
+                } shoppingListOptionDelete -> {
+                //todo: add functionality
+                //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
+                true
+            }
+                else -> false
+            }
+        }
+    }
 
     // Contextual Action Bar
     // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views

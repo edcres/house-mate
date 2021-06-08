@@ -21,11 +21,6 @@ class ShoppingListFragment : Fragment() {
 
     private var binding: FragmentShoppingListBinding? = null
     private lateinit var listsViewModel: ListsViewModel
-    private lateinit var recyclerviewAdapter: ShoppingRecyclerviewListAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,15 +41,13 @@ class ShoppingListFragment : Fragment() {
         }
 
         //in a fragment, these don't belong inside the onCreate() function
-        setupRecyclerView()
+        setUpRecyclerView()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
-    // CLICK HANDLERS //
 
     // SET UP FUNCTIONS //
     private fun setUpViewModel() {
@@ -66,25 +59,9 @@ class ShoppingListFragment : Fragment() {
             this, viewModelFactory).get(ListsViewModel::class.java)
     }
 
-    // RecyclerView
-    private fun setupRecyclerView() {
-        // populate recyclerview
-        binding?.shoppingListRecyclerview?.layoutManager = LinearLayoutManager(context)
-        recyclerviewAdapter = ShoppingRecyclerviewListAdapter(arrayListOf())
-
-        binding?.shoppingListRecyclerview?.addItemDecoration(
-            DividerItemDecoration(
-                binding?.shoppingListRecyclerview?.context,
-                (binding?.shoppingListRecyclerview?.layoutManager as LinearLayoutManager).orientation
-            )
-        )
-        binding?.shoppingListRecyclerview?.adapter = recyclerviewAdapter
-    }
-
-    // Populate Recyclerview
-    private fun renderList(shoppingItems: List<ShoppingItem>) {
-        recyclerviewAdapter.addData(shoppingItems)
-        recyclerviewAdapter.notifyDataSetChanged()
+    private fun setUpRecyclerView() {
+        val adapter = ShoppingRecyclerviewListAdapter()
+        binding?.shoppingListRecyclerview?.adapter = adapter
     }
 }
 

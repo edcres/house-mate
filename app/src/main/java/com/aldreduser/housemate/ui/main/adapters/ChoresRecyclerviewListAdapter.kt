@@ -8,7 +8,7 @@ import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
 
 // This is the list recyclerview adapter
-class ChoresRecyclerviewListAdapter(private val choreItems: ArrayList<ChoresItem>):
+class  ChoresRecyclerviewListAdapter(private val choreItems: ArrayList<ChoresItem>):
     RecyclerView.Adapter<ChoresRecyclerviewListAdapter.DataViewHolder>() {
 
     private val choresItemLayout = R.layout.chores_item_layout

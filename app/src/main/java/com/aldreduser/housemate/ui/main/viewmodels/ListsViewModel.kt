@@ -61,10 +61,12 @@ class ListsViewModel(
     }
     //other queries...
 
+    // CLICK HANDLERS //
+
     // SETTERS //
     fun setListToDisplay(listType: String) { _listChosen.value = listType }
     // might have to check if there is a flavor set, if so use the cupcake app as reference
     fun setPriority(desiredPriority: String) { _priority.value = desiredPriority }
-    // might have to check if there is a flavor set, if so use the cupcake app as refference
+    // might have to check if there is a flavor set, if so use the cupcake app as reference
     fun setDifficulty(desiredDifficulty: String) { _difficulty.value = desiredDifficulty }
 }
