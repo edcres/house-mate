@@ -45,7 +45,7 @@ class ChoresListFragment : Fragment() {
             viewModel = listsViewModel
         }
 
-        setupRecyclerView()
+        setUpRecyclerView()
     }
 
     override fun onDestroyView() {
@@ -65,26 +65,11 @@ class ChoresListFragment : Fragment() {
             this, viewModelFactory).get(ListsViewModel::class.java)
     }
 
-    // RecyclerView
-    private fun setupRecyclerView() {
-        // populate recyclerview
-        binding?.choresListRecyclerview?.layoutManager = LinearLayoutManager(context)
-        recyclerviewAdapter = ChoresRecyclerviewListAdapter(arrayListOf())
-
-        binding?.choresListRecyclerview?.addItemDecoration(
-            DividerItemDecoration(
-                binding?.choresListRecyclerview?.context,
-                (binding?.choresListRecyclerview?.layoutManager as LinearLayoutManager).orientation
-            )
-        )
-        binding?.choresListRecyclerview?.adapter = recyclerviewAdapter
+    private fun setUpRecyclerView() {
+        val adapter = ChoresRecyclerviewListAdapter()
+        binding?.choresListRecyclerview?.adapter = adapter
     }
 
     // HELPER FUNCTIONS //
 
-    // Populate Recyclerview
-    private fun renderList(choreItems: List<ChoresItem>) {
-        recyclerviewAdapter.addData(choreItems)
-        recyclerviewAdapter.notifyDataSetChanged()
-    }
 }

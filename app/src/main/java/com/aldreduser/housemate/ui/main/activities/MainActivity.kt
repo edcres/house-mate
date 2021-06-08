@@ -68,6 +68,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // todo: clean up unused imports
 // todo: take care of warnings
+// todo: clean up comments
 
 /*
 Improve MVVM architecture by:
