@@ -33,34 +33,36 @@
                 app:navigationIcon="@drawable/ic_navigation_24dp"
                 app:titleTextColor="@color/toolbarItemsLight" />
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/main_activity_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:tabIndicatorColor="@color/colorPrimaryDark"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/colorSecondaryDark"
+                app:tabTextColor="@color/colorPrimaryDark">
+
+                <!--            <com.google.android.material.tabs.TabItem-->
+                <!--                android:id="@+id/main_activity_tab_shopping_item"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="@string/label_shopping_list" />-->
+                <!--&lt;!&ndash;            android:onClick="@{() -> viewModel.setListToDisplay(@string/shopping)}"&ndash;&gt;-->
+
+
+                <!--            <com.google.android.material.tabs.TabItem-->
+                <!--                android:id="@+id/main_activity_tab_chores_item"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="@string/label_chores_list" />-->
+                <!--            android:onClick="@{() -> viewModel.setListToDisplay(@string/chores)}"-->
+
+            </com.google.android.material.tabs.TabLayout>
+
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/main_activity_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:tabIndicatorColor="@color/colorPrimaryDark"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/colorSecondaryDark"
-            app:tabTextColor="@color/colorPrimaryDark">
 
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:id="@+id/main_activity_tab_shopping_item"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/label_shopping_list" />-->
-<!--&lt;!&ndash;            android:onClick="@{() -> viewModel.setListToDisplay(@string/shopping)}"&ndash;&gt;-->
-
-
-<!--            <com.google.android.material.tabs.TabItem-->
-<!--                android:id="@+id/main_activity_tab_chores_item"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/label_chores_list" />-->
-<!--            android:onClick="@{() -> viewModel.setListToDisplay(@string/chores)}"-->
-
-        </com.google.android.material.tabs.TabLayout>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/main_activity_scroll_view"
