@@ -6,14 +6,21 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.view.ActionMode
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.ActivityMainBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
+import com.aldreduser.housemate.ui.main.fragments.ChoresListFragment
+import com.aldreduser.housemate.ui.main.fragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
 // todo: recyclerview
@@ -93,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
     private lateinit var listsViewModel: ListsViewModel
-    private lateinit var adapterRecyclerview: ShoppingRecyclerviewListAdapter       // for RecyclerView
+    private val tabTitles = arrayOf("Shopping List", "Chores")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +115,7 @@ class MainActivity : AppCompatActivity() {
         }
         setUpAppBar()
         setUpContextualAppBar()
+        setUpTabs()
     }
 
     override fun onDestroy() {
@@ -168,6 +176,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setUpTabs() {
+        binding?.listsViewPager?.adapter = ViewPagerFragmentAdapter(this)
+
+        // attaching tab mediator
+        // tab mediator will synchronize the ViewPager2's position with the selected tab when a tab is selected.
+        binding?.let { TabLayoutMediator(binding!!.mainActivityTabLayout, it.listsViewPager) {
+                tab: TabLayout.Tab, position: Int ->
+                tab.text = tabTitles[position]
+            }.attach()
+        }
+    }
+
     // Contextual Action Bar
     // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views
     private fun setUpContextualAppBar() {
@@ -204,4 +224,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     // HELPER FUNCTIONS //
+
+    // Adapter for the viewPager2 (Inner Class) //
+    private inner class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) :
+        FragmentStateAdapter(fragmentActivity) {
+
+        override fun createFragment(position: Int): Fragment {
+            when (position) {
+                0 -> return ShoppingListFragment()
+                1 -> return ChoresListFragment()
+            }
+            return ShoppingListFragment()
+        }
+
+        override fun getItemCount(): Int {
+            return tabTitles.size
+        }
+    }
 }

@@ -26,11 +26,12 @@ class ShoppingRecyclerviewListAdapter() :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(getItem(position)!!)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ShoppingItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: ShoppingItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ShoppingItem) {
             binding.shoppingEntity = item
@@ -43,17 +44,21 @@ class ShoppingRecyclerviewListAdapter() :
                 // else if view is visible change image make view invisible
                 val expandableContainer = binding.shoppingExpandableContainerCardview
                 val imageToContract: Drawable? = ContextCompat.getDrawable(
-                    binding.shoppingExpandButton.context, R.drawable.ic_expand_less_24)
+                    binding.shoppingExpandButton.context, R.drawable.ic_expand_less_24
+                )
                 val imageToExpand: Drawable? = ContextCompat.getDrawable(
-                    binding.shoppingExpandButton.context, R.drawable.ic_expand_more_24)
+                    binding.shoppingExpandButton.context, R.drawable.ic_expand_more_24
+                )
                 if (expandableContainer.visibility == View.INVISIBLE) {
                     expandableContainer.visibility = View.VISIBLE
                     binding.shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                        imageToContract, null, null, null)
+                        imageToContract, null, null, null
+                    )
                 } else if (expandableContainer.visibility == View.VISIBLE) {
                     expandableContainer.visibility = View.INVISIBLE
                     binding.shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                        imageToExpand, null, null, null)
+                        imageToExpand, null, null, null
+                    )
                 }
             }
 

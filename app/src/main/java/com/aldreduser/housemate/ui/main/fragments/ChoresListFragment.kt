@@ -69,7 +69,4 @@ class ChoresListFragment : Fragment() {
         val adapter = ChoresRecyclerviewListAdapter()
         binding?.choresListRecyclerview?.adapter = adapter
     }
-
-    // HELPER FUNCTIONS //
-
 }
