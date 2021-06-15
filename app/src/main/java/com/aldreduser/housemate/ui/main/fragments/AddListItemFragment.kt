@@ -21,10 +21,6 @@ class AddListItemFragment : Fragment() {
     private var binding: FragmentAddListItemBinding? = null
     private lateinit var listsViewModel: ListsViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,7 +48,6 @@ class AddListItemFragment : Fragment() {
     }
 
     // CLICK HANDLERS //
-
     private fun fabOnClick() {
         // todo: handle add item click
     }

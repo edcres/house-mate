@@ -23,31 +23,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
-// todo: recyclerview
-// Adapter:
-// -create it
-// -dataBinding
-// DataBinding in the recycler items might be wrong.
-
-// todo: ViewPager2
-
 // todo: learn about databases multiple entities with relations
-
-// todo: AddListItemFragment should probably be an activity.
-
-// todo: tab onclick dataBinding bug:
-// -solution: try to fix after making the viewpager, or don't use dataBinding and set the click listener through the kotlin file
-
-// Contextual actionbar bug
-// its probably bc I have the entire set up function for it commented out
-// todo: fix contextual actionbar bug. Its activates by default at the beginning of the app
-
-// recyclerview
-// todo: contexcual actionBar: long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
-// more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
-// -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
-// todo: 'more options' icon pops up a select box in each recycler item, each selected has the option to be deleted or duplicated.
-// alternatively: use contextual action bar to long click items, these can be deleted or duplicated
 
 // storage
 // todo: remote
@@ -68,10 +44,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 // in home activity, check if user has name registered (in shared preferences), if not ask for name
 // make feature so that user can change their name later on
 
+// todo: set up all the queries
+
+// recyclerview
+// todo: contexcual actionBar: long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
+// more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
+// -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
+// todo: 'more options' icon pops up a select box in each recycler item, each selected has the option to be deleted or duplicated.
+// alternatively: use contextual action bar to long click items, these can be deleted or duplicated
+
 // todo: navigation
 // (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
+
+// todo: either keep AddListItem as an activity or fragment.
 
 // todo: clean up unused imports
 // todo: take care of warnings
@@ -81,15 +68,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 Improve MVVM architecture by:
 -Implement Dependency Inject Framework - Dagger in the project.
 -Create base classes such as BaseActivity.
--Create Interfaces for the classes wherever required. (maybe)
--Take advantage of Android KTX - Kotlin Extensions.
+-Create Interfaces for the classes wherever optimal. (maybe)
 -Write Unit-Test
--and so on.
 */
 
 //future
-// User can add many more sets (Maybe cap it at some point.)
-//      -have reusable layouts, databind it, and make it work with the remote and local repos
 // if more lists are added, make base classes
 // set icons on the material inputs
 // for the cost in shopping list, have a converter so it displays the currency, and get the correct currency
@@ -114,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             addItemListFab.setOnClickListener { fabOnClick() }
         }
         setUpAppBar()
-        setUpContextualAppBar()
+        //setUpContextualAppBar() todo:
         setUpTabs()
     }
 
