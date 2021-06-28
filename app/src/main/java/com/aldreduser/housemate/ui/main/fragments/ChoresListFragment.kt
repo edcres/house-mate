@@ -23,10 +23,6 @@ class ChoresListFragment : Fragment() {
     private lateinit var listsViewModel: ListsViewModel
     private lateinit var recyclerviewAdapter: ChoresRecyclerviewListAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

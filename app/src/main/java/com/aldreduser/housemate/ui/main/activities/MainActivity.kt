@@ -23,12 +23,19 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
+// todo: edit viewModel and fragment views connected to it
+// - have 2 editList views, one for each list
+// - each viewModel variable will correspond to each view widget (make more variables)
+
 // todo: learn about databases multiple entities with relations
+
+//todo: delete 'AddListItemFragment .kt'
+//todo: delete 'fragment_add_list_item .xml'
 
 // storage
 // todo: remote
 // use firebase to store remote data (local database will be used as a cache)
-// edit: api folder files, repository, viewmodel/viewmodelfactory
+// edit: api folder files, repository, viewModel/viewModelFactory
 // when getting data from remote storage, edit 'ApiServiceImpl' file
 // todo: local + remote
 // https://developer.android.com/codelabs/kotlin-android-training-repository?index=..%2F..android-kotlin-fundamentals#7
