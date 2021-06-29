@@ -29,8 +29,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // todo: learn about databases multiple entities with relations
 
-//todo: delete 'AddListItemFragment .kt'
-//todo: delete 'fragment_add_list_item .xml'
+// had to take out ="@=
+// need to find a way to send the value to the repository
 
 // storage
 // todo: remote
@@ -44,6 +44,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 //  - if there's a conflict with the same item ask user if they want to overwrite it with his local database data
 // -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
 // -maybe update the changes to remote storage (from Room) when user has access to the network and the app is open.
+
+// 2 way databinding might be buggy in the views, check =@=
 
 // todo: user
 // In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)

@@ -22,6 +22,7 @@
     <string name="label_priority_2">Not Urgent</string>
     <string name="label_priority_3">Needed Eventually</string>
 
+<!--    probably get rid of these-->
     <string name="label_difficulty">Difficulty:</string>
     <string name="label_difficulty_1">Simple</string>
     <string name="label_difficulty_2">Medium Challenge</string>

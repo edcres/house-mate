@@ -5,23 +5,23 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
-import com.aldreduser.housemate.databinding.ActivityAddListItemBinding
+import com.aldreduser.housemate.databinding.ActivityAddShoppingItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 
-class AddListItemActivity : AppCompatActivity() {
+class AddShoppingItemActivity : AppCompatActivity() {
 
-    private var binding: ActivityAddListItemBinding? = null
+    private var binding: ActivityAddShoppingItemBinding? = null
     private lateinit var listsViewModel: ListsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddListItemBinding.inflate(layoutInflater)
+        binding = ActivityAddShoppingItemBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
         setUpViewModel()
         binding?.apply {
-            lifecycleOwner = this@AddListItemActivity
+            lifecycleOwner = this@AddShoppingItemActivity
             viewModel = listsViewModel
             fabAddItem.setOnClickListener { fabOnClick() }
         }

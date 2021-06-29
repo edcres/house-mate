@@ -17,24 +17,11 @@ class ListsViewModel(
     private val application: Application): ViewModel() {
 
     // DataBound Variables
-    private val _listChosen = MutableLiveData<String>()      // Shopping or Chores. Use this to determine which list 'AddListItemFragment' is manipulating
-    val listChosen: MutableLiveData<String> = _listChosen
-    // Both Shopping and Chores
-    private val _name = MutableLiveData<String>()
-    val name: MutableLiveData<String> = _name
-    private val _neededBy = MutableLiveData<String>()
-    val neededBy: MutableLiveData<String> = _neededBy
-    private val _priority = MutableLiveData<String>()
-    val priority: MutableLiveData<String> = _priority
-    // Only Shopping
-    private val _quantity = MutableLiveData<String>()   // convert to double in the code
-    val quantity: MutableLiveData<String> = _quantity
-    private val _purchaseLocation = MutableLiveData<String>()
-    val purchaseLocation: MutableLiveData<String> = _purchaseLocation
-    private val _cost = MutableLiveData<String>()   // convert to double in the code
-    val cost: MutableLiveData<String> = _cost
-    // Only Chores
-    private val _difficulty = MutableLiveData<String>()
+    private val _shoppingPriority = MutableLiveData<String>()//leave this on, connect it to the Entity, make it an int type (like in the Entity)
+    val shoppingPriority: MutableLiveData<String> = _shoppingPriority
+    private val _choresPriority = MutableLiveData<String>()//leave this on, connect it to the Entity, make it an int type (like in the Entity)
+    val choresPriority: MutableLiveData<String> = _choresPriority
+    private val _difficulty = MutableLiveData<String>()//leave this on, connect it to the Entity, make it an int type (like in the Entity)
     val difficulty: MutableLiveData<String> = _difficulty
 
     // Complete Lists
@@ -44,9 +31,6 @@ class ListsViewModel(
     init {
         //fetchShoppingItems()  //maybe use this
     }
-
-    //todo: if Shopping list is chosen, hide only chores widgets, and show shopping widgets (helper function)
-    //todo: if Chores list is chosen, hide only shopping widgets, and show chores widgets (helper function)
 
     // DATABASE QUERIES //
     //get items
@@ -64,9 +48,25 @@ class ListsViewModel(
     // CLICK HANDLERS //
 
     // SETTERS //
-    fun setListToDisplay(listType: String) { _listChosen.value = listType }
     // might have to check if there is a flavor set, if so use the cupcake app as reference
-    fun setPriority(desiredPriority: String) { _priority.value = desiredPriority }
+    fun setPriority(desiredPriority: String) { _shoppingPriority.value = desiredPriority }  //leave this on
     // might have to check if there is a flavor set, if so use the cupcake app as reference
-    fun setDifficulty(desiredDifficulty: String) { _difficulty.value = desiredDifficulty }
+    fun setDifficulty(desiredDifficulty: String) { _difficulty.value = desiredDifficulty }  //leave this on
 }
+
+
+
+// More DataBound variables, probably delete
+//    private val _quantity = MutableLiveData<String>()   // convert to double in the code
+//    val quantity: MutableLiveData<String> = _quantity
+//    private val _purchaseLocation = MutableLiveData<String>()
+//    val purchaseLocation: MutableLiveData<String> = _purchaseLocation
+//    private val _cost = MutableLiveData<String>()   // convert to double in the code
+//    val cost: MutableLiveData<String> = _cost
+//    private val _listChosen = MutableLiveData<String>()
+//    val listChosen: MutableLiveData<String> = _listChosen
+//    // Both Shopping and Chores
+//    private val _name = MutableLiveData<String>()
+//    val name: MutableLiveData<String> = _name
+//    private val _neededBy = MutableLiveData<String>()
+//    val neededBy: MutableLiveData<String> = _neededBy
