@@ -23,14 +23,12 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
-// todo: edit viewModel and fragment views connected to it
-// - have 2 editList views, one for each list
-// - each viewModel variable will correspond to each view widget (make more variables)
+// todo: learn about firebase and how to cache data
 
-// todo: learn about databases multiple entities with relations
-
+// todo: need to find a way to send the value to the repository
 // had to take out ="@=
-// need to find a way to send the value to the repository
+// there is a way to do 2-way databinging with binding adapters, but i rather not
+//  example: 'TwoWaySample' app -> 'interval-timer.xml' -> 'numberOfSets' property (has getter and setter)
 
 // storage
 // todo: remote
@@ -45,7 +43,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 // -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
 // -maybe update the changes to remote storage (from Room) when user has access to the network and the app is open.
 
-// 2 way databinding might be buggy in the views, check =@=
+// 2 way dataBinding might be buggy in the views, check =@=
 
 // todo: user
 // In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
