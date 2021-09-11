@@ -23,27 +23,27 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
+// todo: Create a new branch for firebase persistence and get rid of Room here
+// https://firebase.google.com/docs/firestore/data-model
+
 // todo: learn about firebase and how to cache data
 
-// todo: need to find a way to send the value to the repository
+// todo: need to find a way to send xml widget values to the repository
 // had to take out ="@=
 // there is a way to do 2-way databinging with binding adapters, but i rather not
 //  example: 'TwoWaySample' app -> 'interval-timer.xml' -> 'numberOfSets' property (has getter and setter)
 
 // storage
+// only have firebase with the firebase local cache. Get rid of room in this app
 // todo: remote
 // use firebase to store remote data (local database will be used as a cache)
 // edit: api folder files, repository, viewModel/viewModelFactory
 // when getting data from remote storage, edit 'ApiServiceImpl' file
 // todo: local + remote
-// https://developer.android.com/codelabs/kotlin-android-training-repository?index=..%2F..android-kotlin-fundamentals#7
 // Data in the remote database is a priority bc different users will be interacting with it.
 //  - compare local database to remote database for data differences, update local database with differences
 //  - if there's a conflict with the same item ask user if they want to overwrite it with his local database data
 // -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
-// -maybe update the changes to remote storage (from Room) when user has access to the network and the app is open.
-
-// 2 way dataBinding might be buggy in the views, check =@=
 
 // todo: user
 // In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
@@ -59,6 +59,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 // -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
 // todo: 'more options' icon pops up a select box in each recycler item, each selected has the option to be deleted or duplicated.
 // alternatively: use contextual action bar to long click items, these can be deleted or duplicated
+
+// todo: the viewModel might not be connected to the edit activities
+// maybe use the app context instead of the main activity context
+//  -to do this, extend 'AndroidViewModel()' instead of 'ViewModel()'
 
 // todo: navigation
 // (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
