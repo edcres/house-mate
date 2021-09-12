@@ -3,6 +3,7 @@ package com.aldreduser.housemate.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.firebase.firestore.IgnoreExtraProperties
 
 /*
 Chores properties:
@@ -18,7 +19,7 @@ Chores properties:
 -priority 1-3 (compared to others shopping items)
 */
 
-//@IgnoreExtraProperties
+@IgnoreExtraProperties
 data class ChoresItem (
     // Necessary
     val id: Long? = 0,
