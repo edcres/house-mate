@@ -23,6 +23,8 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
+// test branch difference
+
 // todo: make sure offline access to the fire-store database works
 
 // todo: Create a new branch for firebase persistence and get rid of Room here
