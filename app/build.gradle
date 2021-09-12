@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.android.extensions'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -93,4 +94,9 @@ dependencies {
 
     // ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    // Firestore
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }

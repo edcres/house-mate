@@ -18,6 +18,7 @@ Chores properties:
 -priority 1-3 (compared to others shopping items)
 */
 
+//@IgnoreExtraProperties
 data class ChoresItem (
     // Necessary
     val id: Long? = 0,

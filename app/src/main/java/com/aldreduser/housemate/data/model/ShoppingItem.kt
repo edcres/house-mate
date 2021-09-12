@@ -23,6 +23,7 @@ Shopping items properties:
 -priority 1-3 (compared to others shopping items)
 */
 
+//@IgnoreExtraProperties
 data class ShoppingItem (
     // Necessary
     val id: Long? = 0,
