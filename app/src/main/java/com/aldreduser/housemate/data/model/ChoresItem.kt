@@ -18,28 +18,18 @@ Chores properties:
 -priority 1-3 (compared to others shopping items)
 */
 
-@Entity(tableName = "chore_item_table")
 data class ChoresItem (
     // Necessary
-    @PrimaryKey(autoGenerate = true)    // 'autogenerate' increments by 1 from each list item added
-    @ColumnInfo(name = "id")
-    val id: Long = 0,
-    @ColumnInfo(name = "name")
-    val name: String = "",
-    @ColumnInfo(name = "added_by") // idk the format for the value, i just did camelCase
-    val addedBy: String = "",
-    @ColumnInfo(name = "completed")
-    val completed: Boolean = false,
+    val id: Long? = 0,
+    val name: String? = "",
+    val addedBy: String? = "",
+    val completed: Boolean? = false,
 
     // Not necessary and not used in shoppingItem
-    @ColumnInfo(name = "difficulty") // 1 to 3
-    val difficulty: Int = 1,
+    val difficulty: Int? = 1,
 
     // Not necessary and used in shoppingItem
-    @ColumnInfo(name = "needed_by")
-    val neededBy: String = "",  //date
-    @ColumnInfo(name = "volunteer")
-    val volunteer: String = "", //who's buying it
-    @ColumnInfo(name = "priority")
-    val priority: Int = 2
+    val neededBy: String? = "",  //date
+    val volunteer: String? = "", //who's buying it
+    val priority: Int? = 2
 )

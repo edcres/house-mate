@@ -2,11 +2,8 @@ package com.aldreduser.housemate.data
 
 import androidx.annotation.WorkerThread
 import com.aldreduser.housemate.data.model.ChoresItem
-import com.aldreduser.housemate.data.model.remote.api.ApiHelper
 import com.aldreduser.housemate.data.model.ShoppingItem
-import com.aldreduser.housemate.data.model.room.ChoresDao
 import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
-import com.aldreduser.housemate.data.model.room.ShoppingDao
 import kotlinx.coroutines.flow.Flow
 
 // A Repository manages queries and allows you to use multiple backends.
