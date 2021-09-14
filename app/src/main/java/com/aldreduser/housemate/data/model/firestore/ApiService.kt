@@ -7,6 +7,8 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+// If an item is added to the database by another user, it will only show up when the activity is created again
+
 //todo:
 // figure out how to not get a null pinter after a db query (maybe look up fireStore with MVVM)
 // Maybe make the query function suspend functions (with '.await()')
@@ -28,6 +30,8 @@ class ApiService {
     private val db = Firebase.firestore
     private lateinit var groupIDCollectionDB: CollectionReference
 
+    private var numOfShoppingItems = 0
+    private var numOfChoreItems = 0
     private val shoppingItemsList = mutableListOf<ShoppingItem>()
     private val choreItemsList = mutableListOf<ChoresItem>()
     private val shoppingItemsNames = mutableListOf<String>()
@@ -69,52 +73,85 @@ class ApiService {
 
     // SET UP FUNCTIONS //
     fun setUpRealtimeFetching() {
-        var numOfShoppingItems = 0
-        var numOfChoreItems = 0
-        //todo: fetch numOfShoppingItems
-        //todo: fetch numOfChoreItems
-        Log.d(TAG, "setUpRealtimeFetching: called")
-        // get items in shopping list
-        for (i in 0 until numOfShoppingItems) {
-            groupIDCollectionDB.document(SHOPPING_LIST_DOC)
-                .collection(SHOPPING_ITEMS_COLLECTION)
-                .document(shoppingItemsNames[i])
-                .addSnapshotListener { snapshot, e ->
-                    if (e != null) {
-                        Log.d(TAG, "setUpRealtimeFetching: DB Listen Fail in shopping.", e)
-                        return@addSnapshotListener
-                    }
-                    if (snapshot != null && snapshot.exists()) {
-                        // Get 3 item maps from db and set them to threeShoppingItems
-                        shoppingItemsList[i] = snapshot.data as HashMap<String, Any>
-                        Log.d(TAG, "setUpRealtimeFetching: " +
-                                "${shoppingItemsNames[i]} fetch successful.")
-                    } else {
-                        Log.d(TAG, "setUpRealtimeFetching: Data is null.")
-                    }
-                }
-        }
-        // get items in shopping list
-        for (i in 0 until numOfChoreItems) {
-            groupIDCollectionDB.document(CHORES_LIST_DOC)
-                .collection(CHORE_ITEMS_COLLECTION)
-                .document(choreItemsNames[i])
-                .addSnapshotListener { snapshot, e ->
-                    if (e != null) {
-                        Log.d(TAG, "setUpRealtimeFetching: DB Listen Fail in chores.", e)
-                        return@addSnapshotListener
-                    }
-                    if (snapshot != null && snapshot.exists()) {
-                        // get 3 item maps from db and set them to threeChoreItems
-                        choreItemsList[i] = snapshot.data as HashMap<String, Any>
-                        Log.d(TAG, "setUpRealtimeFetching: " +
-                                "${choreItemsNames[i]} fetch successful.")
-                    } else {
-                        Log.d(TAG, "setUpRealtimeFetching: Data is null.")
-                    }
+        // todo: use objects instead of hashmaps
 
+        Log.d(TAG, "setUpRealtimeFetching: called")
+        val shoppingItemCollectionDB = groupIDCollectionDB.document(SHOPPING_LIST_DOC)
+            .collection(SHOPPING_ITEMS_COLLECTION)
+        val choresItemCollectionDB = groupIDCollectionDB.document(CHORES_LIST_DOC)
+            .collection(CHORE_ITEMS_COLLECTION)
+
+        // fetch numOfShoppingItems
+        shoppingItemCollectionDB.get()
+            .addOnSuccessListener { shoppingResult ->
+                Log.d(TAG, "get3ItemsFromDB: shopping called")
+                for (document in shoppingResult) {
+                    // add all items to the list and exit the get call
+                    val thisItem = document.data as MutableMap<String, Any>
+                    shoppingItemsNames.add(thisItem[NAME_FIELD] as String)
+                    shoppingItemsList.add(thisItem)
+
+                    // set up shopping list realtime here
+                    for (i in 0 until numOfShoppingItems) {
+                        shoppingItemCollectionDB
+                            .document(shoppingItemsNames[i])
+                            .addSnapshotListener { snapshot, e ->
+                                if (e != null) {
+                                    Log.d(TAG, "setUpRealtimeFetching: DB Listen Fail in shopping.", e)
+                                    return@addSnapshotListener
+                                }
+                                if (snapshot != null && snapshot.exists()) {
+                                    // Get 3 item maps from db and set them to threeShoppingItems
+                                    shoppingItemsList[i] = snapshot.data as HashMap<String, Any>
+                                    Log.d(TAG, "setUpRealtimeFetching: " +
+                                            "${shoppingItemsNames[i]} fetch successful.")
+                                } else {
+                                    Log.d(TAG, "setUpRealtimeFetching: Data is null.")
+                                }
+                            }
+                    }
                 }
-        }
+            }
+            .addOnFailureListener { e ->
+                Log.d(TAG, "Error getting documents: shopping ", e)
+            }
+
+        // fetch numOfChoreItems
+        choresItemCollectionDB.get()
+            .addOnSuccessListener { choresResult ->
+                Log.d(TAG, "get3ItemsFromDB: chores called")
+                for (document in choresResult) {
+                    // add all items to the list and exit the get call
+                    val thisItem = document.data as MutableMap<String, Any>
+                    choreItemsNames.add(thisItem[NAME_FIELD] as String)
+                    choreItemsList.add(thisItem)
+
+                    // set up chores list realtime here
+                    for (i in 0 until numOfChoreItems) {
+                        choresItemCollectionDB
+                            .document(choreItemsNames[i])
+                            .addSnapshotListener { snapshot, e ->
+                                if (e != null) {
+                                    Log.d(TAG, "setUpRealtimeFetching: DB Listen Fail in chores.", e)
+                                    return@addSnapshotListener
+                                }
+                                if (snapshot != null && snapshot.exists()) {
+                                    // get 3 item maps from db and set them to threeChoreItems
+                                    choreItemsList[i] = snapshot.data as HashMap<String, Any>
+                                    Log.d(TAG, "setUpRealtimeFetching: " +
+                                            "${choreItemsNames[i]} fetch successful.")
+                                } else {
+                                    Log.d(TAG, "setUpRealtimeFetching: Data is null.")
+                                }
+
+                            }
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.d(TAG, "Error getting documents: chores ", e)
+            }
+
         //todo: remember to populate the UI after this
     }
     // SET UP FUNCTIONS //
