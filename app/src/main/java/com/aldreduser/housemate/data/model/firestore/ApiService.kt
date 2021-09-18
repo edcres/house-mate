@@ -1,10 +1,12 @@
 package com.aldreduser.housemate.data.model.firestore
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 
 // If an item is added to the database by another user, it will only show up when the activity is created again
@@ -12,8 +14,11 @@ import com.google.firebase.ktx.Firebase
 //todo:
 // figure out how to not get a null pinter after a db query (maybe look up fireStore with MVVM)
 // Maybe make the query function suspend functions (with '.await()')
+// -make/get client group id    (in the viewModel)
+// -make/get client id          (in the viewModel)
 
 // todo: set the 'clientGroupIDCollection' and 'clientIDCollection' here from the viewModel
+// todo: set up an observer/observers in the view
 
 /* pass below info to this class from viewModel
 private val mainSharedPrefTag = "TestHousemateActySP"
@@ -28,7 +33,11 @@ private val clientIdSPTag = "Client ID"
 class ApiService {
 
     private val db = Firebase.firestore
-    private lateinit var groupIDCollectionDB: CollectionReference
+    private var groupIDCollectionDB: CollectionReference = db.collection(GENERAL_COLLECTION).document(GROUP_IDS_DOC)
+        .collection(clientGroupIDCollection!!)
+
+    private var _shoppingItems = MutableLiveData<MutableList<ShoppingItem>>()
+    private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
 
     private var numOfShoppingItems = 0
     private var numOfChoreItems = 0
@@ -64,13 +73,6 @@ class ApiService {
         const val DIFFICULTY_FIELD = "difficulty"
     }
 
-    init {
-        // todo: possible bug: idk if 'clientGroupIDCollection' and 'clientIDCollection'
-        //  will always have a value in this class
-        groupIDCollectionDB = db.collection(GENERAL_COLLECTION).document(GROUP_IDS_DOC)
-            .collection(clientGroupIDCollection!!)
-    }
-
     // SET UP FUNCTIONS //
     fun setUpRealtimeFetching() {
         // todo: use objects instead of hashmaps
@@ -81,7 +83,41 @@ class ApiService {
         val choresItemCollectionDB = groupIDCollectionDB.document(CHORES_LIST_DOC)
             .collection(CHORE_ITEMS_COLLECTION)
 
-        // fetch numOfShoppingItems
+
+
+
+
+        // try .addSnapshotListener from the collection
+        shoppingItemCollectionDB.addSnapshotListener { snapshot, e ->
+
+            if (e != null) {
+                // if there is an exception, skip
+                Log.d(TAG, "setUpRealtimeFetching: DB Query Fail in Shopping.", e)
+                return@addSnapshotListener
+            }
+            if (snapshot != null) {
+                // turn each shopping item into an object
+                val allShoppingItems =
+                    snapshot.toObjects(ShoppingItem::class.java) as MutableList<ShoppingItem>
+                _shoppingItems.value = allShoppingItems
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // fetch numOfShoppingItems (replace it with the code above)
         shoppingItemCollectionDB.get()
             .addOnSuccessListener { shoppingResult ->
                 Log.d(TAG, "get3ItemsFromDB: shopping called")
@@ -90,6 +126,7 @@ class ApiService {
                     val thisItem = document.data as MutableMap<String, Any>
                     shoppingItemsNames.add(thisItem[NAME_FIELD] as String)
                     shoppingItemsList.add(thisItem)
+
 
                     // set up shopping list realtime here
                     for (i in 0 until numOfShoppingItems) {
@@ -110,6 +147,8 @@ class ApiService {
                                 }
                             }
                     }
+
+
                 }
             }
             .addOnFailureListener { e ->
@@ -186,4 +225,13 @@ class ApiService {
 
     }
     // DATABASE WRITES //
+
+    // INTERNAL VARIABLES (public versions of variables) //
+    internal var shoppingItems:MutableLiveData<MutableList<ShoppingItem>>
+     get() { return _shoppingItems }
+     set(value) {_shoppingItems = value}
+
+    internal var choreItems:MutableLiveData<MutableList<ChoresItem>>
+     get() { return _choreItems }
+     set(value) {_choreItems = value}
 }
