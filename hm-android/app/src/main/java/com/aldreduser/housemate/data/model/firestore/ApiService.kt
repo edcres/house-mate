@@ -33,8 +33,8 @@ private val clientIdSPTag = "Client ID"
 class ApiService {
 
     private val db = Firebase.firestore
-    private var groupIDCollectionDB: CollectionReference = db.collection(GENERAL_COLLECTION).document(GROUP_IDS_DOC)
-        .collection(clientGroupIDCollection!!)
+    private var groupIDCollectionDB: CollectionReference = db.collection(GENERAL_COLLECTION)
+        .document(GROUP_IDS_DOC).collection(clientGroupIDCollection!!)
 
     private var _shoppingItems = MutableLiveData<MutableList<ShoppingItem>>()
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()

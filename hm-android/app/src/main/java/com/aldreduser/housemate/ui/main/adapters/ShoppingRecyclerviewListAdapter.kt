@@ -17,18 +17,18 @@ ArrayList<ShoppingItem>     was taken out as a parameter, maybe bc of livedata
  */
 
 // No need for 'getItemCount()', dataBinding takes care of it.
-// Listen for clicks in the ViewHolder, handle clicks in hte ViewModel
+// Listen for clicks in the ViewHolder, handle clicks in the ViewModel
 
 // This is the list recyclerview adapter
 class ShoppingRecyclerviewListAdapter() :
     ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ViewHolder>(ShoppingItemDiffCallback()) {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position)!!)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(getItem(position)!!)
 
     class ViewHolder private constructor(val binding: ShoppingItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {

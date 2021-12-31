@@ -26,7 +26,8 @@ class ShoppingListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val fragmentBinding = FragmentShoppingListBinding.inflate(inflater, container, false)
+        val fragmentBinding = FragmentShoppingListBinding
+            .inflate(inflater, container, false)
         binding = fragmentBinding
         setUpViewModel()
         return fragmentBinding.root
