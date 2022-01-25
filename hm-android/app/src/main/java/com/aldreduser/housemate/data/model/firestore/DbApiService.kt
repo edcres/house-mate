@@ -1,16 +1,20 @@
 package com.aldreduser.housemate.data.model.firestore
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.ChoresItem
+import com.aldreduser.housemate.util.add1AndScrambleLetters
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.tasks.await
 
 class DbApiService {
 
@@ -193,12 +197,12 @@ class DbApiService {
     // DATABASE READS //
     suspend fun getLastGroupAdded(): String? {
         return try {
-            val newIDList = db.collection(HOUSEMATE_COLLECTION).get().await().documents.mapNotNull {
+            val newIDList = db.collection(GENERAL_COLLECTION).get().await().documents.mapNotNull {
                 val oldID = it.data!![LAST_GROUP_ADDED_FIELD] as String
                 val newID = add1AndScrambleLetters(oldID)
 
                 Log.i(TAG, "getLastGroupAdded: new group id created")
-                db.collection(HOUSEMATE_COLLECTION).document(GROUP_IDS_DOC)
+                db.collection(GENERAL_COLLECTION).document(GROUP_IDS_DOC)
                     .update(LAST_GROUP_ADDED_FIELD, newID)
                     .addOnSuccessListener {
                         Log.i(TAG, "getLastGroupAdded: LAST_GROUP_ADDED_FIELD updated")
