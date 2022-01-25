@@ -12,42 +12,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 
-// If an item is added to the database by another user, it will only show up when the activity is created again
-
-//todo:
-// figure out how to not get a null pinter after a db query (maybe look up fireStore with MVVM)
-// Maybe make the query function suspend functions (with '.await()')
-// -make/get client group id    (in the viewModel)
-// -make/get client id          (in the viewModel)
-
-// todo: set the 'clientGroupIDCollection' and 'clientIDCollection' here from the viewModel
-// todo: set up an observer/observers in the view
-
-/* pass below info to this class from viewModel
-private val mainSharedPrefTag = "TestHousemateActySP"
-private val groupIdSPTag = "Group ID"
-private val clientIdSPTag = "Client ID"
- */
-
-// have this function in the viewModel
-// generateClientGroupID() {}
-// generateClientID() {}
-
 class DbApiService {
-
-//    private val db = Firebase.firestore
-//    private var groupIDCollectionDB: CollectionReference = db.collection(GENERAL_COLLECTION)
-//        .document(GROUP_IDS_DOC).collection(clientGroupIDCollection!!)
-//
-//    private var _shoppingItems = MutableLiveData<MutableList<ShoppingItem>>()
-//    private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
-//
-//    private var numOfShoppingItems = 0
-//    private var numOfChoreItems = 0
-//    private val shoppingItemsList = mutableListOf<ShoppingItem>()
-//    private val choreItemsList = mutableListOf<ChoresItem>()
-//    private val shoppingItemsNames = mutableListOf<String>()
-//    private val choreItemsNames = mutableListOf<String>()
 
     private val db = Firebase.firestore
     private var groupIDsDocumentDB: DocumentReference = db.collection(GENERAL_COLLECTION)
