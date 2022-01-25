@@ -3,59 +3,76 @@ package com.aldreduser.housemate.data
 import androidx.annotation.WorkerThread
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
+import com.aldreduser.housemate.data.model.firestore.DbApiService
 import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import kotlinx.coroutines.flow.Flow
 
-// A Repository manages queries and allows you to use multiple backends.
-//  -In the most common example, the Repository implements the logic for deciding
-//    whether to fetch data from a network or use results cached in a local database.
-// Only the DAOs are exposed to the repository, not the entire database
-class ListsRepository(private val database: ListsRoomDatabase) {
+class ListsRepository() {
 
-    // todo: Access the DAOs through the database
+    private val dbApiService = DbApiService()
 
-    // LOCAL //
-    //Shopping Items
-    // get list of items
-    val allShoppingItems: Flow<List<ShoppingItem>> = database.shoppingDao().getIDsInOrder()
-    // insert
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun insertShoppingItem(shoppingItem: ShoppingItem) {
-        database.shoppingDao().insert(shoppingItem)
+    fun setUpShoppingRealtimeFetching(groupID: String): Flow<List<ShoppingItem>> {
+        return housemateAPIService.getShoppingItemsRealtime(groupID)
     }
-    // update
-    // delete
-    // delete all
 
-    //Chores Items
-    // getIDsInOrder
-    val allChoreItems: Flow<List<ChoresItem>> = database.choresDao().getIDsInOrder()
-    // insert
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun insertChoresItem(choresItem: ChoresItem) {
-        database.choresDao().insert(choresItem)
+    fun setUpChoresRealtimeFetching(groupID: String): Flow<List<ChoresItem>> {
+        return housemateAPIService.getChoreItemsRealtime(groupID)
     }
-    // update
+
+    // add item
+    fun addShoppingItemToDb(
+        groupID: String,
+        itemName: String,
+        itemQuantity: Double,
+        itemCost: Double,
+        purchaseLocation: String,
+        itemNeededBy: String,   // try and make this a date
+        itemPriority: Int,
+        addedBy: String
+    ) {
+        housemateAPIService.addShoppingItemToDatabase(
+            groupID, itemName, itemQuantity, itemCost,
+            purchaseLocation, itemNeededBy, itemPriority, addedBy
+        )
+    }
+    fun addChoresItemToDb(
+        groupID: String,
+        itemName: String,
+        itemDifficulty: Int,
+        itemNeededBy: String,   // try and make this a date
+        itemPriority: Int,
+        addedBy: String
+    ) {
+        housemateAPIService.addChoresItemToDatabase(
+            groupID, itemName, itemDifficulty, itemNeededBy, itemPriority, addedBy
+        )
+    }
+
+    // get the last group added String
+    suspend fun getLastGroupAdded(): String? {
+        return housemateAPIService.getLastGroupAdded()
+    }
+
+    // get the latest clientID from the db
+    suspend fun getLastClientAdded(groupID: String): String? {
+        return housemateAPIService.getLastClientAdded(groupID)
+    }
+
+    // send volunteer name to db
+    fun sendShoppingVolunteerToDb(groupID: String, itemName: String, volunteerName: String) {
+        housemateAPIService.sendVolunteerToDb(groupID, ShoppingItem::class, itemName, volunteerName)
+    }
+
+    fun sendChoresVolunteerToDb(groupID: String, itemName: String, volunteerName: String) {
+        housemateAPIService.sendVolunteerToDb(groupID, ChoresItem::class, itemName, volunteerName)
+    }
+
     // delete item
-    // delete all
+    fun deleteShoppingListItem(groupID: String, itemName: String) {
+        housemateAPIService.deleteListItem(groupID, ShoppingItem::class, itemName)
+    }
 
-    // REMOTE //
-    // todo: make remote database work with local database
-
-    // Singleton for repository
-    companion object {
-
-        private var instance: ListsRepository? = null
-
-        // Helper function to get the repository.
-        fun getInstance(database: ListsRoomDatabase): ListsRepository {
-            return instance ?: synchronized(this) {
-                instance ?: ListsRepository(database).also {
-                    instance = it
-                }
-            }
-        }
+    fun deleteChoresListItem(groupID: String, itemName: String) {
+        housemateAPIService.deleteListItem(groupID, ChoresItem::class, itemName)
     }
 }
