@@ -17,51 +17,21 @@ import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.fragments.ChoresListFragment
 import com.aldreduser.housemate.ui.main.fragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
-// test branch difference
-
-// todo: make sure offline access to the fire-store database works
-
-// todo: Create a new branch for firebase persistence and get rid of Room here
-// https://firebase.google.com/docs/firestore/data-model
-
-// todo: learn about firebase and how to cache data
-
-// todo: need to find a way to send xml widget values to the repository
-// had to take out ="@=
-// there is a way to do 2-way databinging with binding adapters, but i rather not
-//  example: 'TwoWaySample' app -> 'interval-timer.xml' -> 'numberOfSets' property (has getter and setter)
-
 // storage
-// only have firebase with the firebase local cache. Get rid of room in this app
-// todo: remote
-// use firebase to store remote data (local database will be used as a cache)
-// edit: api folder files, repository, viewModel/viewModelFactory
-// when getting data from remote storage, edit 'ApiServiceImpl' file
-// todo: local + remote
-// Data in the remote database is a priority bc different users will be interacting with it.
-//  - compare local database to remote database for data differences, update local database with differences
-//  - if there's a conflict with the same item ask user if they want to overwrite it with his local database data
+// todo: local
+// make sure offline access to the fire-store database works
+// compare local database to remote database for data differences, update local database with differences
+//  - if there's a conflict with the same item maybe ask user if they want to overwrite it with his local database data
 // -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
 
 // todo: user
-// In the home activity, have the user put in his name so it is displayed in 'added by:' (saved in shared preferences)
-// user can choose anonymous
-// in home activity, check if user has name registered (in shared preferences), if not ask for name
 // make feature so that user can change their name later on
 
-// todo: set up all the queries
-
-// recyclerview
-// todo: contexcual actionBar: long click on recycler items to engage 'contextual actionbar' https://developer.android.com/guide/topics/ui/menus
-// more options 3dots at top right of toolbar to select multiple items to delete (maybe also duplicate)
-// -this is a contextual action bar, so recycler items can be selected and choose to be deleted through the actionbar
-// todo: 'more options' icon pops up a select box in each recycler item, each selected has the option to be deleted or duplicated.
-// alternatively: use contextual action bar to long click items, these can be deleted or duplicated
+// todo: do the date picker thing
 
 // todo: the viewModel might not be connected to the edit activities
 // maybe use the app context instead of the main activity context
@@ -71,8 +41,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 // (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
-
-// todo: either keep AddListItem as an activity or fragment.
 
 // todo: clean up unused imports
 // todo: take care of warnings
@@ -87,10 +55,11 @@ Improve MVVM architecture by:
 */
 
 //future
-// if more lists are added, make base classes
-// set icons on the material inputs
-// for the cost in shopping list, have a converter so it displays the currency, and get the correct currency
-// make when neededDoneBy into a date picker
+// If more lists are added, make base classes
+// Set icons on the material inputs
+// For the cost in shopping list, have a converter so it displays the currency,
+//  and get the correct currency.
+// Make when neededDoneBy into a date picker
 
 // Home Screen
 class MainActivity : AppCompatActivity() {
@@ -111,7 +80,6 @@ class MainActivity : AppCompatActivity() {
             addItemListFab.setOnClickListener { fabOnClick() }
         }
         setUpAppBar()
-        //setUpContextualAppBar() todo:
         setUpTabs()
     }
 

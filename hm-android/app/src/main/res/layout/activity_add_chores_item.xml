@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel" />
@@ -75,8 +76,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@string/label_difficulty"
-                    android:layout_marginLeft="8dp" />
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/label_difficulty" />
 
                 <RadioGroup
                     android:id="@+id/choose_difficulty_button"
@@ -90,10 +91,10 @@
                         android:id="@+id/difficulty_button_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
                         android:text="@string/label_difficulty_1" />
 
                     <RadioButton
@@ -109,19 +110,20 @@
                         android:id="@+id/difficulty_button_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="8dp"
                         android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
                         android:text="@string/label_difficulty_3" />
 
                 </RadioGroup>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/when_needed"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="@string/hint_when_needed"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    android:hint="@string/hint_when_needed">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/when_needed_input"
                         android:layout_width="match_parent"
@@ -130,12 +132,12 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    style="@style/Widget.TipTime.TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.TipTime.TextView"
-                    android:text="@string/label_priority"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp" />
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/label_priority" />
 
                 <RadioGroup
                     android:id="@+id/choose_priority_button"
@@ -159,7 +161,7 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:text="@string/label_priority_2"
-                        tools:checked="true"/>
+                        tools:checked="true" />
 
                     <RadioButton
                         android:id="@+id/priority_button_3"
@@ -182,8 +184,8 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:gravity="center"
-            app:backgroundTint="@color/colorAccent"
             android:text="@string/add_item_button"
+            app:backgroundTint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

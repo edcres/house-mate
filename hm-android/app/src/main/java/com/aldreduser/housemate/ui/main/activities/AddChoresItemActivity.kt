@@ -2,16 +2,15 @@ package com.aldreduser.housemate.ui.main.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import com.aldreduser.housemate.R
-import com.aldreduser.housemate.data.ListsRepository
-import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.ActivityAddChoresItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
+import com.aldreduser.housemate.util.necessaryAreFilled
 
 class AddChoresItemActivity : AppCompatActivity() {
 
+    private val tag = "AddChoreItemTAG"
     private var binding: ActivityAddChoresItemBinding? = null
     private lateinit var listsViewModel: ListsViewModel
 
@@ -20,44 +19,59 @@ class AddChoresItemActivity : AppCompatActivity() {
         binding = ActivityAddChoresItemBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        setUpViewModel()
-        binding?.apply {
+        listsViewModel = ViewModelProvider(this)[ListsViewModel::class.java]
+        binding!!.apply {
             lifecycleOwner = this@AddChoresItemActivity
             viewModel = listsViewModel
-            fabAddItem.setOnClickListener { fabOnClick() }
+            fabAddItem.setOnClickListener {
+                val necessaryAreFilled = necessaryAreFilled(
+                    itemNameInput.toString(),
+                    "placeholder"
+                )
+                if (necessaryAreFilled) {
+                    addItem()
+                }
+            }
         }
         setupAppBar()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         binding = null
+        Log.i(tag, "onDestroy: AddChoreItemActivity")
+        super.onDestroy()
     }
 
     // CLICK HANDLERS //
-    private fun fabOnClick() {
-        // todo: handle add item click
-    }
-
-    // SET UP FUNCTIONS //
-    private fun setUpViewModel() {
-        val application = requireNotNull(this).application
-        val database = ListsRoomDatabase.getInstance(application)
-        val repository = ListsRepository.getInstance(database)
-        val viewModelFactory = ListsViewModelFactory(repository, application)
-        listsViewModel = ViewModelProvider(
-            this, viewModelFactory).get(ListsViewModel::class.java)
-    }
-
-    private fun setupAppBar() {
-        //title
-        binding?.addItemTopAppbar?.title = "Add Chore Item"
-
-        //handle navigation
-        binding?.addItemTopAppbar?.setNavigationOnClickListener {
-            // todo: handle navigation click
+    private fun addItem() {
+        binding!!.apply {
+            val difficulty = when (chooseDifficultyButton.checkedRadioButtonId) {
+                difficultyButton1.id -> 1
+                difficultyButton3.id -> 3
+                else -> 2
+            }
+            val priority = when (choosePriorityButton.checkedRadioButtonId) {
+                priorityButton1.id -> 1
+                priorityButton3.id -> 3
+                else -> 2
+            }
+            listsViewModel.sendChoresItemToDatabase(
+                itemNameInput.text.toString(),
+                difficulty,
+                whenNeededInput.text.toString(),
+                priority
+            )
         }
     }
 
-    // HELPER FUNCTIONS //
+    // SET UP FUNCTIONS //
+    private fun setupAppBar() {
+        //title
+        binding!!.apply {
+            addItemTopAppbar?.title = "Add Chore Item"
+            addItemTopAppbar?.setNavigationOnClickListener {
+                // todo: handle navigation click
+            }
+        }
+    }
 }

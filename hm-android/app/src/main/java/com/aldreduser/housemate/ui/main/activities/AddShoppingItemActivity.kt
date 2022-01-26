@@ -2,14 +2,15 @@ package com.aldreduser.housemate.ui.main.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.databinding.ActivityAddShoppingItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import kotlinx.android.synthetic.main.activity_add_shopping_item.*
+import com.aldreduser.housemate.util.necessaryAreFilled
 
 class AddShoppingItemActivity : AppCompatActivity() {
 
-    private val TAG = "AddShopItemTAG"
+    private val tag = "AddShopItemTAG"
     private var binding: ActivityAddShoppingItemBinding? = null
     private lateinit var listsViewModel: ListsViewModel
 
@@ -23,8 +24,13 @@ class AddShoppingItemActivity : AppCompatActivity() {
             lifecycleOwner = this@AddShoppingItemActivity
             viewModel = listsViewModel
             fabAddItem.setOnClickListener {
-                // todo: check if all necessary data is filled
-                addItem()
+                val necessaryAreFilled = necessaryAreFilled(
+                    itemNameInput.text.toString(),
+                    itemQuantityInput.text.toString()
+                )
+                if (necessaryAreFilled) {
+                    addItem()
+                }
             }
         }
         setupAppBar()
@@ -32,12 +38,19 @@ class AddShoppingItemActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         binding = null
+        Log.i(tag, "onDestroy: AddShoppingItemActivity")
         super.onDestroy()
     }
 
     // CLICK HANDLERS //
     private fun addItem() {
         binding!!.apply {
+            val qty: Double = if (itemQuantityInput.text.toString().isEmpty()) 0.0 else {
+                itemQuantityInput.text.toString().toDouble()
+            }
+            val cost: Double = if (costInput.text.toString().isEmpty()) 0.0 else {
+                costInput.text.toString().toDouble()
+            }
             val priority = when (choosePriorityButton.checkedRadioButtonId) {
                 priorityButton1.id -> 1
                 priorityButton3.id -> 3
@@ -45,8 +58,8 @@ class AddShoppingItemActivity : AppCompatActivity() {
             }
             listsViewModel.sendShoppingItemToDatabase(
                 itemNameInput.text.toString(),
-                item_quantity_input.text.toString().toDouble(),
-                costInput.text.toString().toDouble(),
+                qty,
+                cost,
                 whereToGetInput.text.toString(),
                 whenNeededInput.text.toString(),
                 priority
@@ -64,6 +77,4 @@ class AddShoppingItemActivity : AppCompatActivity() {
             }
         }
     }
-
-    // HELPER FUNCTIONS //
 }

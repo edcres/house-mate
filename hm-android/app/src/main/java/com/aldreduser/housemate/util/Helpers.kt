@@ -36,6 +36,10 @@ fun displayAddedBy(addedBy: String): String {
     return "by $addedBy"
 }
 
+fun necessaryAreFilled(name: String, qty: String): Boolean {
+    return name.isNotEmpty() && qty.isNotEmpty()
+}
+
 fun add1AndScrambleLetters(oldID: String): String {
     val lettersToScramble = "asdfg"
     val newID: String
