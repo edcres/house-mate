@@ -65,27 +65,3 @@ class ShoppingListFragment : Fragment() {
         binding?.shoppingListRecyclerview?.adapter = adapter
     }
 }
-
-
-// in case i need this later
-//// Observer
-//private fun setupObserver() {
-//    listsViewModel.getChoreItems().observe(this, Observer {
-//        when(it.status) {
-//            Status.SUCCESS -> {
-//                // when status is Success: hide bar
-//                it.data?.let { choreItems -> renderList(choreItems) }
-//                choresListRecyclerView.visibility = View.VISIBLE
-//            }
-//            Status.LOADING -> {
-//                // when status is Loading: show progress bar
-//                choresListRecyclerView.visibility = View.GONE
-//            }
-//            Status.ERROR -> {
-//                // handle error (idk if the error is already handled or not)
-//                // when status is error: hide progress bar
-//                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    })
-//}

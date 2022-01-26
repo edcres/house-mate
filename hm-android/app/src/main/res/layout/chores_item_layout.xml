@@ -34,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                doCheck="@{choresEntity}"
                 app:layout_constraintBottom_toTopOf="@id/chores_expandable_container_cardview"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +45,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="24sp"
-                name="@{choresEntity}"
                 tools:text="Name"
                 app:layout_constraintBottom_toTopOf="@id/chores_expandable_container_cardview"
                 app:layout_constraintStart_toEndOf="@+id/chores_it_is_done"
@@ -97,7 +95,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:visibility="visible"
-                        date="@{choresEntity}"
                         tools:text="by 6/4/21" />
                     <!--                    gone-->
 
@@ -108,7 +105,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:visibility="visible"
-                        difficulty="@{choresEntity}"
                         tools:text="@string/label_difficulty_1" />
 
 
@@ -125,7 +121,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
-                            volunteer="@{choresEntity}"
                             tools:text="Eddy" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -138,7 +133,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:visibility="visible"
-                        priority="@{choresEntity}"
                         tools:text="@string/label_priority_2" />
 
                     <TextView
@@ -148,7 +142,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:visibility="visible"
-                        addedBy="@{choresEntity}"
                         tools:text="by Ashley" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

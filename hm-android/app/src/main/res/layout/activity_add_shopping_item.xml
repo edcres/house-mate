@@ -8,9 +8,6 @@
         <variable
             name="viewModel"
             type="com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel" />
-        <variable
-            name="shoppingEntity"
-            type="com.aldreduser.housemate.data.model.ShoppingItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -75,7 +72,6 @@
                             android:id="@+id/item_quantity_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            quantity="@{shoppingEntity}"
                             android:inputType="number|numberDecimal" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +94,6 @@
                             android:id="@+id/item_name_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            name="@{shoppingEntity}"
                             android:inputType="textShortMessage" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,7 +110,6 @@
                         android:id="@+id/when_needed_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        date="@{shoppingEntity}"
                         android:inputType="datetime" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +124,6 @@
                         android:id="@+id/where_to_get_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        purchaseLocation="@{shoppingEntity}"
                         android:inputType="textShortMessage" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -145,7 +138,6 @@
                         android:id="@+id/cost_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        price="@{shoppingEntity}"
                         android:inputType="number|numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,10 +162,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:checked="@{shoppingEntity.priority == 1}"
-                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_1)}"
                         android:text="@string/label_priority_1" />
-<!--                    android:checked="@{viewModel.shoppingPriority.equals(@string/label_priority_1)}"-->
 
                     <RadioButton
                         android:id="@+id/priority_button_2"
@@ -181,8 +170,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:checked="@{shoppingEntity.priority == 2}"
-                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_2)}"
                         android:text="@string/label_priority_2"
                         tools:checked="true"/>
 
@@ -192,8 +179,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:checked="@{shoppingEntity.priority == 3}"
-                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_3)}"
                         android:text="@string/label_priority_3" />
 
                 </RadioGroup>

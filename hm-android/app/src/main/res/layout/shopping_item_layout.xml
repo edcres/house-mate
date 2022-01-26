@@ -45,7 +45,6 @@
                 android:layout_margin="8dp"
                 android:gravity="center_vertical"
                 android:textSize="24sp"
-                quantity="@{shoppingEntity}"
                 app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container_cardview"
                 app:layout_constraintStart_toEndOf="@id/shopping_it_is_done"
                 app:layout_constraintTop_toTopOf="parent"
@@ -58,7 +57,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="24sp"
-                name="@{shoppingEntity}"
                 tools:text="Name"
                 app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container_cardview"
                 app:layout_constraintStart_toEndOf="@+id/shopping_item_qty"
@@ -103,7 +101,6 @@
                     <TextView
                         android:id="@+id/shopping_when_needed_done_text"
                         style="@style/Widget.TipTime.TextView"
-                        date="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -114,7 +111,6 @@
                     <TextView
                         android:id="@+id/shopping_where_text"
                         style="@style/Widget.TipTime.TextView"
-                        purchaseLocation="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -124,7 +120,6 @@
                     <TextView
                         android:id="@+id/shopping_cost_text"
                         style="@style/Widget.TipTime.TextView"
-                        price="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -141,7 +136,6 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/shopping_who_is_getting_it_text"
-                            volunteer="@{shoppingEntity}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
@@ -152,7 +146,6 @@
                     <TextView
                         android:id="@+id/shopping_priority_text"
                         style="@style/Widget.TipTime.TextView"
-                        priority="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
@@ -162,7 +155,6 @@
                     <TextView
                         android:id="@+id/shopping_added_by_text"
                         style="@style/Widget.TipTime.TextView"
-                        addedBy="@{shoppingEntity}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"

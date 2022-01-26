@@ -8,9 +8,6 @@
         <variable
             name="viewModel"
             type="com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel" />
-        <variable
-            name="choresEntity"
-            type="com.aldreduser.housemate.data.model.ChoresItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,7 +67,6 @@
                         android:id="@+id/item_name_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        name="@{choresEntity}"
                         android:inputType="textShortMessage" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,12 +94,7 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
-                        android:checked="@{choresEntity.difficulty == 1}"
-                        android:onClick="@{() -> viewModel.setDifficulty(@string/label_difficulty_1)}"
                         android:text="@string/label_difficulty_1" />
-<!--                    android:checked="@{viewModel.difficulty.equals(@string/label_difficulty_1)}"d-->
-<!--                    android:onClick="@{() -> viewModel.setDifficulty(@string/label_difficulty_1)}"d-->
-
 
                     <RadioButton
                         android:id="@+id/difficulty_button_2"
@@ -111,8 +102,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
-                        android:checked="@{choresEntity.difficulty == 2}"
-                        android:onClick="@{() -> viewModel.setDifficulty(@string/label_difficulty_2)}"
                         android:text="@string/label_difficulty_2"
                         tools:checked="true" />
 
@@ -122,8 +111,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
                         android:layout_marginEnd="8dp"
-                        android:checked="@{choresEntity.difficulty == 3}"
-                        android:onClick="@{() -> viewModel.setDifficulty(@string/label_difficulty_3)}"
                         android:text="@string/label_difficulty_3" />
 
                 </RadioGroup>
@@ -139,7 +126,6 @@
                         android:id="@+id/when_needed_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        date="@{choresEntity}"
                         android:inputType="datetime" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,11 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:checked="@{choresEntity.priority == 1}"
-                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_1)}"
                         android:text="@string/label_priority_1" />
-<!--                    android:checked="@{viewModel.priority.equals(@string/label_priority_1)}"-->
-<!--                    android:onClick="@{() -> viewModel.setPriority(@string/label_priority_1)}"-->
 
                     <RadioButton
                         android:id="@+id/priority_button_2"
@@ -176,8 +158,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:checked="@{choresEntity.priority == 2}"
-                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_2)}"
                         android:text="@string/label_priority_2"
                         tools:checked="true"/>
 
@@ -187,8 +167,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:checked="@{choresEntity.priority == 3}"
-                        android:onClick="@{() -> viewModel.setPriority(@string/label_priority_3)}"
                         android:text="@string/label_priority_3" />
 
                 </RadioGroup>

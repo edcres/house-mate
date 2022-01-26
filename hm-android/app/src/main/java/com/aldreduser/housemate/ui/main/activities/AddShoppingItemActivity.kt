@@ -3,14 +3,13 @@ package com.aldreduser.housemate.ui.main.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.aldreduser.housemate.data.ListsRepository
-import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.ActivityAddShoppingItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
+import kotlinx.android.synthetic.main.activity_add_shopping_item.*
 
 class AddShoppingItemActivity : AppCompatActivity() {
 
+    private val TAG = "AddShopItemTAG"
     private var binding: ActivityAddShoppingItemBinding? = null
     private lateinit var listsViewModel: ListsViewModel
 
@@ -19,42 +18,50 @@ class AddShoppingItemActivity : AppCompatActivity() {
         binding = ActivityAddShoppingItemBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        setUpViewModel()
-        binding?.apply {
+        listsViewModel = ViewModelProvider(this)[ListsViewModel::class.java]
+        binding!!.apply {
             lifecycleOwner = this@AddShoppingItemActivity
             viewModel = listsViewModel
-            fabAddItem.setOnClickListener { fabOnClick() }
+            fabAddItem.setOnClickListener {
+                // todo: check if all necessary data is filled
+                addItem()
+            }
         }
         setupAppBar()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         binding = null
+        super.onDestroy()
     }
 
     // CLICK HANDLERS //
-    private fun fabOnClick() {
-        // todo: handle add item click
+    private fun addItem() {
+        binding!!.apply {
+            val priority = when (choosePriorityButton.checkedRadioButtonId) {
+                priorityButton1.id -> 1
+                priorityButton3.id -> 3
+                else -> 2
+            }
+            listsViewModel.sendShoppingItemToDatabase(
+                itemNameInput.text.toString(),
+                item_quantity_input.text.toString().toDouble(),
+                costInput.text.toString().toDouble(),
+                whereToGetInput.text.toString(),
+                whenNeededInput.text.toString(),
+                priority
+            )
+        }
     }
 
     // SET UP FUNCTIONS //
-    private fun setUpViewModel() {
-        val application = requireNotNull(this).application
-        val database = ListsRoomDatabase.getInstance(application)
-        val repository = ListsRepository.getInstance(database)
-        val viewModelFactory = ListsViewModelFactory(repository, application)
-        listsViewModel = ViewModelProvider(
-            this, viewModelFactory).get(ListsViewModel::class.java)
-    }
-
     private fun setupAppBar() {
         //title
-        binding?.addItemTopAppbar?.title = "Add Shopping Item"
-
-        //handle navigation
-        binding?.addItemTopAppbar?.setNavigationOnClickListener {
-            // todo: handle navigation click
+        binding!!.apply {
+            addItemTopAppbar.title = "Add Shopping Item"
+            addItemTopAppbar.setNavigationOnClickListener {
+                // todo: handle navigation click
+            }
         }
     }
 

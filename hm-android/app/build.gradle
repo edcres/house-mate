@@ -40,11 +40,13 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/atomicfu.kotlin_module']
+        }
+    }
 
     // to exclude the atomic functions module from the package and prevent warnings.
-    packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
-    }
 
     buildFeatures {
         dataBinding = true
