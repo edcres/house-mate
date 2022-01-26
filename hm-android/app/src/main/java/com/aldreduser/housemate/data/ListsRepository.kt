@@ -1,12 +1,11 @@
 package com.aldreduser.housemate.data
 
-import androidx.annotation.WorkerThread
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.firestore.DbApiService
 import kotlinx.coroutines.flow.Flow
 
-class ListsRepository() {
+class ListsRepository {
 
     private val dbApiService = DbApiService()
 

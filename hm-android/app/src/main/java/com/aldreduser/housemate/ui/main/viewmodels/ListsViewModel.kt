@@ -1,73 +1,157 @@
 package com.aldreduser.housemate.ui.main.viewmodels
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.lifecycle.MutableLiveData
 import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-// todo: If i need to null check the dataBinding properties for the views.:
-// android:text='@{item.title ?? ""}'          or              android:text='@{item.title != null ? user.title : ""}'
+class ListsViewModel: ViewModel() {
 
-// maybe have different viewmodels: mainActivity, shoppingList, choresList
-// Shared viewModel for MainActivity, ShoppingFragment, and ChoresFragment
-class ListsViewModel(
-    private val listsRepository: ListsRepository,
-    private val application: Application): ViewModel() {
+    private val listsRepository = ListsRepository()
+    var sharedPrefs: SharedPreferences? = null
+    var userName: String? = null
+    var clientGroupIDCollection: String? = null
+    var clientIDCollection: String? = null
+    private var _shoppingItems = MutableLiveData<MutableList<ShoppingItem>>()
+    val shoppingItems: LiveData<MutableList<ShoppingItem>> get() = _shoppingItems
+    private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
+    val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
 
-    // DataBound Variables
-    private val _shoppingPriority = MutableLiveData<String>()//leave this on, connect it to the Entity, make it an int type (like in the Entity)
-    val shoppingPriority: MutableLiveData<String> = _shoppingPriority
-    private val _choresPriority = MutableLiveData<String>()//leave this on, connect it to the Entity, make it an int type (like in the Entity)
-    val choresPriority: MutableLiveData<String> = _choresPriority
-    private val _difficulty = MutableLiveData<String>()//leave this on, connect it to the Entity, make it an int type (like in the Entity)
-    val difficulty: MutableLiveData<String> = _difficulty
-
-    // Complete Lists
-    private val shoppingItems = MutableLiveData<List<ShoppingItem>>()
-    private val choresItems = MutableLiveData<List<ChoresItem>>()
+    companion object {
+        const val TAG = "ListsVmTAG"
+        const val USER_NAME_SP_TAG = "User Name"
+        const val GROUP_ID_SP_TAG = "Group ID"
+        const val CLIENT_ID_SP_TAG = "Client ID"
+    }
 
     init {
-        //fetchShoppingItems()  //maybe use this
+        Log.i(TAG, "ViewModel initialized")
+        Log.i(TAG, "_shoppingItems: ${_shoppingItems.value?.size}")
+        Log.i(TAG, "_choreItems: ${_choreItems.value?.size}")
     }
 
-    // DATABASE QUERIES //
-    //get items
-    fun getShoppingItems(): LiveData<List<ShoppingItem>> { return shoppingItems }
-    //insert item
-    fun insert(choresItem: ChoresItem) = viewModelScope.launch {
-        listsRepository.insertChoresItem(choresItem)
+    // DATABASE FUNCTIONS //
+    // Set up list items realtime fetching
+    fun setShoppingItemsRealtime() {
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
+                .collect {
+                    _shoppingItems.postValue(it.toMutableList())
+                }
+        }
     }
-    //delete item
-    fun delete(shoppingItem: ShoppingItem) = viewModelScope.launch {
-//        listsRepository.delete
+    fun setChoreItemsRealtime() {
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.setUpChoresRealtimeFetching(clientGroupIDCollection!!)
+                .collect {
+                    _choreItems.postValue(it.toMutableList())
+                }
+        }
     }
-    //other queries...
+    // Send data to database
+    fun sendShoppingItemToDatabase(
+        itemName: String,
+        itemQuantity: Double,
+        itemCost: Double,
+        purchaseLocation: String,
+        itemNeededBy: String,   // try and make this a date
+        itemPriority: Int
+    ) {
+        listsRepository.addShoppingItemToDb(
+            clientGroupIDCollection!!, itemName, itemQuantity, itemCost,
+            purchaseLocation, itemNeededBy, itemPriority, userName!!
+        )
+    }
+    fun sendChoresItemToDatabase(
+        itemName: String,
+        itemDifficulty: Int,
+        itemNeededBy: String,   // try and make this a date
+        itemPriority: Int
+    ) {
+        listsRepository.addChoresItemToDb(
+            clientGroupIDCollection!!, itemName, itemDifficulty,
+            itemNeededBy, itemPriority, userName!!
+        )
+    }
+    fun sendShoppingVolunteerToDb(itemName: String, volunteerName: String) {
+        listsRepository.sendShoppingVolunteerToDb(
+            clientGroupIDCollection!!,
+            itemName,
+            volunteerName
+        )
+    }
+    fun sendChoresVolunteerToDb(itemName: String, volunteerName: String) {
+        listsRepository.sendChoresVolunteerToDb(
+            clientGroupIDCollection!!,
+            itemName,
+            volunteerName
+        )
+    }
+    fun deleteShoppingListItem(itemName: String) {
+        listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)
+    }
+    fun deleteChoresListItem(itemName: String) {
+        listsRepository.deleteChoresListItem(clientGroupIDCollection!!, itemName)
+    }
+    // DATABASE FUNCTIONS //
 
-    // CLICK HANDLERS //
+    // SHARED PREFERENCE //
+    fun getDataFromSP(theTag: String): String? {
+        return sharedPrefs!!.getString(theTag, null)
+    }
+    @SuppressLint("ApplySharedPref")
+    fun sendDataToSP(theTag: String, dataToSend: String) {
+        val spEditor: SharedPreferences.Editor = sharedPrefs!!.edit()
+        spEditor.putString(theTag, dataToSend).commit()
+    }
+    @SuppressLint("ApplySharedPref")
+    fun clearSP() {
+        sharedPrefs!!.edit().clear().commit()
+    }
+    // SHARED PREFERENCE //
 
-    // SETTERS //
-    // might have to check if there is a flavor set, if so use the cupcake app as reference
-    fun setPriority(desiredPriority: String) { _shoppingPriority.value = desiredPriority }  //leave this on
-    // might have to check if there is a flavor set, if so use the cupcake app as reference
-    fun setDifficulty(desiredDifficulty: String) { _difficulty.value = desiredDifficulty }  //leave this on
+    // ID QUERIES //
+    fun generateClientGroupID() {
+        // Get the latest groupID from the remote db (ie. 00000001asdfg)
+        CoroutineScope(Dispatchers.IO).launch {
+            clientGroupIDCollection = listsRepository.getLastGroupAdded()
+            withContext(Dispatchers.Main) {
+                if (clientGroupIDCollection != null) {
+                    sendDataToSP(GROUP_ID_SP_TAG, clientGroupIDCollection!!)
+                    setClientID()
+                } else {
+                    Log.e(TAG, "generateClientGroupID(): clientGroupIDCollection is null")
+                }
+            }
+        }
+    }
+    private fun setClientID() {
+        clientIDCollection = getDataFromSP(CLIENT_ID_SP_TAG)
+        if (clientIDCollection == null) {
+
+            CoroutineScope(Dispatchers.IO).launch {
+                clientIDCollection =
+                    listsRepository.getLastClientAdded(clientGroupIDCollection!!)
+
+                withContext(Dispatchers.Main) {
+                    if (clientIDCollection != null) {
+                        sendDataToSP(GROUP_ID_SP_TAG, clientIDCollection!!)
+                    } else {
+                        Log.e(TAG, "generateClientGroupID(): clientIDCollection is null")
+                    }
+                }
+            }
+        }
+    }
+    // ID QUERIES //
 }
-
-
-
-// More DataBound variables, probably delete
-//    private val _quantity = MutableLiveData<String>()   // convert to double in the code
-//    val quantity: MutableLiveData<String> = _quantity
-//    private val _purchaseLocation = MutableLiveData<String>()
-//    val purchaseLocation: MutableLiveData<String> = _purchaseLocation
-//    private val _cost = MutableLiveData<String>()   // convert to double in the code
-//    val cost: MutableLiveData<String> = _cost
-//    private val _listChosen = MutableLiveData<String>()
-//    val listChosen: MutableLiveData<String> = _listChosen
-//    // Both Shopping and Chores
-//    private val _name = MutableLiveData<String>()
-//    val name: MutableLiveData<String> = _name
-//    private val _neededBy = MutableLiveData<String>()
-//    val neededBy: MutableLiveData<String> = _neededBy
