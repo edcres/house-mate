@@ -5,17 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.aldreduser.housemate.data.ListsRepository
-import com.aldreduser.housemate.data.model.ShoppingItem
-import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.FragmentShoppingListBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 
 class ShoppingListFragment : Fragment() {
 
@@ -25,7 +19,7 @@ class ShoppingListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = FragmentShoppingListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding

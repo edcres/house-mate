@@ -153,5 +153,9 @@ class ListsViewModel: ViewModel() {
             }
         }
     }
+    fun getCurrentGroupID(): String? {
+        clientGroupIDCollection = getDataFromSP(GROUP_ID_SP_TAG)
+        return clientGroupIDCollection
+    }
     // ID QUERIES //
 }

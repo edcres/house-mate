@@ -1,25 +1,26 @@
 package com.aldreduser.housemate.ui.main.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.view.ActionMode
+import android.util.Log
+import android.view.LayoutInflater
+import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
-import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.databinding.ActivityMainBinding
-import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.fragments.ChoresListFragment
 import com.aldreduser.housemate.ui.main.fragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.GROUP_ID_SP_TAG
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.USER_NAME_SP_TAG
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_main.*
 
 // storage
 // todo: local
@@ -64,6 +65,8 @@ Improve MVVM architecture by:
 // Home Screen
 class MainActivity : AppCompatActivity() {
 
+    private val tag = "MainActivityTAG"
+    private val mainSharedPrefTag = "MainActivitySP"
     private var binding: ActivityMainBinding? = null
     private lateinit var listsViewModel: ListsViewModel
     private val tabTitles = arrayOf("Shopping List", "Chores")
@@ -73,19 +76,43 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        setUpViewModel()
+        listsViewModel = ViewModelProvider(this)[ListsViewModel::class.java]
+        listsViewModel.sharedPrefs =
+            this.getSharedPreferences(mainSharedPrefTag, Context.MODE_PRIVATE)
         binding?.apply {
             lifecycleOwner = this@MainActivity
-            viewModel = listsViewModel         // todo: bug here
-            addItemListFab.setOnClickListener { fabOnClick() }
+            viewModel = listsViewModel
+            addItemListFab.setOnClickListener {
+                // todo: Ask the viewModel which fragment is on display
+                fabOnClick()
+            }
         }
         setUpAppBar()
         setUpTabs()
+        startApplication()
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        listsViewModel.sharedPrefs = null
         binding = null
+        Log.i(tag, "onDestroy: MainActivity")
+        super.onDestroy()
+    }
+
+    private fun startApplication() {
+        // get user name
+        val userName = listsViewModel.getDataFromSP(USER_NAME_SP_TAG)
+        if (userName == null) makeDialogBoxAndSetUserName()
+
+        // set Up Database IDs And FetchData
+        val currentClientGroupID = listsViewModel.getCurrentGroupID()
+
+        if (currentClientGroupID == null) {
+            makeDialogBoxAndSetGroupID()
+        } else {
+            listsViewModel.setShoppingItemsRealtime()
+            listsViewModel.setChoreItemsRealtime()
+        }
     }
 
     // CLICK LISTENERS //
@@ -96,15 +123,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     // SET UP FUNCTIONS //
-    private fun setUpViewModel() {
-        val application = requireNotNull(this).application
-        val database = ListsRoomDatabase.getInstance(application)
-        val repository = ListsRepository.getInstance(database)
-        val viewModelFactory = ListsViewModelFactory(repository, application)
-        listsViewModel = ViewModelProvider(
-                this, viewModelFactory).get(ListsViewModel::class.java)
-    }
-
     private fun setUpAppBar() {
         val moreOptionsDrawable = R.drawable.ic_more_options_24dp
         binding?.homeScreenTopAppbar?.title = "House Mate"
@@ -153,42 +171,55 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Contextual Action Bar
-    // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views
-    private fun setUpContextualAppBar() {
-        val contextualActionBar = R.menu.contextual_action_bar
-        val contextualDuplicate = R.id.contextual_duplicate
-        val contextualDelete = R.id.contextual_delete
-
-        // this might not work bc it's in a function, but i think it will
-        val callback = object : ActionMode.Callback {
-            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                menuInflater.inflate(contextualActionBar, menu)
-                return true
+    private fun makeDialogBoxAndSetUserName() {
+        val inputDialog = MaterialAlertDialogBuilder(this)
+        val customAlertDialogView = LayoutInflater.from(this)
+            .inflate(R.layout.name_dialog_box, null, false)
+        val inputNameDialog: EditText = customAlertDialogView.findViewById(R.id.input_name_dialog)
+        inputDialog.setView(customAlertDialogView)
+            .setTitle("Your user name")
+            .setPositiveButton("Accept") { dialog, _ ->
+                listsViewModel.userName = inputNameDialog.text.toString()
+                Log.i(tag, "makeDialogBoxAndSetUserName: accept clicked " +
+                        "${listsViewModel.userName}")
+                listsViewModel.sendDataToSP(USER_NAME_SP_TAG, listsViewModel.userName!!)
+                dialog.dismiss()
             }
-            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                return false
+            .setNegativeButton("Anonymous") { dialog, _ ->
+                Log.i(tag, "makeDialogBoxAndSetUserName: negative button called")
+                listsViewModel.userName = "anon"
+                listsViewModel.sendDataToSP(USER_NAME_SP_TAG, listsViewModel.userName!!)
+                dialog.dismiss()
             }
-            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-                return when (item?.itemId) {
-                    contextualDuplicate -> {
-                        // todo: Handle duplicate icon press
-                        true
-                    } contextualDelete -> {
-                        // todo: Handle delete icon press
-                        true
-                    }
-                    else -> false
-                }
-            }
-            override fun onDestroyActionMode(mode: ActionMode?) {
-            }
-        }
-        val actionMode = startSupportActionMode(callback)   //I changed the import from 'android.view.ActionMode.Callback' to 'androidx.appcompat.view.ActionMode.Callback'
-        actionMode?.title = "1 selected"
+            .show()
     }
 
-    // HELPER FUNCTIONS //
+    private fun makeDialogBoxAndSetGroupID() {
+        val inputDialog = MaterialAlertDialogBuilder(this)
+        val customAlertDialogView = LayoutInflater.from(this)
+            .inflate(R.layout.name_dialog_box, null, false)
+        val inputNameDialog: EditText = customAlertDialogView.findViewById(R.id.input_name_dialog)
+        inputDialog.setView(customAlertDialogView)
+            .setTitle("Your group ID")
+            .setPositiveButton("Accept") { dialog, _ ->
+                listsViewModel.clientGroupIDCollection = inputNameDialog.text.toString()
+                Log.i(tag, "makeDialogBoxAndSetGroupID: accept clicked " +
+                            "${listsViewModel.clientGroupIDCollection}")
+                listsViewModel.sendDataToSP(
+                    GROUP_ID_SP_TAG,
+                    listsViewModel.clientGroupIDCollection!!
+                )
+                listsViewModel.setShoppingItemsRealtime()
+                listsViewModel.setChoreItemsRealtime()
+                dialog.dismiss()
+            }
+            .setNegativeButton("New Group") { dialog, _ ->
+                Log.i(tag, "makeDialogBoxAndSetGroupID: negative button called")
+                listsViewModel.generateClientGroupID()
+                dialog.dismiss()
+            }
+            .show()
+    }
 
     // Adapter for the viewPager2 (Inner Class) //
     private inner class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) :
@@ -206,4 +237,40 @@ class MainActivity : AppCompatActivity() {
             return tabTitles.size
         }
     }
+
+    // Contextual Action Bar
+    // todo: I will most likely not use this
+    // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views
+//    private fun setUpContextualAppBar() {
+//        val contextualActionBar = R.menu.contextual_action_bar
+//        val contextualDuplicate = R.id.contextual_duplicate
+//        val contextualDelete = R.id.contextual_delete
+//
+//        // this might not work bc it's in a function, but i think it will
+//        val callback = object : ActionMode.Callback {
+//            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+//                menuInflater.inflate(contextualActionBar, menu)
+//                return true
+//            }
+//            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+//                return false
+//            }
+//            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+//                return when (item?.itemId) {
+//                    contextualDuplicate -> {
+//                        // Handle duplicate icon press
+//                        true
+//                    } contextualDelete -> {
+//                        // Handle delete icon press
+//                        true
+//                    }
+//                    else -> false
+//                }
+//            }
+//            override fun onDestroyActionMode(mode: ActionMode?) {
+//            }
+//        }
+//        val actionMode = startSupportActionMode(callback)   //I changed the import from 'android.view.ActionMode.Callback' to 'androidx.appcompat.view.ActionMode.Callback'
+//        actionMode?.title = "1 selected"
+//    }
 }

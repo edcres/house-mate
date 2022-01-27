@@ -66,10 +66,9 @@ class AddChoresItemActivity : AppCompatActivity() {
 
     // SET UP FUNCTIONS //
     private fun setupAppBar() {
-        //title
         binding!!.apply {
-            addItemTopAppbar?.title = "Add Chore Item"
-            addItemTopAppbar?.setNavigationOnClickListener {
+            addItemTopAppbar.title = "Add Chore Item"
+            addItemTopAppbar.setNavigationOnClickListener {
                 // todo: handle navigation click
             }
         }
