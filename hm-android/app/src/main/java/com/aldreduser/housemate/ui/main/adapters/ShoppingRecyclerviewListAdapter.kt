@@ -12,7 +12,10 @@ import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.ShoppingItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.util.displayAddedBy
+import com.aldreduser.housemate.util.displayCost
 import com.aldreduser.housemate.util.displayDate
+import com.aldreduser.housemate.util.displayPriority
 
 // This is the list recyclerview adapter
 class ShoppingRecyclerviewListAdapter :
@@ -41,9 +44,9 @@ class ShoppingRecyclerviewListAdapter :
                 shoppingItemQty.text = item.quantity.toString()
                 shoppingWhenNeededDoneText.text = displayDate(item.neededBy!!)
                 shoppingWhereText.text = item.purchaseLocation
-                shoppingCostText.text = item.cost.toString()
-                shoppingPriorityText.text = item.priority.toString()
-                shoppingAddedByText.text = item.addedBy
+                shoppingCostText.text = displayCost(item.cost!!)
+                shoppingPriorityText.text = displayPriority(item.priority!!)
+                shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
                 shoppingWhoIsGettingItText.setText(item.volunteer)
 
                 removeItemButton.setOnClickListener {

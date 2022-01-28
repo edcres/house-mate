@@ -12,7 +12,10 @@ import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.databinding.ChoresItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.util.displayAddedBy
 import com.aldreduser.housemate.util.displayDate
+import com.aldreduser.housemate.util.displayDifficulty
+import com.aldreduser.housemate.util.displayPriority
 
 // This is the chores list recyclerview adapter
 class ChoresRecyclerviewListAdapter() :
@@ -36,10 +39,10 @@ class ChoresRecyclerviewListAdapter() :
                 // todo: might need to null check these (probably not)
                 choresItIsDone.isChecked = item.completed!!
                 choresItemName.text = item.name
-                choresWhenNeededDoneText.text = displayDate(item.neededBy!!)
-                choresDifficulty.text = item.difficulty.toString()
-                choresPriorityText.text = item.priority.toString()
-                choresAddedByText.text = item.addedBy
+                choresWhenNeededDoneText.text = displayDate(displayDate(item.neededBy!!))
+                choresDifficulty.text = displayDifficulty(item.difficulty!!)
+                choresPriorityText.text = displayPriority(item.priority!!)
+                choresAddedByText.text = displayAddedBy(item.addedBy!!)
                 choresWhoIsDoingItText.setText(item.volunteer)
 
                 removeItemButton.setOnClickListener {
@@ -75,7 +78,7 @@ class ChoresRecyclerviewListAdapter() :
         }
 
         companion object {
-            fun from(parent: ViewGroup): ChoresRecyclerviewListAdapter.ChoresViewHolder {
+            fun from(parent: ViewGroup): ChoresViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ChoresItemLayoutBinding.inflate(layoutInflater, parent, false)
                 return ChoresViewHolder(binding)

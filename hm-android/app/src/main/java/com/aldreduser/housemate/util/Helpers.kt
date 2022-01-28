@@ -1,15 +1,11 @@
 package com.aldreduser.housemate.util
 
-import android.content.Context
-import com.aldreduser.housemate.R
-import com.aldreduser.housemate.ui.main.activities.MainActivity
-
 fun displayDate(date: String): String {
     return "by $date"
 }
 
 fun displayCost(cost: Double): String {
-    return "price: $${cost.toString()}"
+    return "price: $$cost"
 }
 
 fun displayPriority(priority: Int): String {
