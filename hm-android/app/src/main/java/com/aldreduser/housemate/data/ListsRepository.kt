@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 class ListsRepository {
 
+    private val shoppingItem = "Shopping"
+    private val choreItem = "Chore"
     private val dbApiService = DbApiService()
 
     fun setUpShoppingRealtimeFetching(groupID: String): Flow<List<ShoppingItem>> {
@@ -56,21 +58,29 @@ class ListsRepository {
         return dbApiService.getLastClientAdded(groupID)
     }
 
+    fun toggleShoppingCompletion(groupID: String, itemName:String, isCompleted: Boolean) {
+        dbApiService.toggleItemCompletion(groupID, shoppingItem, itemName, isCompleted)
+    }
+
+    fun toggleChoreCompletion(groupID: String, itemName:String, isCompleted: Boolean) {
+        dbApiService.toggleItemCompletion(groupID, choreItem, itemName, isCompleted)
+    }
+
     // send volunteer name to db
     fun sendShoppingVolunteerToDb(groupID: String, itemName: String, volunteerName: String) {
-        dbApiService.sendVolunteerToDb(groupID, ShoppingItem::class, itemName, volunteerName)
+        dbApiService.sendVolunteerToDb(groupID, shoppingItem, itemName, volunteerName)
     }
 
     fun sendChoresVolunteerToDb(groupID: String, itemName: String, volunteerName: String) {
-        dbApiService.sendVolunteerToDb(groupID, ChoresItem::class, itemName, volunteerName)
+        dbApiService.sendVolunteerToDb(groupID, choreItem, itemName, volunteerName)
     }
 
     // delete item
     fun deleteShoppingListItem(groupID: String, itemName: String) {
-        dbApiService.deleteListItem(groupID, ShoppingItem::class, itemName)
+        dbApiService.deleteListItem(groupID, shoppingItem, itemName)
     }
 
     fun deleteChoresListItem(groupID: String, itemName: String) {
-        dbApiService.deleteListItem(groupID, ChoresItem::class, itemName)
+        dbApiService.deleteListItem(groupID, choreItem, itemName)
     }
 }

@@ -14,16 +14,17 @@ import com.aldreduser.housemate.databinding.ChoresItemLayoutBinding
 
 // This is the list recyclerview adapter
 class ChoresRecyclerviewListAdapter() :
-    ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ViewHolder>(ChoresItemDiffCallback()) {
+    ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(ChoresItemDiffCallback()) {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position)!!)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
-        return ViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ChoresViewHolder {
+        return ChoresViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ChoresItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holderChores: ChoresViewHolder, position: Int) =
+        holderChores.bind(getItem(position)!!)
+
+    class ChoresViewHolder private constructor(val binding: ChoresItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ChoresItem) {
             binding.choresEntity = item
@@ -56,10 +57,10 @@ class ChoresRecyclerviewListAdapter() :
         }
 
         companion object {
-            fun from(parent: ViewGroup): ChoresRecyclerviewListAdapter.ViewHolder {
+            fun from(parent: ViewGroup): ChoresRecyclerviewListAdapter.ChoresViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ChoresItemLayoutBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ChoresViewHolder(binding)
             }
         }
     }

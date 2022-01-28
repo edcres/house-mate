@@ -83,6 +83,12 @@ class ListsViewModel: ViewModel() {
             itemNeededBy, itemPriority, userName!!
         )
     }
+    fun toggleShoppingCompletion(itemName:String, isCompleted: Boolean) {
+        listsRepository.toggleShoppingCompletion(clientGroupIDCollection!!, itemName, isCompleted)
+    }
+    fun toggleChoreCompletion(itemName:String, isCompleted: Boolean) {
+        listsRepository.toggleChoreCompletion(clientGroupIDCollection!!, itemName, isCompleted)
+    }
     fun sendShoppingVolunteerToDb(itemName: String, volunteerName: String) {
         listsRepository.sendShoppingVolunteerToDb(
             clientGroupIDCollection!!,

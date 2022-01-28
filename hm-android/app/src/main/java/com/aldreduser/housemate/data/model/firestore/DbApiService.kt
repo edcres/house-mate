@@ -4,7 +4,6 @@ import android.util.Log
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.util.add1AndScrambleLetters
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
@@ -18,6 +17,8 @@ import kotlinx.coroutines.tasks.await
 
 class DbApiService {
 
+    private val shoppingItem = "Shopping"
+    private val choreItem = "Chore"
     private val db = Firebase.firestore
     private var groupIDsDocumentDB: DocumentReference = db.collection(GENERAL_COLLECTION)
         .document(GROUP_IDS_DOC)
@@ -152,6 +153,8 @@ class DbApiService {
             DIFFICULTY_FIELD to itemDifficulty,
             NEEDED_BY_FIELD to itemNeededBy,
             PRIORITY_FIELD to itemPriority,
+            COMPLETED_FIELD to false,
+            VOLUNTEER_FIELD to "",
             ADDED_BY_FIELD to addedBy
         )
         groupIDsDocumentDB.collection(clientGroupIDCollection).document(CHORES_LIST_DOC)
@@ -164,33 +167,36 @@ class DbApiService {
 
     fun sendVolunteerToDb(
         clientGroupIDCollection: String,
-        listType: Any,
+        listType: String,
         itemName: String,
         volunteerName: String
     ) {
-        when (listType) {
-            ShoppingItem::class -> {
-                groupIDsDocumentDB.collection(clientGroupIDCollection).document(SHOPPING_LIST_DOC)
-                    .collection(SHOPPING_ITEMS_COLLECTION).document(itemName)
-                    .update(VOLUNTEER_FIELD, volunteerName)
-                    .addOnSuccessListener {
-                        Log.i(TAG, "$itemName successfully updated to $volunteerName")
-                    }
-                    .addOnFailureListener { Log.e(TAG, "Error updating doc") }
+        val listDoc = getListDoc(listType)
+        val itemsCollection = getItemsCollection(listType)
+        groupIDsDocumentDB.collection(clientGroupIDCollection).document(listDoc)
+            .collection(itemsCollection).document(itemName)
+            .update(VOLUNTEER_FIELD, volunteerName)
+            .addOnSuccessListener {
+                Log.i(TAG, "$itemName successfully updated to $volunteerName")
             }
-            ChoresItem::class -> {
-                groupIDsDocumentDB.collection(clientGroupIDCollection).document(CHORES_LIST_DOC)
-                    .collection(CHORE_ITEMS_COLLECTION).document(itemName)
-                    .update(VOLUNTEER_FIELD, volunteerName)
-                    .addOnSuccessListener {
-                        Log.i(TAG, "$itemName successfully updated to $volunteerName")
-                    }
-                    .addOnFailureListener { Log.e(TAG, "Error updating doc") }
+            .addOnFailureListener { Log.e(TAG, "Error updating doc") }
+    }
+
+    fun toggleItemCompletion(
+        groupID: String,
+        listType: String,
+        itemName: String,
+        isCompleted: Boolean
+    ) {
+        val listDoc = getListDoc(listType)
+        val itemsCollection = getItemsCollection(listType)
+        groupIDsDocumentDB.collection(groupID).document(listDoc)
+            .collection(itemsCollection).document(itemName)
+            .update(COMPLETED_FIELD, isCompleted)
+            .addOnSuccessListener {
+                Log.i(TAG, "$itemName completion successfully updated to $isCompleted")
             }
-            else -> {
-                Log.e(TAG, "sendVolunteerToDb: Error recognizing list Type")
-            }
-        }
+            .addOnFailureListener { Log.e(TAG, "Error updating doc") }
     }
     // DATABASE WRITES //
 
@@ -260,26 +266,32 @@ class DbApiService {
     // DATABASE READS //
 
     // DELETE DOCUMENT //
-    fun deleteListItem(clientGroupIDCollection: String, listType: Any, itemName: String) {
-        var itemsCollectionDB: CollectionReference =
-            groupIDsDocumentDB.collection(clientGroupIDCollection)
-        when (listType) {
-            ShoppingItem::class -> {
-                itemsCollectionDB = groupIDsDocumentDB.collection(clientGroupIDCollection)
-                    .document(SHOPPING_LIST_DOC).collection(SHOPPING_ITEMS_COLLECTION)
-            }
-            ChoresItem::class -> {
-                itemsCollectionDB = groupIDsDocumentDB.collection(clientGroupIDCollection)
-                    .document(CHORES_LIST_DOC).collection(CHORE_ITEMS_COLLECTION)
-            }
-            else -> {
-                Log.e(TAG, "deleteListItem: Error verifying the List Type")
-            }
-        }
+    fun deleteListItem(clientGroupIDCollection: String, listType: String, itemName: String) {
+        val listDoc = getListDoc(listType)
+        val itemsCollection = getItemsCollection(listType)
 
-        itemsCollectionDB.document(itemName).delete()
+        groupIDsDocumentDB.collection(clientGroupIDCollection)
+            .document(listDoc).collection(itemsCollection).document(itemName)
+            .delete()
             .addOnSuccessListener { Log.i(TAG, "$itemName document deleted") }
             .addOnFailureListener { Log.e(TAG, "Failure to delete $itemName document") }
     }
     // DELETE DOCUMENT //
+
+    // HELPER FUNCTIONS //
+    private fun getListDoc(listType: String): String {
+        return when (listType) {
+            shoppingItem -> SHOPPING_LIST_DOC
+            choreItem -> CHORES_LIST_DOC
+            else -> "placeholder"
+        }
+    }
+    private fun getItemsCollection(listType: String): String {
+        return when (listType) {
+            shoppingItem -> SHOPPING_ITEMS_COLLECTION
+            choreItem -> CHORE_ITEMS_COLLECTION
+            else -> "placeholder"
+        }
+    }
+    // HELPER FUNCTIONS //
 }

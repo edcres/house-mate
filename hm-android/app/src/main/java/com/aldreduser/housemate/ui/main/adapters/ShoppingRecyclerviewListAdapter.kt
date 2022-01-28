@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.ShoppingItemLayoutBinding
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.util.displayDate
 
 /*
 ArrayList<ShoppingItem>     was taken out as a parameter, maybe bc of livedata
@@ -21,55 +23,73 @@ ArrayList<ShoppingItem>     was taken out as a parameter, maybe bc of livedata
 
 // This is the list recyclerview adapter
 class ShoppingRecyclerviewListAdapter :
-    ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ViewHolder>(ShoppingItemDiffCallback()) {
+    ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ShoppingViewHolder>(
+        ShoppingItemDiffCallback()
+    ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingViewHolder {
+        return ShoppingViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position)!!)
+    override fun onBindViewHolder(holderShopping: ShoppingViewHolder, position: Int) =
+        holderShopping.bind(getItem(position))
 
-    class ViewHolder private constructor(val binding: ShoppingItemLayoutBinding) :
+    class ShoppingViewHolder private constructor(val binding: ShoppingItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private val listsViewModel = ListsViewModel()
+
         fun bind(item: ShoppingItem) {
-            binding.shoppingEntity = item
+            binding.apply {
+                shoppingEntity = item
+                // todo: might need to null check these (probably not)
+                shoppingItIsDone.isChecked = item.purchased!!
+                shoppingItemName.text = item.name
+                shoppingItemQty.text = item.quantity.toString()
+                shoppingWhenNeededDoneText.text = displayDate(item.neededBy!!)
+                shoppingWhereText.text = item.purchaseLocation
+                shoppingCostText.text = item.cost.toString()
+                shoppingPriorityText.text = item.priority.toString()
+                shoppingAddedByText.text = item.addedBy
+                shoppingWhoIsGettingItText.setText(item.volunteer)
 
-            binding.shoppingItIsDone.setOnClickListener {
-                // todo: handle when box is checked
-            }
-            binding.shoppingExpandButton.setOnClickListener {
-                // If view is invisible change image make view visible
-                // else if view is visible change image make view invisible
-                val expandableContainer = binding.shoppingExpandableContainerCardview
-                val imageToContract: Drawable? = ContextCompat.getDrawable(
-                    binding.shoppingExpandButton.context, R.drawable.ic_expand_less_24
-                )
-                val imageToExpand: Drawable? = ContextCompat.getDrawable(
-                    binding.shoppingExpandButton.context, R.drawable.ic_expand_more_24
-                )
-                if (expandableContainer.visibility == View.INVISIBLE) {
-                    expandableContainer.visibility = View.VISIBLE
-                    binding.shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                        imageToContract, null, null, null
-                    )
-                } else if (expandableContainer.visibility == View.VISIBLE) {
-                    expandableContainer.visibility = View.INVISIBLE
-                    binding.shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                        imageToExpand, null, null, null
-                    )
+                removeItemButton.setOnClickListener {
+                    listsViewModel.deleteShoppingListItem(item.name!!)
                 }
+                shoppingItIsDone.setOnClickListener {
+                    listsViewModel.toggleShoppingCompletion(item.name!!, shoppingItIsDone.isChecked)
+                }
+                shoppingExpandButton.setOnClickListener {
+                    // If view is invisible change image make view visible
+                    // else if view is visible change image make view invisible
+                    val expandableContainer = shoppingExpandableContainerCardview
+                    val imageToContract: Drawable? = ContextCompat.getDrawable(
+                        shoppingExpandButton.context, R.drawable.ic_expand_less_24
+                    )
+                    val imageToExpand: Drawable? = ContextCompat.getDrawable(
+                        shoppingExpandButton.context, R.drawable.ic_expand_more_24
+                    )
+                    if (expandableContainer.visibility == View.INVISIBLE) {
+                        expandableContainer.visibility = View.VISIBLE
+                        shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
+                            imageToContract, null, null, null
+                        )
+                    } else if (expandableContainer.visibility == View.VISIBLE) {
+                        expandableContainer.visibility = View.INVISIBLE
+                        shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
+                            imageToExpand, null, null, null
+                        )
+                    }
+                }
+                executePendingBindings()    // idk what this is for
             }
-
-            binding.executePendingBindings()    // idk what this is for
         }
 
         companion object {
-            fun from(parent: ViewGroup): ViewHolder {
+            fun from(parent: ViewGroup): ShoppingViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ShoppingItemLayoutBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ShoppingViewHolder(binding)
             }
         }
     }
