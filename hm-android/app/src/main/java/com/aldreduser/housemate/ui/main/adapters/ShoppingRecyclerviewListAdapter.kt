@@ -14,13 +14,6 @@ import com.aldreduser.housemate.databinding.ShoppingItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.displayDate
 
-/*
-ArrayList<ShoppingItem>     was taken out as a parameter, maybe bc of livedata
- */
-
-// No need for 'getItemCount()', dataBinding takes care of it.
-// Listen for clicks in the ViewHolder, handle clicks in the ViewModel
-
 // This is the list recyclerview adapter
 class ShoppingRecyclerviewListAdapter :
     ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ShoppingViewHolder>(

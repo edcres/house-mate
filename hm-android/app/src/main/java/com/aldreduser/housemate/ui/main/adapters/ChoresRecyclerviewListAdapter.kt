@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.databinding.ChoresItemLayoutBinding
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.util.displayDate
 
-// This is the list recyclerview adapter
+// This is the chores list recyclerview adapter
 class ChoresRecyclerviewListAdapter() :
     ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(ChoresItemDiffCallback()) {
 
@@ -26,34 +28,50 @@ class ChoresRecyclerviewListAdapter() :
     class ChoresViewHolder private constructor(val binding: ChoresItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private val listsViewModel = ListsViewModel()
+
         fun bind(item: ChoresItem) {
-            binding.choresEntity = item
+            binding.apply {
+                choresEntity = item
+                // todo: might need to null check these (probably not)
+                choresItIsDone.isChecked = item.completed!!
+                choresItemName.text = item.name
+                choresWhenNeededDoneText.text = displayDate(item.neededBy!!)
+                choresDifficulty.text = item.difficulty.toString()
+                choresPriorityText.text = item.priority.toString()
+                choresAddedByText.text = item.addedBy
+                choresWhoIsDoingItText.setText(item.volunteer)
 
-            binding.choresItIsDone.setOnClickListener {
-                // todo: handle when box is checked
-            }
-
-            binding.choresExpandButton.setOnClickListener {
-                // If view is invisible change image make view visible
-                // else if view is visible change image make view invisible
-                val expandableContainer = binding.choresExpandableContainerCardview
-                val imageToContract: Drawable? = ContextCompat.getDrawable(
-                    binding.choresExpandButton.context, R.drawable.ic_expand_less_24)
-                val imageToExpand: Drawable? = ContextCompat.getDrawable(
-                    binding.choresExpandButton.context, R.drawable.ic_expand_more_24)
-                if (expandableContainer.visibility == View.INVISIBLE) {
-                    expandableContainer.visibility = View.VISIBLE
-                    binding.choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                        imageToContract, null, null, null
-                    )
-                } else if (expandableContainer.visibility == View.VISIBLE) {
-                    expandableContainer.visibility = View.INVISIBLE
-                    binding.choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                        imageToExpand, null, null, null)
+                removeItemButton.setOnClickListener {
+                    listsViewModel.deleteChoresListItem(item.name!!)
                 }
+                choresItIsDone.setOnClickListener {
+                    listsViewModel.toggleChoreCompletion(item.name!!, choresItIsDone.isChecked)
+                }
+                choresExpandButton.setOnClickListener {
+                    // If view is invisible change image make view visible
+                    // else if view is visible change image make view invisible
+                    val expandableContainer = choresExpandableContainerCardview
+                    val imageToContract: Drawable? = ContextCompat.getDrawable(
+                        choresExpandButton.context, R.drawable.ic_expand_less_24
+                    )
+                    val imageToExpand: Drawable? = ContextCompat.getDrawable(
+                        choresExpandButton.context, R.drawable.ic_expand_more_24
+                    )
+                    if (expandableContainer.visibility == View.INVISIBLE) {
+                        expandableContainer.visibility = View.VISIBLE
+                        choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
+                            imageToContract, null, null, null
+                        )
+                    } else if (expandableContainer.visibility == View.VISIBLE) {
+                        expandableContainer.visibility = View.INVISIBLE
+                        choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
+                            imageToExpand, null, null, null
+                        )
+                    }
+                }
+                executePendingBindings()    // idk what this is for
             }
-
-            binding.executePendingBindings()    // idk what this is for
         }
 
         companion object {
