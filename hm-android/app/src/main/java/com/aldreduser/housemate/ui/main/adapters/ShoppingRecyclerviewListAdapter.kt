@@ -20,7 +20,7 @@ ArrayList<ShoppingItem>     was taken out as a parameter, maybe bc of livedata
 // Listen for clicks in the ViewHolder, handle clicks in the ViewModel
 
 // This is the list recyclerview adapter
-class ShoppingRecyclerviewListAdapter() :
+class ShoppingRecyclerviewListAdapter :
     ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ViewHolder>(ShoppingItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

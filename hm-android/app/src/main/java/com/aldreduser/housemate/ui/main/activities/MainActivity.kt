@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             viewModel = listsViewModel
             addItemListFab.setOnClickListener {
                 // todo: Ask the viewModel which fragment is on display
-                fabOnClick()
+                addNewItem()
             }
         }
         setUpAppBar()
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
     // CLICK LISTENERS //
     // handle fab click
-    private fun fabOnClick() {
+    private fun addNewItem() {
         // add workout
         // todo: handle click
     }
@@ -127,7 +127,9 @@ class MainActivity : AppCompatActivity() {
         val moreOptionsDrawable = R.drawable.ic_more_options_24dp
         binding?.homeScreenTopAppbar?.title = "House Mate"
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            binding?.homeScreenTopAppbar?.overflowIcon = ContextCompat.getDrawable(this, moreOptionsDrawable) // might have to do this in every activity.
+            binding?.homeScreenTopAppbar?.overflowIcon =
+                // might have to do this in every activity.
+                ContextCompat.getDrawable(this, moreOptionsDrawable)
         }
         binding?.homeScreenTopAppbar?.setNavigationOnClickListener {
             //todo: handle navigation icon press

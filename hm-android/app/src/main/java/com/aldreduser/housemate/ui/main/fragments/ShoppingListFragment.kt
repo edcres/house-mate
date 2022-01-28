@@ -1,61 +1,56 @@
 package com.aldreduser.housemate.ui.main.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.aldreduser.housemate.data.ListsRepository
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aldreduser.housemate.databinding.FragmentShoppingListBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 
 class ShoppingListFragment : Fragment() {
 
+    private val fragmentTag = "ShoppingListFragmentTAG"
     private var binding: FragmentShoppingListBinding? = null
     private lateinit var listsViewModel: ListsViewModel
+    private val recyclerAdapter = ShoppingRecyclerviewListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.i(fragmentTag, "onCreateView: ShoppingListFragment")
         val fragmentBinding = FragmentShoppingListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
-        setUpViewModel()
+        listsViewModel = ViewModelProvider(this)[ListsViewModel::class.java]
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.i(fragmentTag, "onViewCreated: ShoppingListFragment")
         super.onViewCreated(view, savedInstanceState)
-
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listsViewModel
+            // In a fragment, these don't belong inside the onCreate() function
+            shoppingListRecyclerview.adapter = recyclerAdapter
+            shoppingListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
-
-        //in a fragment, these don't belong inside the onCreate() function
-        setUpRecyclerView()
+        // Update recyclerView
+        listsViewModel.shoppingItems.observe(viewLifecycleOwner, Observer { result ->
+            recyclerAdapter.submitList(result)
+        })
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         binding = null
-    }
-
-    // SET UP FUNCTIONS //
-    private fun setUpViewModel() {
-        val application = requireNotNull(this.activity).application
-        val database = ListsRoomDatabase.getInstance(application)
-        val repository = ListsRepository.getInstance(database)
-        val viewModelFactory = ListsViewModelFactory(repository, application)
-        listsViewModel = ViewModelProvider(
-            this, viewModelFactory).get(ListsViewModel::class.java)
-    }
-
-    private fun setUpRecyclerView() {
-        val adapter = ShoppingRecyclerviewListAdapter()
-        binding?.shoppingListRecyclerview?.adapter = adapter
+        Log.i(fragmentTag, "onDestroyView: ShoppingListFragment")
+        super.onDestroyView()
     }
 }

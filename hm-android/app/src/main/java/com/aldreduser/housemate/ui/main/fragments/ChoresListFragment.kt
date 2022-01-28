@@ -1,68 +1,54 @@
 package com.aldreduser.housemate.ui.main.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aldreduser.housemate.data.ListsRepository
-import com.aldreduser.housemate.data.model.ChoresItem
-import com.aldreduser.housemate.data.model.room.ListsRoomDatabase
 import com.aldreduser.housemate.databinding.FragmentChoresListBinding
 import com.aldreduser.housemate.ui.main.adapters.ChoresRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModelFactory
 
 class ChoresListFragment : Fragment() {
 
+    private val fragmentTag = "ChoresListFragmentTAG"
     private var binding: FragmentChoresListBinding? = null
     private lateinit var listsViewModel: ListsViewModel
-    private lateinit var recyclerviewAdapter: ChoresRecyclerviewListAdapter
+    private lateinit var recyclerAdapter: ChoresRecyclerviewListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val fragmentBinding = FragmentChoresListBinding.inflate(inflater, container, false)
+    ): View {
+        Log.i(fragmentTag, "onCreateView: ChoresListFragment")
+        val fragmentBinding = FragmentChoresListBinding
+            .inflate(inflater, container, false)
         binding = fragmentBinding
-        setUpViewModel()
+        listsViewModel = ViewModelProvider(this)[ListsViewModel::class.java]
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.i(fragmentTag, "onViewCreated: ChoresListFragment")
         super.onViewCreated(view, savedInstanceState)
-
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listsViewModel
+            choresListRecyclerview.adapter = recyclerAdapter
+            choresListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
-
-        setUpRecyclerView()
+        listsViewModel.choreItems.observe(viewLifecycleOwner, Observer { result ->
+            recyclerAdapter.submitList(result)
+        })
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         binding = null
-    }
-
-    // CLICK HANDLERS //
-
-    // SET UP FUNCTIONS //
-    private fun setUpViewModel() {
-        val application = requireNotNull(this.activity).application
-        val database = ListsRoomDatabase.getInstance(application)
-        val repository = ListsRepository.getInstance(database)
-        val viewModelFactory = ListsViewModelFactory(repository, application)
-        listsViewModel = ViewModelProvider(
-            this, viewModelFactory).get(ListsViewModel::class.java)
-    }
-
-    private fun setUpRecyclerView() {
-        val adapter = ChoresRecyclerviewListAdapter()
-        binding?.choresListRecyclerview?.adapter = adapter
+        Log.i(fragmentTag, "onDestroyView: ChoresListFragment")
+        super.onDestroyView()
     }
 }
