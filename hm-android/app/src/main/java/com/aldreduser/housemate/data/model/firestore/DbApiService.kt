@@ -168,9 +168,9 @@ class DbApiService {
     fun sendVolunteerToDb(
         clientGroupIDCollection: String,
         listType: String,
-        itemName: String,
-        volunteerName: String
+        volunteersList: MutableMap<String, String>
     ) {
+        // update all the volunteers for all items of 1 list in **ONLY 1** query for each list
         val listDoc = getListDoc(listType)
         val itemsCollection = getItemsCollection(listType)
         groupIDsDocumentDB.collection(clientGroupIDCollection).document(listDoc)

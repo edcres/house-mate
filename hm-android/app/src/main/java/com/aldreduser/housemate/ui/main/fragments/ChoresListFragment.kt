@@ -47,6 +47,7 @@ class ChoresListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        listsViewModel.sendChoresVolunteersToDb()
         binding = null
         Log.i(fragmentTag, "onDestroyView: ChoresListFragment")
         super.onDestroyView()

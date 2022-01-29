@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +50,10 @@ class ShoppingRecyclerviewListAdapter :
                 shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
                 shoppingWhoIsGettingItText.setText(item.volunteer)
 
+                shoppingWhoIsGettingItText.doAfterTextChanged {
+                    listsViewModel.shopVolunteersList[item.name!!] = it.toString()
+                    listsViewModel.shopVolunteerWasChanged = true
+                }
                 removeItemButton.setOnClickListener {
                     listsViewModel.deleteShoppingListItem(item.name!!)
                 }

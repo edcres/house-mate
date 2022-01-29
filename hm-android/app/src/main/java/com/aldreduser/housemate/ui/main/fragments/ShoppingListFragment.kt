@@ -49,6 +49,7 @@ class ShoppingListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        listsViewModel.sendShoppingVolunteersToDb()
         binding = null
         Log.i(fragmentTag, "onDestroyView: ShoppingListFragment")
         super.onDestroyView()

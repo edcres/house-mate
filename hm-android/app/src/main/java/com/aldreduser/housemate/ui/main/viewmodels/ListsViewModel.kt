@@ -1,7 +1,6 @@
 package com.aldreduser.housemate.ui.main.viewmodels
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.*
@@ -26,6 +25,12 @@ class ListsViewModel: ViewModel() {
     val shoppingItems: LiveData<MutableList<ShoppingItem>> get() = _shoppingItems
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
     val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
+
+    // These are sent to db when the List Fragments are destroyed.
+    var shopVolunteerWasChanged = false
+    val shopVolunteersList = mutableMapOf<String, String>()
+    var choreVolunteerWasChanged = false
+    val choreVolunteersList = mutableMapOf<String, String>()
 
     companion object {
         const val TAG = "ListsVmTAG"
@@ -89,19 +94,30 @@ class ListsViewModel: ViewModel() {
     fun toggleChoreCompletion(itemName:String, isCompleted: Boolean) {
         listsRepository.toggleChoreCompletion(clientGroupIDCollection!!, itemName, isCompleted)
     }
-    fun sendShoppingVolunteerToDb(itemName: String, volunteerName: String) {
-        listsRepository.sendShoppingVolunteerToDb(
-            clientGroupIDCollection!!,
-            itemName,
-            volunteerName
-        )
+
+    /*
+    var shopVolunteerWasChanged = false
+    val shopVolunteersList = mutableMapOf<String, String>()
+    var choreVolunteerWasChanged = false
+    val choreVolunteersList = mutableMapOf<String, String>()
+     */
+    fun sendShoppingVolunteersToDb() {
+        if(shopVolunteerWasChanged) {
+            shopVolunteerWasChanged = false
+            listsRepository.sendShoppingVolunteersToDb(
+                clientGroupIDCollection!!,
+                shopVolunteersList
+            )
+        }
     }
-    fun sendChoresVolunteerToDb(itemName: String, volunteerName: String) {
-        listsRepository.sendChoresVolunteerToDb(
-            clientGroupIDCollection!!,
-            itemName,
-            volunteerName
-        )
+    fun sendChoresVolunteersToDb() {
+        if(choreVolunteerWasChanged) {
+            choreVolunteerWasChanged = false
+            listsRepository.sendChoresVolunteersToDb(
+                clientGroupIDCollection!!,
+                shopVolunteersList
+            )
+        }
     }
     fun deleteShoppingListItem(itemName: String) {
         listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)
@@ -121,7 +137,7 @@ class ListsViewModel: ViewModel() {
         spEditor.putString(theTag, dataToSend).commit()
     }
     @SuppressLint("ApplySharedPref")
-    fun clearSP() {
+    fun clearSPs() {
         sharedPrefs!!.edit().clear().commit()
     }
     // SHARED PREFERENCE //
