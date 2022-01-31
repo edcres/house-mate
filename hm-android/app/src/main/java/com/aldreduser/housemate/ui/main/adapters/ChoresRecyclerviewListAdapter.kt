@@ -47,7 +47,7 @@ class ChoresRecyclerviewListAdapter() :
                 choresWhoIsDoingItText.setText(item.volunteer)
 
                 choresWhoIsDoingItText.doAfterTextChanged {
-                    listsViewModel.shopVolunteersList[item.name!!] = it.toString()
+                    listsViewModel.choreVolunteersList[item.name!!] = it.toString()
                     listsViewModel.choreVolunteerWasChanged = true
                 }
                 removeItemButton.setOnClickListener {

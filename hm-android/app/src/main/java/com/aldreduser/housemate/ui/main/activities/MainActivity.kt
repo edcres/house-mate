@@ -1,6 +1,7 @@
 package com.aldreduser.housemate.ui.main.activities
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -47,6 +48,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 // todo: clean up unused imports
 // todo: take care of warnings
 // todo: clean up comments
+// todo: change colors of list screen
 
 /*
 Improve MVVM architecture by:
@@ -84,7 +86,6 @@ class MainActivity : AppCompatActivity() {
             lifecycleOwner = this@MainActivity
             viewModel = listsViewModel
             addItemListFab.setOnClickListener {
-                // todo: Ask the viewModel which fragment is on display
                 addNewItem()
             }
         }
@@ -120,7 +121,20 @@ class MainActivity : AppCompatActivity() {
     // handle fab click
     private fun addNewItem() {
         // add workout
-        // todo: handle click
+        val goToActivity = when (listsViewModel.fragmentInView) {
+            listsViewModel.listInView[0] -> {
+                Intent(this, AddShoppingItemActivity::class.java)
+            }
+            listsViewModel.listInView[1] -> {
+                Intent(this, AddChoresItemActivity::class.java)
+            }
+            else -> {
+                // Placeholder
+                Log.d(tag, "addNewItem: ")
+                Intent(this, AddShoppingItemActivity::class.java)
+            }
+        }
+        startActivity(goToActivity)
     }
 
     // SET UP FUNCTIONS //
@@ -242,7 +256,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Contextual Action Bar
-    // todo: I will most likely not use this
     // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views
 //    private fun setUpContextualAppBar() {
 //        val contextualActionBar = R.menu.contextual_action_bar

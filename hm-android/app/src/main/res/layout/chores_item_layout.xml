@@ -73,7 +73,8 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginRight="32dp"
                 android:layout_marginBottom="16dp"
-                android:text="x"
+                app:backgroundTint="@color/colorAccent"
+                android:drawableBottom="@drawable/ic_delete_item_24"
                 app:layout_constraintBottom_toTopOf="@id/chores_expandable_container_cardview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

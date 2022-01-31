@@ -26,6 +26,9 @@ class ListsViewModel: ViewModel() {
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
     val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
 
+    var fragmentInView: String? = null
+    var listInView = mutableMapOf<Int, String>()
+
     // These are sent to db when the List Fragments are destroyed.
     var shopVolunteerWasChanged = false
     val shopVolunteersList = mutableMapOf<String, String>()
@@ -115,7 +118,7 @@ class ListsViewModel: ViewModel() {
             choreVolunteerWasChanged = false
             listsRepository.sendChoresVolunteersToDb(
                 clientGroupIDCollection!!,
-                shopVolunteersList
+                choreVolunteersList
             )
         }
     }

@@ -48,6 +48,12 @@ class ShoppingListFragment : Fragment() {
         })
     }
 
+    override fun onStart() {
+        listsViewModel.fragmentInView = fragmentTag
+        listsViewModel.listInView[0] = fragmentTag
+        super.onStart()
+    }
+
     override fun onDestroyView() {
         listsViewModel.sendShoppingVolunteersToDb()
         binding = null

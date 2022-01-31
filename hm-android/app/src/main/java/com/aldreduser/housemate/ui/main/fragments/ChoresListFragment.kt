@@ -46,6 +46,12 @@ class ChoresListFragment : Fragment() {
         })
     }
 
+    override fun onStart() {
+        listsViewModel.fragmentInView = fragmentTag
+        listsViewModel.listInView[1] = fragmentTag
+        super.onStart()
+    }
+
     override fun onDestroyView() {
         listsViewModel.sendChoresVolunteersToDb()
         binding = null

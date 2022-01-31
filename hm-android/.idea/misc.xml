@@ -9,6 +9,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.2712962962962963" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_close_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_delete_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_delete_item_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_duplicate_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_edit_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_more_options_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_navigation_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/ic_add_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/ic_expand_less_24.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/ic_expand_more_24.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/ic_launch_icon_24dp_foreground.xml" value="0.142" />
         <entry key="app/src/main/res/layout/activity_add_chores_item.xml" value="0.2537037037037037" />
         <entry key="app/src/main/res/layout/activity_add_shopping_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.30512820512820515" />
