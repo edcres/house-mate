@@ -84,10 +84,12 @@ class ListsViewModel: ViewModel() {
         itemNeededBy: String,   // try and make this a date
         itemPriority: Int
     ) {
-        listsRepository.addShoppingItemToDb(
-            clientGroupIDCollection!!, itemName, itemQuantity, itemCost,
-            purchaseLocation, itemNeededBy, itemPriority, userName!!
-        )
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.addShoppingItemToDb(
+                clientGroupIDCollection!!, itemName, itemQuantity, itemCost,
+                purchaseLocation, itemNeededBy, itemPriority, userName!!
+            )
+        }
     }
     fun sendChoresItemToDatabase(
         itemName: String,
@@ -95,16 +97,26 @@ class ListsViewModel: ViewModel() {
         itemNeededBy: String,   // try and make this a date
         itemPriority: Int
     ) {
-        listsRepository.addChoresItemToDb(
-            clientGroupIDCollection!!, itemName, itemDifficulty,
-            itemNeededBy, itemPriority, userName!!
-        )
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.addChoresItemToDb(
+                clientGroupIDCollection!!, itemName, itemDifficulty,
+                itemNeededBy, itemPriority, userName!!
+            )
+        }
     }
-    fun toggleShoppingCompletion(itemName:String, isCompleted: Boolean) {
-        listsRepository.toggleShoppingCompletion(clientGroupIDCollection!!, itemName, isCompleted)
+    fun toggleShoppingCompletion(itemName: String, isCompleted: Boolean) {
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.toggleShoppingCompletion(
+                clientGroupIDCollection!!,
+                itemName,
+                isCompleted
+            )
+        }
     }
-    fun toggleChoreCompletion(itemName:String, isCompleted: Boolean) {
-        listsRepository.toggleChoreCompletion(clientGroupIDCollection!!, itemName, isCompleted)
+    fun toggleChoreCompletion(itemName: String, isCompleted: Boolean) {
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.toggleChoreCompletion(clientGroupIDCollection!!, itemName, isCompleted)
+        }
     }
 
     /*
@@ -116,26 +128,34 @@ class ListsViewModel: ViewModel() {
     fun sendShoppingVolunteersToDb() {
         if(shopVolunteerWasChanged) {
             shopVolunteerWasChanged = false
-            listsRepository.sendShoppingVolunteersToDb(
-                clientGroupIDCollection!!,
-                shopVolunteersList
-            )
+            CoroutineScope(Dispatchers.IO).launch {
+                listsRepository.sendShoppingVolunteersToDb(
+                    clientGroupIDCollection!!,
+                    shopVolunteersList
+                )
+            }
         }
     }
     fun sendChoresVolunteersToDb() {
         if(choreVolunteerWasChanged) {
             choreVolunteerWasChanged = false
-            listsRepository.sendChoresVolunteersToDb(
-                clientGroupIDCollection!!,
-                choreVolunteersList
-            )
+            CoroutineScope(Dispatchers.IO).launch {
+                listsRepository.sendChoresVolunteersToDb(
+                    clientGroupIDCollection!!,
+                    choreVolunteersList
+                )
+            }
         }
     }
     fun deleteShoppingListItem(itemName: String) {
-        listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)
+        }
     }
     fun deleteChoresListItem(itemName: String) {
-        listsRepository.deleteChoresListItem(clientGroupIDCollection!!, itemName)
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.deleteChoresListItem(clientGroupIDCollection!!, itemName)
+        }
     }
     // DATABASE FUNCTIONS //
 

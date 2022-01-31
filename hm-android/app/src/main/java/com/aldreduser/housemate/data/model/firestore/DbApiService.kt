@@ -111,7 +111,7 @@ class DbApiService {
     // SET UP FUNCTIONS //
 
     // DATABASE WRITES //
-    fun addShoppingItemToDatabase(
+    suspend fun addShoppingItemToDatabase(
         clientGroupIDCollection: String,
         itemName: String,
         itemQuantity: Double,
@@ -140,7 +140,7 @@ class DbApiService {
             .addOnFailureListener { e -> Log.e(TAG, "Error writing document", e) }
     }
 
-    fun addChoresItemToDatabase(
+    suspend fun addChoresItemToDatabase(
         clientGroupIDCollection: String,
         itemName: String,
         itemDifficulty: Int,
@@ -165,7 +165,7 @@ class DbApiService {
             .addOnFailureListener { e -> Log.e(TAG, "Error writing document", e) }
     }
 
-    fun sendVolunteerToDb(
+    suspend fun sendVolunteerToDb(
         clientGroupIDCollection: String,
         listType: String,
         volunteersList: Map<String, String>
@@ -189,7 +189,7 @@ class DbApiService {
         }
     }
 
-    fun toggleItemCompletion(
+    suspend fun toggleItemCompletion(
         groupID: String,
         listType: String,
         itemName: String,
@@ -273,7 +273,7 @@ class DbApiService {
     // DATABASE READS //
 
     // DELETE DOCUMENT //
-    fun deleteListItem(clientGroupIDCollection: String, listType: String, itemName: String) {
+    suspend fun deleteListItem(clientGroupIDCollection: String, listType: String, itemName: String) {
         val listDoc = getListDoc(listType)
         val itemsCollection = getItemsCollection(listType)
 
