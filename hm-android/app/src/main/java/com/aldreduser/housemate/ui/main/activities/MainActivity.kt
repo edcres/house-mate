@@ -154,23 +154,12 @@ class MainActivity : AppCompatActivity() {
 
         binding?.homeScreenTopAppbar?.setOnMenuItemClickListener { menuItem ->
             val shoppingListEdit = R.id.shopping_list_edit
-            val shoppingListOptionDuplicate = R.id.shopping_list_option_duplicate
-            val shoppingListOptionDelete = R.id.shopping_list_option_delete
 
             when (menuItem.itemId) {
                 shoppingListEdit -> {
-                    //todo: handle edit icon press
-                    //user presses this icon and edit icons pop up next to each recyclerView item
+                    listsViewModel.toggleEditBtn()
                     true
-                } shoppingListOptionDuplicate -> {
-                    //todo: add functionality
-                    //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
-                    true
-                } shoppingListOptionDelete -> {
-                //todo: add functionality
-                //might use it as an alternative to contextual action bar. In case the user can't figure out how to use the contextual action bar
-                true
-            }
+                }
                 else -> false
             }
         }
@@ -254,39 +243,4 @@ class MainActivity : AppCompatActivity() {
             return tabTitles.size
         }
     }
-
-    // Contextual Action Bar
-    // ActionMode.Callback is to invoke the contextual action mode only when the user selects specific views
-//    private fun setUpContextualAppBar() {
-//        val contextualActionBar = R.menu.contextual_action_bar
-//        val contextualDuplicate = R.id.contextual_duplicate
-//        val contextualDelete = R.id.contextual_delete
-//
-//        // this might not work bc it's in a function, but i think it will
-//        val callback = object : ActionMode.Callback {
-//            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-//                menuInflater.inflate(contextualActionBar, menu)
-//                return true
-//            }
-//            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-//                return false
-//            }
-//            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-//                return when (item?.itemId) {
-//                    contextualDuplicate -> {
-//                        // Handle duplicate icon press
-//                        true
-//                    } contextualDelete -> {
-//                        // Handle delete icon press
-//                        true
-//                    }
-//                    else -> false
-//                }
-//            }
-//            override fun onDestroyActionMode(mode: ActionMode?) {
-//            }
-//        }
-//        val actionMode = startSupportActionMode(callback)   //I changed the import from 'android.view.ActionMode.Callback' to 'androidx.appcompat.view.ActionMode.Callback'
-//        actionMode?.title = "1 selected"
-//    }
 }

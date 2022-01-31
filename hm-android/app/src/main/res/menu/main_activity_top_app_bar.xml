@@ -8,21 +8,21 @@
         android:title="@string/appbar_edit"
         app:showAsAction="ifRoom"/>
 
-    <item
-        android:id="@+id/shopping_list_more_options"
-        android:icon="@drawable/ic_more_options_24dp"
-        android:title="@string/appbar_more_options"
-        app:showAsAction="ifRoom">
+<!--    Maybe more options will be added some day-->
+<!--    <item-->
+<!--        android:id="@+id/shopping_list_more_options"-->
+<!--        android:icon="@drawable/ic_more_options_24dp"-->
+<!--        android:title="@string/appbar_more_options"-->
+<!--        app:showAsAction="ifRoom">-->
 
-        <!--suppress AndroidElementNotAllowed -->
-        <item
-            android:id="@+id/shopping_list_option_duplicate"
-            android:title="@string/appbar_duplicate"/>
-        <!--suppress AndroidElementNotAllowed -->
-        <item
-            android:id="@+id/shopping_list_option_delete"
-            android:title="@string/appbar_delete" />
-
-    </item>
+<!--        &lt;!&ndash;suppress AndroidElementNotAllowed &ndash;&gt;-->
+<!--        <item-->
+<!--            android:id="@+id/shopping_list_option_duplicate"-->
+<!--            android:title="@string/appbar_duplicate"/>-->
+<!--        &lt;!&ndash;suppress AndroidElementNotAllowed &ndash;&gt;-->
+<!--        <item-->
+<!--            android:id="@+id/shopping_list_option_delete"-->
+<!--            android:title="@string/appbar_delete" />-->
+<!--    </item>-->
 
 </menu>

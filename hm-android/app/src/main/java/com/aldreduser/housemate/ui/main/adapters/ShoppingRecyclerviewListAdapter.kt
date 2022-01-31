@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +50,20 @@ class ShoppingRecyclerviewListAdapter :
                 shoppingPriorityText.text = displayPriority(item.priority!!)
                 shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
                 shoppingWhoIsGettingItText.setText(item.volunteer)
+
+                listsViewModel.menuEditIsOn.observe(lifecycleOwner!!, Observer { result ->
+                    when (result) {
+                        true -> {
+                            removeItemButton.visibility = View.VISIBLE
+                            shoppingExpandButton.visibility = View.GONE
+                            shoppingExpandableContainer.visibility = View.GONE
+                        }
+                        else -> {
+                            shoppingExpandButton.visibility = View.VISIBLE
+                            removeItemButton.visibility = View.GONE
+                        }
+                    }
+                })
 
                 shoppingWhoIsGettingItText.doAfterTextChanged {
                     listsViewModel.shopVolunteersList[item.name!!] = it.toString()

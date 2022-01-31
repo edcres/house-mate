@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="choresEntity"
             type="com.aldreduser.housemate.data.model.ChoresItem" />
@@ -73,6 +72,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginRight="32dp"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 app:backgroundTint="@color/colorAccent"
                 android:drawableBottom="@drawable/ic_delete_item_24"
                 app:layout_constraintBottom_toTopOf="@id/chores_expandable_container_cardview"
@@ -88,12 +88,11 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/colorItemContainer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/chores_height_component"
                 app:layout_constraintTop_toBottomOf="@id/chores_height_component">
-                <!--            invisible-->
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/chores_expandable_container"

@@ -26,6 +26,9 @@ class ListsViewModel: ViewModel() {
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
     val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
 
+    private var _menuEditIsOn = MutableLiveData(false)
+    val menuEditIsOn: LiveData<Boolean> get() = _menuEditIsOn
+
     var fragmentInView: String? = null
     var listInView = mutableMapOf<Int, String>()
 
@@ -47,6 +50,12 @@ class ListsViewModel: ViewModel() {
         Log.i(TAG, "_shoppingItems: ${_shoppingItems.value?.size}")
         Log.i(TAG, "_choreItems: ${_choreItems.value?.size}")
     }
+
+    // UI //
+    fun toggleEditBtn() {
+        _menuEditIsOn.value = !_menuEditIsOn.value!!
+    }
+    // UI //
 
     // DATABASE FUNCTIONS //
     // Set up list items realtime fetching

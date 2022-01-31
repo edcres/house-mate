@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,7 @@ import com.aldreduser.housemate.util.displayDifficulty
 import com.aldreduser.housemate.util.displayPriority
 
 // This is the chores list recyclerview adapter
-class ChoresRecyclerviewListAdapter() :
+class ChoresRecyclerviewListAdapter :
     ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(ChoresItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ChoresViewHolder {
@@ -45,6 +46,20 @@ class ChoresRecyclerviewListAdapter() :
                 choresPriorityText.text = displayPriority(item.priority!!)
                 choresAddedByText.text = displayAddedBy(item.addedBy!!)
                 choresWhoIsDoingItText.setText(item.volunteer)
+
+                listsViewModel.menuEditIsOn.observe(lifecycleOwner!!, Observer { result ->
+                    when (result) {
+                        true -> {
+                            removeItemButton.visibility = View.VISIBLE
+                            choresExpandButton.visibility = View.GONE
+                            choresExpandableContainer.visibility = View.GONE
+                        }
+                        else -> {
+                            choresExpandButton.visibility = View.VISIBLE
+                            removeItemButton.visibility = View.GONE
+                        }
+                    }
+                })
 
                 choresWhoIsDoingItText.doAfterTextChanged {
                     listsViewModel.choreVolunteersList[item.name!!] = it.toString()
