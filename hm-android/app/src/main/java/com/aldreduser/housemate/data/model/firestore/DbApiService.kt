@@ -168,18 +168,25 @@ class DbApiService {
     fun sendVolunteerToDb(
         clientGroupIDCollection: String,
         listType: String,
-        volunteersList: MutableMap<String, String>
+        volunteersList: Map<String, String>
     ) {
-        // update all the volunteers for all items of 1 list in **ONLY 1** query for each list
+        // A batched write can contain up to 500 operations. Each operation in the batch counts
+        //  separately towards your Cloud Firestore usage.
+        // Here there is one operation per each item in the 'volunteersList' map
         val listDoc = getListDoc(listType)
         val itemsCollection = getItemsCollection(listType)
-        groupIDsDocumentDB.collection(clientGroupIDCollection).document(listDoc)
-            .collection(itemsCollection).document(itemName)
-            .update(VOLUNTEER_FIELD, volunteerName)
-            .addOnSuccessListener {
-                Log.i(TAG, "$itemName successfully updated to $volunteerName")
+        val itemsCollectionPath = groupIDsDocumentDB.collection(clientGroupIDCollection)
+            .document(listDoc).collection(itemsCollection)
+
+        db.runBatch { batch ->
+            volunteersList.forEach {
+                batch.update(itemsCollectionPath.document(it.key), it.key, it.value)
             }
-            .addOnFailureListener { Log.e(TAG, "Error updating doc") }
+        }.addOnSuccessListener {
+            Log.i(TAG, "sendVolunteerToDb: Volunteer updates completed")
+        }.addOnFailureListener { e ->
+            Log.e(TAG, "sendVolunteerToDb: Volunteer updates completed", e)
+        }
     }
 
     fun toggleItemCompletion(

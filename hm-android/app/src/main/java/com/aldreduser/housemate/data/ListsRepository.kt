@@ -66,7 +66,7 @@ class ListsRepository {
         dbApiService.toggleItemCompletion(groupID, choreItem, itemName, isCompleted)
     }
 
-    fun sendShoppingVolunteersToDb(groupID: String, volunteersList: MutableMap<String, String>) {
+    fun sendShoppingVolunteersToDb(groupID: String, volunteersList: Map<String, String>) {
         dbApiService.sendVolunteerToDb(groupID, shoppingItem, volunteersList)
     }
 
