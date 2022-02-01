@@ -45,9 +45,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
 // todo: display the groupID someWhere (maybe have a saved list of groupIDs with nicknames)
-// todo: clean up unused imports
 // todo: take care of warnings
 // todo: clean up comments
+// todo: clean up unused imports
 // todo: change colors of list screen
 
 /*

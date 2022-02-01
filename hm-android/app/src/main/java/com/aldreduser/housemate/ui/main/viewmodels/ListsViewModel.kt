@@ -119,12 +119,6 @@ class ListsViewModel: ViewModel() {
         }
     }
 
-    /*
-    var shopVolunteerWasChanged = false
-    val shopVolunteersList = mutableMapOf<String, String>()
-    var choreVolunteerWasChanged = false
-    val choreVolunteersList = mutableMapOf<String, String>()
-     */
     fun sendShoppingVolunteersToDb() {
         if(shopVolunteerWasChanged) {
             shopVolunteerWasChanged = false
