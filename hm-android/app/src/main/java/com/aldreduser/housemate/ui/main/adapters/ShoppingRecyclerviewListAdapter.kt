@@ -20,22 +20,22 @@ import com.aldreduser.housemate.util.displayDate
 import com.aldreduser.housemate.util.displayPriority
 
 // This is the list recyclerview adapter
-class ShoppingRecyclerviewListAdapter :
+class ShoppingRecyclerviewListAdapter(val listsViewModel: ListsViewModel) :
     ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ShoppingViewHolder>(
         ShoppingItemDiffCallback()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingViewHolder {
-        return ShoppingViewHolder.from(parent)
+        return ShoppingViewHolder.from(listsViewModel, parent)
     }
 
     override fun onBindViewHolder(holderShopping: ShoppingViewHolder, position: Int) =
         holderShopping.bind(getItem(position))
 
-    class ShoppingViewHolder private constructor(val binding: ShoppingItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        private val listsViewModel = ListsViewModel()
+    class ShoppingViewHolder private constructor(
+        val listsViewModel: ListsViewModel,
+        val binding: ShoppingItemLayoutBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ShoppingItem) {
             binding.apply {
@@ -102,10 +102,10 @@ class ShoppingRecyclerviewListAdapter :
         }
 
         companion object {
-            fun from(parent: ViewGroup): ShoppingViewHolder {
+            fun from(listsViewModel: ListsViewModel, parent: ViewGroup): ShoppingViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ShoppingItemLayoutBinding.inflate(layoutInflater, parent, false)
-                return ShoppingViewHolder(binding)
+                return ShoppingViewHolder(listsViewModel, binding)
             }
         }
     }

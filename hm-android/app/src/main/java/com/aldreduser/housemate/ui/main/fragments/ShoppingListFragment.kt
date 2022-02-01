@@ -18,7 +18,7 @@ class ShoppingListFragment : Fragment() {
     private val fragmentTag = "ShoppingListFragmentTAG"
     private var binding: FragmentShoppingListBinding? = null
     private lateinit var listsViewModel: ListsViewModel
-    private val recyclerAdapter = ShoppingRecyclerviewListAdapter()
+    private lateinit var recyclerAdapter: ShoppingRecyclerviewListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +29,7 @@ class ShoppingListFragment : Fragment() {
             .inflate(inflater, container, false)
         binding = fragmentBinding
         listsViewModel = ViewModelProvider(this)[ListsViewModel::class.java]
+        recyclerAdapter = ShoppingRecyclerviewListAdapter(listsViewModel)
         return fragmentBinding.root
     }
 
@@ -46,10 +47,6 @@ class ShoppingListFragment : Fragment() {
         listsViewModel.shoppingItems.observe(viewLifecycleOwner, Observer { result ->
             recyclerAdapter.submitList(result)
         })
-
-        // todo: delete this
-        Log.d(fragmentTag, "onViewCreated: vmTestVar = MainAct")
-        Log.d(fragmentTag, "onViewCreated: ${listsViewModel.vmTestVar}")
     }
 
     override fun onStart() {

@@ -16,9 +16,6 @@ import kotlinx.coroutines.withContext
 
 class ListsViewModel: ViewModel() {
 
-    // todo: delete this
-    var vmTestVar: String? = null
-
     private val listsRepository = ListsRepository()
     var sharedPrefs: SharedPreferences? = null
     var userName: String? = null

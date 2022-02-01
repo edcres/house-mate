@@ -87,19 +87,12 @@ class MainActivity : AppCompatActivity() {
             lifecycleOwner = this@MainActivity
             viewModel = listsViewModel
             addItemListFab.setOnClickListener {
-                Log.d(tag, "onCreate: groupID var: ${listsViewModel.clientGroupIDCollection}")
-                Log.d(tag, "onCreate: groupID SP: ${listsViewModel.getDataFromSP(GROUP_ID_SP_TAG)}")
-                Log.d(tag, "onCreate: clientID var: ${listsViewModel.clientIDCollection}")
-                Log.d(tag, "onCreate: clientID SP: ${listsViewModel.getDataFromSP(CLIENT_ID_SP_TAG)}")
-//                listsViewModel.clearSPs()
-//                addNewItem()
+                addNewItem()
             }
         }
         setUpAppBar()
         setUpTabs()
         startApplication()
-        // todo: delete this
-        listsViewModel.vmTestVar = "MainAct"
     }
 
     override fun onDestroy() {
