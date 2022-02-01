@@ -20,7 +20,7 @@ class ListsRepository {
     }
 
     // add item
-    suspend fun addShoppingItemToDb(
+    fun addShoppingItemToDb(
         groupID: String,
         itemName: String,
         itemQuantity: Double,
@@ -35,7 +35,7 @@ class ListsRepository {
             purchaseLocation, itemNeededBy, itemPriority, addedBy
         )
     }
-    suspend fun addChoresItemToDb(
+    fun addChoresItemToDb(
         groupID: String,
         itemName: String,
         itemDifficulty: Int,
@@ -58,28 +58,28 @@ class ListsRepository {
         return dbApiService.getLastClientAdded(groupID)
     }
 
-    suspend fun toggleShoppingCompletion(groupID: String, itemName:String, isCompleted: Boolean) {
+    fun toggleShoppingCompletion(groupID: String, itemName:String, isCompleted: Boolean) {
         dbApiService.toggleItemCompletion(groupID, shoppingItem, itemName, isCompleted)
     }
 
-    suspend fun toggleChoreCompletion(groupID: String, itemName:String, isCompleted: Boolean) {
+    fun toggleChoreCompletion(groupID: String, itemName:String, isCompleted: Boolean) {
         dbApiService.toggleItemCompletion(groupID, choreItem, itemName, isCompleted)
     }
 
-    suspend fun sendShoppingVolunteersToDb(groupID: String, volunteersList: Map<String, String>) {
+    fun sendShoppingVolunteersToDb(groupID: String, volunteersList: Map<String, String>) {
         dbApiService.sendVolunteerToDb(groupID, shoppingItem, volunteersList)
     }
 
-    suspend fun sendChoresVolunteersToDb(groupID: String, volunteersList: MutableMap<String, String>) {
+    fun sendChoresVolunteersToDb(groupID: String, volunteersList: MutableMap<String, String>) {
         dbApiService.sendVolunteerToDb(groupID, choreItem, volunteersList)
     }
 
     // delete item
-    suspend fun deleteShoppingListItem(groupID: String, itemName: String) {
+    fun deleteShoppingListItem(groupID: String, itemName: String) {
         dbApiService.deleteListItem(groupID, shoppingItem, itemName)
     }
 
-    suspend fun deleteChoresListItem(groupID: String, itemName: String) {
+    fun deleteChoresListItem(groupID: String, itemName: String) {
         dbApiService.deleteListItem(groupID, choreItem, itemName)
     }
 }

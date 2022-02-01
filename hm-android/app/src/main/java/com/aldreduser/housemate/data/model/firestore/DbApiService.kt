@@ -111,7 +111,7 @@ class DbApiService {
     // SET UP FUNCTIONS //
 
     // DATABASE WRITES //
-    suspend fun addShoppingItemToDatabase(
+    fun addShoppingItemToDatabase(
         clientGroupIDCollection: String,
         itemName: String,
         itemQuantity: Double,
@@ -140,7 +140,7 @@ class DbApiService {
             .addOnFailureListener { e -> Log.e(TAG, "Error writing document", e) }
     }
 
-    suspend fun addChoresItemToDatabase(
+    fun addChoresItemToDatabase(
         clientGroupIDCollection: String,
         itemName: String,
         itemDifficulty: Int,
@@ -165,7 +165,7 @@ class DbApiService {
             .addOnFailureListener { e -> Log.e(TAG, "Error writing document", e) }
     }
 
-    suspend fun sendVolunteerToDb(
+    fun sendVolunteerToDb(
         clientGroupIDCollection: String,
         listType: String,
         volunteersList: Map<String, String>
@@ -189,7 +189,7 @@ class DbApiService {
         }
     }
 
-    suspend fun toggleItemCompletion(
+    fun toggleItemCompletion(
         groupID: String,
         listType: String,
         itemName: String,
@@ -225,7 +225,7 @@ class DbApiService {
                     }
                 newID
             }
-            newIDList[0]
+            newIDList[0]    // todo: if this is empty, add a last group added
         } catch (e: Exception) {
             Log.e(TAG, "Error getting group id", e)
             null
@@ -273,7 +273,7 @@ class DbApiService {
     // DATABASE READS //
 
     // DELETE DOCUMENT //
-    suspend fun deleteListItem(clientGroupIDCollection: String, listType: String, itemName: String) {
+    fun deleteListItem(clientGroupIDCollection: String, listType: String, itemName: String) {
         val listDoc = getListDoc(listType)
         val itemsCollection = getItemsCollection(listType)
 

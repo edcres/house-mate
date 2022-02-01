@@ -17,6 +17,7 @@ import com.aldreduser.housemate.databinding.ActivityMainBinding
 import com.aldreduser.housemate.ui.main.fragments.ChoresListFragment
 import com.aldreduser.housemate.ui.main.fragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.CLIENT_ID_SP_TAG
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.GROUP_ID_SP_TAG
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.USER_NAME_SP_TAG
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -86,12 +87,19 @@ class MainActivity : AppCompatActivity() {
             lifecycleOwner = this@MainActivity
             viewModel = listsViewModel
             addItemListFab.setOnClickListener {
-                addNewItem()
+                Log.d(tag, "onCreate: groupID var: ${listsViewModel.clientGroupIDCollection}")
+                Log.d(tag, "onCreate: groupID SP: ${listsViewModel.getDataFromSP(GROUP_ID_SP_TAG)}")
+                Log.d(tag, "onCreate: clientID var: ${listsViewModel.clientIDCollection}")
+                Log.d(tag, "onCreate: clientID SP: ${listsViewModel.getDataFromSP(CLIENT_ID_SP_TAG)}")
+//                listsViewModel.clearSPs()
+//                addNewItem()
             }
         }
         setUpAppBar()
         setUpTabs()
         startApplication()
+        // todo: delete this
+        listsViewModel.vmTestVar = "MainAct"
     }
 
     override fun onDestroy() {
@@ -112,6 +120,7 @@ class MainActivity : AppCompatActivity() {
         if (currentClientGroupID == null) {
             makeDialogBoxAndSetGroupID()
         } else {
+            listsViewModel.setClientID()
             listsViewModel.setShoppingItemsRealtime()
             listsViewModel.setChoreItemsRealtime()
         }
@@ -130,7 +139,7 @@ class MainActivity : AppCompatActivity() {
             }
             else -> {
                 // Placeholder
-                Log.d(tag, "addNewItem: ")
+                Log.d(tag, "addNewItem: else was triggered")
                 Intent(this, AddShoppingItemActivity::class.java)
             }
         }

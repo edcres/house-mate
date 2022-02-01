@@ -16,6 +16,9 @@ import kotlinx.coroutines.withContext
 
 class ListsViewModel: ViewModel() {
 
+    // todo: delete this
+    var vmTestVar: String? = null
+
     private val listsRepository = ListsRepository()
     var sharedPrefs: SharedPreferences? = null
     var userName: String? = null
@@ -165,6 +168,7 @@ class ListsViewModel: ViewModel() {
     @SuppressLint("ApplySharedPref")
     fun clearSPs() {
         sharedPrefs!!.edit().clear().commit()
+        Log.i(TAG, "clearSPs: SPs cleared")
     }
     // SHARED PREFERENCE //
 
@@ -183,9 +187,10 @@ class ListsViewModel: ViewModel() {
             }
         }
     }
-    private fun setClientID() {
+    fun setClientID() {
         clientIDCollection = getDataFromSP(CLIENT_ID_SP_TAG)
         if (clientIDCollection == null) {
+            Log.d(TAG, "setClientID: clientIDCollection is null")
 
             CoroutineScope(Dispatchers.IO).launch {
                 clientIDCollection =
@@ -193,13 +198,13 @@ class ListsViewModel: ViewModel() {
 
                 withContext(Dispatchers.Main) {
                     if (clientIDCollection != null) {
-                        sendDataToSP(GROUP_ID_SP_TAG, clientIDCollection!!)
+                        sendDataToSP(CLIENT_ID_SP_TAG, clientIDCollection!!)
                     } else {
                         Log.e(TAG, "generateClientGroupID(): clientIDCollection is null")
                     }
                 }
             }
-        }
+        } else {Log.d(TAG, "setClientID: clientIDCollection is not null")}
     }
     fun getCurrentGroupID(): String? {
         clientGroupIDCollection = getDataFromSP(GROUP_ID_SP_TAG)

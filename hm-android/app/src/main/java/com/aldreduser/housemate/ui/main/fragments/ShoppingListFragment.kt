@@ -46,6 +46,10 @@ class ShoppingListFragment : Fragment() {
         listsViewModel.shoppingItems.observe(viewLifecycleOwner, Observer { result ->
             recyclerAdapter.submitList(result)
         })
+
+        // todo: delete this
+        Log.d(fragmentTag, "onViewCreated: vmTestVar = MainAct")
+        Log.d(fragmentTag, "onViewCreated: ${listsViewModel.vmTestVar}")
     }
 
     override fun onStart() {
