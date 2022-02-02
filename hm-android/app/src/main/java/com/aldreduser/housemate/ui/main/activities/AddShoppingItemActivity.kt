@@ -3,7 +3,6 @@ package com.aldreduser.housemate.ui.main.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.aldreduser.housemate.databinding.ActivityAddShoppingItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
@@ -13,7 +12,7 @@ class AddShoppingItemActivity : AppCompatActivity() {
 
     private val tag = "AddShopItemTAG"
     private var binding: ActivityAddShoppingItemBinding? = null
-    private val listsViewModel: ListsViewModel by activityViewModels()
+    private lateinit var listsViewModel: ListsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
