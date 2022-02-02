@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.aldreduser.housemate.StartFragment"
+        android:name="com.aldreduser.housemate.ui.main.fragments.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/addShoppingItemFragment"
-        android:name="com.aldreduser.housemate.AddShoppingItemFragment"
+        android:name="com.aldreduser.housemate.ui.main.fragments.AddShoppingItemFragment"
         android:label="fragment_add_shopping_item"
         tools:layout="@layout/fragment_add_shopping_item" />
     <fragment
         android:id="@+id/addChoresItemFragment"
-        android:name="com.aldreduser.housemate.AddChoresItemFragment"
+        android:name="com.aldreduser.housemate.ui.main.fragments.AddChoresItemFragment"
         android:label="fragment_add_chores_item"
         tools:layout="@layout/fragment_add_chores_item" />
 </navigation>

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,7 @@ class ShoppingListFragment : Fragment() {
 
     private val fragmentTag = "ShoppingListFragmentTAG"
     private var binding: FragmentShoppingListBinding? = null
-    private lateinit var listsViewModel: ListsViewModel
+    private val listsViewModel: ListsViewModel by activityViewModels()
     private lateinit var recyclerAdapter: ShoppingRecyclerviewListAdapter
 
     override fun onCreateView(
@@ -28,7 +29,6 @@ class ShoppingListFragment : Fragment() {
         val fragmentBinding = FragmentShoppingListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
-        listsViewModel = ViewModelProvider(this)[ListsViewModel::class.java]
         recyclerAdapter = ShoppingRecyclerviewListAdapter(listsViewModel)
         return fragmentBinding.root
     }

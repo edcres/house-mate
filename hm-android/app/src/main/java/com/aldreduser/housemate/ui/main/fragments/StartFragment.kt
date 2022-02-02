@@ -11,10 +11,12 @@ import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.databinding.FragmentStartBinding
+import com.aldreduser.housemate.ui.main.MainActivity
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
@@ -80,6 +82,7 @@ class StartFragment : Fragment() {
     // handle fab click
     private fun addNewItem() {
         // add workout
+        val navController = Navigation.findNavController(requireParentFragment().requireView())
         val navAction = when (listsViewModel.fragmentInView) {
             listsViewModel.listInView[0] -> {
                 R.id.action_startFragment_to_addShoppingItemFragment
@@ -93,7 +96,7 @@ class StartFragment : Fragment() {
                 R.id.action_startFragment_to_addShoppingItemFragment
             }
         }
-        findNavController().navigate(navAction)
+        navController.navigate(navAction)
     }
 
     // SET UP FUNCTIONS //
