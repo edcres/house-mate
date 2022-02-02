@@ -90,6 +90,7 @@ dependencies {
     // Fragment
     implementation "androidx.fragment:fragment-ktx:1.4.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.nav_version"
     // ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     // Firestore

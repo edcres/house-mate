@@ -1,29 +1,11 @@
 package com.aldreduser.housemate.ui.main
 
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.widget.EditText
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.aldreduser.housemate.R
-import com.aldreduser.housemate.databinding.ActivityMainBinding
-import com.aldreduser.housemate.ui.main.activities.AddChoresItemActivity
-import com.aldreduser.housemate.ui.main.activities.AddShoppingItemActivity
-import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
-import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.GROUP_ID_SP_TAG
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.USER_NAME_SP_TAG
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.navigation.ui.setupActionBarWithNavController
 
 // storage
 // todo: local
@@ -70,180 +52,18 @@ Improve MVVM architecture by:
 // Home Screen
 class MainActivity : AppCompatActivity() {
 
-    private val tag = "MainActivityTAG"
-    private val mainSharedPrefTag = "MainActivitySP"
-    private var binding: ActivityMainBinding? = null
-    private lateinit var listsViewModel: ListsViewModel
-    private val tabTitles = arrayOf("Shopping List", "Chores")
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
-        listsViewModel = ViewModelProvider(this)[ListsViewModel::class.java]
-        listsViewModel.sharedPrefs =
-            this.getSharedPreferences(mainSharedPrefTag, Context.MODE_PRIVATE)
-        binding?.apply {
-            lifecycleOwner = this@MainActivity
-            viewModel = listsViewModel
-            addItemListFab.setOnClickListener {
-                addNewItem()
-            }
-        }
-        setUpAppBar()
-        setUpTabs()
-        startApplication()
+        setupActionBarWithNavController(navController)
     }
 
-    override fun onDestroy() {
-        listsViewModel.sharedPrefs = null
-        binding = null
-        Log.i(tag, "onDestroy: MainActivity")
-        super.onDestroy()
-    }
-
-    private fun startApplication() {
-        // get user name
-        val userName = listsViewModel.getDataFromSP(USER_NAME_SP_TAG)
-        if (userName == null) makeDialogBoxAndSetUserName()
-
-        // set Up Database IDs And FetchData
-        val currentClientGroupID = listsViewModel.getCurrentGroupID()
-
-        if (currentClientGroupID == null) {
-            makeDialogBoxAndSetGroupID()
-        } else {
-            listsViewModel.setClientID()
-            listsViewModel.setShoppingItemsRealtime()
-            listsViewModel.setChoreItemsRealtime()
-        }
-    }
-
-    // CLICK LISTENERS //
-    // handle fab click
-    private fun addNewItem() {
-        // add workout
-        val goToActivity = when (listsViewModel.fragmentInView) {
-            listsViewModel.listInView[0] -> {
-                Intent(this, AddShoppingItemActivity::class.java)
-            }
-            listsViewModel.listInView[1] -> {
-                Intent(this, AddChoresItemActivity::class.java)
-            }
-            else -> {
-                // Placeholder
-                Log.d(tag, "addNewItem: else was triggered")
-                Intent(this, AddShoppingItemActivity::class.java)
-            }
-        }
-        startActivity(goToActivity)
-    }
-
-    // SET UP FUNCTIONS //
-    private fun setUpAppBar() {
-        val moreOptionsDrawable = R.drawable.ic_more_options_24dp
-        binding?.homeScreenTopAppbar?.title = "House Mate"
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            binding?.homeScreenTopAppbar?.overflowIcon =
-                // might have to do this in every activity.
-                ContextCompat.getDrawable(this, moreOptionsDrawable)
-        }
-        binding?.homeScreenTopAppbar?.setNavigationOnClickListener {
-            //todo: handle navigation icon press
-            //the navigation icon is the icon to the left
-            // command+f 'Navigation icon attributes' in material design website
-        }
-
-        binding?.homeScreenTopAppbar?.setOnMenuItemClickListener { menuItem ->
-            val shoppingListEdit = R.id.shopping_list_edit
-
-            when (menuItem.itemId) {
-                shoppingListEdit -> {
-                    listsViewModel.toggleEditBtn()
-                    true
-                }
-                else -> false
-            }
-        }
-    }
-
-    private fun setUpTabs() {
-        binding?.listsViewPager?.adapter = ViewPagerFragmentAdapter(this)
-
-        // attaching tab mediator
-        // tab mediator will synchronize the ViewPager2's position with the selected tab when a tab is selected.
-        binding?.let { TabLayoutMediator(binding!!.mainActivityTabLayout, it.listsViewPager) {
-                tab: TabLayout.Tab, position: Int ->
-                tab.text = tabTitles[position]
-            }.attach()
-        }
-    }
-
-    private fun makeDialogBoxAndSetUserName() {
-        val inputDialog = MaterialAlertDialogBuilder(this)
-        val customAlertDialogView = LayoutInflater.from(this)
-            .inflate(R.layout.name_dialog_box, null, false)
-        val inputNameDialog: EditText = customAlertDialogView.findViewById(R.id.input_name_dialog)
-        inputDialog.setView(customAlertDialogView)
-            .setTitle("Your user name")
-            .setPositiveButton("Accept") { dialog, _ ->
-                listsViewModel.userName = inputNameDialog.text.toString()
-                Log.i(tag, "makeDialogBoxAndSetUserName: accept clicked " +
-                        "${listsViewModel.userName}")
-                listsViewModel.sendDataToSP(USER_NAME_SP_TAG, listsViewModel.userName!!)
-                dialog.dismiss()
-            }
-            .setNegativeButton("Anonymous") { dialog, _ ->
-                Log.i(tag, "makeDialogBoxAndSetUserName: negative button called")
-                listsViewModel.userName = "anon"
-                listsViewModel.sendDataToSP(USER_NAME_SP_TAG, listsViewModel.userName!!)
-                dialog.dismiss()
-            }
-            .show()
-    }
-
-    private fun makeDialogBoxAndSetGroupID() {
-        val inputDialog = MaterialAlertDialogBuilder(this)
-        val customAlertDialogView = LayoutInflater.from(this)
-            .inflate(R.layout.name_dialog_box, null, false)
-        val inputNameDialog: EditText = customAlertDialogView.findViewById(R.id.input_name_dialog)
-        inputDialog.setView(customAlertDialogView)
-            .setTitle("Your group ID")
-            .setPositiveButton("Accept") { dialog, _ ->
-                listsViewModel.clientGroupIDCollection = inputNameDialog.text.toString()
-                Log.i(tag, "makeDialogBoxAndSetGroupID: accept clicked " +
-                            "${listsViewModel.clientGroupIDCollection}")
-                listsViewModel.sendDataToSP(
-                    GROUP_ID_SP_TAG,
-                    listsViewModel.clientGroupIDCollection!!
-                )
-                listsViewModel.setShoppingItemsRealtime()
-                listsViewModel.setChoreItemsRealtime()
-                dialog.dismiss()
-            }
-            .setNegativeButton("New Group") { dialog, _ ->
-                Log.i(tag, "makeDialogBoxAndSetGroupID: negative button called")
-                listsViewModel.generateClientGroupID()
-                dialog.dismiss()
-            }
-            .show()
-    }
-
-    // Adapter for the viewPager2 (Inner Class) //
-    private inner class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) :
-        FragmentStateAdapter(fragmentActivity) {
-
-        override fun createFragment(position: Int): Fragment {
-            when (position) {
-                0 -> return ShoppingListFragment()
-                1 -> return ChoresListFragment()
-            }
-            return ShoppingListFragment()
-        }
-
-        override fun getItemCount(): Int {
-            return tabTitles.size
-        }
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
