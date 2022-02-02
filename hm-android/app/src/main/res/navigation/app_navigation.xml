@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.aldreduser.housemate.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_addShoppingItemFragment"
+            app:destination="@id/addShoppingItemFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_addChoresItemFragment"
+            app:destination="@id/addChoresItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addShoppingItemFragment"
+        android:name="com.aldreduser.housemate.AddShoppingItemFragment"
+        android:label="fragment_add_shopping_item"
+        tools:layout="@layout/fragment_add_shopping_item" />
+    <fragment
+        android:id="@+id/addChoresItemFragment"
+        android:name="com.aldreduser.housemate.AddChoresItemFragment"
+        android:label="fragment_add_chores_item"
+        tools:layout="@layout/fragment_add_chores_item" />
+</navigation>

@@ -1,4 +1,4 @@
-package com.aldreduser.housemate.ui.main.fragments
+package com.aldreduser.housemate.ui.main.fragments.nestedfragments
 
 import android.os.Bundle
 import android.util.Log

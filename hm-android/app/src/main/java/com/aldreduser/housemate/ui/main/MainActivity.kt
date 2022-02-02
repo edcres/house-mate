@@ -1,4 +1,4 @@
-package com.aldreduser.housemate.ui.main.activities
+package com.aldreduser.housemate.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -14,10 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.databinding.ActivityMainBinding
-import com.aldreduser.housemate.ui.main.fragments.ChoresListFragment
-import com.aldreduser.housemate.ui.main.fragments.ShoppingListFragment
+import com.aldreduser.housemate.ui.main.activities.AddChoresItemActivity
+import com.aldreduser.housemate.ui.main.activities.AddShoppingItemActivity
+import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
+import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.CLIENT_ID_SP_TAG
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.GROUP_ID_SP_TAG
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.USER_NAME_SP_TAG
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
