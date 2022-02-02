@@ -29,7 +29,7 @@ class ShoppingListFragment : Fragment() {
         val fragmentBinding = FragmentShoppingListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
-        recyclerAdapter = ShoppingRecyclerviewListAdapter(listsViewModel)
+        recyclerAdapter = ShoppingRecyclerviewListAdapter(listsViewModel, viewLifecycleOwner)
         return fragmentBinding.root
     }
 

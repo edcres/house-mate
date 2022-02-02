@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -20,20 +21,24 @@ import com.aldreduser.housemate.util.displayDifficulty
 import com.aldreduser.housemate.util.displayPriority
 
 // This is the chores list recyclerview adapter
-class ChoresRecyclerviewListAdapter :
+class ChoresRecyclerviewListAdapter(
+    val listsViewModel: ListsViewModel,
+    val fragLifecycleOwner: LifecycleOwner
+) :
     ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(ChoresItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ChoresViewHolder {
-        return ChoresViewHolder.from(parent)
+        return ChoresViewHolder.from(listsViewModel, fragLifecycleOwner,parent)
     }
 
     override fun onBindViewHolder(holderChores: ChoresViewHolder, position: Int) =
         holderChores.bind(getItem(position)!!)
 
-    class ChoresViewHolder private constructor(val binding: ChoresItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        private val listsViewModel = ListsViewModel()
+    class ChoresViewHolder private constructor(
+        val listsViewModel: ListsViewModel,
+        private val fragLifecycleOwner: LifecycleOwner,
+        val binding: ChoresItemLayoutBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ChoresItem) {
             binding.apply {
@@ -47,7 +52,7 @@ class ChoresRecyclerviewListAdapter :
                 choresAddedByText.text = displayAddedBy(item.addedBy!!)
                 choresWhoIsDoingItText.setText(item.volunteer)
 
-                listsViewModel.menuEditIsOn.observe(lifecycleOwner!!, Observer { result ->
+                listsViewModel.menuEditIsOn.observe(fragLifecycleOwner, Observer { result ->
                     when (result) {
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
@@ -98,10 +103,14 @@ class ChoresRecyclerviewListAdapter :
         }
 
         companion object {
-            fun from(parent: ViewGroup): ChoresViewHolder {
+            fun from(
+                listsViewModel: ListsViewModel,
+                fragLifecycleOwner: LifecycleOwner,
+                parent: ViewGroup
+            ): ChoresViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ChoresItemLayoutBinding.inflate(layoutInflater, parent, false)
-                return ChoresViewHolder(binding)
+                return ChoresViewHolder(listsViewModel, fragLifecycleOwner, binding)
             }
         }
     }

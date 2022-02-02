@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -20,13 +21,16 @@ import com.aldreduser.housemate.util.displayDate
 import com.aldreduser.housemate.util.displayPriority
 
 // This is the list recyclerview adapter
-class ShoppingRecyclerviewListAdapter(val listsViewModel: ListsViewModel) :
+class ShoppingRecyclerviewListAdapter(
+    val listsViewModel: ListsViewModel,
+    val fragLifecycleOwner: LifecycleOwner
+) :
     ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ShoppingViewHolder>(
         ShoppingItemDiffCallback()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingViewHolder {
-        return ShoppingViewHolder.from(listsViewModel, parent)
+        return ShoppingViewHolder.from(listsViewModel, fragLifecycleOwner, parent)
     }
 
     override fun onBindViewHolder(holderShopping: ShoppingViewHolder, position: Int) =
@@ -34,6 +38,7 @@ class ShoppingRecyclerviewListAdapter(val listsViewModel: ListsViewModel) :
 
     class ShoppingViewHolder private constructor(
         val listsViewModel: ListsViewModel,
+        private val fragLifecycleOwner: LifecycleOwner,
         val binding: ShoppingItemLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -51,7 +56,7 @@ class ShoppingRecyclerviewListAdapter(val listsViewModel: ListsViewModel) :
                 shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
                 shoppingWhoIsGettingItText.setText(item.volunteer)
 
-                listsViewModel.menuEditIsOn.observe(lifecycleOwner!!, Observer { result ->
+                listsViewModel.menuEditIsOn.observe(fragLifecycleOwner, Observer { result ->
                     when (result) {
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
@@ -102,10 +107,14 @@ class ShoppingRecyclerviewListAdapter(val listsViewModel: ListsViewModel) :
         }
 
         companion object {
-            fun from(listsViewModel: ListsViewModel, parent: ViewGroup): ShoppingViewHolder {
+            fun from(
+                listsViewModel: ListsViewModel,
+                fragLifecycleOwner: LifecycleOwner,
+                parent: ViewGroup
+            ): ShoppingViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ShoppingItemLayoutBinding.inflate(layoutInflater, parent, false)
-                return ShoppingViewHolder(listsViewModel, binding)
+                return ShoppingViewHolder(listsViewModel, fragLifecycleOwner, binding)
             }
         }
     }

@@ -19,7 +19,7 @@ class ChoresListFragment : Fragment() {
     private val fragmentTag = "ChoresListFragmentTAG"
     private var binding: FragmentChoresListBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
-    private val recyclerAdapter = ChoresRecyclerviewListAdapter()
+    private lateinit var recyclerAdapter: ChoresRecyclerviewListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +29,7 @@ class ChoresListFragment : Fragment() {
         val fragmentBinding = FragmentChoresListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
+        recyclerAdapter = ChoresRecyclerviewListAdapter(listsViewModel, viewLifecycleOwner)
         return fragmentBinding.root
     }
 
