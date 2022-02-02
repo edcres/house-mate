@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import com.aldreduser.housemate.R
 import com.aldreduser.housemate.databinding.FragmentAddShoppingItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.necessaryAreFilled
@@ -39,6 +41,8 @@ class AddShoppingItemFragment : Fragment() {
                 if (necessaryAreFilled) {
                     addItem()
                 }
+                val navController = Navigation.findNavController(requireParentFragment().requireView())
+                navController.navigate(R.id.action_addShoppingItemFragment_to_startFragment)
             }
         }
         setupAppBar()

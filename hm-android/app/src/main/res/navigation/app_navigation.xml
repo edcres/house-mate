@@ -21,10 +21,18 @@
         android:id="@+id/addShoppingItemFragment"
         android:name="com.aldreduser.housemate.ui.main.fragments.AddShoppingItemFragment"
         android:label="fragment_add_shopping_item"
-        tools:layout="@layout/fragment_add_shopping_item" />
+        tools:layout="@layout/fragment_add_shopping_item" >
+        <action
+            android:id="@+id/action_addShoppingItemFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addChoresItemFragment"
         android:name="com.aldreduser.housemate.ui.main.fragments.AddChoresItemFragment"
         android:label="fragment_add_chores_item"
-        tools:layout="@layout/fragment_add_chores_item" />
+        tools:layout="@layout/fragment_add_chores_item" >
+        <action
+            android:id="@+id/action_addChoresItemFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+    </fragment>
 </navigation>

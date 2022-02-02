@@ -1,6 +1,7 @@
 package com.aldreduser.housemate.ui.main.adapters
 
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,8 +82,8 @@ class ShoppingRecyclerviewListAdapter(
                     listsViewModel.toggleShoppingCompletion(item.name!!, shoppingItIsDone.isChecked)
                 }
                 shoppingExpandButton.setOnClickListener {
-                    // If view is invisible change image make view visible
-                    // else if view is visible change image make view invisible
+                    // If view is GONE change image make view visible
+                    // else if view is visible change image make view GONE
                     val expandableContainer = shoppingExpandableContainerCardview
                     val imageToContract: Drawable? = ContextCompat.getDrawable(
                         shoppingExpandButton.context, R.drawable.ic_expand_less_24
@@ -90,13 +91,13 @@ class ShoppingRecyclerviewListAdapter(
                     val imageToExpand: Drawable? = ContextCompat.getDrawable(
                         shoppingExpandButton.context, R.drawable.ic_expand_more_24
                     )
-                    if (expandableContainer.visibility == View.INVISIBLE) {
+                    if (expandableContainer.visibility == View.GONE) {
                         expandableContainer.visibility = View.VISIBLE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             imageToContract, null, null, null
                         )
                     } else if (expandableContainer.visibility == View.VISIBLE) {
-                        expandableContainer.visibility = View.INVISIBLE
+                        expandableContainer.visibility = View.GONE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             imageToExpand, null, null, null
                         )
