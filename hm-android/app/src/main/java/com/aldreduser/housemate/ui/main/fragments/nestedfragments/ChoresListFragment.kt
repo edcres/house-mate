@@ -46,10 +46,10 @@ class ChoresListFragment : Fragment() {
         })
     }
 
-    override fun onStart() {
+    override fun onResume() {
+        super.onResume()
         listsViewModel.fragmentInView = fragmentTag
         listsViewModel.listInView[1] = fragmentTag
-        super.onStart()
     }
 
     override fun onDestroyView() {

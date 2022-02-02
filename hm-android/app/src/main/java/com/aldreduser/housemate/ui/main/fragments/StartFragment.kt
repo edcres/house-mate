@@ -65,8 +65,8 @@ class StartFragment : Fragment() {
 
     private fun startApplication() {
         // get user name
-        val userName = listsViewModel.getDataFromSP(ListsViewModel.USER_NAME_SP_TAG)
-        if (userName == null) makeDialogBoxAndSetUserName()
+        listsViewModel.userName = listsViewModel.getDataFromSP(ListsViewModel.USER_NAME_SP_TAG)
+        if (listsViewModel.userName == null) makeDialogBoxAndSetUserName()
         // set Up Database IDs And FetchData
         val currentClientGroupID = listsViewModel.getCurrentGroupID()
         if (currentClientGroupID == null) {

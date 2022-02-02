@@ -84,10 +84,14 @@ class ListsViewModel: ViewModel() {
         itemNeededBy: String,   // try and make this a date
         itemPriority: Int
     ) {
+        Log.d(TAG, "sendShoppingItemToDatabase: userName: $userName")
         CoroutineScope(Dispatchers.IO).launch {
             listsRepository.addShoppingItemToDb(
                 clientGroupIDCollection!!, itemName, itemQuantity, itemCost,
-                purchaseLocation, itemNeededBy, itemPriority, userName!!
+                purchaseLocation,
+                itemNeededBy,
+                itemPriority,
+                userName!!
             )
         }
     }

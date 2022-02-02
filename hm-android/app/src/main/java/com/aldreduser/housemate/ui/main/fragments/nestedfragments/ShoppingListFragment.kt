@@ -49,10 +49,10 @@ class ShoppingListFragment : Fragment() {
         })
     }
 
-    override fun onStart() {
+    override fun onResume() {
+        super.onResume()
         listsViewModel.fragmentInView = fragmentTag
         listsViewModel.listInView[0] = fragmentTag
-        super.onStart()
     }
 
     override fun onDestroyView() {
