@@ -24,7 +24,7 @@ import com.aldreduser.housemate.util.displayPriority
 // This is the list recyclerview adapter
 class ShoppingRecyclerviewListAdapter(
     val listsViewModel: ListsViewModel,
-    val fragLifecycleOwner: LifecycleOwner
+    private val fragLifecycleOwner: LifecycleOwner
 ) :
     ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ShoppingViewHolder>(
         ShoppingItemDiffCallback()
@@ -45,9 +45,10 @@ class ShoppingRecyclerviewListAdapter(
 
         fun bind(item: ShoppingItem) {
             binding.apply {
+                Log.d("ShopRecyTAG", "item: ${item.name} completed: ${item.completed}")
                 shoppingEntity = item
                 // todo: might need to null check these (probably not)
-                shoppingItIsDone.isChecked = item.purchased!!
+                shoppingItIsDone.isChecked = item.completed!!
                 shoppingItemName.text = item.name
                 shoppingItemQty.text = item.quantity.toString()
                 shoppingWhenNeededDoneText.text = displayDate(item.neededBy!!)

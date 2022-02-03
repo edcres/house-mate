@@ -67,6 +67,10 @@ class DbApiService {
 
                         if (querySnapshot != null) {
                             val itemsList = querySnapshot.toObjects(ShoppingItem::class.java)
+                            Log.d(TAG, " " +
+                                    "\nshopRealtime: ${itemsList[0].name}" +
+                                    "\ncost: ${itemsList[0].cost}" +
+                                    "\ncompleted: ${itemsList[0].completed}")
                             offer(itemsList)
                         } else {
                             Log.i(TAG, "getShoppingItemsRealtime: querySnapshot is null")

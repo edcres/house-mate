@@ -16,10 +16,6 @@ import com.aldreduser.housemate.R
 
 // todo: do the date picker thing
 
-// todo: the viewModel might not be connected to the edit activities
-// maybe use the app context instead of the main activity context
-//  -to do this, extend 'AndroidViewModel()' instead of 'ViewModel()'
-
 // todo: navigation
 // (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
@@ -29,7 +25,10 @@ import com.aldreduser.housemate.R
 // todo: take care of warnings
 // todo: clean up comments
 // todo: clean up unused imports
-// todo: change colors of list screen
+// todo: change colors of recycler item
+// todo: edit recycler item dimensions
+
+// todo: When chore item is added travel to the chore list fragment
 
 /*
 Improve MVVM architecture by:

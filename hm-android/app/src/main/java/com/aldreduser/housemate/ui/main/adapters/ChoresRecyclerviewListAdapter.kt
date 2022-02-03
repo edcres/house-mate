@@ -23,7 +23,7 @@ import com.aldreduser.housemate.util.displayPriority
 // This is the chores list recyclerview adapter
 class ChoresRecyclerviewListAdapter(
     val listsViewModel: ListsViewModel,
-    val fragLifecycleOwner: LifecycleOwner
+    private val fragLifecycleOwner: LifecycleOwner
 ) :
     ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(ChoresItemDiffCallback()) {
 

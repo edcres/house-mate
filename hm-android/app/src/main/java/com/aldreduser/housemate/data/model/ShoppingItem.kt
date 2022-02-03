@@ -28,7 +28,9 @@ data class ShoppingItem (
     val name: String? = "",
     val quantity: Double? = 0.0,
     val addedBy: String? = "",
-    val purchased: Boolean? = false,
+//    val purchased: Boolean? = false,
+    val completed: Boolean? = false,
+
 
     // Not necessary and not used in Chores
     val cost: Double? = 0.0,
