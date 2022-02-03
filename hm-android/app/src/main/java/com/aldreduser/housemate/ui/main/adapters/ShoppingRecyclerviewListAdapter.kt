@@ -95,12 +95,12 @@ class ShoppingRecyclerviewListAdapter(
                     if (expandableContainer.visibility == View.GONE) {
                         expandableContainer.visibility = View.VISIBLE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                            imageToContract, null, null, null
+                            null, imageToContract, null, null
                         )
                     } else if (expandableContainer.visibility == View.VISIBLE) {
                         expandableContainer.visibility = View.GONE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                            imageToExpand, null, null, null
+                            null, imageToExpand, null, null
                         )
                     }
                 }
