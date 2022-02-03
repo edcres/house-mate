@@ -66,15 +66,18 @@ class ChoresRecyclerviewListAdapter(
                     }
                 })
 
+                if (listsViewModel.itemsExpanded[item.name!!] == true) {
+                    choresExpandableContainerCardview.visibility = View.VISIBLE
+                }
                 choresWhoIsDoingItText.doAfterTextChanged {
-                    listsViewModel.choreVolunteersList[item.name!!] = it.toString()
+                    listsViewModel.choreVolunteersList[item.name] = it.toString()
                     listsViewModel.choreVolunteerWasChanged = true
                 }
                 removeItemButton.setOnClickListener {
-                    listsViewModel.deleteChoresListItem(item.name!!)
+                    listsViewModel.deleteChoresListItem(item.name)
                 }
                 choresItIsDone.setOnClickListener {
-                    listsViewModel.toggleChoreCompletion(item.name!!, choresItIsDone.isChecked)
+                    listsViewModel.toggleChoreCompletion(item.name, choresItIsDone.isChecked)
                 }
                 choresExpandButton.setOnClickListener {
                     // If view is GONE change image make view visible
@@ -87,11 +90,13 @@ class ChoresRecyclerviewListAdapter(
                         choresExpandButton.context, R.drawable.ic_expand_more_24
                     )
                     if (expandableContainer.visibility == View.GONE) {
+                        listsViewModel.itemsExpanded[item.name] = true
                         expandableContainer.visibility = View.VISIBLE
                         choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToContract, null, null
                         )
                     } else if (expandableContainer.visibility == View.VISIBLE) {
+                        listsViewModel.itemsExpanded[item.name] = true
                         expandableContainer.visibility = View.GONE
                         choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToExpand, null, null

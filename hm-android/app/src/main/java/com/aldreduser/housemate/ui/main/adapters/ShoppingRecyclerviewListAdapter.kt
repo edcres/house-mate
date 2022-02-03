@@ -72,6 +72,9 @@ class ShoppingRecyclerviewListAdapter(
                     }
                 })
 
+                if (listsViewModel.itemsExpanded[item.name!!] == true) {
+                    shoppingExpandableContainerCardview.visibility = View.VISIBLE
+                }
                 shoppingWhoIsGettingItText.doAfterTextChanged {
                     listsViewModel.shopVolunteersList[item.name!!] = it.toString()
                     listsViewModel.shopVolunteerWasChanged = true
@@ -93,11 +96,13 @@ class ShoppingRecyclerviewListAdapter(
                         shoppingExpandButton.context, R.drawable.ic_expand_more_24
                     )
                     if (expandableContainer.visibility == View.GONE) {
+                        listsViewModel.itemsExpanded[item.name!!] = true
                         expandableContainer.visibility = View.VISIBLE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToContract, null, null
                         )
                     } else if (expandableContainer.visibility == View.VISIBLE) {
+                        listsViewModel.itemsExpanded[item.name!!] = false
                         expandableContainer.visibility = View.GONE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToExpand, null, null

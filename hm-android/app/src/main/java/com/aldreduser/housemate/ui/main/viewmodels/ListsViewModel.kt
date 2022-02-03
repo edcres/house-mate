@@ -26,9 +26,9 @@ class ListsViewModel: ViewModel() {
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
     val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
 
+    val itemsExpanded = mutableMapOf<String, Boolean>()
     private var _menuEditIsOn = MutableLiveData(false)
     val menuEditIsOn: LiveData<Boolean> get() = _menuEditIsOn
-
     var fragmentInView: String? = null
     var listInView = mutableMapOf<Int, String>()
 
