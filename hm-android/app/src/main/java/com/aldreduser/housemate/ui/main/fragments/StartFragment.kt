@@ -8,19 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
-import com.aldreduser.housemate.data.model.firestore.DbApiService
 import com.aldreduser.housemate.databinding.FragmentStartBinding
-import com.aldreduser.housemate.ui.main.MainActivity
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.GROUP_ID_SP_TAG
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.PAST_GROUPS_SP
+import com.aldreduser.housemate.util.displayToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -116,10 +117,41 @@ class StartFragment : Fragment() {
         }
 
         binding?.homeScreenTopAppbar?.setOnMenuItemClickListener { menuItem ->
-            val shoppingListEdit = R.id.shopping_list_edit
+            val itemListEdit = R.id.item_list_edit
+            val listOptionPastGroups = R.id.list_option_past_groups
+            val listOptionChangeUsername = R.id.list_option_change_username
+            val listOptionExitGroup = R.id.list_option_exit_group
             when (menuItem.itemId) {
-                shoppingListEdit -> {
+                itemListEdit -> {
+                    // todo: When the user clicks edit btn,
+                    //   an edit btn pops up on the recycler item
+                    //   when that btn is clicked, send user to the add item screen
+                    //   send all the appropriate info of that clicked item to the add item view
+                    //   delete that item from the database when the user adds this new item
+                    //   (maybe check if these have the same name first)
                     listsViewModel.toggleEditBtn()
+                    true
+                }
+                listOptionPastGroups -> {
+                    // todo: pop up a dialog box with the past solutions
+                    // todo: send this code to the viewModel
+                    val pastGroups = listsViewModel.getDataFromSP(PAST_GROUPS_SP)
+                    if (pastGroups != null) {
+                        pastGroups.split("-")
+                        // todo: pop up dialog box with previous groups
+                        //  user clicks on a group and saves to SP 'GROUP_ID_SP_TAG'
+                        //  trigger 'startApplication()'
+                    } else {
+                        displayToast(requireContext(), "No past groups")
+                    }
+                    true
+                }
+                listOptionChangeUsername -> {
+                    makeDialogBoxAndSetUserName()
+                    true
+                }
+                listOptionExitGroup -> {
+                    makeDialogBoxAndSetGroupID()
                     true
                 }
                 else -> false
@@ -173,7 +205,7 @@ class StartFragment : Fragment() {
                 Log.i(tag, "makeDialogBoxAndSetGroupID: accept clicked " +
                         "${listsViewModel.clientGroupIDCollection}")
                 listsViewModel.sendDataToSP(
-                    ListsViewModel.GROUP_ID_SP_TAG,
+                    GROUP_ID_SP_TAG,
                     listsViewModel.clientGroupIDCollection!!
                 )
                 listsViewModel.setItemsRealtime(listsViewModel.listTypes[0])

@@ -3,26 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/shopping_list_edit"
+        android:id="@+id/item_list_edit"
         android:icon="@drawable/ic_edit_24dp"
         android:title="@string/appbar_edit"
         app:showAsAction="ifRoom"/>
 
-<!--    Maybe more options will be added some day-->
-<!--    <item-->
-<!--        android:id="@+id/shopping_list_more_options"-->
-<!--        android:icon="@drawable/ic_more_options_24dp"-->
-<!--        android:title="@string/appbar_more_options"-->
-<!--        app:showAsAction="ifRoom">-->
+    <item
+        android:id="@+id/shopping_list_more_options"
+        android:icon="@drawable/ic_more_options_24dp"
+        android:title="@string/appbar_more_options"
+        app:showAsAction="ifRoom">
 
-<!--        &lt;!&ndash;suppress AndroidElementNotAllowed &ndash;&gt;-->
-<!--        <item-->
-<!--            android:id="@+id/shopping_list_option_duplicate"-->
-<!--            android:title="@string/appbar_duplicate"/>-->
-<!--        &lt;!&ndash;suppress AndroidElementNotAllowed &ndash;&gt;-->
-<!--        <item-->
-<!--            android:id="@+id/shopping_list_option_delete"-->
-<!--            android:title="@string/appbar_delete" />-->
-<!--    </item>-->
+        <item
+            android:id="@+id/list_option_past_groups"
+            android:title="@string/appbar_past_groups" />
+
+        <item
+            android:id="@+id/list_option_change_username"
+            android:title="@string/appbar_change_username" />
+
+        <item
+            android:id="@+id/list_option_exit_group"
+            android:title="@string/appbar_exit_group" />
+    </item>
 
 </menu>

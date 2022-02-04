@@ -1,5 +1,8 @@
 package com.aldreduser.housemate.util
 
+import android.content.Context
+import android.widget.Toast
+
 fun displayDate(date: String): String {
     return "needed by $date"
 }
@@ -59,4 +62,8 @@ fun add1AndScrambleLetters(oldID: String): String {
     newID = "$idPositionString$scrambledLetters"
 
     return newID
+}
+
+fun displayToast(context: Context, msg: String) {
+    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 }

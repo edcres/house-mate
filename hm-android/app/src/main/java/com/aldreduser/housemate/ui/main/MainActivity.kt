@@ -49,6 +49,8 @@ Improve MVVM architecture by:
 // User can choose the order items are added (it's alphabetical right now)
 // When passing item data to viewModel db queries I can
 //      just pass it in Data Objects instead of parameters.
+// Change color of more options drop down menu
+// More options drop down menu shows up lower
 
 // Home Screen
 class MainActivity : AppCompatActivity() {

@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/contextual_duplicate"
-        android:icon="@drawable/ic_duplicate_24dp"
-        android:title="@string/appbar_duplicate"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/contextual_delete"
-        android:icon="@drawable/ic_delete_24dp"
-        android:title="@string/appbar_delete"
-        app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="@+id/contextual_duplicate"-->
+<!--        android:icon="@drawable/ic_duplicate_24dp"-->
+<!--        android:title="@string/appbar_duplicate"-->
+<!--        app:showAsAction="ifRoom"/>-->
+<!--    <item-->
+<!--        android:id="@+id/contextual_delete"-->
+<!--        android:icon="@drawable/ic_delete_24dp"-->
+<!--        android:title="@string/appbar_delete"-->
+<!--        app:showAsAction="ifRoom" />-->
 </menu>

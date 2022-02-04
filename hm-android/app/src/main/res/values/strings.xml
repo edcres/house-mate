@@ -5,9 +5,10 @@
     <string name="label_chores_list">Chores</string>
 
     <string name="appbar_more_options">More Options</string>
-    <string name="appbar_duplicate">Duplicate</string>
-    <string name="appbar_delete">Delete</string>
     <string name="appbar_edit">Edit</string>
+    <string name="appbar_exit_group">Edit Group</string>
+    <string name="appbar_past_groups">Past Groups</string>
+    <string name="appbar_change_username">Change Username</string>
     <string name="appbar_more_place_holder">Place Holder</string>
 
     <string name="hint_quantity">* quantity</string>
