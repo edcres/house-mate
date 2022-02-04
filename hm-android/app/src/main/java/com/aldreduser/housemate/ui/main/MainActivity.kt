@@ -47,6 +47,8 @@ Improve MVVM architecture by:
 // Put the add item view widgets into a scrollview. To account for shorter screens
 // When an item is added, the recyclerView animation is added at the top. Should be at the bottom
 // User can choose the order items are added (it's alphabetical right now)
+// When passing item data to viewModel db queries I can
+//      just pass it in Data Objects instead of parameters.
 
 // Home Screen
 class MainActivity : AppCompatActivity() {

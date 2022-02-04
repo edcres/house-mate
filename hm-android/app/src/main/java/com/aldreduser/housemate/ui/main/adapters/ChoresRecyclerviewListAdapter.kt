@@ -72,7 +72,8 @@ class ChoresRecyclerviewListAdapter(
                 }
                 choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
                     if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
-                        listsViewModel.sendChoresVolunteersToDb(
+                        listsViewModel.sendItemVolunteerToDb(
+                            listsViewModel.listTypes[1],
                             item.name,
                             choresWhoIsDoingItText.text.toString()
                         )
@@ -80,10 +81,14 @@ class ChoresRecyclerviewListAdapter(
                     } else false
                 }
                 removeItemButton.setOnClickListener {
-                    listsViewModel.deleteChoresListItem(item.name)
+                    listsViewModel.deleteListItem(listsViewModel.listTypes[1], item.name)
                 }
                 choresItIsDone.setOnClickListener {
-                    listsViewModel.toggleChoreCompletion(item.name, choresItIsDone.isChecked)
+                    listsViewModel.toggleItemCompletion(
+                        listsViewModel.listTypes[1],
+                        item.name,
+                        choresItIsDone.isChecked
+                    )
                 }
                 choresExpandButton.setOnClickListener {
                     // If view is GONE change image make view visible

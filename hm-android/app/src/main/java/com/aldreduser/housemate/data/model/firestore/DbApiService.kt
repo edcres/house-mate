@@ -68,10 +68,6 @@ class DbApiService {
 
                         if (querySnapshot != null) {
                             val itemsList = querySnapshot.toObjects(ShoppingItem::class.java)
-                            Log.d(TAG, " " +
-                                    "\nshopRealtime: ${itemsList[0].name}" +
-                                    "\ncost: ${itemsList[0].cost}" +
-                                    "\ncompleted: ${itemsList[0].completed}")
                             offer(itemsList)
                         } else {
                             Log.i(TAG, "getShoppingItemsRealtime: querySnapshot is null")
@@ -176,7 +172,6 @@ class DbApiService {
         listItem: String,
         volunteerName: String
     ) {
-        Log.d(TAG, "sendVolunteerToDb1: called")
         val listDoc = getListDoc(listType)
         val itemsCollection = getItemsCollection(listType)
         val itemsCollectionPath = groupIDsDocumentDB.collection(clientGroupIDCollection)
@@ -192,19 +187,10 @@ class DbApiService {
         // I was going to use this batch write when the fragment is destroyed but
         //  there's not enough time for the db operation to complete if the app closes.
 //        parameter -> volunteersList: Map<String, String>
-//        Log.d(TAG, "sendVolunteerToDb2: called")
 //        db.runBatch { batch ->
-//            Log.d(TAG, "sendVolunteerToDb3: called")
 //            volunteersList.forEach {
-//                Log.d(TAG, "sendVolunteerToDb4: called")
-//                Log.d(TAG, "${it.key} - $VOLUNTEER_FIELD - ${it.value}")
 //                batch.update(itemsCollectionPath.document(it.key), VOLUNTEER_FIELD, it.value)
-//                Log.d(TAG, "sendVolunteerToDb5: called")
 //            }
-//        }.addOnSuccessListener {
-//            Log.i(TAG, "sendVolunteerToDb: Volunteer updates completed")
-//        }.addOnFailureListener { e ->
-//            Log.e(TAG, "sendVolunteerToDb: Volunteer updates completed", e)
 //        }
     }
 

@@ -46,7 +46,6 @@ class ShoppingRecyclerviewListAdapter(
 
         fun bind(item: ShoppingItem) {
             binding.apply {
-                Log.d("ShopRecyTAG", "item: ${item.name} completed: ${item.completed}")
                 shoppingEntity = item
                 shoppingItIsDone.isChecked = item.completed!!
                 shoppingItemName.text = item.name
@@ -65,7 +64,6 @@ class ShoppingRecyclerviewListAdapter(
                 shoppingWhoIsGettingItText.setText(item.volunteer)
 
                 listsViewModel.menuEditIsOn.observe(fragLifecycleOwner, Observer { result ->
-                    Log.d("ShopRecyTAG", "menu item menuEdit is $result")
                     when (result) {
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
@@ -83,7 +81,8 @@ class ShoppingRecyclerviewListAdapter(
                 }
                 shoppingWhoIsGettingItText.setOnKeyListener { _, keyCode, keyEvent ->
                     if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
-                        listsViewModel.sendShoppingVolunteersToDb(
+                        listsViewModel.sendItemVolunteerToDb(
+                            listsViewModel.listTypes[0],
                             item.name,
                             shoppingWhoIsGettingItText.text.toString()
                         )
@@ -91,10 +90,14 @@ class ShoppingRecyclerviewListAdapter(
                     } else false
                 }
                 removeItemButton.setOnClickListener {
-                    listsViewModel.deleteShoppingListItem(item.name)
+                    listsViewModel.deleteListItem(listsViewModel.listTypes[0], item.name)
                 }
                 shoppingItIsDone.setOnClickListener {
-                    listsViewModel.toggleShoppingCompletion(item.name, shoppingItIsDone.isChecked)
+                    listsViewModel.toggleItemCompletion(
+                        listsViewModel.listTypes[0],
+                        item.name,
+                        shoppingItIsDone.isChecked
+                    )
                 }
                 shoppingExpandButton.setOnClickListener {
                     // If view is GONE change image make view visible

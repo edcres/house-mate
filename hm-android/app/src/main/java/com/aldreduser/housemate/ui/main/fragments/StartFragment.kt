@@ -31,7 +31,6 @@ class StartFragment : Fragment() {
     private val mainSharedPrefTag = "MainSPTAG"
     private var binding: FragmentStartBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
-    private val tabTitles = listOf("Shopping List", "Chores")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,8 +74,8 @@ class StartFragment : Fragment() {
             makeDialogBoxAndSetGroupID()
         } else {
             listsViewModel.setClientID()
-            listsViewModel.setShoppingItemsRealtime()
-            listsViewModel.setChoreItemsRealtime()
+            listsViewModel.setItemsRealtime(listsViewModel.listTypes[0])
+            listsViewModel.setItemsRealtime(listsViewModel.listTypes[1])
         }
     }
 
@@ -94,7 +93,7 @@ class StartFragment : Fragment() {
             }
             else -> {
                 // Placeholder
-                Log.d(tag, "addNewItem: else was triggered")
+                Log.e(tag, "addNewItem: else was triggered")
                 R.id.action_startFragment_to_addShoppingItemFragment
             }
         }
@@ -120,7 +119,6 @@ class StartFragment : Fragment() {
             val shoppingListEdit = R.id.shopping_list_edit
             when (menuItem.itemId) {
                 shoppingListEdit -> {
-                    Log.d(fragmentTag, "editBtn clicked")
                     listsViewModel.toggleEditBtn()
                     true
                 }
@@ -131,12 +129,9 @@ class StartFragment : Fragment() {
 
     private fun setUpTabs() {
         binding?.listsViewPager?.adapter = ViewPagerFragmentAdapter(this.requireActivity())
-
-        // attaching tab mediator
-        // tab mediator will synchronize the ViewPager2's position with the selected tab when a tab is selected.
         binding?.let { TabLayoutMediator(binding!!.startFragmentTabLayout, it.listsViewPager) {
                 tab: TabLayout.Tab, position: Int ->
-            tab.text = tabTitles[position]
+            tab.text = listsViewModel.listTypes[position]
         }.attach()
         }
     }
@@ -152,13 +147,15 @@ class StartFragment : Fragment() {
                 listsViewModel.userName = inputNameDialog.text.toString()
                 Log.i(tag, "makeDialogBoxAndSetUserName: accept clicked " +
                         "${listsViewModel.userName}")
-                listsViewModel.sendDataToSP(ListsViewModel.USER_NAME_SP_TAG, listsViewModel.userName!!)
+                listsViewModel
+                    .sendDataToSP(ListsViewModel.USER_NAME_SP_TAG, listsViewModel.userName!!)
                 dialog.dismiss()
             }
             .setNegativeButton("Anonymous") { dialog, _ ->
                 Log.i(tag, "makeDialogBoxAndSetUserName: negative button called")
                 listsViewModel.userName = "anon"
-                listsViewModel.sendDataToSP(ListsViewModel.USER_NAME_SP_TAG, listsViewModel.userName!!)
+                listsViewModel
+                    .sendDataToSP(ListsViewModel.USER_NAME_SP_TAG, listsViewModel.userName!!)
                 dialog.dismiss()
             }
             .show()
@@ -179,8 +176,8 @@ class StartFragment : Fragment() {
                     ListsViewModel.GROUP_ID_SP_TAG,
                     listsViewModel.clientGroupIDCollection!!
                 )
-                listsViewModel.setShoppingItemsRealtime()
-                listsViewModel.setChoreItemsRealtime()
+                listsViewModel.setItemsRealtime(listsViewModel.listTypes[0])
+                listsViewModel.setItemsRealtime(listsViewModel.listTypes[1])
                 dialog.dismiss()
             }
             .setNegativeButton("New Group") { dialog, _ ->
@@ -204,7 +201,7 @@ class StartFragment : Fragment() {
         }
 
         override fun getItemCount(): Int {
-            return tabTitles.size
+            return listsViewModel.listTypes.size
         }
     }
 }

@@ -68,13 +68,13 @@ class AddShoppingItemFragment : Fragment() {
                 priorityButton3.id -> 3
                 else -> 2
             }
-            listsViewModel.sendShoppingItemToDatabase(
+            listsViewModel.sendItemToDatabase(
+                listsViewModel.listTypes[0],
                 itemNameInput.text.toString(),
-                qty,
-                cost,
+                qty, cost,
                 whereToGetInput.text.toString(),
                 whenNeededInput.text.toString(),
-                priority
+                priority, 0
             )
         }
     }

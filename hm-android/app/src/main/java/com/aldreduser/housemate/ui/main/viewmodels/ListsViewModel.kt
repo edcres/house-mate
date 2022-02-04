@@ -29,8 +29,10 @@ class ListsViewModel: ViewModel() {
     val itemsExpanded = mutableMapOf<String, Boolean>()
     private var _menuEditIsOn = MutableLiveData(false)
     val menuEditIsOn: LiveData<Boolean> get() = _menuEditIsOn
+
     var fragmentInView: String? = null
     var listInView = mutableMapOf<Int, String>()
+    val listTypes = listOf("Shopping", "Chores")
 
     companion object {
         const val TAG = "ListsVmTAG"
@@ -52,98 +54,93 @@ class ListsViewModel: ViewModel() {
     // UI //
 
     // DATABASE FUNCTIONS //
-    // Set up list items realtime fetching
-    fun setShoppingItemsRealtime() {
+    fun setItemsRealtime(listTag: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
-                .collect {
-                    _shoppingItems.postValue(it.toMutableList())
-                }
-        }
-    }
-    fun setChoreItemsRealtime() {
-        CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.setUpChoresRealtimeFetching(clientGroupIDCollection!!)
-                .collect {
-                    _choreItems.postValue(it.toMutableList())
-                }
-        }
-    }
-    // Send data to database
-    fun sendShoppingItemToDatabase(
-        itemName: String,
-        itemQuantity: Double,
-        itemCost: Double,
-        purchaseLocation: String,
-        itemNeededBy: String,   // try and make this a date
-        itemPriority: Int
-    ) {
-        Log.d(TAG, "sendShoppingItemToDatabase: userName: $userName")
-        CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.addShoppingItemToDb(
-                clientGroupIDCollection!!, itemName, itemQuantity, itemCost,
-                purchaseLocation,
-                itemNeededBy,
-                itemPriority,
-                userName!!
-            )
-        }
-    }
-    fun sendChoresItemToDatabase(
-        itemName: String,
-        itemDifficulty: Int,
-        itemNeededBy: String,   // try and make this a date
-        itemPriority: Int
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.addChoresItemToDb(
-                clientGroupIDCollection!!, itemName, itemDifficulty,
-                itemNeededBy, itemPriority, userName!!
-            )
-        }
-    }
-    fun toggleShoppingCompletion(itemName: String, isCompleted: Boolean) {
-        CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.toggleShoppingCompletion(
-                clientGroupIDCollection!!,
-                itemName,
-                isCompleted
-            )
-        }
-    }
-    fun toggleChoreCompletion(itemName: String, isCompleted: Boolean) {
-        CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.toggleChoreCompletion(clientGroupIDCollection!!, itemName, isCompleted)
+            when (listTag) {
+                listTypes[0] ->
+                    listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
+                        .collect { _shoppingItems.postValue(it.toMutableList()) }
+                listTypes[1] ->
+                    listsRepository.setUpChoresRealtimeFetching(clientGroupIDCollection!!)
+                        .collect { _choreItems.postValue(it.toMutableList()) }
+            }
         }
     }
 
-    fun sendShoppingVolunteersToDb(listItem: String, volunteerName: String) {
+    fun sendItemToDatabase(
+        listTag: String, itemName: String, itemQuantity: Double,
+        itemCost: Double, purchaseLocation: String,
+        itemNeededBy: String,   // try and make this a date
+        itemPriority: Int, itemDifficulty: Int,
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.sendShoppingVolunteersToDb(
-                clientGroupIDCollection!!,
-                listItem,
-                volunteerName
-            )
-        }
-    }
-    fun sendChoresVolunteersToDb(listItem: String, volunteerName: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.sendChoresVolunteersToDb(
-                clientGroupIDCollection!!,
-                listItem,
-                volunteerName
-            )
+            when (listTag) {
+                listTypes[0] -> {
+                    listsRepository.addShoppingItemToDb(
+                        clientGroupIDCollection!!, itemName, itemQuantity, itemCost,
+                        purchaseLocation, itemNeededBy, itemPriority, userName!!
+                    )
+                }
+                listTypes[1] -> {
+                    listsRepository.addChoresItemToDb(
+                        clientGroupIDCollection!!, itemName, itemDifficulty,
+                        itemNeededBy, itemPriority, userName!!
+                    )
+                }
+            }
         }
     }
 
-    fun deleteShoppingListItem(itemName: String) {
+    fun toggleItemCompletion(listTag: String, itemName: String, isCompleted: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)
+            when (listTag) {
+                listTypes[0] -> {
+                    listsRepository.toggleShoppingCompletion(
+                        clientGroupIDCollection!!,
+                        itemName,
+                        isCompleted
+                    )
+                }
+                listTypes[1] -> {
+                    listsRepository.toggleChoreCompletion(
+                        clientGroupIDCollection!!,
+                        itemName,
+                        isCompleted
+                    )
+                }
+            }
         }
     }
-    fun deleteChoresListItem(itemName: String) {
+
+    fun sendItemVolunteerToDb(listTag: String, listItem: String, volunteerName: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            listsRepository.deleteChoresListItem(clientGroupIDCollection!!, itemName)
+            when(listTag) {
+                listTypes[0] -> {listsRepository.sendShoppingVolunteersToDb(
+                    clientGroupIDCollection!!,
+                    listItem,
+                    volunteerName
+                )}
+                listTypes[1] -> {
+                    listsRepository.sendChoresVolunteersToDb(
+                        clientGroupIDCollection!!,
+                        listItem,
+                        volunteerName
+                    )
+                }
+            }
+        }
+    }
+
+    fun deleteListItem(listTag: String, itemName: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (listTag) {
+                listTypes[0] -> {
+                    listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)
+                }
+                listTypes[1] -> {
+                    listsRepository.deleteChoresListItem(clientGroupIDCollection!!, itemName)
+                }
+            }
         }
     }
     // DATABASE FUNCTIONS //
@@ -182,8 +179,6 @@ class ListsViewModel: ViewModel() {
     fun setClientID() {
         clientIDCollection = getDataFromSP(CLIENT_ID_SP_TAG)
         if (clientIDCollection == null) {
-            Log.d(TAG, "setClientID: clientIDCollection is null")
-
             CoroutineScope(Dispatchers.IO).launch {
                 clientIDCollection =
                     listsRepository.getLastClientAdded(clientGroupIDCollection!!)
@@ -196,7 +191,7 @@ class ListsViewModel: ViewModel() {
                     }
                 }
             }
-        } else {Log.d(TAG, "setClientID: clientIDCollection is not null")}
+        }
     }
     fun getCurrentGroupID(): String? {
         clientGroupIDCollection = getDataFromSP(GROUP_ID_SP_TAG)
