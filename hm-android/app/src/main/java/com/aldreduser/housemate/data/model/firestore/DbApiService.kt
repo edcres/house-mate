@@ -229,7 +229,8 @@ class DbApiService {
                     }
                 newID
             }
-            newIDList[0]    // todo: if this is empty, add a last group added
+            // If this ('newIDList[0]') is empty, there is no last group added
+            newIDList[0]
         } catch (e: Exception) {
             Log.e(TAG, "Error getting group id", e)
             null

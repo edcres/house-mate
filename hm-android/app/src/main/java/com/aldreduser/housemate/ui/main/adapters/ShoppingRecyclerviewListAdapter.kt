@@ -47,13 +47,18 @@ class ShoppingRecyclerviewListAdapter(
             binding.apply {
                 Log.d("ShopRecyTAG", "item: ${item.name} completed: ${item.completed}")
                 shoppingEntity = item
-                // todo: might need to null check these (probably not)
                 shoppingItIsDone.isChecked = item.completed!!
                 shoppingItemName.text = item.name
                 shoppingItemQty.text = item.quantity.toString()
-                shoppingWhenNeededDoneText.text = displayDate(item.neededBy!!)
-                shoppingWhereText.text = item.purchaseLocation
-                shoppingCostText.text = displayCost(item.cost!!)
+                shoppingWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
+                    displayDate(item.neededBy)
+                } else {shoppingWhenNeededDoneText.visibility = View.GONE; ""}
+                shoppingWhereText.text = if(item.purchaseLocation!!.isNotEmpty()) {
+                    item.purchaseLocation
+                } else {shoppingWhereText.visibility = View.GONE; ""}
+                shoppingCostText.text = if(item.cost!! != 0.0) {
+                    displayCost(item.cost)
+                } else {shoppingCostText.visibility = View.GONE; ""}
                 shoppingPriorityText.text = displayPriority(item.priority!!)
                 shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
                 shoppingWhoIsGettingItText.setText(item.volunteer)

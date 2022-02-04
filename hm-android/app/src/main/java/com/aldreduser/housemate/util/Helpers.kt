@@ -1,7 +1,7 @@
 package com.aldreduser.housemate.util
 
 fun displayDate(date: String): String {
-    return "by $date"
+    return "needed by $date"
 }
 
 fun displayCost(cost: Double): String {
@@ -29,7 +29,7 @@ fun displayDifficulty(difficulty: Int): String {
 }
 
 fun displayAddedBy(addedBy: String): String {
-    return "by $addedBy"
+    return "added by $addedBy"
 }
 
 fun necessaryAreFilled(name: String, qty: String): Boolean {

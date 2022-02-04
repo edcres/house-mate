@@ -28,7 +28,6 @@ data class ShoppingItem (
     val name: String? = "",
     val quantity: Double? = 0.0,
     val addedBy: String? = "",
-//    val purchased: Boolean? = false,
     val completed: Boolean? = false,
 
 

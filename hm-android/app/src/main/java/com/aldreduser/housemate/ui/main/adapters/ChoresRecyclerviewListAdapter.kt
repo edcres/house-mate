@@ -43,10 +43,11 @@ class ChoresRecyclerviewListAdapter(
         fun bind(item: ChoresItem) {
             binding.apply {
                 choresEntity = item
-                // todo: might need to null check these (probably not)
                 choresItIsDone.isChecked = item.completed!!
                 choresItemName.text = item.name
-                choresWhenNeededDoneText.text = displayDate(displayDate(item.neededBy!!))
+                choresWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
+                    displayDate(item.neededBy)
+                } else {choresWhenNeededDoneText.visibility = View.GONE; ""}
                 choresDifficulty.text = displayDifficulty(item.difficulty!!)
                 choresPriorityText.text = displayPriority(item.priority!!)
                 choresAddedByText.text = displayAddedBy(item.addedBy!!)

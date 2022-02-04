@@ -20,7 +20,7 @@ class ListsViewModel: ViewModel() {
     var sharedPrefs: SharedPreferences? = null
     var userName: String? = null
     var clientGroupIDCollection: String? = null
-    var clientIDCollection: String? = null
+    private var clientIDCollection: String? = null
     private var _shoppingItems = MutableLiveData<MutableList<ShoppingItem>>()
     val shoppingItems: LiveData<MutableList<ShoppingItem>> get() = _shoppingItems
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()

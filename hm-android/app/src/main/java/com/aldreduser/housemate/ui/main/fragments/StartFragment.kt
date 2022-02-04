@@ -128,8 +128,6 @@ class StartFragment : Fragment() {
     }
 
     private fun setUpTabs() {
-        // todo: this might be a bug
-        //  'this.requireActivity()'
         binding?.listsViewPager?.adapter = ViewPagerFragmentAdapter(this.requireActivity())
 
         // attaching tab mediator
