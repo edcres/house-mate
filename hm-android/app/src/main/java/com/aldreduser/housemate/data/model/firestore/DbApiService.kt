@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.tasks.await
+import kotlin.math.log
 
 class DbApiService {
 
@@ -172,25 +173,39 @@ class DbApiService {
     fun sendVolunteerToDb(
         clientGroupIDCollection: String,
         listType: String,
-        volunteersList: Map<String, String>
+        listItem: String,
+        volunteerName: String
     ) {
-        // A batched write can contain up to 500 operations. Each operation in the batch counts
-        //  separately towards your Cloud Firestore usage.
-        // Here there is one operation per each item in the 'volunteersList' map
+        Log.d(TAG, "sendVolunteerToDb1: called")
         val listDoc = getListDoc(listType)
         val itemsCollection = getItemsCollection(listType)
         val itemsCollectionPath = groupIDsDocumentDB.collection(clientGroupIDCollection)
             .document(listDoc).collection(itemsCollection)
-
-        db.runBatch { batch ->
-            volunteersList.forEach {
-                batch.update(itemsCollectionPath.document(it.key), it.key, it.value)
+        itemsCollectionPath
+            .document(listItem).update(VOLUNTEER_FIELD, volunteerName)
+            .addOnSuccessListener {
+                Log.i(TAG, "sendVolunteerToDb: updated")
+            }.addOnFailureListener { e ->
+                Log.e(TAG, "sendVolunteerToDb: failed", e)
             }
-        }.addOnSuccessListener {
-            Log.i(TAG, "sendVolunteerToDb: Volunteer updates completed")
-        }.addOnFailureListener { e ->
-            Log.e(TAG, "sendVolunteerToDb: Volunteer updates completed", e)
-        }
+
+        // I was going to use this batch write when the fragment is destroyed but
+        //  there's not enough time for the db operation to complete if the app closes.
+//        parameter -> volunteersList: Map<String, String>
+//        Log.d(TAG, "sendVolunteerToDb2: called")
+//        db.runBatch { batch ->
+//            Log.d(TAG, "sendVolunteerToDb3: called")
+//            volunteersList.forEach {
+//                Log.d(TAG, "sendVolunteerToDb4: called")
+//                Log.d(TAG, "${it.key} - $VOLUNTEER_FIELD - ${it.value}")
+//                batch.update(itemsCollectionPath.document(it.key), VOLUNTEER_FIELD, it.value)
+//                Log.d(TAG, "sendVolunteerToDb5: called")
+//            }
+//        }.addOnSuccessListener {
+//            Log.i(TAG, "sendVolunteerToDb: Volunteer updates completed")
+//        }.addOnFailureListener { e ->
+//            Log.e(TAG, "sendVolunteerToDb: Volunteer updates completed", e)
+//        }
     }
 
     fun toggleItemCompletion(

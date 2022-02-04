@@ -34,8 +34,8 @@ class ChoresListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.i(fragmentTag, "onViewCreated: ChoresListFragment")
         super.onViewCreated(view, savedInstanceState)
+        Log.i(fragmentTag, "onViewCreated: ChoresListFragment")
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listsViewModel
@@ -54,9 +54,8 @@ class ChoresListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        listsViewModel.sendChoresVolunteersToDb()
+        super.onDestroyView()
         binding = null
         Log.i(fragmentTag, "onDestroyView: ChoresListFragment")
-        super.onDestroyView()
     }
 }

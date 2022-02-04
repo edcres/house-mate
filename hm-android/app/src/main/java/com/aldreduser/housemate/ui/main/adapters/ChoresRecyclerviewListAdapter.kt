@@ -1,6 +1,7 @@
 package com.aldreduser.housemate.ui.main.adapters
 
 import android.graphics.drawable.Drawable
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,9 +70,14 @@ class ChoresRecyclerviewListAdapter(
                 if (listsViewModel.itemsExpanded[item.name!!] == true) {
                     choresExpandableContainerCardview.visibility = View.VISIBLE
                 }
-                choresWhoIsDoingItText.doAfterTextChanged {
-                    listsViewModel.choreVolunteersList[item.name] = it.toString()
-                    listsViewModel.choreVolunteerWasChanged = true
+                choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
+                    if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
+                        listsViewModel.sendChoresVolunteersToDb(
+                            item.name,
+                            choresWhoIsDoingItText.text.toString()
+                        )
+                        true
+                    } else false
                 }
                 removeItemButton.setOnClickListener {
                     listsViewModel.deleteChoresListItem(item.name)

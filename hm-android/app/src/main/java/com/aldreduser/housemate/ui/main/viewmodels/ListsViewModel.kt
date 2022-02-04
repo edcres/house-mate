@@ -32,12 +32,6 @@ class ListsViewModel: ViewModel() {
     var fragmentInView: String? = null
     var listInView = mutableMapOf<Int, String>()
 
-    // These are sent to db when the List Fragments are destroyed.
-    var shopVolunteerWasChanged = false
-    val shopVolunteersList = mutableMapOf<String, String>()
-    var choreVolunteerWasChanged = false
-    val choreVolunteersList = mutableMapOf<String, String>()
-
     companion object {
         const val TAG = "ListsVmTAG"
         const val USER_NAME_SP_TAG = "User Name"
@@ -53,9 +47,7 @@ class ListsViewModel: ViewModel() {
 
     // UI //
     fun toggleEditBtn() {
-        Log.d(TAG, "toggleEditBtn: pre value change _menuEditIsOn= ${_menuEditIsOn.value}")
         _menuEditIsOn.value = !_menuEditIsOn.value!!
-        Log.d(TAG, "toggleEditBtn: post value change _menuEditIsOn= ${_menuEditIsOn.value}")
     }
     // UI //
 
@@ -125,28 +117,25 @@ class ListsViewModel: ViewModel() {
         }
     }
 
-    fun sendShoppingVolunteersToDb() {
-        if(shopVolunteerWasChanged) {
-            shopVolunteerWasChanged = false
-            CoroutineScope(Dispatchers.IO).launch {
-                listsRepository.sendShoppingVolunteersToDb(
-                    clientGroupIDCollection!!,
-                    shopVolunteersList
-                )
-            }
+    fun sendShoppingVolunteersToDb(listItem: String, volunteerName: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.sendShoppingVolunteersToDb(
+                clientGroupIDCollection!!,
+                listItem,
+                volunteerName
+            )
         }
     }
-    fun sendChoresVolunteersToDb() {
-        if(choreVolunteerWasChanged) {
-            choreVolunteerWasChanged = false
-            CoroutineScope(Dispatchers.IO).launch {
-                listsRepository.sendChoresVolunteersToDb(
-                    clientGroupIDCollection!!,
-                    choreVolunteersList
-                )
-            }
+    fun sendChoresVolunteersToDb(listItem: String, volunteerName: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            listsRepository.sendChoresVolunteersToDb(
+                clientGroupIDCollection!!,
+                listItem,
+                volunteerName
+            )
         }
     }
+
     fun deleteShoppingListItem(itemName: String) {
         CoroutineScope(Dispatchers.IO).launch {
             listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)

@@ -34,12 +34,11 @@ class ShoppingListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.i(fragmentTag, "onViewCreated: ShoppingListFragment")
         super.onViewCreated(view, savedInstanceState)
+        Log.i(fragmentTag, "onViewCreated: ShoppingListFragment")
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listsViewModel
-            // In a fragment, these don't belong inside the onCreate() function
             shoppingListRecyclerview.adapter = recyclerAdapter
             shoppingListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
@@ -56,9 +55,8 @@ class ShoppingListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        listsViewModel.sendShoppingVolunteersToDb()
+        super.onDestroyView()
         binding = null
         Log.i(fragmentTag, "onDestroyView: ShoppingListFragment")
-        super.onDestroyView()
     }
 }

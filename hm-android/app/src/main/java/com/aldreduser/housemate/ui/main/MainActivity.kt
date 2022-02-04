@@ -46,6 +46,7 @@ Improve MVVM architecture by:
 // Make when neededDoneBy into a date picker
 // Put the add item view widgets into a scrollview. To account for shorter screens
 // When an item is added, the recyclerView animation is added at the top. Should be at the bottom
+// User can choose the order items are added (it's alphabetical right now)
 
 // Home Screen
 class MainActivity : AppCompatActivity() {

@@ -2,6 +2,7 @@ package com.aldreduser.housemate.ui.main.adapters
 
 import android.graphics.drawable.Drawable
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,9 +81,14 @@ class ShoppingRecyclerviewListAdapter(
                 if (listsViewModel.itemsExpanded[item.name!!] == true) {
                     shoppingExpandableContainerCardview.visibility = View.VISIBLE
                 }
-                shoppingWhoIsGettingItText.doAfterTextChanged {
-                    listsViewModel.shopVolunteersList[item.name] = it.toString()
-                    listsViewModel.shopVolunteerWasChanged = true
+                shoppingWhoIsGettingItText.setOnKeyListener { _, keyCode, keyEvent ->
+                    if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
+                        listsViewModel.sendShoppingVolunteersToDb(
+                            item.name,
+                            shoppingWhoIsGettingItText.text.toString()
+                        )
+                        true
+                    } else false
                 }
                 removeItemButton.setOnClickListener {
                     listsViewModel.deleteShoppingListItem(item.name)

@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.data.model.firestore.DbApiService
 import com.aldreduser.housemate.databinding.FragmentStartBinding
 import com.aldreduser.housemate.ui.main.MainActivity
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
@@ -49,6 +50,7 @@ class StartFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             addItemListFab.setOnClickListener {
                 addNewItem()
+//                listsViewModel.clearSPs()
             }
         }
         setUpAppBar()
