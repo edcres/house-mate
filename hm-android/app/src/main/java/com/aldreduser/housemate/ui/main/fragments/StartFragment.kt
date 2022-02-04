@@ -116,9 +116,9 @@ class StartFragment : Fragment() {
 
         binding?.homeScreenTopAppbar?.setOnMenuItemClickListener { menuItem ->
             val shoppingListEdit = R.id.shopping_list_edit
-
             when (menuItem.itemId) {
                 shoppingListEdit -> {
+                    Log.d(fragmentTag, "editBtn clicked")
                     listsViewModel.toggleEditBtn()
                     true
                 }

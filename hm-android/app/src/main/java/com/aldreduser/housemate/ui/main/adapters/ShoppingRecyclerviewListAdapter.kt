@@ -59,11 +59,11 @@ class ShoppingRecyclerviewListAdapter(
                 shoppingWhoIsGettingItText.setText(item.volunteer)
 
                 listsViewModel.menuEditIsOn.observe(fragLifecycleOwner, Observer { result ->
+                    Log.d("ShopRecyTAG", "menu item menuEdit is $result")
                     when (result) {
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
                             shoppingExpandButton.visibility = View.GONE
-                            shoppingExpandableContainer.visibility = View.GONE
                         }
                         else -> {
                             shoppingExpandButton.visibility = View.VISIBLE
@@ -76,14 +76,14 @@ class ShoppingRecyclerviewListAdapter(
                     shoppingExpandableContainerCardview.visibility = View.VISIBLE
                 }
                 shoppingWhoIsGettingItText.doAfterTextChanged {
-                    listsViewModel.shopVolunteersList[item.name!!] = it.toString()
+                    listsViewModel.shopVolunteersList[item.name] = it.toString()
                     listsViewModel.shopVolunteerWasChanged = true
                 }
                 removeItemButton.setOnClickListener {
-                    listsViewModel.deleteShoppingListItem(item.name!!)
+                    listsViewModel.deleteShoppingListItem(item.name)
                 }
                 shoppingItIsDone.setOnClickListener {
-                    listsViewModel.toggleShoppingCompletion(item.name!!, shoppingItIsDone.isChecked)
+                    listsViewModel.toggleShoppingCompletion(item.name, shoppingItIsDone.isChecked)
                 }
                 shoppingExpandButton.setOnClickListener {
                     // If view is GONE change image make view visible
@@ -96,13 +96,13 @@ class ShoppingRecyclerviewListAdapter(
                         shoppingExpandButton.context, R.drawable.ic_expand_more_24
                     )
                     if (expandableContainer.visibility == View.GONE) {
-                        listsViewModel.itemsExpanded[item.name!!] = true
+                        listsViewModel.itemsExpanded[item.name] = true
                         expandableContainer.visibility = View.VISIBLE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToContract, null, null
                         )
                     } else if (expandableContainer.visibility == View.VISIBLE) {
-                        listsViewModel.itemsExpanded[item.name!!] = false
+                        listsViewModel.itemsExpanded[item.name] = false
                         expandableContainer.visibility = View.GONE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToExpand, null, null
@@ -120,7 +120,8 @@ class ShoppingRecyclerviewListAdapter(
                 parent: ViewGroup
             ): ShoppingViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ShoppingItemLayoutBinding.inflate(layoutInflater, parent, false)
+                val binding = ShoppingItemLayoutBinding
+                    .inflate(layoutInflater, parent, false)
                 return ShoppingViewHolder(listsViewModel, fragLifecycleOwner, binding)
             }
         }

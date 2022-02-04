@@ -53,7 +53,9 @@ class ListsViewModel: ViewModel() {
 
     // UI //
     fun toggleEditBtn() {
+        Log.d(TAG, "toggleEditBtn: pre value change _menuEditIsOn= ${_menuEditIsOn.value}")
         _menuEditIsOn.value = !_menuEditIsOn.value!!
+        Log.d(TAG, "toggleEditBtn: post value change _menuEditIsOn= ${_menuEditIsOn.value}")
     }
     // UI //
 
