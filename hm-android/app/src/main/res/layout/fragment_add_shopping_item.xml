@@ -146,32 +146,32 @@
                     android:id="@+id/choose_priority_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:gravity="start"
+                    android:orientation="vertical">
 
                     <RadioButton
                         android:id="@+id/priority_button_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:text="@string/label_priority_1" />
 
                     <RadioButton
                         android:id="@+id/priority_button_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:text="@string/label_priority_2"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         tools:checked="true"/>
 
                     <RadioButton
                         android:id="@+id/priority_button_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
                         android:text="@string/label_priority_3" />
 
                 </RadioGroup>

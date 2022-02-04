@@ -42,26 +42,15 @@ Improve MVVM architecture by:
 // If more lists are added, make base classes
 // Set icons on the material inputs
 // For the cost in shopping list, have a converter so it displays the currency,
-//  and get the correct currency.
+//      and get the correct currency.
 // Make when neededDoneBy into a date picker
+// Put the add item view widgets into a scrollview. To account for shorter screens
 
 // Home Screen
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var navController: NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-//                as NavHostFragment
-//        navController = navHostFragment.navController
-//
-//        setupActionBarWithNavController(navController)
-
         setContentView(R.layout.activity_main)
     }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        return navController.navigateUp() || super.onSupportNavigateUp()
-//    }
 }
