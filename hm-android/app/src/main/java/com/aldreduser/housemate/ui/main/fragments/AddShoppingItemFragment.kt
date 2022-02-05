@@ -42,6 +42,7 @@ class AddShoppingItemFragment : Fragment() {
                 if (necessaryAreFilled) {
                     addItem()
                 }
+                Log.d(fragmentTag, "onViewCreated: triggered")
                 val navController = Navigation.findNavController(requireParentFragment().requireView())
                 navController.navigate(R.id.action_addShoppingItemFragment_to_startFragment)
             }

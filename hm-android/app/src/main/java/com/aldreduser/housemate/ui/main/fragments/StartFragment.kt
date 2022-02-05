@@ -107,7 +107,7 @@ class StartFragment : Fragment() {
                 listsViewModel.listInView[1] -> R.id.action_startFragment_to_addChoresItemFragment
                 else -> { Log.i(fragmentTag, "itemToEdit set to null")}
             }
-            navController.navigate(navAction)
+            if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
         })
     }
 
