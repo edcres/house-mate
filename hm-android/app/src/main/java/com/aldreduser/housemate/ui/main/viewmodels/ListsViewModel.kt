@@ -39,7 +39,7 @@ class ListsViewModel: ViewModel() {
         const val USER_NAME_SP_TAG = "User Name"
         const val GROUP_ID_SP_TAG = "Group ID"
         const val CLIENT_ID_SP_TAG = "Client ID"
-        const val PAST_GROUPS_SP = "Past Groups"   // separated by "-"
+        const val PAST_GROUPS_SP_TAG = "Past Groups"   // separated by "-"
     }
 
     init {

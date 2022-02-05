@@ -1,14 +1,12 @@
 package com.aldreduser.housemate.ui.main.fragments
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -21,7 +19,7 @@ import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFrag
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.GROUP_ID_SP_TAG
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.PAST_GROUPS_SP
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.PAST_GROUPS_SP_TAG
 import com.aldreduser.housemate.util.displayToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
@@ -135,16 +133,9 @@ class StartFragment : Fragment() {
                     true
                 }
                 listOptionPastGroups -> {
-                    // todo: pop up a dialog box with the past solutions
-                    // todo: send this code to the viewModel
-                    val pastGroups = listsViewModel.getDataFromSP(PAST_GROUPS_SP)
-//                    if (pastGroups != null) {
-                    if (true) {
-//                        pastGroups.split("-")
-                        makeDialogBoxAndShowPastGroups()
-                        // todo: pop up dialog box with previous groups
-                        //  user clicks on a group and saves to SP 'GROUP_ID_SP_TAG'
-                        //  trigger 'startApplication()'
+                    val pastGroups = listsViewModel.getDataFromSP(PAST_GROUPS_SP_TAG)
+                    if (pastGroups != null) {
+                        makeDialogBoxAndShowPastGroups(pastGroups.split("-"))
                     } else {
                         displayToast(requireContext(), "No past groups")
                     }
@@ -203,18 +194,16 @@ class StartFragment : Fragment() {
             .inflate(R.layout.name_dialog_box, null, false)
         val inputNameDialog: EditText = customAlertDialogView.findViewById(R.id.input_name_dialog)
         inputDialog.setView(customAlertDialogView)
-            .setTitle("Your group ID")
+            .setTitle("Group ID")
             .setPositiveButton("Accept") { dialog, _ ->
-                listsViewModel.clientGroupIDCollection = inputNameDialog.text.toString()
-                Log.i(tag, "makeDialogBoxAndSetGroupID: accept clicked " +
-                        "${listsViewModel.clientGroupIDCollection}")
-                listsViewModel.sendDataToSP(
-                    GROUP_ID_SP_TAG,
-                    listsViewModel.clientGroupIDCollection!!
-                )
-                listsViewModel.setItemsRealtime(listsViewModel.listTypes[0])
-                listsViewModel.setItemsRealtime(listsViewModel.listTypes[1])
-                dialog.dismiss()
+                if (inputNameDialog.text.toString().isNotEmpty()) {
+                    setGroupID(inputNameDialog.text.toString())
+                    Log.i(
+                        tag, "makeDialogBoxAndSetGroupID: accept clicked " +
+                                "${listsViewModel.clientGroupIDCollection}"
+                    )
+                    dialog.dismiss()
+                }
             }
             .setNegativeButton("New Group") { dialog, _ ->
                 Log.i(tag, "makeDialogBoxAndSetGroupID: negative button called")
@@ -224,38 +213,45 @@ class StartFragment : Fragment() {
             .show()
     }
 
-    private fun makeDialogBoxAndShowPastGroups() {
+    private fun makeDialogBoxAndShowPastGroups(pastOrdersList: List<String>) {
         val inputDialog = MaterialAlertDialogBuilder(requireContext())
-        val pastOrdersList = listOf<String>("one", "two", "three") // todo: fill this up
-        val checkedItem = mutableListOf(-1)
-        val customAlertDialogView = LayoutInflater.from(requireContext())
-            .inflate(R.layout.past_groups_list_box, null, false)
-        val pastOrderTxt: TextView = customAlertDialogView.findViewById(R.id.past_order_1)
-
-//        inputDialog.setView(customAlertDialogView)
-//            .setSingleChoiceItems(pastOrdersList, -1, DialogInterface.OnClickListener()) {
-//
-//            }
-//            .show()
-
-        inputDialog.setSingleChoiceItems(pastOrdersList.toTypedArray(), checkedItem[0],
-            DialogInterface.OnClickListener { dialog, which ->
-                // update the selected item which is selected by the user
-                // so that it should be selected when user opens the dialog next time
-                // and pass the instance to setSingleChoiceItems method
-                checkedItem[0] = which
-
-
-                // now also update the TextView which previews the selected item
-                pastOrderTxt.text = "Selected Item is: ${pastOrdersList[which]}"
-
-                // when selected an item the dialog should be closed with the dismiss method
+        var selectedGroup: String? = null
+        inputDialog
+            .setSingleChoiceItems(pastOrdersList.toTypedArray(), -1) { _, which ->
+                selectedGroup = pastOrdersList[which]
+            }
+            .setPositiveButton("Accept") { dialog, _ ->
+                if (selectedGroup != null)
+                    setGroupID(selectedGroup!!)
                 dialog.dismiss()
-            })
+
+            }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
+    }
+    // SET UP FUNCTIONS //
+
+    // HELPER FUNCTIONS //
+    private fun setGroupID(selectedGroup: String) {
+        listsViewModel.clientGroupIDCollection = selectedGroup
+        listsViewModel.sendDataToSP(
+            GROUP_ID_SP_TAG,
+            listsViewModel.clientGroupIDCollection!!
+        )
+        listsViewModel.setItemsRealtime(listsViewModel.listTypes[0])
+        listsViewModel.setItemsRealtime(listsViewModel.listTypes[1])
+        val pastGroups = listsViewModel.getDataFromSP(PAST_GROUPS_SP_TAG)?.split("-")
+        if(pastGroups.isNullOrEmpty()) {
+            listsViewModel
+                .sendDataToSP(PAST_GROUPS_SP_TAG, listsViewModel.clientGroupIDCollection!!)
+        } else {
+            val newGroups = pastGroups.toMutableList()
+            newGroups.add(listsViewModel.clientGroupIDCollection!!)
+            listsViewModel
+                .sendDataToSP(PAST_GROUPS_SP_TAG, newGroups.joinToString("-"))
+        }
     }
 
     // Adapter for the viewPager2 (Inner Class) //
