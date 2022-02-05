@@ -51,6 +51,7 @@ Improve MVVM architecture by:
 //      just pass it in Data Objects instead of parameters.
 // Change color of more options drop down menu
 // More options drop down menu shows up lower
+// The Chores List Fragment matches the height of the Shopping list fragment. Maybe fix that.
 
 // Home Screen
 class MainActivity : AppCompatActivity() {

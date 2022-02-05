@@ -1,15 +1,16 @@
 package com.aldreduser.housemate.ui.main.fragments
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
@@ -25,6 +26,7 @@ import com.aldreduser.housemate.util.displayToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+
 
 class StartFragment : Fragment() {
 
@@ -136,8 +138,10 @@ class StartFragment : Fragment() {
                     // todo: pop up a dialog box with the past solutions
                     // todo: send this code to the viewModel
                     val pastGroups = listsViewModel.getDataFromSP(PAST_GROUPS_SP)
-                    if (pastGroups != null) {
-                        pastGroups.split("-")
+//                    if (pastGroups != null) {
+                    if (true) {
+//                        pastGroups.split("-")
+                        makeDialogBoxAndShowPastGroups()
                         // todo: pop up dialog box with previous groups
                         //  user clicks on a group and saves to SP 'GROUP_ID_SP_TAG'
                         //  trigger 'startApplication()'
@@ -215,6 +219,40 @@ class StartFragment : Fragment() {
             .setNegativeButton("New Group") { dialog, _ ->
                 Log.i(tag, "makeDialogBoxAndSetGroupID: negative button called")
                 listsViewModel.generateClientGroupID()
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun makeDialogBoxAndShowPastGroups() {
+        val inputDialog = MaterialAlertDialogBuilder(requireContext())
+        val pastOrdersList = listOf<String>("one", "two", "three") // todo: fill this up
+        val checkedItem = mutableListOf(-1)
+        val customAlertDialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.past_groups_list_box, null, false)
+        val pastOrderTxt: TextView = customAlertDialogView.findViewById(R.id.past_order_1)
+
+//        inputDialog.setView(customAlertDialogView)
+//            .setSingleChoiceItems(pastOrdersList, -1, DialogInterface.OnClickListener()) {
+//
+//            }
+//            .show()
+
+        inputDialog.setSingleChoiceItems(pastOrdersList.toTypedArray(), checkedItem[0],
+            DialogInterface.OnClickListener { dialog, which ->
+                // update the selected item which is selected by the user
+                // so that it should be selected when user opens the dialog next time
+                // and pass the instance to setSingleChoiceItems method
+                checkedItem[0] = which
+
+
+                // now also update the TextView which previews the selected item
+                pastOrderTxt.text = "Selected Item is: ${pastOrdersList[which]}"
+
+                // when selected an item the dialog should be closed with the dismiss method
+                dialog.dismiss()
+            })
+            .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
             .show()

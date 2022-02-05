@@ -6,7 +6,7 @@
 
     <string name="appbar_more_options">More Options</string>
     <string name="appbar_edit">Edit</string>
-    <string name="appbar_exit_group">Edit Group</string>
+    <string name="appbar_exit_group">Exit Group</string>
     <string name="appbar_past_groups">Past Groups</string>
     <string name="appbar_change_username">Change Username</string>
     <string name="appbar_more_place_holder">Place Holder</string>
