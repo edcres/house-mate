@@ -25,14 +25,14 @@ class ListsViewModel: ViewModel() {
     val shoppingItems: LiveData<MutableList<ShoppingItem>> get() = _shoppingItems
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
     val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
-
-    val itemsExpanded = mutableMapOf<String, Boolean>()
-    private var _menuEditIsOn = MutableLiveData(false)
-    val menuEditIsOn: LiveData<Boolean> get() = _menuEditIsOn
-
     var fragmentInView: String? = null
     var listInView = mutableMapOf<Int, String>()
     val listTypes = listOf("Shopping", "Chores")
+    val itemsExpanded = mutableMapOf<String, Boolean>()
+    private var _menuEditIsOn = MutableLiveData(false)
+    val menuEditIsOn: LiveData<Boolean> get() = _menuEditIsOn
+    private var _itemToEdit = MutableLiveData<Any?>()
+    val itemToEdit: LiveData<Any?> get() = _itemToEdit
 
     companion object {
         const val TAG = "ListsVmTAG"
@@ -51,6 +51,9 @@ class ListsViewModel: ViewModel() {
     // UI //
     fun toggleEditBtn() {
         _menuEditIsOn.value = !_menuEditIsOn.value!!
+    }
+    fun setItemToEdit(chosenItem: Any?) {
+        _itemToEdit.value = chosenItem
     }
     // UI //
 

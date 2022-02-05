@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentAddShoppingItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.necessaryAreFilled
@@ -46,12 +47,27 @@ class AddShoppingItemFragment : Fragment() {
             }
         }
         setupAppBar()
+        val itemToEdit = listsViewModel.itemToEdit.value
+        if (itemToEdit != null) {
+            setItemToView(itemToEdit as ShoppingItem)
+            listsViewModel.setItemToEdit(null)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
         Log.i(fragmentTag, "onDestroy: AddShoppingItemFragment")
+    }
+
+    // HELPERS //
+    private fun setItemToView(itemToEdit: ShoppingItem) {
+        binding?.apply {
+            itemQuantityInput.setText(itemToEdit.quantity.toString())
+            itemNameInput.setText(itemToEdit.name)
+            whereToGetInput.setText(itemToEdit.purchaseLocation)
+            costInput.setText(itemToEdit.cost.toString())
+        }
     }
 
     // CLICK HANDLERS //

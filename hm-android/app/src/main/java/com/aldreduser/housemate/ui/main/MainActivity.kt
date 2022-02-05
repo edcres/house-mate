@@ -24,6 +24,7 @@ import com.aldreduser.housemate.R
 //      Make tabs a little darker
 // todo: change colors of recycler item
 // todo: edit recycler item dimensions
+// todo: change txtViews font to that of the first houseMate test
 // todo: take care of warnings
 // todo: clean up comments
 // todo: clean up unused imports
@@ -46,6 +47,8 @@ Improve MVVM architecture by:
 //      just pass it in Data Objects instead of parameters.
 // For the cost in shopping list, have a converter so it displays the currency,
 //      and get the correct currency.
+// When updating an item, delete that item from the database when the user adds the new item
+//      (maybe check locally if these have the same name first)
 // If more lists are added, make base classes
 
 // todo: Bugs:

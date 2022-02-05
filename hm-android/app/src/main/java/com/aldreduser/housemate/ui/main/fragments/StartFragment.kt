@@ -11,9 +11,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentStartBinding
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
@@ -56,6 +58,7 @@ class StartFragment : Fragment() {
         setUpAppBar()
         setUpTabs()
         startApplication()
+        setObservers()
     }
 
     override fun onDestroyView() {
@@ -80,18 +83,14 @@ class StartFragment : Fragment() {
         }
     }
 
-    // CLICK LISTENERS //
+    // LISTENERS //
     // handle fab click
     private fun addNewItem() {
         // add workout
         val navController = Navigation.findNavController(requireParentFragment().requireView())
         val navAction = when (listsViewModel.fragmentInView) {
-            listsViewModel.listInView[0] -> {
-                R.id.action_startFragment_to_addShoppingItemFragment
-            }
-            listsViewModel.listInView[1] -> {
-                R.id.action_startFragment_to_addChoresItemFragment
-            }
+            listsViewModel.listInView[0] -> R.id.action_startFragment_to_addShoppingItemFragment
+            listsViewModel.listInView[1] -> R.id.action_startFragment_to_addChoresItemFragment
             else -> {
                 // Placeholder
                 Log.e(tag, "addNewItem: else was triggered")
@@ -99,6 +98,17 @@ class StartFragment : Fragment() {
             }
         }
         navController.navigate(navAction)
+    }
+    fun setObservers() {
+        listsViewModel.itemToEdit.observe(viewLifecycleOwner, Observer { result ->
+            val navController = Navigation.findNavController(requireParentFragment().requireView())
+            val navAction = when (listsViewModel.fragmentInView) {
+                listsViewModel.listInView[0] -> R.id.action_startFragment_to_addShoppingItemFragment
+                listsViewModel.listInView[1] -> R.id.action_startFragment_to_addChoresItemFragment
+                else -> { Log.i(fragmentTag, "itemToEdit set to null")}
+            }
+            navController.navigate(navAction)
+        })
     }
 
     // SET UP FUNCTIONS //
@@ -123,12 +133,6 @@ class StartFragment : Fragment() {
             val listOptionExitGroup = R.id.list_option_exit_group
             when (menuItem.itemId) {
                 itemListEdit -> {
-                    // todo: When the user clicks edit btn,
-                    //   an edit btn pops up on the recycler item
-                    //   when that btn is clicked, send user to the add item screen
-                    //   send all the appropriate info of that clicked item to the add item view
-                    //   delete that item from the database when the user adds this new item
-                    //   (maybe check if these have the same name first)
                     listsViewModel.toggleEditBtn()
                     true
                 }

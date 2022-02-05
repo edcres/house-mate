@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
@@ -58,11 +57,13 @@ class ChoresRecyclerviewListAdapter(
                     when (result) {
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
+                            editItemButton.visibility = View.VISIBLE
                             choresExpandButton.visibility = View.GONE
                         }
                         else -> {
                             choresExpandButton.visibility = View.VISIBLE
                             removeItemButton.visibility = View.GONE
+                            editItemButton.visibility = View.GONE
                         }
                     }
                 })
@@ -113,6 +114,9 @@ class ChoresRecyclerviewListAdapter(
                             null, imageToExpand, null, null
                         )
                     }
+                }
+                editItemButton.setOnClickListener {
+                    listsViewModel.setItemToEdit(item)
                 }
                 executePendingBindings()    // idk what this is for
             }

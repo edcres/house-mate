@@ -1,13 +1,11 @@
 package com.aldreduser.housemate.ui.main.adapters
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
@@ -67,15 +65,16 @@ class ShoppingRecyclerviewListAdapter(
                     when (result) {
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
+                            editItemButton.visibility = View.VISIBLE
                             shoppingExpandButton.visibility = View.GONE
                         }
                         else -> {
                             shoppingExpandButton.visibility = View.VISIBLE
                             removeItemButton.visibility = View.GONE
+                            editItemButton.visibility = View.GONE
                         }
                     }
                 })
-
                 if (listsViewModel.itemsExpanded[item.name!!] == true) {
                     shoppingExpandableContainerCardview.visibility = View.VISIBLE
                 }
@@ -122,6 +121,9 @@ class ShoppingRecyclerviewListAdapter(
                             null, imageToExpand, null, null
                         )
                     }
+                }
+                editItemButton.setOnClickListener {
+                    listsViewModel.setItemToEdit(item)
                 }
                 executePendingBindings()    // idk what this is for
             }

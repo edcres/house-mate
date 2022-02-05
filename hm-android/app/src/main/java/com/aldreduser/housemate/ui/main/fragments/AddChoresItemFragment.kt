@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.databinding.FragmentAddChoresItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.necessaryAreFilled
@@ -47,6 +48,11 @@ class AddChoresItemFragment : Fragment() {
             }
         }
         setupAppBar()
+        val itemToEdit = listsViewModel.itemToEdit.value
+        if (itemToEdit != null) {
+            setItemToView(itemToEdit as ChoresItem)
+            listsViewModel.setItemToEdit(null)
+        }
     }
 
     override fun onDestroyView() {
@@ -55,6 +61,14 @@ class AddChoresItemFragment : Fragment() {
         Log.i(fragmentTag, "onDestroyView: AddChoresItemFragment")
     }
 
+    // HELPERS //
+    private fun setItemToView(itemToEdit: ChoresItem) {
+        binding?.apply {
+            itemNameInput.setText(itemToEdit.name)
+        }
+    }
+
+    // CLICK HANDLERS //
     private fun addItem() {
         binding!!.apply {
             val difficulty = when (chooseDifficultyButton.checkedRadioButtonId) {
