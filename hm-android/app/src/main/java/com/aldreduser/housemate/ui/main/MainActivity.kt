@@ -16,7 +16,6 @@ import com.aldreduser.housemate.R
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
-// todo: display the groupID someWhere (maybe have a saved list of groupIDs with nicknames)
 // todo: Change color of more options drop down menu.
 //      Also the dialog box
 //      Make tabs a little darker
@@ -39,6 +38,8 @@ Improve MVVM architecture by:
 */
 
 // todo: Future Improvements:
+// Take care of database operations appropriately, group and
+//      client IDs, authentication, verification and so forth.
 // More options drop down menu should show up lower
 // Add nicknames to past groups
 // When an item is added, the recyclerView animation is added at the top. Should be at the bottom

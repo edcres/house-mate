@@ -47,7 +47,19 @@ class ShoppingRecyclerviewListAdapter(
                 shoppingEntity = item
                 shoppingItIsDone.isChecked = item.completed!!
                 shoppingItemName.text = item.name
+
+
+
+
+
+                
                 shoppingItemQty.text = item.quantity.toString()
+
+
+
+
+
+
                 shoppingWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
                     displayDate(item.neededBy)
                 } else {shoppingWhenNeededDoneText.visibility = View.GONE; ""}

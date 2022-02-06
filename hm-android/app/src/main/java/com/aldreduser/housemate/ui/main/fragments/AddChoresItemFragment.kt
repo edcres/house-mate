@@ -103,9 +103,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun setItemToView(itemToEdit: ChoresItem) {
         binding?.apply {
             itemNameInput.setText(itemToEdit.name)
-            whenNeededBtn.text = if(!itemToEdit.neededBy.isNullOrEmpty()) {
-                itemToEdit.neededBy
-            } else { "WHEN NEEDED" }
+            if (!itemToEdit.neededBy.isNullOrEmpty()) whenNeededBtn.text = itemToEdit.neededBy
         }
     }
     private fun addItem() {
@@ -120,12 +118,16 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 priorityButton3.id -> 3
                 else -> 2
             }
+            val whenNeeded =
+                if(whenNeededBtn.text.toString() != getString(R.string.hint_when_needed)) {
+                    whenNeededBtn.text.toString()
+                } else ""
             listsViewModel.sendItemToDatabase(
                 listsViewModel.listTypes[1],
                 itemNameInput.text.toString(),
                 0.0, 0.0,
                 "",
-                whenNeededBtn.text.toString(),
+                whenNeeded,
                 priority, difficulty
             )
         }

@@ -106,9 +106,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding?.apply {
             itemQuantityInput.setText(itemToEdit.quantity.toString())
             itemNameInput.setText(itemToEdit.name)
-            whenNeededBtn.text = if (!itemToEdit.neededBy.isNullOrEmpty()) {
-                itemToEdit.neededBy
-            } else { "WHEN NEEDED" }
+            if (!itemToEdit.neededBy.isNullOrEmpty()) whenNeededBtn.text = itemToEdit.neededBy
             whereToGetInput.setText(itemToEdit.purchaseLocation)
             costInput.setText(itemToEdit.cost.toString())
         }
@@ -127,12 +125,16 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 priorityButton3.id -> 3
                 else -> 2
             }
+            val whenNeeded =
+                if(whenNeededBtn.text.toString() != getString(R.string.hint_when_needed)) {
+                whenNeededBtn.text.toString()
+            } else ""
             listsViewModel.sendItemToDatabase(
                 listsViewModel.listTypes[0],
                 itemNameInput.text.toString(),
                 qty, cost,
                 whereToGetInput.text.toString(),
-                whenNeededBtn.text.toString(),
+                whenNeeded,
                 priority, 0
             )
         }

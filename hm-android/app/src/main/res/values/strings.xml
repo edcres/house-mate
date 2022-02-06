@@ -14,7 +14,7 @@
 
     <string name="hint_quantity">* quantity</string>
     <string name="hint_name">* name</string>
-    <string name="hint_when_needed">when needed</string>
+    <string name="hint_when_needed">WHEN NEEDED</string>
     <string name="hint_where_to_get">where to get it</string>
     <string name="hint_cost">cost</string>
     <string name="hint_volunteer">volunteer</string>
