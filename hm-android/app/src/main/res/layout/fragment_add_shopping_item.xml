@@ -92,19 +92,18 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/when_needed"
+                <Button
+                    android:id="@+id/when_needed_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="@string/hint_when_needed"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/when_needed_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="datetime" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="14dp"
+                    android:text="@string/hint_when_needed"
+                    android:backgroundTint="@color/addDateBtn"
+                    android:textColor="@color/neededByNtnTxt" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/where_to_get"

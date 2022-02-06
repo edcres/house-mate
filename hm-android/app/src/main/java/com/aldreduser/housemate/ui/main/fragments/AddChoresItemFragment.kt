@@ -1,20 +1,24 @@
 package com.aldreduser.housemate.ui.main.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.databinding.FragmentAddChoresItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.necessaryAreFilled
+import kotlinx.android.synthetic.main.fragment_add_shopping_item.*
 
-class AddChoresItemFragment : Fragment() {
+class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private val fragmentTag = "AddChoreItemTAG"
     private var binding: FragmentAddChoresItemBinding? = null
@@ -35,16 +39,10 @@ class AddChoresItemFragment : Fragment() {
         binding!!.apply {
             lifecycleOwner = viewLifecycleOwner
             fabAddItem.setOnClickListener {
-                val necessaryAreFilled = necessaryAreFilled(
-                    itemNameInput.toString(),
-                    "placeholder"
-                )
-                if (necessaryAreFilled) {
-                    addItem()
-                }
-                val navController = Navigation.findNavController(requireParentFragment().requireView())
-                navController.navigate(R.id.action_addChoresItemFragment_to_startFragment)
-
+                addItemClicked()
+            }
+            whenNeededBtn.setOnClickListener {
+                whenNeededClicked()
             }
         }
         setupAppBar()
@@ -61,14 +59,55 @@ class AddChoresItemFragment : Fragment() {
         Log.i(fragmentTag, "onDestroyView: AddChoresItemFragment")
     }
 
+    // Triggered when the user picks a date
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val dateToDisplay = "${month+1}/$dayOfMonth/$year"
+        when_needed_btn.text = dateToDisplay
+    }
+
+    // CLICK HANDLERS //
+    private fun addItemClicked() {
+        val necessaryAreFilled = necessaryAreFilled(
+            binding!!.itemNameInput.toString(),
+            "placeholder"
+        )
+        if (necessaryAreFilled) {
+            addItem()
+            val navController = Navigation
+                .findNavController(requireParentFragment().requireView())
+            navController.navigate(R.id.action_addChoresItemFragment_to_startFragment)
+        } else {
+            displayToast(requireContext(),"Fill boxed marked with *")
+        }
+    }
+    private fun whenNeededClicked() {
+        val calendarDate = listsViewModel.getDateTimeCalendar()
+        DatePickerDialog(
+            requireContext(), this,
+            calendarDate.year, calendarDate.month, calendarDate.day
+        ).show()
+    }
+    // CLICK HANDLERS //
+
+    // SET UP FUNCTIONS //
+    private fun setupAppBar() {
+        binding!!.apply {
+            addItemTopAppbar.title = "Add Chore Item"
+            addItemTopAppbar.setNavigationOnClickListener {
+                // todo: handle navigation click
+            }
+        }
+    }
+
     // HELPERS //
     private fun setItemToView(itemToEdit: ChoresItem) {
         binding?.apply {
             itemNameInput.setText(itemToEdit.name)
+            whenNeededBtn.text = if(!itemToEdit.neededBy.isNullOrEmpty()) {
+                itemToEdit.neededBy
+            } else { "WHEN NEEDED" }
         }
     }
-
-    // CLICK HANDLERS //
     private fun addItem() {
         binding!!.apply {
             val difficulty = when (chooseDifficultyButton.checkedRadioButtonId) {
@@ -86,19 +125,10 @@ class AddChoresItemFragment : Fragment() {
                 itemNameInput.text.toString(),
                 0.0, 0.0,
                 "",
-                whenNeededInput.text.toString(),
+                whenNeededBtn.text.toString(),
                 priority, difficulty
             )
         }
     }
-
-    // SET UP FUNCTIONS //
-    private fun setupAppBar() {
-        binding!!.apply {
-            addItemTopAppbar.title = "Add Chore Item"
-            addItemTopAppbar.setNavigationOnClickListener {
-                // todo: handle navigation click
-            }
-        }
-    }
+    // HELPERS //
 }

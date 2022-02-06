@@ -14,4 +14,8 @@
     <color name="toolbarItemsLight">#BF000000</color>
     <color name="toolbarItemsDark">#BFFFFFFF</color>
 
+
+    <color name="addDateBtn">#19B96B</color>
+    <color name="neededByNtnTxt">#404040</color>
+
 </resources>

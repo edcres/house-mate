@@ -1,20 +1,24 @@
 package com.aldreduser.housemate.ui.main.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentAddShoppingItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.necessaryAreFilled
+import kotlinx.android.synthetic.main.fragment_add_shopping_item.*
 
-class AddShoppingItemFragment : Fragment() {
+class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private val fragmentTag = "AddShopItemTAG"
     private var binding: FragmentAddShoppingItemBinding? = null
@@ -32,19 +36,13 @@ class AddShoppingItemFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding!!.apply {
+        binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             fabAddItem.setOnClickListener {
-                val necessaryAreFilled = necessaryAreFilled(
-                    itemNameInput.text.toString(),
-                    itemQuantityInput.text.toString()
-                )
-                if (necessaryAreFilled) {
-                    addItem()
-                }
-                Log.d(fragmentTag, "onViewCreated: triggered")
-                val navController = Navigation.findNavController(requireParentFragment().requireView())
-                navController.navigate(R.id.action_addShoppingItemFragment_to_startFragment)
+                addItemClicked()
+            }
+            whenNeededBtn.setOnClickListener {
+                whenNeededClicked()
             }
         }
         setupAppBar()
@@ -61,17 +59,61 @@ class AddShoppingItemFragment : Fragment() {
         Log.i(fragmentTag, "onDestroy: AddShoppingItemFragment")
     }
 
+    // Triggered when the user picks a date
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val dateToDisplay = "${month+1}/$dayOfMonth/$year"
+        when_needed_btn.text = dateToDisplay
+    }
+
+    // CLICK HANDLERS //
+    private fun addItemClicked() {
+        val necessaryAreFilled = necessaryAreFilled(
+            binding!!.itemNameInput.text.toString(),
+            binding!!.itemQuantityInput.text.toString()
+        )
+        if (necessaryAreFilled) {
+            addItem()
+            val navController = Navigation
+                .findNavController(requireParentFragment().requireView())
+            navController.navigate(R.id.action_addShoppingItemFragment_to_startFragment)
+        } else {
+            displayToast(requireContext(),"Fill boxed marked with *")
+        }
+    }
+    private fun whenNeededClicked() {
+        val calendarDate = listsViewModel.getDateTimeCalendar()
+        DatePickerDialog(
+            requireContext(), this,
+            calendarDate.year, calendarDate.month, calendarDate.day
+        ).show()
+    }
+    // CLICK HANDLERS //
+
+
+    // SET UP FUNCTIONS //
+    private fun setupAppBar() {
+        //title
+        binding!!.apply {
+            addItemTopAppbar.title = "Add Shopping Item"
+            addItemTopAppbar.setNavigationOnClickListener {
+                // todo: handle navigation click
+            }
+        }
+    }
+
     // HELPERS //
     private fun setItemToView(itemToEdit: ShoppingItem) {
         binding?.apply {
             itemQuantityInput.setText(itemToEdit.quantity.toString())
             itemNameInput.setText(itemToEdit.name)
+            whenNeededBtn.text = if (!itemToEdit.neededBy.isNullOrEmpty()) {
+                itemToEdit.neededBy
+            } else { "WHEN NEEDED" }
             whereToGetInput.setText(itemToEdit.purchaseLocation)
             costInput.setText(itemToEdit.cost.toString())
         }
     }
 
-    // CLICK HANDLERS //
     private fun addItem() {
         binding!!.apply {
             val qty: Double = if (itemQuantityInput.text.toString().isEmpty()) 0.0 else {
@@ -90,20 +132,10 @@ class AddShoppingItemFragment : Fragment() {
                 itemNameInput.text.toString(),
                 qty, cost,
                 whereToGetInput.text.toString(),
-                whenNeededInput.text.toString(),
+                whenNeededBtn.text.toString(),
                 priority, 0
             )
         }
     }
-
-    // SET UP FUNCTIONS //
-    private fun setupAppBar() {
-        //title
-        binding!!.apply {
-            addItemTopAppbar.title = "Add Shopping Item"
-            addItemTopAppbar.setNavigationOnClickListener {
-                // todo: handle navigation click
-            }
-        }
-    }
+    // HELPERS //
 }

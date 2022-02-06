@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import androidx.lifecycle.MutableLiveData
 import com.aldreduser.housemate.data.ListsRepository
+import com.aldreduser.housemate.data.model.CalendarDate
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import kotlinx.coroutines.CoroutineScope
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class ListsViewModel: ViewModel() {
 
@@ -54,6 +56,14 @@ class ListsViewModel: ViewModel() {
     }
     fun setItemToEdit(chosenItem: Any?) {
         _itemToEdit.value = chosenItem
+    }
+    fun getDateTimeCalendar(): CalendarDate {
+        val calendarDate = CalendarDate()
+        val calendar = Calendar.getInstance()
+        calendarDate.day = calendar.get(Calendar.DAY_OF_MONTH)
+        calendarDate.month = calendar.get(Calendar.MONTH)
+        calendarDate.year = calendar.get(Calendar.YEAR)
+        return calendarDate
     }
     // UI //
 

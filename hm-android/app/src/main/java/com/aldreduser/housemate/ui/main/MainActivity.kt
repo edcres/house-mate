@@ -23,12 +23,14 @@ import com.aldreduser.housemate.R
 //      Also the dialog box
 //      Make tabs a little darker
 // todo: change colors of recycler item
+// todo: change colors of calendar picker
 // todo: edit recycler item dimensions
 // todo: change txtViews font to that of the first houseMate test
 // todo: take care of warnings
 // todo: clean up comments
 // todo: clean up unused imports
 // todo: When chore item is added travel to the chore list fragment
+// todo: test the app a lot
 
 /*
 Improve MVVM architecture by:
