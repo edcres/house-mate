@@ -25,6 +25,10 @@
         <item
             android:id="@+id/list_option_exit_group"
             android:title="@string/appbar_exit_group" />
+
+        <item
+            android:id="@+id/list_option_current_group"
+            android:title="@string/appbar_current_group" />
     </item>
 
 </menu>

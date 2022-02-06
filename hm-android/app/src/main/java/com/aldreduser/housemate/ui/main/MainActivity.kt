@@ -11,8 +11,6 @@ import com.aldreduser.housemate.R
 //  - if there's a conflict with the same item maybe ask user if they want to overwrite it with his local database data
 // -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
 
-// todo: do the date picker thing
-
 // todo: navigation
 // (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
@@ -23,13 +21,13 @@ import com.aldreduser.housemate.R
 //      Also the dialog box
 //      Make tabs a little darker
 // todo: change colors of recycler item
-// todo: change colors of calendar picker
 // todo: edit recycler item dimensions
+// todo: change colors of calendar picker
 // todo: change txtViews font to that of the first houseMate test
+
 // todo: take care of warnings
 // todo: clean up comments
 // todo: clean up unused imports
-// todo: When chore item is added travel to the chore list fragment
 // todo: test the app a lot
 
 /*
@@ -49,6 +47,7 @@ Improve MVVM architecture by:
 //      just pass it in Data Objects instead of parameters.
 // For the cost in shopping list, have a converter so it displays the currency,
 //      and get the correct currency.
+// When chore item is added travel to the chore list fragment
 // When updating an item, delete that item from the database when the user adds the new item
 //      (maybe check locally if these have the same name first)
 // If more lists are added, make base classes

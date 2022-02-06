@@ -131,6 +131,7 @@ class StartFragment : Fragment() {
             val listOptionPastGroups = R.id.list_option_past_groups
             val listOptionChangeUsername = R.id.list_option_change_username
             val listOptionExitGroup = R.id.list_option_exit_group
+            val listOptionCurrentGroup = R.id.list_option_current_group
             when (menuItem.itemId) {
                 itemListEdit -> {
                     listsViewModel.toggleEditBtn()
@@ -151,6 +152,12 @@ class StartFragment : Fragment() {
                 }
                 listOptionExitGroup -> {
                     makeDialogBoxAndSetGroupID()
+                    true
+                }
+                listOptionCurrentGroup -> {
+                    if (!listsViewModel.clientGroupIDCollection.isNullOrEmpty()) {
+                        makeDialogBoxAndDisplayGroupID()
+                    }
                     true
                 }
                 else -> false
@@ -231,6 +238,14 @@ class StartFragment : Fragment() {
 
             }
             .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+    private fun makeDialogBoxAndDisplayGroupID() {
+        val inputDialog = MaterialAlertDialogBuilder(requireContext())
+        inputDialog.setTitle(listsViewModel.clientGroupIDCollection)
+            .setPositiveButton("Dismiss") { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
