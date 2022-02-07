@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Default-->
     <color name="colorPrimary">#14DD7B</color>
     <color name="colorPrimaryDark">#00542C</color>
+    <color name="colorSecondary">#EAEA33</color>
+    <color name="colorSecondaryDark">#686800</color>
+    <color name="colorAccent">#EAEA14</color>
+    <!--Default-->
 
-    <color name="colorSecondary">#AFDD10</color>
-    <color name="colorSecondaryDark">#6B8D00</color>
-    <color name="colorItemContainer">#D6E94D</color>
+    <color name="background">#25C678</color>
+    <color name="recyclerItem">#14DD7B</color>
+    <color name="colorItemContainer">#2DDF88</color>
+    <color name="recyclerEditButtons">#F4F400</color>
 
-    <color name="colorAccent">#FFFF00</color>
+    <color name="colorHighlight">#FFFF00</color>
     <color name="colorInactiveItem">#B36B6B1C</color>
 
     <color name="toolbarItemsLight">#BF000000</color>
     <color name="toolbarItemsDark">#BFFFFFFF</color>
-
 
     <color name="addDateBtn">#19B96B</color>
     <color name="neededByNtnTxt">#404040</color>

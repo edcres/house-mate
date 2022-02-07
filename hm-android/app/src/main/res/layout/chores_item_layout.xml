@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSecondary">
+            android:background="@color/recyclerItem">
 
             <Space
                 android:id="@+id/chores_height_component"
@@ -36,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="4dp"
                 app:layout_constraintBottom_toTopOf="@id/chores_expandable_container_cardview"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,45 +61,40 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
                 android:layout_marginBottom="16dp"
                 android:drawableBottom="@drawable/ic_expand_more_24"
-                app:backgroundTint="#00FFFFFF"
+                app:backgroundTint="@color/background"
                 app:layout_constraintBottom_toTopOf="@id/chores_expandable_container_cardview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="UnusedAttribute" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/remove_item_button"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="14dp"
                 android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_delete_item_24"
                 android:visibility="gone"
-                app:backgroundTint="@color/colorAccent"
-                android:drawableBottom="@drawable/ic_delete_item_24"
+                app:backgroundTint="#00FFFFFF"
                 app:layout_constraintBottom_toTopOf="@id/chores_expandable_container_cardview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/edit_item_button"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginEnd="8dp"
-                android:drawableBottom="@drawable/ic_edit_item_24"
+                android:src="@drawable/ic_edit_item_24"
                 android:visibility="gone"
-                app:backgroundTint="@color/colorAccent"
+                app:backgroundTint="#00FFFFFF"
                 app:layout_constraintBottom_toTopOf="@id/chores_expandable_container_cardview"
                 app:layout_constraintEnd_toStartOf="@+id/remove_item_button"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/chores_expandable_container_cardview"

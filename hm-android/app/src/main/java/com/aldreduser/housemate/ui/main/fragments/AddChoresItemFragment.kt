@@ -68,9 +68,10 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     // CLICK HANDLERS //
     private fun addItemClicked() {
         val necessaryAreFilled = necessaryAreFilled(
-            binding!!.itemNameInput.toString(),
+            binding!!.itemNameInput.text.toString(),
             "placeholder"
         )
+        Log.d(fragmentTag, "necessaryAreFilled: $necessaryAreFilled")
         if (necessaryAreFilled) {
             addItem()
             val navController = Navigation

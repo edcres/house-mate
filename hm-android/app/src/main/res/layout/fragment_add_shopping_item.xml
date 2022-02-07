@@ -77,7 +77,6 @@
                         android:minWidth="160dp"
                         android:layout_gravity="end"
                         android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
                         android:hint="@string/hint_name"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/item_quantity"
@@ -186,7 +185,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:gravity="center"
-            app:backgroundTint="@color/colorAccent"
+            app:backgroundTint="@color/colorHighlight"
             android:text="@string/add_item_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

@@ -15,10 +15,7 @@ import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.ShoppingItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.util.displayAddedBy
-import com.aldreduser.housemate.util.displayCost
-import com.aldreduser.housemate.util.displayDate
-import com.aldreduser.housemate.util.displayPriority
+import com.aldreduser.housemate.util.*
 
 // This is the list recyclerview adapter
 class ShoppingRecyclerviewListAdapter(
@@ -47,19 +44,9 @@ class ShoppingRecyclerviewListAdapter(
                 shoppingEntity = item
                 shoppingItIsDone.isChecked = item.completed!!
                 shoppingItemName.text = item.name
-
-
-
-
-
-                
-                shoppingItemQty.text = item.quantity.toString()
-
-
-
-
-
-
+                shoppingItemQty.text = if(getLastTwoDigits(item.quantity.toString()) == ".0") {
+                    item.quantity!!.toInt().toString()
+                } else item.quantity.toString()
                 shoppingWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
                     displayDate(item.neededBy)
                 } else {shoppingWhenNeededDoneText.visibility = View.GONE; ""}

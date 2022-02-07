@@ -1,6 +1,7 @@
 package com.aldreduser.housemate.util
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 
 fun displayDate(date: String): String {
@@ -36,7 +37,15 @@ fun displayAddedBy(addedBy: String): String {
 }
 
 fun necessaryAreFilled(name: String, qty: String): Boolean {
-    return name.isNotEmpty() && qty.isNotEmpty()
+    Log.d("rndTAG", "name: $name, empty: ${name.isEmpty()}")
+    Log.d("rndTAG", "qty: $qty, empty: ${qty.isEmpty()}")
+    return (name.isNotEmpty() && qty.isNotEmpty())
+}
+
+fun getLastTwoDigits(theString: String): String {
+    val y = theString[theString.length - 2]
+    val z = theString.last()
+    return "$y$z"
 }
 
 fun add1AndScrambleLetters(oldID: String): String {

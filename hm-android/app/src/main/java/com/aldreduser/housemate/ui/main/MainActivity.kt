@@ -4,25 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aldreduser.housemate.R
 
-// storage
-// todo: local
-// make sure offline access to the fire-store database works
-// compare local database to remote database for data differences, update local database with differences
-//  - if there's a conflict with the same item maybe ask user if they want to overwrite it with his local database data
-// -database with multiple entities   https://kirillsuslov.medium.com/how-to-add-more-that-one-entity-in-room-5cc3743219c0
-
 // todo: navigation
 // (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
+// todo: bug: when a new group is added, change the UI to reflect that
+// todo: change txtViews font to that of the first houseMate test
 // todo: Change color of more options drop down menu.
 //      Also the dialog box
 //      Make tabs a little darker
-// todo: change colors of recycler item
 // todo: edit recycler item dimensions
 // todo: change colors of calendar picker
-// todo: change txtViews font to that of the first houseMate test
 
 // todo: take care of warnings
 // todo: clean up comments
@@ -34,7 +27,7 @@ Improve MVVM architecture by:
 -Implement Dependency Inject Framework - Dagger in the project.
 -Create base classes such as BaseActivity.
 -Create Interfaces for the classes wherever optimal. (maybe)
--Write Unit-Test
+-Write Unit-Tests
 */
 
 // todo: Future Improvements:
@@ -54,6 +47,7 @@ Improve MVVM architecture by:
 // If more lists are added, make base classes
 
 // todo: Bugs:
+// Sometimes the items in Shopping List show up as the same qty as the items in Chores List
 // If I navigate to chores tab and exit the group to a new group,
 //      shopping list will have the same amount of items as chore list.
 //      When I restart the app it goes back to normal.
