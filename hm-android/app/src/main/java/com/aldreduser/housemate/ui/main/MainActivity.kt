@@ -9,12 +9,12 @@ import com.aldreduser.housemate.R
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
-// todo: bug: When a new group is created and added, change the UI to reflect that.
+// todo: bug: when user creates a new group, add it to past groups SP
 
-// todo: take care of warnings
-// todo: clean up comments
-// todo: clean up unused imports
-// todo: test the app a lot
+// todo: Take care of warnings
+// todo: Clean up comments
+// todo: Clean up unused imports
+// todo: Test the app a lot
 
 // todo: Future Improvements:
 // Take care of database operations appropriately, group and

@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+import kotlin.math.log
 
 class ListsViewModel: ViewModel() {
 
@@ -64,6 +65,10 @@ class ListsViewModel: ViewModel() {
         calendarDate.month = calendar.get(Calendar.MONTH)
         calendarDate.year = calendar.get(Calendar.YEAR)
         return calendarDate
+    }
+    fun clearLists() {
+        _shoppingItems.postValue(mutableListOf())
+        _choreItems.postValue(mutableListOf())
     }
     // UI //
 
@@ -191,22 +196,21 @@ class ListsViewModel: ViewModel() {
         }
     }
     fun setClientID() {
-        clientIDCollection = getDataFromSP(CLIENT_ID_SP_TAG)
-        if (clientIDCollection == null) {
-            CoroutineScope(Dispatchers.IO).launch {
-                clientIDCollection =
-                    listsRepository.getLastClientAdded(clientGroupIDCollection!!)
-
-                withContext(Dispatchers.Main) {
-                    if (clientIDCollection != null) {
-                        sendDataToSP(CLIENT_ID_SP_TAG, clientIDCollection!!)
-                    } else {
-                        Log.e(TAG, "generateClientGroupID(): clientIDCollection is null")
-                    }
+        // Client Id is changed permanently whenever a new group is added
+        clientIDCollection = null
+        CoroutineScope(Dispatchers.IO).launch {
+            clientIDCollection =
+                listsRepository.getLastClientAdded(clientGroupIDCollection!!)
+            withContext(Dispatchers.Main) {
+                if (clientIDCollection != null) {
+                    sendDataToSP(CLIENT_ID_SP_TAG, clientIDCollection!!)
+                } else {
+                    Log.e(TAG, "generateClientGroupID(): clientIDCollection is null")
                 }
             }
         }
     }
+
     fun getCurrentGroupID(): String? {
         clientGroupIDCollection = getDataFromSP(GROUP_ID_SP_TAG)
         return clientGroupIDCollection

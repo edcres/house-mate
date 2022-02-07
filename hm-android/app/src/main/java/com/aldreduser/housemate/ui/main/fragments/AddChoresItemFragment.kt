@@ -58,7 +58,6 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding = null
         Log.i(fragmentTag, "onDestroyView: AddChoresItemFragment")
     }
-
     // Triggered when the user picks a date
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val dateToDisplay = "${month+1}/$dayOfMonth/$year"

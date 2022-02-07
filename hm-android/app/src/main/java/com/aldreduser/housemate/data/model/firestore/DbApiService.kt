@@ -258,8 +258,8 @@ class DbApiService {
                 }
             if (newIDList.isEmpty()) {
                 val newID = add1AndScrambleLetters(DEFAULT_CLIENT_ID)
+                Log.d(TAG, "getLastClientAdded: new client id added $newID")
                 val firstDocData = hashMapOf<String, Any>(LAST_CLIENT_ADDED_FIELD to newID)
-
                 clientIDsDoc.set(firstDocData)
                     .addOnSuccessListener {
                         Log.i(TAG, "DocumentSnapshot successfully written!")

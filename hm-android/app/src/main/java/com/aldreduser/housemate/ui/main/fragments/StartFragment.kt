@@ -145,6 +145,7 @@ class StartFragment : Fragment() {
                     true
                 }
                 listOptionExitGroup -> {
+                    listsViewModel.clearLists()
                     makeDialogBoxAndSetGroupID()
                     true
                 }
