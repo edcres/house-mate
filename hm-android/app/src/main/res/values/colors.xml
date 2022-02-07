@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!--Default-->
     <color name="colorPrimary">#14DD7B</color>
     <color name="colorPrimaryDark">#00542C</color>
@@ -9,9 +8,12 @@
     <color name="colorAccent">#EAEA14</color>
     <!--Default-->
 
+    <color name="tabIndicator">#00542C</color>
+    <color name="tabSelectedTxt">#686800</color>
     <color name="background">#25C678</color>
     <color name="recyclerItem">#14DD7B</color>
-    <color name="colorItemContainer">#2DDF88</color>
+    <color name="expandBtn">#09C86B</color>
+    <color name="colorItemContainer">#20EC88</color>
     <color name="recyclerEditButtons">#F4F400</color>
 
     <color name="colorHighlight">#FFFF00</color>

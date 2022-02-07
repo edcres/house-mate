@@ -120,12 +120,6 @@ class StartFragment : Fragment() {
                     // might have to do this in every activity.
                 ContextCompat.getDrawable(requireContext(), moreOptionsDrawable)
         }
-        binding?.homeScreenTopAppbar?.setNavigationOnClickListener {
-            //todo: handle navigation icon press
-            //the navigation icon is the icon to the left
-            // command+f 'Navigation icon attributes' in material design website
-        }
-
         binding?.homeScreenTopAppbar?.setOnMenuItemClickListener { menuItem ->
             val itemListEdit = R.id.item_list_edit
             val listOptionPastGroups = R.id.list_option_past_groups

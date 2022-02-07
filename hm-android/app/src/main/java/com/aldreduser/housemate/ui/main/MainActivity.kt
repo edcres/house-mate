@@ -9,26 +9,12 @@ import com.aldreduser.housemate.R
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
-// todo: bug: when a new group is added, change the UI to reflect that
-// todo: change txtViews font to that of the first houseMate test
-// todo: Change color of more options drop down menu.
-//      Also the dialog box
-//      Make tabs a little darker
-// todo: edit recycler item dimensions
-// todo: change colors of calendar picker
+// todo: bug: When a new group is created and added, change the UI to reflect that.
 
 // todo: take care of warnings
 // todo: clean up comments
 // todo: clean up unused imports
 // todo: test the app a lot
-
-/*
-Improve MVVM architecture by:
--Implement Dependency Inject Framework - Dagger in the project.
--Create base classes such as BaseActivity.
--Create Interfaces for the classes wherever optimal. (maybe)
--Write Unit-Tests
-*/
 
 // todo: Future Improvements:
 // Take care of database operations appropriately, group and
@@ -44,6 +30,9 @@ Improve MVVM architecture by:
 // When chore item is added travel to the chore list fragment
 // When updating an item, delete that item from the database when the user adds the new item
 //      (maybe check locally if these have the same name first)
+// Change color of more options drop down menu.
+//      Also the dialog box
+// Change colors of calendar picker
 // If more lists are added, make base classes
 
 // todo: Bugs:
@@ -55,7 +44,14 @@ Improve MVVM architecture by:
 //      The Chores List Fragment matches the height of the Shopping list fragment.
 // When user types a group id that doesn't exists, it is being added to groupSP and pastGroupsSP.
 
-// Home Screen
+/*
+Improve MVVM architecture by:
+-Implement Dependency Inject Framework - Dagger in the project.
+-Create base classes such as BaseActivity.
+-Create Interfaces for the classes wherever optimal. (maybe)
+-Write Unit-Tests
+*/
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

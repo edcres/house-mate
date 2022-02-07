@@ -42,6 +42,14 @@ fun necessaryAreFilled(name: String, qty: String): Boolean {
     return (name.isNotEmpty() && qty.isNotEmpty())
 }
 
+fun presentItemQty(qty: Double): String {
+    return if (getLastTwoDigits(qty.toString()) == ".0") {
+        qty.toInt().toString()
+    } else {
+        "%.2f".format(qty)
+    }
+}
+
 fun getLastTwoDigits(theString: String): String {
     val y = theString[theString.length - 2]
     val z = theString.last()
