@@ -97,6 +97,8 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             addItemTopAppbar.title = "Add Shopping Item"
             addItemTopAppbar.setNavigationOnClickListener {
                 // todo: handle navigation click
+                val navController = Navigation.findNavController(requireParentFragment().requireView())
+                navController.navigateUp()
             }
         }
     }

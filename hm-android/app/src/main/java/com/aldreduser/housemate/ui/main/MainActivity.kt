@@ -34,6 +34,8 @@ import com.aldreduser.housemate.R
 // If more lists are added, make base classes
 // When a user adds a group and is the same as a previous one and it is saved in GROUPS_SP,
 //      remove the previous instance of that group from the SP.
+// Before navigateUp() from AddItemFragment, tell the user they
+//      will lose their data and if they are sure.
 
 // todo: Bugs:
 // Sometimes the items in Shopping List show up as the same qty as the items in Chores List

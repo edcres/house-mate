@@ -94,7 +94,8 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding!!.apply {
             addItemTopAppbar.title = "Add Chore Item"
             addItemTopAppbar.setNavigationOnClickListener {
-                // todo: handle navigation click
+                val navController = Navigation.findNavController(requireParentFragment().requireView())
+                navController.navigateUp()
             }
         }
     }

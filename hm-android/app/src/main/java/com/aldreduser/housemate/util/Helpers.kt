@@ -57,7 +57,7 @@ fun getLastTwoDigits(theString: String): String {
 }
 
 fun add1AndScrambleLetters(oldID: String): String {
-    val lettersToScramble = "asdfg"
+    val lettersToScramble = "asdfglkjh"
     val newID: String
     var scrambledLetters = ""
     // Add random letters to the String
