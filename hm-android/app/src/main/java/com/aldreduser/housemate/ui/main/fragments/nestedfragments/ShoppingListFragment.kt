@@ -44,7 +44,6 @@ class ShoppingListFragment : Fragment() {
         }
         // Update recyclerView
         listsViewModel.shoppingItems.observe(viewLifecycleOwner, Observer { result ->
-            Log.d(fragmentTag, "onViewCreated: is triggered")
             recyclerAdapter.submitList(result)
         })
     }

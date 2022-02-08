@@ -51,7 +51,7 @@ class ListsViewModel: ViewModel() {
         Log.i(TAG, "_choreItems: ${_choreItems.value?.size}")
     }
 
-    // UI //
+    // HELPERS //
     fun toggleEditBtn() {
         _menuEditIsOn.value = !_menuEditIsOn.value!!
     }
@@ -70,7 +70,24 @@ class ListsViewModel: ViewModel() {
         _shoppingItems.postValue(mutableListOf())
         _choreItems.postValue(mutableListOf())
     }
-    // UI //
+    fun setGroupID(selectedGroup: String) {
+        clientGroupIDCollection = selectedGroup
+        sendGroupToSP()
+        setItemsRealtime(listTypes[0])
+        setItemsRealtime(listTypes[1])
+    }
+    private fun sendGroupToSP() {
+        sendDataToSP(GROUP_ID_SP_TAG, clientGroupIDCollection!!)
+        val pastGroups = getDataFromSP(PAST_GROUPS_SP_TAG)?.split("-")
+        if(pastGroups.isNullOrEmpty()) {
+            sendDataToSP(PAST_GROUPS_SP_TAG, clientGroupIDCollection!!)
+        } else {
+            val newGroups = pastGroups.toMutableList()
+            newGroups.add(clientGroupIDCollection!!)
+            sendDataToSP(PAST_GROUPS_SP_TAG, newGroups.joinToString("-"))
+        }
+    }
+    // HELPERS //
 
     // DATABASE FUNCTIONS //
     fun setItemsRealtime(listTag: String) {
@@ -187,7 +204,7 @@ class ListsViewModel: ViewModel() {
             clientGroupIDCollection = listsRepository.getLastGroupAdded()
             withContext(Dispatchers.Main) {
                 if (clientGroupIDCollection != null) {
-                    sendDataToSP(GROUP_ID_SP_TAG, clientGroupIDCollection!!)
+                    sendGroupToSP()
                     setClientID()
                 } else {
                     Log.e(TAG, "generateClientGroupID(): clientGroupIDCollection is null")

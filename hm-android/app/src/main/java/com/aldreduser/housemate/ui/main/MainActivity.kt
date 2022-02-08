@@ -10,6 +10,7 @@ import com.aldreduser.housemate.R
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
 // todo: bug: when user creates a new group, add it to past groups SP
+// todo: check if past group IDs is capped at 5 or it just keeps going
 
 // todo: Take care of warnings
 // todo: Clean up comments
@@ -37,9 +38,12 @@ import com.aldreduser.housemate.R
 
 // todo: Bugs:
 // Sometimes the items in Shopping List show up as the same qty as the items in Chores List
+//  - When I navigate to Chores fragment and click the edit or the expand btn. Then navigate back
+//      to the Shopping fragment, the Shopping list has the same num of items as the chores list.
+//      (doesn't seem to happen the other way around)
 // If I navigate to chores tab and exit the group to a new group,
 //      shopping list will have the same amount of items as chore list.
-//      When I restart the app it goes back to normal.
+//      When I click the edit or expand btn it goes back to normal
 // Chores fragment scrolls up too high if the shopping fragment high enough
 //      The Chores List Fragment matches the height of the Shopping list fragment.
 // When user types a group id that doesn't exists, it is being added to groupSP and pastGroupsSP.
@@ -53,7 +57,6 @@ Improve MVVM architecture by:
 */
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

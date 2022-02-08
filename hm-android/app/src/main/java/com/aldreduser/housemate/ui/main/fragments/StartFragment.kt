@@ -15,12 +15,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
-import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentStartBinding
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.GROUP_ID_SP_TAG
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.PAST_GROUPS_SP_TAG
 import com.aldreduser.housemate.util.displayToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -117,7 +115,6 @@ class StartFragment : Fragment() {
         binding?.homeScreenTopAppbar?.title = "House Mate"
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             binding?.homeScreenTopAppbar?.overflowIcon =
-                    // might have to do this in every activity.
                 ContextCompat.getDrawable(requireContext(), moreOptionsDrawable)
         }
         binding?.homeScreenTopAppbar?.setOnMenuItemClickListener { menuItem ->
@@ -203,7 +200,7 @@ class StartFragment : Fragment() {
             .setTitle("Group ID")
             .setPositiveButton("Accept") { dialog, _ ->
                 if (inputNameDialog.text.toString().isNotEmpty()) {
-                    setGroupID(inputNameDialog.text.toString())
+                    listsViewModel.setGroupID(inputNameDialog.text.toString())
                     Log.i(
                         tag, "makeDialogBoxAndSetGroupID: accept clicked " +
                                 "${listsViewModel.clientGroupIDCollection}"
@@ -228,7 +225,7 @@ class StartFragment : Fragment() {
             }
             .setPositiveButton("Accept") { dialog, _ ->
                 if (selectedGroup != null)
-                    setGroupID(selectedGroup!!)
+                    listsViewModel.setGroupID(selectedGroup!!)
                 dialog.dismiss()
 
             }
@@ -246,27 +243,6 @@ class StartFragment : Fragment() {
             .show()
     }
     // SET UP FUNCTIONS //
-
-    // HELPER FUNCTIONS //
-    private fun setGroupID(selectedGroup: String) {
-        listsViewModel.clientGroupIDCollection = selectedGroup
-        listsViewModel.sendDataToSP(
-            GROUP_ID_SP_TAG,
-            listsViewModel.clientGroupIDCollection!!
-        )
-        listsViewModel.setItemsRealtime(listsViewModel.listTypes[0])
-        listsViewModel.setItemsRealtime(listsViewModel.listTypes[1])
-        val pastGroups = listsViewModel.getDataFromSP(PAST_GROUPS_SP_TAG)?.split("-")
-        if(pastGroups.isNullOrEmpty()) {
-            listsViewModel
-                .sendDataToSP(PAST_GROUPS_SP_TAG, listsViewModel.clientGroupIDCollection!!)
-        } else {
-            val newGroups = pastGroups.toMutableList()
-            newGroups.add(listsViewModel.clientGroupIDCollection!!)
-            listsViewModel
-                .sendDataToSP(PAST_GROUPS_SP_TAG, newGroups.joinToString("-"))
-        }
-    }
 
     // Adapter for the viewPager2 (Inner Class) //
     private inner class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) :
