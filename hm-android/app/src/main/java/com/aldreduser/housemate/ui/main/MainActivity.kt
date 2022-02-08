@@ -27,6 +27,7 @@ import com.aldreduser.housemate.R
 // Before navigateUp() from AddItemFragment, tell the user they
 //      will lose their data and if they are sure.
 // When sending an item to the db, make the date a timestamp/dateObject
+// Edit Dark mode colors
 
 // todo: Bugs:
 // Sometimes the items in Shopping List show up as the same qty as the items in Chores List
