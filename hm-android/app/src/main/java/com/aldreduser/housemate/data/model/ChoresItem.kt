@@ -15,10 +15,8 @@ Chores properties:
 -who volunteers to do it
 -priority 1-3 (compared to others shopping items)
 */
-
 @IgnoreExtraProperties
 data class ChoresItem (
-    // Necessary
     val id: Long? = 0,
     val name: String? = "",
     val addedBy: String? = "",

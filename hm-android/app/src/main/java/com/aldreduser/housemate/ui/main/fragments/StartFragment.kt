@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
@@ -50,7 +49,6 @@ class StartFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             addItemListFab.setOnClickListener {
                 addNewItem()
-//                listsViewModel.clearSPs()
             }
         }
         setUpAppBar()
@@ -67,10 +65,10 @@ class StartFragment : Fragment() {
     }
 
     private fun startApplication() {
-        // get user name
+        // Get user name
         listsViewModel.userName = listsViewModel.getDataFromSP(ListsViewModel.USER_NAME_SP_TAG)
         if (listsViewModel.userName == null) makeDialogBoxAndSetUserName()
-        // set Up Database IDs And FetchData
+        // Set Up Database IDs And FetchData
         val currentClientGroupID = listsViewModel.getCurrentGroupID()
         if (currentClientGroupID == null) {
             makeDialogBoxAndSetGroupID()
@@ -82,9 +80,7 @@ class StartFragment : Fragment() {
     }
 
     // LISTENERS //
-    // handle fab click
     private fun addNewItem() {
-        // add workout
         val navController = Navigation.findNavController(requireParentFragment().requireView())
         val navAction = when (listsViewModel.fragmentInView) {
             listsViewModel.listInView[0] -> R.id.action_startFragment_to_addShoppingItemFragment
@@ -97,16 +93,18 @@ class StartFragment : Fragment() {
         }
         navController.navigate(navAction)
     }
-    fun setObservers() {
-        listsViewModel.itemToEdit.observe(viewLifecycleOwner, Observer { result ->
+    private fun setObservers() {
+        listsViewModel.itemToEdit.observe(viewLifecycleOwner) {
             val navController = Navigation.findNavController(requireParentFragment().requireView())
             val navAction = when (listsViewModel.fragmentInView) {
                 listsViewModel.listInView[0] -> R.id.action_startFragment_to_addShoppingItemFragment
                 listsViewModel.listInView[1] -> R.id.action_startFragment_to_addChoresItemFragment
-                else -> { Log.i(fragmentTag, "itemToEdit set to null")}
+                else -> {
+                    Log.i(fragmentTag, "itemToEdit set to null")
+                }
             }
             if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
-        })
+        }
     }
 
     // SET UP FUNCTIONS //

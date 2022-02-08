@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aldreduser.housemate.databinding.FragmentChoresListBinding
 import com.aldreduser.housemate.ui.main.adapters.ChoresRecyclerviewListAdapter
@@ -42,9 +40,9 @@ class ChoresListFragment : Fragment() {
             choresListRecyclerview.adapter = recyclerAdapter
             choresListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
-        listsViewModel.choreItems.observe(viewLifecycleOwner, Observer { result ->
+        listsViewModel.choreItems.observe(viewLifecycleOwner) { result ->
             recyclerAdapter.submitList(result)
-        })
+        }
     }
 
     override fun onResume() {

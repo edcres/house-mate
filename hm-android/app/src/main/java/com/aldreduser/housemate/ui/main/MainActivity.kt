@@ -4,16 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aldreduser.housemate.R
 
-// todo: navigation
-// (make sure this is good) navigation and arrow icon in all activities (except the one that opens when the app opens)
-// when user backs out of adding a new item, ask if they're sure they wanna cancel.
-// when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
-
-// todo: Take care of warnings
-// todo: Clean up comments
-// todo: Clean up unused imports
-// todo: Test the app a lot
-
 // todo: Future Improvements:
 // Take care of database operations appropriately, group and
 //      client IDs, authentication, verification and so forth.
@@ -36,6 +26,7 @@ import com.aldreduser.housemate.R
 //      remove the previous instance of that group from the SP.
 // Before navigateUp() from AddItemFragment, tell the user they
 //      will lose their data and if they are sure.
+// When sending an item to the db, make the date a timestamp/dateObject
 
 // todo: Bugs:
 // Sometimes the items in Shopping List show up as the same qty as the items in Chores List

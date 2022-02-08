@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.tasks.await
-import kotlin.math.log
 
 class DbApiService {
 
@@ -118,7 +117,7 @@ class DbApiService {
         itemQuantity: Double,
         itemCost: Double,
         purchaseLocation: String,
-        itemNeededBy: String,   // try and make this a date
+        itemNeededBy: String,
         itemPriority: Int,
         addedBy: String
     ) {
@@ -145,7 +144,7 @@ class DbApiService {
         clientGroupIDCollection: String,
         itemName: String,
         itemDifficulty: Int,
-        itemNeededBy: String,   // try and make this a date
+        itemNeededBy: String,
         itemPriority: Int,
         addedBy: String
     ) {

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,6 @@ import com.aldreduser.housemate.databinding.ShoppingItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.*
 
-// This is the list recyclerview adapter
 class ShoppingRecyclerviewListAdapter(
     val listsViewModel: ListsViewModel,
     private val fragLifecycleOwner: LifecycleOwner
@@ -58,7 +56,7 @@ class ShoppingRecyclerviewListAdapter(
                 shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
                 shoppingWhoIsGettingItText.setText(item.volunteer)
 
-                listsViewModel.menuEditIsOn.observe(fragLifecycleOwner, Observer { result ->
+                listsViewModel.menuEditIsOn.observe(fragLifecycleOwner) { result ->
                     when (result) {
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
@@ -71,7 +69,7 @@ class ShoppingRecyclerviewListAdapter(
                             editItemButton.visibility = View.GONE
                         }
                     }
-                })
+                }
                 if (listsViewModel.itemsExpanded[item.name!!] == true) {
                     shoppingExpandableContainerCardview.visibility = View.VISIBLE
                 }
@@ -97,7 +95,7 @@ class ShoppingRecyclerviewListAdapter(
                 }
                 shoppingExpandButton.setOnClickListener {
                     // If view is GONE change image make view visible
-                    // else if view is visible change image make view GONE
+                    //   else if view is visible change image make view GONE
                     val expandableContainer = shoppingExpandableContainerCardview
                     val imageToContract: Drawable? = ContextCompat.getDrawable(
                         shoppingExpandButton.context, R.drawable.ic_expand_less_24
@@ -122,7 +120,7 @@ class ShoppingRecyclerviewListAdapter(
                 editItemButton.setOnClickListener {
                     listsViewModel.setItemToEdit(item)
                 }
-                executePendingBindings()    // idk what this is for
+                executePendingBindings()
             }
         }
 
@@ -141,7 +139,9 @@ class ShoppingRecyclerviewListAdapter(
     }
 }
 
-// Compares the old to new recycler views and looks for changes
+
+
+
 class ShoppingItemDiffCallback : DiffUtil.ItemCallback<ShoppingItem>() {
 
     override fun areItemsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {

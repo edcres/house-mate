@@ -19,14 +19,13 @@ class ListsRepository {
         return dbApiService.getChoreItemsRealtime(groupID)
     }
 
-    // add item
     fun addShoppingItemToDb(
         groupID: String,
         itemName: String,
         itemQuantity: Double,
         itemCost: Double,
         purchaseLocation: String,
-        itemNeededBy: String,   // try and make this a date
+        itemNeededBy: String,
         itemPriority: Int,
         addedBy: String
     ) {
@@ -39,7 +38,7 @@ class ListsRepository {
         groupID: String,
         itemName: String,
         itemDifficulty: Int,
-        itemNeededBy: String,   // try and make this a date
+        itemNeededBy: String,
         itemPriority: Int,
         addedBy: String
     ) {
@@ -48,7 +47,6 @@ class ListsRepository {
         )
     }
 
-    // get the last group added String
     suspend fun getLastGroupAdded(): String? {
         return dbApiService.getLastGroupAdded()
     }
@@ -74,7 +72,6 @@ class ListsRepository {
         dbApiService.sendVolunteerToDb(groupID, choreItem, listItem, volunteerName)
     }
 
-    // delete item
     fun deleteShoppingListItem(groupID: String, itemName: String) {
         dbApiService.deleteListItem(groupID, shoppingItem, itemName)
     }

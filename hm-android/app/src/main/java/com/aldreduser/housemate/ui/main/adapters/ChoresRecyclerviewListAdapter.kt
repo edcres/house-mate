@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,12 +19,13 @@ import com.aldreduser.housemate.util.displayDate
 import com.aldreduser.housemate.util.displayDifficulty
 import com.aldreduser.housemate.util.displayPriority
 
-// This is the chores list recyclerview adapter
 class ChoresRecyclerviewListAdapter(
     val listsViewModel: ListsViewModel,
     private val fragLifecycleOwner: LifecycleOwner
 ) :
-    ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(ChoresItemDiffCallback()) {
+    ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(
+        ChoresItemDiffCallback()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ChoresViewHolder {
         return ChoresViewHolder.from(listsViewModel, fragLifecycleOwner,parent)
@@ -53,7 +53,7 @@ class ChoresRecyclerviewListAdapter(
                 choresAddedByText.text = displayAddedBy(item.addedBy!!)
                 choresWhoIsDoingItText.setText(item.volunteer)
 
-                listsViewModel.menuEditIsOn.observe(fragLifecycleOwner, Observer { result ->
+                listsViewModel.menuEditIsOn.observe(fragLifecycleOwner) { result ->
                     when (result) {
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
@@ -66,7 +66,7 @@ class ChoresRecyclerviewListAdapter(
                             editItemButton.visibility = View.GONE
                         }
                     }
-                })
+                }
 
                 if (listsViewModel.itemsExpanded[item.name!!] == true) {
                     choresExpandableContainerCardview.visibility = View.VISIBLE
@@ -93,7 +93,7 @@ class ChoresRecyclerviewListAdapter(
                 }
                 choresExpandButton.setOnClickListener {
                     // If view is GONE change image make view visible
-                    // else if view is visible change image make view GONE
+                    //  else if view is visible change image make view GONE
                     val expandableContainer = choresExpandableContainerCardview
                     val imageToContract: Drawable? = ContextCompat.getDrawable(
                         choresExpandButton.context, R.drawable.ic_expand_less_24
@@ -118,7 +118,7 @@ class ChoresRecyclerviewListAdapter(
                 editItemButton.setOnClickListener {
                     listsViewModel.setItemToEdit(item)
                 }
-                executePendingBindings()    // idk what this is for
+                executePendingBindings()
             }
         }
 
@@ -129,14 +129,14 @@ class ChoresRecyclerviewListAdapter(
                 parent: ViewGroup
             ): ChoresViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ChoresItemLayoutBinding.inflate(layoutInflater, parent, false)
+                val binding = ChoresItemLayoutBinding
+                    .inflate(layoutInflater, parent, false)
                 return ChoresViewHolder(listsViewModel, fragLifecycleOwner, binding)
             }
         }
     }
 }
 
-// Compares the old to new recycler views and looks for changes
 class ChoresItemDiffCallback : DiffUtil.ItemCallback<ChoresItem>() {
 
     override fun areItemsTheSame(oldItem: ChoresItem, newItem: ChoresItem): Boolean {

@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
-import kotlin.math.log
 
 class ListsViewModel: ViewModel() {
 
@@ -42,7 +41,7 @@ class ListsViewModel: ViewModel() {
         const val USER_NAME_SP_TAG = "User Name"
         const val GROUP_ID_SP_TAG = "Group ID"
         const val CLIENT_ID_SP_TAG = "Client ID"
-        const val PAST_GROUPS_SP_TAG = "Past Groups"   // separated by "-"
+        const val PAST_GROUPS_SP_TAG = "Past Groups" //separated by "-"
     }
 
     init {
@@ -107,7 +106,7 @@ class ListsViewModel: ViewModel() {
     fun sendItemToDatabase(
         listTag: String, itemName: String, itemQuantity: Double,
         itemCost: Double, purchaseLocation: String,
-        itemNeededBy: String,   // try and make this a date
+        itemNeededBy: String,
         itemPriority: Int, itemDifficulty: Int,
     ) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -191,11 +190,11 @@ class ListsViewModel: ViewModel() {
         val spEditor: SharedPreferences.Editor = sharedPrefs!!.edit()
         spEditor.putString(theTag, dataToSend).commit()
     }
-    @SuppressLint("ApplySharedPref")
-    fun clearSPs() {
-        sharedPrefs!!.edit().clear().commit()
-        Log.i(TAG, "clearSPs: SPs cleared")
-    }
+//    @SuppressLint("ApplySharedPref")
+//    fun clearSPs() {
+//        sharedPrefs!!.edit().clear().commit()
+//        Log.i(TAG, "clearSPs: SPs cleared")
+//    }
     // SHARED PREFERENCE //
 
     // ID QUERIES //

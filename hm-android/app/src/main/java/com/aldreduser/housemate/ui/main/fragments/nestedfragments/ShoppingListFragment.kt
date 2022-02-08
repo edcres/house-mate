@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aldreduser.housemate.databinding.FragmentShoppingListBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
@@ -43,9 +41,9 @@ class ShoppingListFragment : Fragment() {
             shoppingListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
         // Update recyclerView
-        listsViewModel.shoppingItems.observe(viewLifecycleOwner, Observer { result ->
+        listsViewModel.shoppingItems.observe(viewLifecycleOwner) { result ->
             recyclerAdapter.submitList(result)
-        })
+        }
     }
 
     override fun onResume() {
