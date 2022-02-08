@@ -83,6 +83,7 @@ class ListsViewModel: ViewModel() {
             sendDataToSP(PAST_GROUPS_SP_TAG, clientGroupIDCollection!!)
         } else {
             val newGroups = pastGroups.toMutableList()
+            if (newGroups.size >= 5) newGroups.removeAt(0)
             newGroups.add(clientGroupIDCollection!!)
             sendDataToSP(PAST_GROUPS_SP_TAG, newGroups.joinToString("-"))
         }

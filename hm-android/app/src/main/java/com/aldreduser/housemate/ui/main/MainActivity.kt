@@ -9,9 +9,6 @@ import com.aldreduser.housemate.R
 // when user backs out of adding a new item, ask if they're sure they wanna cancel.
 // when user goes back in navigation from 'add shoppingList item activity', app asks to cancel adding new activity
 
-// todo: bug: when user creates a new group, add it to past groups SP
-// todo: check if past group IDs is capped at 5 or it just keeps going
-
 // todo: Take care of warnings
 // todo: Clean up comments
 // todo: Clean up unused imports
@@ -35,6 +32,8 @@ import com.aldreduser.housemate.R
 //      Also the dialog box
 // Change colors of calendar picker
 // If more lists are added, make base classes
+// When a user adds a group and is the same as a previous one and it is saved in GROUPS_SP,
+//      remove the previous instance of that group from the SP.
 
 // todo: Bugs:
 // Sometimes the items in Shopping List show up as the same qty as the items in Chores List
@@ -47,6 +46,8 @@ import com.aldreduser.housemate.R
 // Chores fragment scrolls up too high if the shopping fragment high enough
 //      The Chores List Fragment matches the height of the Shopping list fragment.
 // When user types a group id that doesn't exists, it is being added to groupSP and pastGroupsSP.
+// When the user scrolls up touching the textView below the recyclerView,
+//      the app bar doesn't hide.
 
 /*
 Improve MVVM architecture by:
