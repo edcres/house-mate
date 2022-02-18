@@ -14,7 +14,7 @@ import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 
 class ChoresListFragment : Fragment() {
 
-    private val fragmentTag = "ChoresListFragmentTAG"
+    private val fragmentTAG = "ChoresListFragmentTAG"
     private var binding: FragmentChoresListBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
     private lateinit var recyclerAdapter: ChoresRecyclerviewListAdapter
@@ -23,7 +23,7 @@ class ChoresListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i(fragmentTag, "onCreateView: ChoresListFragment")
+        Log.i(fragmentTAG, "onCreateView: ChoresListFragment")
         val fragmentBinding = FragmentChoresListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
@@ -33,7 +33,7 @@ class ChoresListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i(fragmentTag, "onViewCreated: ChoresListFragment")
+        Log.i(fragmentTAG, "onViewCreated: ChoresListFragment")
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listsViewModel
@@ -47,13 +47,13 @@ class ChoresListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        listsViewModel.fragmentInView = fragmentTag
-        listsViewModel.listInView[1] = fragmentTag
+        listsViewModel.fragmentInView = fragmentTAG
+        listsViewModel.listInView[1] = fragmentTAG
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-        Log.i(fragmentTag, "onDestroyView: ChoresListFragment")
+        Log.i(fragmentTAG, "onDestroyView: ChoresListFragment")
     }
 }

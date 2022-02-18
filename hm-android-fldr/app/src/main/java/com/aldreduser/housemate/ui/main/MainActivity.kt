@@ -4,6 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.aldreduser.housemate.R
 
+// todo:
+// -Take out the viewBinding variables from the .xml files.
+// -Name text should be constrained before the start of the expand btn.
+//      So it doesn't overlap the btns.
+// -Make the Qty input optional.
+// -When an urgent item is added, send a notification.
+// -Make the color of the items appropriate to their urgency.
+// -todo: Bug: when the user is already in a group and clicks to Change Group, if he writes a custom
+//          group id and clicks accept, a new group is created to the db under that custom id. The
+//          group ids should only be automatically generated.
+
+
 // todo: Future Improvements:
 // Take care of database operations appropriately, group and
 //      client IDs, authentication, verification and so forth.

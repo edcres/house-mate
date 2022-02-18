@@ -18,7 +18,6 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true    // for the fab
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,15 +31,12 @@ android {
 
     // Had to add these bc 2 big views were not previewing
     compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_8
-//        targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
 
     // for some APIs (idk which)
     kotlinOptions {
-//        jvmTarget = "1.8"
         jvmTarget = "11"
     }
     packagingOptions {
@@ -48,8 +44,6 @@ android {
             excludes += ['META-INF/atomicfu.kotlin_module']
         }
     }
-
-    // to exclude the atomic functions module from the package and prevent warnings.
 
     buildFeatures {
         dataBinding = true

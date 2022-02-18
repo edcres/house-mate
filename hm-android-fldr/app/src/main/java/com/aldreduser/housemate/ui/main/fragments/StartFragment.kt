@@ -24,10 +24,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-
 class StartFragment : Fragment() {
 
-    private val fragmentTag = "StartFragmentTAG"
+    private val fragmentTAG = "StartFragmentTAG"
     private val mainSharedPrefTag = "MainSPTAG"
     private var binding: FragmentStartBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
@@ -47,9 +46,7 @@ class StartFragment : Fragment() {
             this.requireActivity().getSharedPreferences(mainSharedPrefTag, Context.MODE_PRIVATE)
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-            addItemListFab.setOnClickListener {
-                addNewItem()
-            }
+            addItemListFab.setOnClickListener { addNewItem() }
         }
         setUpAppBar()
         setUpTabs()
@@ -61,7 +58,7 @@ class StartFragment : Fragment() {
         super.onDestroyView()
         listsViewModel.sharedPrefs = null
         binding = null
-        Log.i(fragmentTag, "onViewCreated: StartFragment")
+        Log.i(fragmentTAG, "onViewCreated: StartFragment")
     }
 
     private fun startApplication() {
@@ -100,7 +97,7 @@ class StartFragment : Fragment() {
                 listsViewModel.listInView[0] -> R.id.action_startFragment_to_addShoppingItemFragment
                 listsViewModel.listInView[1] -> R.id.action_startFragment_to_addChoresItemFragment
                 else -> {
-                    Log.i(fragmentTag, "itemToEdit set to null")
+                    Log.i(fragmentTAG, "itemToEdit set to null")
                 }
             }
             if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
