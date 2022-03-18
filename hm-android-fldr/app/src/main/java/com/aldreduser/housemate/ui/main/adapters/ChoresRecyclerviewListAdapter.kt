@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
+import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.ChoresItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.displayAddedBy
@@ -42,7 +43,35 @@ class ChoresRecyclerviewListAdapter(
 
         fun bind(item: ChoresItem) {
             binding.apply {
-                choresEntity = item
+
+                populateUI(item)
+                observeHiddenTxt()
+                observeEditMode()
+
+                if (listsViewModel.itemsExpanded[item.name!!] == true) {
+                    choresExpandableContainerCardview.visibility = View.VISIBLE
+                }
+                volunteerListener(item)
+                removeItemButton.setOnClickListener {
+                    listsViewModel.deleteListItem(listsViewModel.listTypes[1], item.name)
+                }
+                choresItIsDone.setOnClickListener {
+                    listsViewModel.toggleItemCompletion(
+                        listsViewModel.listTypes[1],
+                        item.name,
+                        choresItIsDone.isChecked
+                    )
+                }
+                expandContainer(item)
+                editItemButton.setOnClickListener {
+                    listsViewModel.setItemToEdit(item)
+                }
+                executePendingBindings()
+            }
+        }
+
+        private fun populateUI(item: ChoresItem) {
+            binding.apply {
                 choresItIsDone.isChecked = item.completed!!
                 choresItemName.text = item.name
                 choresWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
@@ -52,9 +81,23 @@ class ChoresRecyclerviewListAdapter(
                 choresPriorityText.text = displayPriority(item.priority!!)
                 choresAddedByText.text = displayAddedBy(item.addedBy!!)
                 choresWhoIsDoingItText.setText(item.volunteer)
+            }
+        }
 
-                observeHiddenTxt()
+        private fun observeHiddenTxt() {
+            listsViewModel.hiddenTxt.observe(fragLifecycleOwner) {
+                binding.apply {
+                    when (dummyTxt.text.toString()) {
+                        "a" -> dummyTxt.text = "a"
+                        "b" -> dummyTxt.text = "b"
+                        else -> dummyTxt.text = "a"
+                    }
+                }
+            }
+        }
 
+        private fun observeEditMode() {
+            binding.apply {
                 listsViewModel.menuEditIsOn.observe(fragLifecycleOwner) { result ->
                     when (result) {
                         true -> {
@@ -69,30 +112,26 @@ class ChoresRecyclerviewListAdapter(
                         }
                     }
                 }
+            }
+        }
 
-                if (listsViewModel.itemsExpanded[item.name!!] == true) {
-                    choresExpandableContainerCardview.visibility = View.VISIBLE
-                }
+        private fun volunteerListener(item: ChoresItem) {
+            binding.apply {
                 choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
                     if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                         listsViewModel.sendItemVolunteerToDb(
                             listsViewModel.listTypes[1],
-                            item.name,
+                            item.name!!,
                             choresWhoIsDoingItText.text.toString()
                         )
                         true
                     } else false
                 }
-                removeItemButton.setOnClickListener {
-                    listsViewModel.deleteListItem(listsViewModel.listTypes[1], item.name)
-                }
-                choresItIsDone.setOnClickListener {
-                    listsViewModel.toggleItemCompletion(
-                        listsViewModel.listTypes[1],
-                        item.name,
-                        choresItIsDone.isChecked
-                    )
-                }
+            }
+        }
+
+        private fun expandContainer(item: ChoresItem) {
+            binding.apply {
                 choresExpandButton.setOnClickListener {
                     // If view is GONE change image make view visible
                     //  else if view is visible change image make view GONE
@@ -104,33 +143,17 @@ class ChoresRecyclerviewListAdapter(
                         choresExpandButton.context, R.drawable.ic_expand_more_24
                     )
                     if (expandableContainer.visibility == View.GONE) {
-                        listsViewModel.itemsExpanded[item.name] = true
+                        listsViewModel.itemsExpanded[item.name!!] = true
                         expandableContainer.visibility = View.VISIBLE
                         choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToContract, null, null
                         )
                     } else if (expandableContainer.visibility == View.VISIBLE) {
-                        listsViewModel.itemsExpanded[item.name] = true
+                        listsViewModel.itemsExpanded[item.name!!] = true
                         expandableContainer.visibility = View.GONE
                         choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToExpand, null, null
                         )
-                    }
-                }
-                editItemButton.setOnClickListener {
-                    listsViewModel.setItemToEdit(item)
-                }
-                executePendingBindings()
-            }
-        }
-
-        private fun observeHiddenTxt() {
-            listsViewModel.hiddenTxt.observe(fragLifecycleOwner) {
-                binding.apply {
-                    when (dummyTxt.text.toString()) {
-                        "a" -> dummyTxt.text = "a"
-                        "b" -> dummyTxt.text = "b"
-                        else -> dummyTxt.text = "a"
                     }
                 }
             }

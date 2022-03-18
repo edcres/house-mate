@@ -39,25 +39,73 @@ class ShoppingRecyclerviewListAdapter(
 
         fun bind(item: ShoppingItem) {
             binding.apply {
-                shoppingEntity = item
+
+                populateUI(item)
+                observeHiddenTxt()
+                observeEditMode()
+
+                if (listsViewModel.itemsExpanded[item.name!!] == true) {
+                    shoppingExpandableContainerCardview.visibility = View.VISIBLE
+                }
+                volunteerListener(item)
+                removeItemButton.setOnClickListener {
+                    listsViewModel.deleteListItem(listsViewModel.listTypes[0], item.name)
+                }
+                shoppingItIsDone.setOnClickListener {
+                    listsViewModel.toggleItemCompletion(
+                        listsViewModel.listTypes[0],
+                        item.name,
+                        shoppingItIsDone.isChecked
+                    )
+                }
+                expandContainer(item)
+                editItemButton.setOnClickListener {
+                    listsViewModel.setItemToEdit(item)
+                }
+                executePendingBindings()
+            }
+        }
+
+        private fun populateUI(item: ShoppingItem) {
+            binding.apply {
                 shoppingItIsDone.isChecked = item.completed!!
                 shoppingItemName.text = item.name
                 shoppingItemQty.text = presentItemQty(item.quantity!!)
-                shoppingWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
+                shoppingWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
                     displayDate(item.neededBy)
-                } else {shoppingWhenNeededDoneText.visibility = View.GONE; ""}
-                shoppingWhereText.text = if(item.purchaseLocation!!.isNotEmpty()) {
+                } else {
+                    shoppingWhenNeededDoneText.visibility = View.GONE; ""
+                }
+                shoppingWhereText.text = if (item.purchaseLocation!!.isNotEmpty()) {
                     item.purchaseLocation
-                } else {shoppingWhereText.visibility = View.GONE; ""}
-                shoppingCostText.text = if(item.cost!! != 0.0) {
+                } else {
+                    shoppingWhereText.visibility = View.GONE; ""
+                }
+                shoppingCostText.text = if (item.cost!! != 0.0) {
                     displayCost(item.cost)
-                } else {shoppingCostText.visibility = View.GONE; ""}
+                } else {
+                    shoppingCostText.visibility = View.GONE; ""
+                }
                 shoppingPriorityText.text = displayPriority(item.priority!!)
                 shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
                 shoppingWhoIsGettingItText.setText(item.volunteer)
+            }
+        }
 
-                observeHiddenTxt()
+        private fun observeHiddenTxt() {
+            listsViewModel.hiddenTxt.observe(fragLifecycleOwner) {
+                binding.apply {
+                    when (dummyTxt.text.toString()) {
+                        "a" -> dummyTxt.text = "a"
+                        "b" -> dummyTxt.text = "b"
+                        else -> dummyTxt.text = "a"
+                    }
+                }
+            }
+        }
 
+        private fun observeEditMode() {
+            binding.apply {
                 listsViewModel.menuEditIsOn.observe(fragLifecycleOwner) { result ->
                     when (result) {
                         true -> {
@@ -72,29 +120,26 @@ class ShoppingRecyclerviewListAdapter(
                         }
                     }
                 }
-                if (listsViewModel.itemsExpanded[item.name!!] == true) {
-                    shoppingExpandableContainerCardview.visibility = View.VISIBLE
-                }
+            }
+        }
+
+        private fun volunteerListener(item: ShoppingItem) {
+            binding.apply {
                 shoppingWhoIsGettingItText.setOnKeyListener { _, keyCode, keyEvent ->
-                    if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP){
                         listsViewModel.sendItemVolunteerToDb(
                             listsViewModel.listTypes[0],
-                            item.name,
+                            item.name!!,
                             shoppingWhoIsGettingItText.text.toString()
                         )
                         true
                     } else false
                 }
-                removeItemButton.setOnClickListener {
-                    listsViewModel.deleteListItem(listsViewModel.listTypes[0], item.name)
-                }
-                shoppingItIsDone.setOnClickListener {
-                    listsViewModel.toggleItemCompletion(
-                        listsViewModel.listTypes[0],
-                        item.name,
-                        shoppingItIsDone.isChecked
-                    )
-                }
+            }
+        }
+
+        private fun expandContainer(item: ShoppingItem) {
+            binding.apply {
                 shoppingExpandButton.setOnClickListener {
                     // If view is GONE change image make view visible
                     //   else if view is visible change image make view GONE
@@ -106,33 +151,17 @@ class ShoppingRecyclerviewListAdapter(
                         shoppingExpandButton.context, R.drawable.ic_expand_more_24
                     )
                     if (expandableContainer.visibility == View.GONE) {
-                        listsViewModel.itemsExpanded[item.name] = true
+                        listsViewModel.itemsExpanded[item.name!!] = true
                         expandableContainer.visibility = View.VISIBLE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToContract, null, null
                         )
                     } else if (expandableContainer.visibility == View.VISIBLE) {
-                        listsViewModel.itemsExpanded[item.name] = false
+                        listsViewModel.itemsExpanded[item.name!!] = false
                         expandableContainer.visibility = View.GONE
                         shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
                             null, imageToExpand, null, null
                         )
-                    }
-                }
-                editItemButton.setOnClickListener {
-                    listsViewModel.setItemToEdit(item)
-                }
-                executePendingBindings()
-            }
-        }
-
-        private fun observeHiddenTxt() {
-            listsViewModel.hiddenTxt.observe(fragLifecycleOwner) {
-                binding.apply {
-                    when (dummyTxt.text.toString()) {
-                        "a" -> dummyTxt.text = "a"
-                        "b" -> dummyTxt.text = "b"
-                        else -> dummyTxt.text = "a"
                     }
                 }
             }
