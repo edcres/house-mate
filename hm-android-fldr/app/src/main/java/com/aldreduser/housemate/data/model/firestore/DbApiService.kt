@@ -4,6 +4,8 @@ import android.util.Log
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.util.add1AndScrambleLetters
+import com.aldreduser.housemate.util.choreItem
+import com.aldreduser.housemate.util.shoppingItem
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
@@ -17,8 +19,6 @@ import kotlinx.coroutines.tasks.await
 
 class DbApiService {
 
-    private val shoppingItem = "Shopping"
-    private val choreItem = "Chore"
     private val db = Firebase.firestore
     private var groupIDsDocumentDB: DocumentReference = db.collection(GENERAL_COLLECTION)
         .document(GROUP_IDS_DOC)
@@ -64,7 +64,6 @@ class DbApiService {
                             )
                             return@addSnapshotListener
                         }
-
                         if (querySnapshot != null) {
                             val itemsList = querySnapshot.toObjects(ShoppingItem::class.java)
                             offer(itemsList)

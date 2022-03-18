@@ -23,10 +23,12 @@ class ListsViewModel: ViewModel() {
     var userName: String? = null
     var clientGroupIDCollection: String? = null
     private var clientIDCollection: String? = null
+
     private var _shoppingItems = MutableLiveData<MutableList<ShoppingItem>>()
     val shoppingItems: LiveData<MutableList<ShoppingItem>> get() = _shoppingItems
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
     val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
+
     var fragmentInView: String? = null
     var listInView = mutableMapOf<Int, String>()
     val listTypes = listOf("Shopping", "Chores")
@@ -95,7 +97,8 @@ class ListsViewModel: ViewModel() {
             when (listTag) {
                 listTypes[0] ->
                     listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
-                        .collect { _shoppingItems.postValue(it.toMutableList()) }
+                        .collect {
+                            _shoppingItems.postValue(it.toMutableList()) }
                 listTypes[1] ->
                     listsRepository.setUpChoresRealtimeFetching(clientGroupIDCollection!!)
                         .collect { _choreItems.postValue(it.toMutableList()) }
@@ -217,7 +220,8 @@ class ListsViewModel: ViewModel() {
         clientIDCollection = null
         CoroutineScope(Dispatchers.IO).launch {
             clientIDCollection =
-                listsRepository.getLastClientAdded(clientGroupIDCollection!!)
+                listsRepository.
+                getLastClientAdded(clientGroupIDCollection!!)
             withContext(Dispatchers.Main) {
                 if (clientIDCollection != null) {
                     sendDataToSP(CLIENT_ID_SP_TAG, clientIDCollection!!)

@@ -49,6 +49,8 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         val itemToEdit = listsViewModel.itemToEdit.value
         if (itemToEdit != null) {
             setItemToView(itemToEdit as ShoppingItem)
+
+            // todo: This might not be useful as it is, maybe have it inside onResume()
             listsViewModel.setItemToEdit(null)
         }
     }

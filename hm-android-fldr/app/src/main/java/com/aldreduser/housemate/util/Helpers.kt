@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 
+const val shoppingItem = "Shopping"
+const val choreItem = "Chore"
+
 fun displayDate(date: String): String {
     return "needed by $date"
 }
@@ -77,7 +80,6 @@ fun add1AndScrambleLetters(oldID: String): String {
         idPositionString = "0$idPositionString"
     }
     newID = "$idPositionString$scrambledLetters"
-
     return newID
 }
 

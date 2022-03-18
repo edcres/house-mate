@@ -3,12 +3,12 @@ package com.aldreduser.housemate.data
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.firestore.DbApiService
+import com.aldreduser.housemate.util.choreItem
+import com.aldreduser.housemate.util.shoppingItem
 import kotlinx.coroutines.flow.Flow
 
 class ListsRepository {
 
-    private val shoppingItem = "Shopping"
-    private val choreItem = "Chore"
     private val dbApiService = DbApiService()
 
     fun setUpShoppingRealtimeFetching(groupID: String): Flow<List<ShoppingItem>> {
@@ -20,13 +20,13 @@ class ListsRepository {
     }
 
     fun addShoppingItemToDb(
-        groupID: String,
-        itemName: String,
-        itemQuantity: Double,
-        itemCost: Double,
-        purchaseLocation: String,
-        itemNeededBy: String,
-        itemPriority: Int,
+            groupID: String,
+            itemName: String,
+            itemQuantity: Double,
+            itemCost: Double,
+            purchaseLocation: String,
+            itemNeededBy: String,
+            itemPriority: Int,
         addedBy: String
     ) {
         dbApiService.addShoppingItemToDatabase(

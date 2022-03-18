@@ -9,12 +9,12 @@ import com.aldreduser.housemate.R
 // -Name text should be constrained before the start of the expand btn.
 //      So it doesn't overlap the btns.
 // -Make the Qty input optional.
+// -Make items smaller so more fit
 // -When an urgent item is added, send a notification.
 // -Make the color of the items appropriate to their urgency.
 // -todo: Bug: when the user is already in a group and clicks to Change Group, if he writes a custom
 //          group id and clicks accept, a new group is created to the db under that custom id. The
 //          group ids should only be automatically generated.
-
 
 // todo: Future Improvements:
 // Take care of database operations appropriately, group and
@@ -46,6 +46,8 @@ import com.aldreduser.housemate.R
 //  - When I navigate to Chores fragment and click the edit or the expand btn. Then navigate back
 //      to the Shopping fragment, the Shopping list has the same num of items as the chores list.
 //      (doesn't seem to happen the other way around)
+//  - What I think is happening is the container for the recyclerview, or the recyclerview widget
+//      itself is turning into the size of the smaller list when it was edited. When i click an item in the the bigger list, the container is resized appropriately.
 // If I navigate to chores tab and exit the group to a new group,
 //      shopping list will have the same amount of items as chore list.
 //      When I click the edit or expand btn it goes back to normal
