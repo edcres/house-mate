@@ -53,6 +53,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             // todo: This might not be useful as it is, maybe have it inside onResume()
             listsViewModel.setItemToEdit(null)
         }
+        listsViewModel.toggleEditBtn()
     }
 
     override fun onDestroyView() {
