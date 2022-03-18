@@ -53,6 +53,8 @@ class ChoresRecyclerviewListAdapter(
                 choresAddedByText.text = displayAddedBy(item.addedBy!!)
                 choresWhoIsDoingItText.setText(item.volunteer)
 
+                observeHiddenTxt()
+
                 listsViewModel.menuEditIsOn.observe(fragLifecycleOwner) { result ->
                     when (result) {
                         true -> {
@@ -119,6 +121,18 @@ class ChoresRecyclerviewListAdapter(
                     listsViewModel.setItemToEdit(item)
                 }
                 executePendingBindings()
+            }
+        }
+
+        private fun observeHiddenTxt() {
+            listsViewModel.hiddenTxt.observe(fragLifecycleOwner) {
+                binding.apply {
+                    when (dummyTxt.text.toString()) {
+                        "a" -> dummyTxt.text = "a"
+                        "b" -> dummyTxt.text = "b"
+                        else -> dummyTxt.text = "a"
+                    }
+                }
             }
         }
 

@@ -23,6 +23,14 @@
             android:layout_height="wrap_content"
             android:background="@color/recyclerItem">
 
+            <TextView
+                android:id="@+id/dummy_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#00000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <Space
                 android:id="@+id/chores_height_component"
                 android:layout_width="0dp"

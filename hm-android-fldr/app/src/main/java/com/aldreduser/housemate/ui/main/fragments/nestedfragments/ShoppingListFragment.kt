@@ -40,7 +40,6 @@ class ShoppingListFragment : Fragment() {
             shoppingListRecyclerview.adapter = recyclerAdapter
             shoppingListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
-        // Update recyclerView
         listsViewModel.shoppingItems.observe(viewLifecycleOwner) { result ->
             recyclerAdapter.submitList(result)
         }
@@ -50,6 +49,7 @@ class ShoppingListFragment : Fragment() {
         super.onResume()
         listsViewModel.fragmentInView = fragmentTAG
         listsViewModel.listInView[0] = fragmentTAG
+        listsViewModel.toggleHiddenTxt()
     }
 
     override fun onDestroyView() {

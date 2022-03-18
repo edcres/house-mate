@@ -37,6 +37,8 @@ class ListsViewModel: ViewModel() {
     val menuEditIsOn: LiveData<Boolean> get() = _menuEditIsOn
     private var _itemToEdit = MutableLiveData<Any?>()
     val itemToEdit: LiveData<Any?> get() = _itemToEdit
+    private var _hiddenTxt = MutableLiveData(false)
+    val hiddenTxt: LiveData<Boolean> get() = _hiddenTxt
 
     companion object {
         const val TAG = "ListsVmTAG"
@@ -53,6 +55,10 @@ class ListsViewModel: ViewModel() {
     }
 
     // HELPERS //
+    fun toggleHiddenTxt() {
+        // This is a work around a bug. The purpose is for the recyclerview to get resized.
+        _hiddenTxt.value = !_hiddenTxt.value!!
+    }
     fun toggleEditBtn() {
         _menuEditIsOn.value = !_menuEditIsOn.value!!
     }

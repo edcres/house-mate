@@ -56,6 +56,8 @@ class ShoppingRecyclerviewListAdapter(
                 shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
                 shoppingWhoIsGettingItText.setText(item.volunteer)
 
+                observeHiddenTxt()
+
                 listsViewModel.menuEditIsOn.observe(fragLifecycleOwner) { result ->
                     when (result) {
                         true -> {
@@ -121,6 +123,18 @@ class ShoppingRecyclerviewListAdapter(
                     listsViewModel.setItemToEdit(item)
                 }
                 executePendingBindings()
+            }
+        }
+
+        private fun observeHiddenTxt() {
+            listsViewModel.hiddenTxt.observe(fragLifecycleOwner) {
+                binding.apply {
+                    when (dummyTxt.text.toString()) {
+                        "a" -> dummyTxt.text = "a"
+                        "b" -> dummyTxt.text = "b"
+                        else -> dummyTxt.text = "a"
+                    }
+                }
             }
         }
 

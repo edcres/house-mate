@@ -49,6 +49,7 @@ class ChoresListFragment : Fragment() {
         super.onResume()
         listsViewModel.fragmentInView = fragmentTAG
         listsViewModel.listInView[1] = fragmentTAG
+        listsViewModel.toggleHiddenTxt()
     }
 
     override fun onDestroyView() {
