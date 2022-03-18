@@ -36,7 +36,6 @@ class ChoresListFragment : Fragment() {
         Log.i(fragmentTAG, "onViewCreated: ChoresListFragment")
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = listsViewModel
             choresListRecyclerview.adapter = recyclerAdapter
             choresListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }

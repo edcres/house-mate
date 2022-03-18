@@ -39,7 +39,6 @@ class ShoppingRecyclerviewListAdapter(
 
         fun bind(item: ShoppingItem) {
             binding.apply {
-
                 populateUI(item)
                 observeHiddenTxt()
                 observeEditMode()

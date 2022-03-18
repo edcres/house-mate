@@ -43,7 +43,6 @@ class ChoresRecyclerviewListAdapter(
 
         fun bind(item: ChoresItem) {
             binding.apply {
-
                 populateUI(item)
                 observeHiddenTxt()
                 observeEditMode()

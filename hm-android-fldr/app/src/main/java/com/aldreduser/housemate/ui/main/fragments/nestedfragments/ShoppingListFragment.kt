@@ -36,7 +36,6 @@ class ShoppingListFragment : Fragment() {
         Log.i(fragmentTAG, "onViewCreated: ShoppingListFragment")
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewModel = listsViewModel
             shoppingListRecyclerview.adapter = recyclerAdapter
             shoppingListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }

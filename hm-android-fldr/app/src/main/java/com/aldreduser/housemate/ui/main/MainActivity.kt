@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.aldreduser.housemate.R
 
 // todo:
-// -Take out the viewBinding variables from the .xml files.
 // -Name text should be constrained before the start of the expand btn.
 //      So it doesn't overlap the btns.
 // -Make the Qty input optional.
@@ -17,6 +16,7 @@ import com.aldreduser.housemate.R
 //          group ids should only be automatically generated.
 
 // todo: Future Improvements:
+// Edit colors on dark mode
 // Take care of database operations appropriately, group and
 //      client IDs, authentication, verification and so forth.
 // More options drop down menu should show up lower
