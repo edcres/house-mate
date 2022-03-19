@@ -72,7 +72,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private fun addItemClicked() {
         val necessaryAreFilled = necessaryAreFilled(
             binding!!.itemNameInput.text.toString(),
-            binding!!.itemQuantityInput.text.toString()
+            "placeholder"
         )
         if (necessaryAreFilled) {
             addItem()

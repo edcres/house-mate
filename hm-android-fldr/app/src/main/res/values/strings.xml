@@ -12,7 +12,7 @@
     <string name="appbar_change_username">Change Username</string>
     <string name="appbar_more_place_holder">Place Holder</string>
 
-    <string name="hint_quantity">* quantity</string>
+    <string name="hint_quantity">quantity</string>
     <string name="hint_name">* name</string>
     <string name="hint_when_needed">WHEN NEEDED</string>
     <string name="hint_where_to_get">where to get it</string>

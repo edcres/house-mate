@@ -6,10 +6,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.aldreduser.housemate.R
 
 // todo:
-// -Make the Qty input optional.
-// -Name text should be constrained before the start of the expand btn.
-//      - So it doesn't overlap the buttons.
-// -Make items smaller so more fit
 // -Make the color of the items appropriate to their urgency.
 // -todo: Bug: when the user is already in a group and clicks to Change Group, if he writes a custom
 //          group id and clicks accept, a new group is created to the db under that custom id. The

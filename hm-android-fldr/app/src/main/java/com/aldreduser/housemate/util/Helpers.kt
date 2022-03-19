@@ -47,7 +47,11 @@ fun necessaryAreFilled(name: String, qty: String): Boolean {
 
 fun presentItemQty(qty: Double): String {
     return if (getLastTwoDigits(qty.toString()) == ".0") {
-        qty.toInt().toString()
+        if (qty.toInt().toString() == "0"){
+            ""
+        } else {
+            qty.toInt().toString()
+        }
     } else {
         "%.2f".format(qty)
     }
