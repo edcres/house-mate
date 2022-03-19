@@ -2,14 +2,14 @@ package com.aldreduser.housemate.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.aldreduser.housemate.R
 
 // todo:
-// -Name text should be constrained before the start of the expand btn.
-//      So it doesn't overlap the btns.
 // -Make the Qty input optional.
+// -Name text should be constrained before the start of the expand btn.
+//      - So it doesn't overlap the buttons.
 // -Make items smaller so more fit
-// -When an urgent item is added, send a notification.
 // -Make the color of the items appropriate to their urgency.
 // -todo: Bug: when the user is already in a group and clicks to Change Group, if he writes a custom
 //          group id and clicks accept, a new group is created to the db under that custom id. The
@@ -42,12 +42,14 @@ import com.aldreduser.housemate.R
 // Edit Dark mode colors
 
 // todo: Bugs:
+// -When an urgent item is added, send a notification.
 // Sometimes the items in Shopping List show up as the same qty as the items in Chores List
 //  - When I navigate to Chores fragment and click the edit or the expand btn. Then navigate back
 //      to the Shopping fragment, the Shopping list has the same num of items as the chores list.
 //      (doesn't seem to happen the other way around)
 //  - What I think is happening is the container for the recyclerview, or the recyclerview widget
-//      itself is turning into the size of the smaller list when it was edited. When i click an item in the the bigger list, the container is resized appropriately.
+//      itself is turning into the size of the smaller list when it was edited. When i click an
+//      item in the the bigger list, the container is resized appropriately.
 // If I navigate to chores tab and exit the group to a new group,
 //      shopping list will have the same amount of items as chore list.
 //      When I click the edit or expand btn it goes back to normal
@@ -69,5 +71,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }
