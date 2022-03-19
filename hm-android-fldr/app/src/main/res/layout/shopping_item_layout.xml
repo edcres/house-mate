@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/recyclerItem">
 
             <TextView
@@ -28,7 +28,7 @@
             <Space
                 android:id="@+id/shopping_height_component"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,32 +47,34 @@
                 style="@style/Widget.TipTime.TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="8dp"
-                android:paddingEnd="8dp"
-                tools:ignore="RtlSymmetry"
+                android:layout_marginTop="2dp"
                 android:gravity="center_vertical"
-                android:textSize="24sp"
+                android:paddingEnd="8dp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container_cardview"
                 app:layout_constraintStart_toEndOf="@id/shopping_it_is_done"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry"
                 tools:text="Qty" />
 
             <TextView
                 android:id="@+id/shopping_item_name"
                 style="@style/Widget.TipTime.TextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
                 android:layout_marginStart="4dp"
-                android:gravity="center"
-                android:textSize="24sp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="90dp"
+                android:gravity="start"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                tools:text="Name"
                 app:layout_constraintBottom_toTopOf="@id/shopping_expandable_container_cardview"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shopping_item_qty"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Name" />
 
             <Button
                 android:id="@+id/shopping_expand_button"
@@ -89,7 +91,7 @@
 
             <ImageButton
                 android:id="@+id/remove_item_button"
-                android:layout_width="45dp"
+                android:layout_width="38dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="14dp"
@@ -103,7 +105,7 @@
 
             <ImageButton
                 android:id="@+id/edit_item_button"
-                android:layout_width="45dp"
+                android:layout_width="38dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
@@ -120,8 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                app:cardBackgroundColor="@color/colorItemContainer"
                 android:visibility="gone"
+                app:cardBackgroundColor="@color/colorItemContainer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shopping_height_component"
                 app:layout_constraintTop_toBottomOf="@id/shopping_height_component">
@@ -131,9 +133,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:padding="8dp"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:padding="8dp">
+                    android:paddingEnd="16dp">
 
                     <TextView
                         android:id="@+id/shopping_when_needed_done_text"
@@ -205,7 +207,7 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
-                app:layout_constraintTop_toBottomOf="@id/shopping_expandable_container_cardview"/>
+                app:layout_constraintTop_toBottomOf="@id/shopping_expandable_container_cardview" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
