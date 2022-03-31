@@ -6,6 +6,7 @@
     <color name="colorSecondary">#EAEA33</color>
     <color name="colorSecondaryDark">#686800</color>
     <color name="colorAccent">#EAEA14</color>
+    <color name="black">#000000</color>
     <!--Default-->
 
     <color name="tabIndicator">#00542C</color>
