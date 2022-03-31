@@ -6,7 +6,7 @@
         android:id="@+id/item_list_edit"
         android:icon="@drawable/ic_edit_24dp"
         android:title="@string/appbar_edit"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/shopping_list_more_options"

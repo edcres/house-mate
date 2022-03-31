@@ -10,6 +10,7 @@ import com.aldreduser.housemate.R
 // -todo: Bug: when the user is already in a group and clicks to Change Group, if he writes a custom
 //          group id and clicks accept, a new group is created to the db under that custom id. The
 //          group ids should only be automatically generated.
+// make the home/navigation bar dark
 
 // todo: Future Improvements:
 // Edit colors on dark mode
