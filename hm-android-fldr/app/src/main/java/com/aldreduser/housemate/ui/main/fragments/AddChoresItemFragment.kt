@@ -51,7 +51,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             setItemToView(itemToEdit as ChoresItem)
             listsViewModel.setItemToEdit(null)
         }
-        listsViewModel.toggleEditBtn()
+        listsViewModel.turnOffEditMode()
     }
 
     override fun onDestroyView() {

@@ -62,6 +62,10 @@ class ListsViewModel: ViewModel() {
     fun toggleEditBtn() {
         _menuEditIsOn.value = !_menuEditIsOn.value!!
     }
+    fun turnOffEditMode(): Boolean {
+        _menuEditIsOn.postValue(false)
+        return false
+    }
     fun setItemToEdit(chosenItem: Any?) {
         _itemToEdit.value = chosenItem
     }
