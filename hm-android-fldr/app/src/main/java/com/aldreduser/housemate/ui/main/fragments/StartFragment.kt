@@ -53,8 +53,6 @@ class StartFragment : Fragment() {
         setUpTabs()
         startApplication()
         setObservers()
-
-//        listsViewModel.clearSPs()
     }
 
     override fun onDestroyView() {
