@@ -4,8 +4,8 @@ import android.util.Log
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.util.add1AndScrambleLetters
-import com.aldreduser.housemate.util.choreItem
-import com.aldreduser.housemate.util.shoppingItem
+import com.aldreduser.housemate.util.CHORE_ITEM
+import com.aldreduser.housemate.util.SHOPPING_ITEM
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
@@ -291,15 +291,15 @@ class DbApiService {
     // HELPER FUNCTIONS //
     private fun getListDoc(listType: String): String {
         return when (listType) {
-            shoppingItem -> SHOPPING_LIST_DOC
-            choreItem -> CHORES_LIST_DOC
+            SHOPPING_ITEM -> SHOPPING_LIST_DOC
+            CHORE_ITEM -> CHORES_LIST_DOC
             else -> "placeholder"
         }
     }
     private fun getItemsCollection(listType: String): String {
         return when (listType) {
-            shoppingItem -> SHOPPING_ITEMS_COLLECTION
-            choreItem -> CHORE_ITEMS_COLLECTION
+            SHOPPING_ITEM -> SHOPPING_ITEMS_COLLECTION
+            CHORE_ITEM -> CHORE_ITEMS_COLLECTION
             else -> "placeholder"
         }
     }

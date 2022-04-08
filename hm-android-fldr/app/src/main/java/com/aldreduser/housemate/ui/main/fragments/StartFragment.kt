@@ -20,6 +20,7 @@ import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFr
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.PAST_GROUPS_SP_TAG
 import com.aldreduser.housemate.util.displayToast
+import com.aldreduser.housemate.util.validateGroupId
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -52,6 +53,8 @@ class StartFragment : Fragment() {
         setUpTabs()
         startApplication()
         setObservers()
+
+//        listsViewModel.clearSPs()
     }
 
     override fun onDestroyView() {
@@ -194,13 +197,16 @@ class StartFragment : Fragment() {
         inputDialog.setView(customAlertDialogView)
             .setTitle("Group ID")
             .setPositiveButton("Accept") { dialog, _ ->
-                if (inputNameDialog.text.toString().isNotEmpty()) {
+                if (validateGroupId(inputNameDialog.text.toString())) {
                     listsViewModel.setGroupID(inputNameDialog.text.toString())
                     Log.i(
                         tag, "makeDialogBoxAndSetGroupID: accept clicked " +
                                 "${listsViewModel.clientGroupIDCollection}"
                     )
                     dialog.dismiss()
+                } else {
+                    displayToast(requireContext(), "Enter a valid ID")
+                    makeDialogBoxAndSetGroupID()
                 }
             }
             .setNegativeButton("New Group") { dialog, _ ->

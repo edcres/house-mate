@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 
-const val shoppingItem = "Shopping"
-const val choreItem = "Chore"
+const val SHOPPING_ITEM = "Shopping"
+const val CHORE_ITEM = "Chore"
 
 fun displayDate(date: String): String {
     return "needed by $date"
@@ -61,6 +61,31 @@ fun getLastTwoDigits(theString: String): String {
     val y = theString[theString.length - 2]
     val z = theString.last()
     return "$y$z"
+}
+
+fun validateGroupId(string: String) = if (string.length == 13) { isFirstNDigits(8, string) &&
+        isLastNLetters(5, string)
+} else false
+
+private fun isFirstNDigits(n: Int, string: String): Boolean {
+    var firstNIsLetters = true
+    for (i in 0 until n) {
+        try {
+            string[i].toString().toInt()
+        } catch (e: NumberFormatException) {
+            firstNIsLetters = false
+        }
+    }
+    return firstNIsLetters
+}
+
+private fun isLastNLetters(n: Int, string: String): Boolean {
+    var lastNIsDigits = true
+    val nBeforeTheLast = string.length - n
+    for (i in nBeforeTheLast until string.length) {
+        if (!string[i].isLetter()) lastNIsDigits = false
+    }
+    return lastNIsDigits
 }
 
 fun add1AndScrambleLetters(oldID: String): String {

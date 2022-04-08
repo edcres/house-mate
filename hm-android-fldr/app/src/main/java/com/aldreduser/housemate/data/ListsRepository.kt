@@ -3,8 +3,8 @@ package com.aldreduser.housemate.data
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.data.model.firestore.DbApiService
-import com.aldreduser.housemate.util.choreItem
-import com.aldreduser.housemate.util.shoppingItem
+import com.aldreduser.housemate.util.CHORE_ITEM
+import com.aldreduser.housemate.util.SHOPPING_ITEM
 import kotlinx.coroutines.flow.Flow
 
 class ListsRepository {
@@ -57,26 +57,26 @@ class ListsRepository {
     }
 
     fun toggleShoppingCompletion(groupID: String, itemName:String, isCompleted: Boolean) {
-        dbApiService.toggleItemCompletion(groupID, shoppingItem, itemName, isCompleted)
+        dbApiService.toggleItemCompletion(groupID, SHOPPING_ITEM, itemName, isCompleted)
     }
 
     fun toggleChoreCompletion(groupID: String, itemName:String, isCompleted: Boolean) {
-        dbApiService.toggleItemCompletion(groupID, choreItem, itemName, isCompleted)
+        dbApiService.toggleItemCompletion(groupID, CHORE_ITEM, itemName, isCompleted)
     }
 
     fun sendShoppingVolunteersToDb(groupID: String, listItem:String, volunteerName: String) {
-        dbApiService.sendVolunteerToDb(groupID, shoppingItem, listItem, volunteerName)
+        dbApiService.sendVolunteerToDb(groupID, SHOPPING_ITEM, listItem, volunteerName)
     }
 
     fun sendChoresVolunteersToDb(groupID: String, listItem:String, volunteerName: String) {
-        dbApiService.sendVolunteerToDb(groupID, choreItem, listItem, volunteerName)
+        dbApiService.sendVolunteerToDb(groupID, CHORE_ITEM, listItem, volunteerName)
     }
 
     fun deleteShoppingListItem(groupID: String, itemName: String) {
-        dbApiService.deleteListItem(groupID, shoppingItem, itemName)
+        dbApiService.deleteListItem(groupID, SHOPPING_ITEM, itemName)
     }
 
     fun deleteChoresListItem(groupID: String, itemName: String) {
-        dbApiService.deleteListItem(groupID, choreItem, itemName)
+        dbApiService.deleteListItem(groupID, CHORE_ITEM, itemName)
     }
 }
