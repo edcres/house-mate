@@ -2,6 +2,7 @@ package com.aldreduser.housemate
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,9 @@ import java.nio.charset.StandardCharsets
  * take out the container
  * adapters
  * item.xml
+ *
+ * volunteer functionality
+ * volunteer widget color
  */
 
 private const val TAG = "ModalBottomSheet__TAG"
@@ -119,6 +123,22 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             choresPriorityText.text = displayPriority(item.priority!!)
             choresAddedByText.text = displayAddedBy(item.addedBy!!)
             choresWhoIsDoingItText.setText(item.volunteer)
+        }
+        choresVolunteerListener(item)
+    }
+
+    private fun choresVolunteerListener(item: ChoresItem) {
+        binding?.apply {
+            choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
+                if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
+                    listsViewModel.sendItemVolunteerToDb(
+                        ListType.CHORES.toString(),
+                        item.name!!,
+                        choresWhoIsDoingItText.text.toString()
+                    )
+                    true
+                } else false
+            }
         }
     }
 

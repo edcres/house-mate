@@ -43,22 +43,18 @@ class ChoresRecyclerviewListAdapter(
                 populateUI(item)
                 observeHiddenTxt()
                 observeEditMode()
-
-                if (listsViewModel.itemsExpanded[item.name!!] == true) {
-                    choresExpandableContainerCardview.visibility = View.VISIBLE
-                }
-                volunteerListener(item)
+//                volunteerListener(item)
                 removeItemButton.setOnClickListener {
-                    listsViewModel.deleteListItem(ListType.CHORES.toString(), item.name)
+                    listsViewModel.deleteListItem(ListType.CHORES.toString(), item.name!!)
                 }
                 choresItIsDone.setOnClickListener {
                     listsViewModel.toggleItemCompletion(
                         ListType.CHORES.toString(),
-                        item.name,
+                        item.name!!,
                         choresItIsDone.isChecked
                     )
                 }
-                expandContainer(item)
+//                expandContainer(item)
                 editItemButton.setOnClickListener { listsViewModel.setItemToEdit(item) }
                 choresCardview.setOnClickListener { listsViewModel.setItemForSheet(item) }
                 executePendingBindings()
@@ -69,13 +65,13 @@ class ChoresRecyclerviewListAdapter(
             binding.apply {
                 choresItIsDone.isChecked = item.completed!!
                 choresItemName.text = item.name
-                choresWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
-                    displayDate(item.neededBy)
-                } else {choresWhenNeededDoneText.visibility = View.GONE; ""}
-                choresDifficulty.text = displayDifficulty(item.difficulty!!)
-                choresPriorityText.text = displayPriority(item.priority!!)
-                choresAddedByText.text = displayAddedBy(item.addedBy!!)
-                choresWhoIsDoingItText.setText(item.volunteer)
+//                choresWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
+//                    displayDate(item.neededBy)
+//                } else {choresWhenNeededDoneText.visibility = View.GONE; ""}
+//                choresDifficulty.text = displayDifficulty(item.difficulty!!)
+//                choresPriorityText.text = displayPriority(item.priority!!)
+//                choresAddedByText.text = displayAddedBy(item.addedBy!!)
+//                choresWhoIsDoingItText.setText(item.volunteer)
             }
         }
 
@@ -98,10 +94,10 @@ class ChoresRecyclerviewListAdapter(
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
                             editItemButton.visibility = View.VISIBLE
-                            choresExpandButton.visibility = View.GONE
+//                            choresExpandButton.visibility = View.GONE
                         }
                         else -> {
-                            choresExpandButton.visibility = View.VISIBLE
+//                            choresExpandButton.visibility = View.VISIBLE
                             removeItemButton.visibility = View.GONE
                             editItemButton.visibility = View.GONE
                         }
@@ -110,49 +106,49 @@ class ChoresRecyclerviewListAdapter(
             }
         }
 
-        private fun volunteerListener(item: ChoresItem) {
-            binding.apply {
-                choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
-                    if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
-                        listsViewModel.sendItemVolunteerToDb(
-                            ListType.CHORES.toString(),
-                            item.name!!,
-                            choresWhoIsDoingItText.text.toString()
-                        )
-                        true
-                    } else false
-                }
-            }
-        }
+//        private fun volunteerListener(item: ChoresItem) {
+//            binding.apply {
+//                choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
+//                    if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
+//                        listsViewModel.sendItemVolunteerToDb(
+//                            ListType.CHORES.toString(),
+//                            item.name!!,
+//                            choresWhoIsDoingItText.text.toString()
+//                        )
+//                        true
+//                    } else false
+//                }
+//            }
+//        }
 
-        private fun expandContainer(item: ChoresItem) {
-            binding.apply {
-                choresExpandButton.setOnClickListener {
-                    // If view is GONE change image make view visible
-                    //  else if view is visible change image make view GONE
-                    val expandableContainer = choresExpandableContainerCardview
-                    val imageToContract: Drawable? = ContextCompat.getDrawable(
-                        choresExpandButton.context, R.drawable.ic_expand_less_24
-                    )
-                    val imageToExpand: Drawable? = ContextCompat.getDrawable(
-                        choresExpandButton.context, R.drawable.ic_expand_more_24
-                    )
-                    if (expandableContainer.visibility == View.GONE) {
-                        listsViewModel.itemsExpanded[item.name!!] = true
-                        expandableContainer.visibility = View.VISIBLE
-                        choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                            null, imageToContract, null, null
-                        )
-                    } else if (expandableContainer.visibility == View.VISIBLE) {
-                        listsViewModel.itemsExpanded[item.name!!] = true
-                        expandableContainer.visibility = View.GONE
-                        choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-                            null, imageToExpand, null, null
-                        )
-                    }
-                }
-            }
-        }
+//        private fun expandContainer(item: ChoresItem) {
+//            binding.apply {
+//                choresExpandButton.setOnClickListener {
+//                    // If view is GONE change image make view visible
+//                    //  else if view is visible change image make view GONE
+//                    val expandableContainer = choresExpandableContainerCardview
+//                    val imageToContract: Drawable? = ContextCompat.getDrawable(
+//                        choresExpandButton.context, R.drawable.ic_expand_less_24
+//                    )
+//                    val imageToExpand: Drawable? = ContextCompat.getDrawable(
+//                        choresExpandButton.context, R.drawable.ic_expand_more_24
+//                    )
+//                    if (expandableContainer.visibility == View.GONE) {
+//                        listsViewModel.itemsExpanded[item.name!!] = true
+//                        expandableContainer.visibility = View.VISIBLE
+//                        choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
+//                            null, imageToContract, null, null
+//                        )
+//                    } else if (expandableContainer.visibility == View.VISIBLE) {
+//                        listsViewModel.itemsExpanded[item.name!!] = true
+//                        expandableContainer.visibility = View.GONE
+//                        choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
+//                            null, imageToExpand, null, null
+//                        )
+//                    }
+//                }
+//            }
+//        }
 
         companion object {
             fun from(
