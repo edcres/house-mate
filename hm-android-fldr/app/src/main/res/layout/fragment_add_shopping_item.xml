@@ -57,6 +57,8 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        app:hintTextColor="@color/colorPrimaryDark"
                         android:hint="@string/hint_quantity"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -78,6 +80,8 @@
                         android:layout_gravity="end"
                         android:layout_marginStart="16dp"
                         android:hint="@string/hint_name"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        app:hintTextColor="@color/colorPrimaryDark"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/item_quantity"
                         app:layout_constraintTop_toTopOf="parent">
@@ -109,6 +113,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:hintTextColor="@color/colorPrimaryDark"
                     android:hint="@string/hint_where_to_get"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                     <com.google.android.material.textfield.TextInputEditText
@@ -123,6 +129,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:hintTextColor="@color/colorPrimaryDark"
                     android:hint="@string/hint_cost"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                     <com.google.android.material.textfield.TextInputEditText
