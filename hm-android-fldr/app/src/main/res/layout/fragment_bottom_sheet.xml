@@ -6,7 +6,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:behavior_peekHeight="400dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" >
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/shopping_expandable_container"

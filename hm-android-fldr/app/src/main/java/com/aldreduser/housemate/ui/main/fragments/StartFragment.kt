@@ -32,6 +32,7 @@ class StartFragment : Fragment() {
     private val mainSharedPrefTag = "MainSPTAG"
     private var binding: FragmentStartBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
+    private var listener: OnBottomSheetCallListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +55,10 @@ class StartFragment : Fragment() {
         setUpTabs()
         startApplication()
         setObservers()
+
+
+        // todo: use this to call the bottom sheet
+//        if (listener != null) listener!!.sendItemToView()
     }
 
     override fun onDestroyView() {
@@ -265,5 +270,16 @@ class StartFragment : Fragment() {
         override fun getItemCount(): Int {
             return ListType.values().size
         }
+    }
+
+    // Bottom Sheet Interaction
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnBottomSheetCallListener) listener = context
+        else throw IllegalArgumentException("$context must implement OnFragmentInteractionListener")
+    }
+
+    interface OnBottomSheetCallListener {
+        fun sendItemToView(itemToView: Any, listType: ListType)
     }
 }

@@ -1,17 +1,78 @@
 package com.aldreduser.housemate
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import com.aldreduser.housemate.databinding.FragmentBottomSheetBinding
+import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.util.ListType
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BottomSheetFragment : Fragment() {
+/** todo:
+ * (x)acty
+ * sheet frag
+ *
+ * shopping:
+ * - normal frag
+ * - item click (adapter)
+ * - frag .xml
+ *
+ * do the logic in the sheet fragment
+ *
+ * chores:
+ * - normal frag
+ * - item click (adapter)
+ * - frag .xml
+ */
+
+private const val TAG = "ModalBottomSheet__TAG"
+
+class BottomSheetFragment : BottomSheetDialogFragment() {
+
+    private lateinit var dialog: BottomSheetDialog
+    private var binding: FragmentBottomSheetBinding? = null
+    private val listsViewModel: ListsViewModel by activityViewModels()
+    private lateinit var listType: ListType
+    private lateinit var itemToView: Any
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
+        return dialog
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bottom_sheet, container, false)
+        val fragmentBinding = FragmentBottomSheetBinding.inflate(inflater, container, false)
+        binding = fragmentBinding
+        return fragmentBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.apply {
+            lifecycleOwner = viewLifecycleOwner
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+        dialog.dismiss()
+    }
+
+    companion object {
+        fun newInstance(itemSent: Any, listTypeSent: ListType) = BottomSheetFragment().apply {
+            arguments = Bundle().apply {
+                itemToView = itemSent
+                listType = listTypeSent
+            }
+        }
     }
 }
