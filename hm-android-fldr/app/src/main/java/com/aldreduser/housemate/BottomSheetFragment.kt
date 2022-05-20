@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.aldreduser.housemate.data.model.ChoresItem
+import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentBottomSheetBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.ListType
@@ -19,9 +21,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  *
  * shopping:
  * (x)- normal frag
- * - item click (adapter)
- * - vm var
- * - frag listener
+ * (x)- item click (adapter)
+ * (x)- vm var
+ * (x)- frag listener
  *
  * do the logic in the sheet fragment
  *
@@ -60,8 +62,14 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val shoppingItem = if(listType == ListType.SHOPPING) itemToView as ShoppingItem else null
+        val choresItem = if(listType == ListType.CHORES) itemToView as ChoresItem else null
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
+
+            if (shoppingItem != null) {
+                sheetTitleTxt.text = shoppingItem.name
+            }
         }
     }
 

@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentStartBinding
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
@@ -32,7 +33,7 @@ class StartFragment : Fragment() {
     private val mainSharedPrefTag = "MainSPTAG"
     private var binding: FragmentStartBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
-    private var listener: OnBottomSheetCallListener? = null
+    private var sheetListener: OnBottomSheetCallListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,10 +56,6 @@ class StartFragment : Fragment() {
         setUpTabs()
         startApplication()
         setObservers()
-
-
-        // todo: use this to call the bottom sheet
-//        if (listener != null) listener!!.sendItemToView()
     }
 
     override fun onDestroyView() {
@@ -108,6 +105,11 @@ class StartFragment : Fragment() {
                 }
             }
             if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
+        }
+        listsViewModel.itemForSheet.observe(viewLifecycleOwner) {
+            // todo: test if 'is' will work
+            val itemType = if (it is ShoppingItem) ListType.SHOPPING else ListType.CHORES
+            if (sheetListener != null) sheetListener!!.sendItemToView(it, itemType)
         }
     }
 
@@ -275,7 +277,7 @@ class StartFragment : Fragment() {
     // Bottom Sheet Interaction
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnBottomSheetCallListener) listener = context
+        if (context is OnBottomSheetCallListener) sheetListener = context
         else throw IllegalArgumentException("$context must implement OnFragmentInteractionListener")
     }
 
