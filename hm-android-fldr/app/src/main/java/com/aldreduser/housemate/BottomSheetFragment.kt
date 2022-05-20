@@ -3,7 +3,6 @@ package com.aldreduser.housemate
 import android.app.Dialog
 import android.os.Bundle
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +14,6 @@ import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.chores_item_layout.*
-import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
-import java.nio.charset.StandardCharsets
 
 /** todo:
  * (x)acty
@@ -110,6 +106,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
             shoppingWhoIsGettingItText.setText(item.volunteer)
         }
+        shoppingVolunteerListener(item)
     }
 
     private fun startChoresView(item: ChoresItem) {
@@ -125,6 +122,21 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             choresWhoIsDoingItText.setText(item.volunteer)
         }
         choresVolunteerListener(item)
+    }
+
+    private fun shoppingVolunteerListener(item: ShoppingItem) {
+        binding?.apply {
+            shoppingWhoIsGettingItText.setOnKeyListener { _, keyCode, keyEvent ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP){
+                    listsViewModel.sendItemVolunteerToDb(
+                        ListType.SHOPPING.toString(),
+                        item.name!!,
+                        shoppingWhoIsGettingItText.text.toString()
+                    )
+                    true
+                } else false
+            }
+        }
     }
 
     private fun choresVolunteerListener(item: ChoresItem) {
