@@ -12,9 +12,9 @@ import com.aldreduser.housemate.databinding.FragmentChoresListBinding
 import com.aldreduser.housemate.ui.main.adapters.ChoresRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 
-class ChoresListFragment : Fragment() {
+private const val TAG = "ChoresListFragment__TAG"
 
-    private val fragmentTAG = "ChoresListFragmentTAG"
+class ChoresListFragment : Fragment() {
     private var binding: FragmentChoresListBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
     private lateinit var recyclerAdapter: ChoresRecyclerviewListAdapter
@@ -23,7 +23,7 @@ class ChoresListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i(fragmentTAG, "onCreateView: ChoresListFragment")
+        Log.i(TAG, "onCreateView: ChoresListFragment")
         val fragmentBinding = FragmentChoresListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
@@ -33,7 +33,7 @@ class ChoresListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i(fragmentTAG, "onViewCreated: ChoresListFragment")
+        Log.i(TAG, "onViewCreated: ChoresListFragment")
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             choresListRecyclerview.adapter = recyclerAdapter
@@ -46,14 +46,14 @@ class ChoresListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        listsViewModel.fragmentInView = fragmentTAG
-        listsViewModel.listInView[1] = fragmentTAG
+        listsViewModel.fragmentInView = TAG
+        listsViewModel.listInView[1] = TAG
         listsViewModel.toggleHiddenTxt()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-        Log.i(fragmentTAG, "onDestroyView: ChoresListFragment")
+        Log.i(TAG, "onDestroyView: ChoresListFragment")
     }
 }

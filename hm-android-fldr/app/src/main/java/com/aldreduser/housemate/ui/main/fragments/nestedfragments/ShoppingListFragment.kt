@@ -12,9 +12,10 @@ import com.aldreduser.housemate.databinding.FragmentShoppingListBinding
 import com.aldreduser.housemate.ui.main.adapters.ShoppingRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 
+private const val TAG = "ShopListFragment__TAG"
+
 class ShoppingListFragment : Fragment() {
 
-    private val fragmentTAG = "ShoppingListFragmentTAG"
     private var binding: FragmentShoppingListBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
     private lateinit var recyclerAdapter: ShoppingRecyclerviewListAdapter
@@ -23,7 +24,7 @@ class ShoppingListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i(fragmentTAG, "onCreateView: ShoppingListFragment")
+        Log.i(TAG, "onCreateView: ShoppingListFragment")
         val fragmentBinding = FragmentShoppingListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
@@ -33,27 +34,28 @@ class ShoppingListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i(fragmentTAG, "onViewCreated: ShoppingListFragment")
+        Log.i(TAG, "onViewCreated: ShoppingListFragment")
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             shoppingListRecyclerview.adapter = recyclerAdapter
             shoppingListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
         listsViewModel.shoppingItems.observe(viewLifecycleOwner) { result ->
+            Log.d(TAG, "onViewCreated: shoppingItems observed")
             recyclerAdapter.submitList(result)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        listsViewModel.fragmentInView = fragmentTAG
-        listsViewModel.listInView[0] = fragmentTAG
+        listsViewModel.fragmentInView = TAG
+        listsViewModel.listInView[0] = TAG
         listsViewModel.toggleHiddenTxt()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-        Log.i(fragmentTAG, "onDestroyView: ShoppingListFragment")
+        Log.i(TAG, "onDestroyView: ShoppingListFragment")
     }
 }

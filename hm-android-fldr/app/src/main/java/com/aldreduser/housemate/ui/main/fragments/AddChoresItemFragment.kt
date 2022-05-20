@@ -18,9 +18,9 @@ import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.necessaryAreFilled
 import kotlinx.android.synthetic.main.fragment_add_shopping_item.*
 
-class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+private const val TAG = "AddChoreItem__TAG"
 
-    private val fragmentTag = "AddChoreItemTAG"
+class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private var binding: FragmentAddChoresItemBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
 
@@ -57,7 +57,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-        Log.i(fragmentTag, "onDestroyView: AddChoresItemFragment")
+        Log.i(TAG, "onDestroyView: AddChoresItemFragment")
     }
     // Triggered when the user picks a date
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -71,7 +71,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             binding!!.itemNameInput.text.toString(),
             "placeholder"
         )
-        Log.d(fragmentTag, "necessaryAreFilled: $necessaryAreFilled")
+        Log.d(TAG, "necessaryAreFilled: $necessaryAreFilled")
         if (necessaryAreFilled) {
             addItem()
             val navController = Navigation

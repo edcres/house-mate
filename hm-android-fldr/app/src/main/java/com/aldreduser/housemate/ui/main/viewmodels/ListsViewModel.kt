@@ -16,6 +16,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
+private const val TAG = "ListsVm__TAG"
+
 class ListsViewModel: ViewModel() {
 
     private val listsRepository = ListsRepository()
@@ -41,7 +43,6 @@ class ListsViewModel: ViewModel() {
     val hiddenTxt: LiveData<Boolean> get() = _hiddenTxt
 
     companion object {
-        const val TAG = "ListsVmTAG"
         const val USER_NAME_SP_TAG = "User Name"
         const val GROUP_ID_SP_TAG = "Group ID"
         const val CLIENT_ID_SP_TAG = "Client ID"
@@ -103,12 +104,15 @@ class ListsViewModel: ViewModel() {
 
     // DATABASE FUNCTIONS //
     fun setItemsRealtime(listTag: String) {
+        Log.d(TAG, "setItemsRealtime: called")
         CoroutineScope(Dispatchers.IO).launch {
             when (listTag) {
                 listTypes[0] ->
                     listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
                         .collect {
-                            _shoppingItems.postValue(it.toMutableList()) }
+                            Log.d(TAG, "setItemsRealtime: collected")
+                            _shoppingItems.postValue(it.toMutableList())
+                        }
                 listTypes[1] ->
                     listsRepository.setUpChoresRealtimeFetching(clientGroupIDCollection!!)
                         .collect { _choreItems.postValue(it.toMutableList()) }

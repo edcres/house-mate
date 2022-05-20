@@ -21,7 +21,7 @@ import com.aldreduser.housemate.util.displayDifficulty
 import com.aldreduser.housemate.util.displayPriority
 
 class ChoresRecyclerviewListAdapter(
-    val listsViewModel: ListsViewModel,
+    private val listsViewModel: ListsViewModel,
     private val fragLifecycleOwner: LifecycleOwner
 ) :
     ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(

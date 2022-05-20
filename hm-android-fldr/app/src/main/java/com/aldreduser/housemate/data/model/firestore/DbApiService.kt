@@ -17,6 +17,8 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.tasks.await
 
+private const val TAG = "DbApiService__TAG"
+
 class DbApiService {
 
     private val db = Firebase.firestore
@@ -24,7 +26,6 @@ class DbApiService {
         .document(GROUP_IDS_DOC)
 
     companion object {
-        const val TAG = "DbApiServiceTAG"
         const val DEFAULT_CLIENT_ID = "00000000asdfg"
         const val GENERAL_COLLECTION = "General Collection"
         const val GROUP_IDS_DOC = "Group IDs"

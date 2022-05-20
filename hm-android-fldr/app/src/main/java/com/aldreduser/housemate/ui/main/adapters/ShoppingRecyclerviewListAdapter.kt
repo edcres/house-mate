@@ -17,7 +17,7 @@ import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.*
 
 class ShoppingRecyclerviewListAdapter(
-    val listsViewModel: ListsViewModel,
+    private val listsViewModel: ListsViewModel,
     private val fragLifecycleOwner: LifecycleOwner
 ) :
     ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ShoppingViewHolder>(
@@ -32,7 +32,7 @@ class ShoppingRecyclerviewListAdapter(
         holderShopping.bind(getItem(position))
 
     class ShoppingViewHolder private constructor(
-        val listsViewModel: ListsViewModel,
+        private val listsViewModel: ListsViewModel,
         private val fragLifecycleOwner: LifecycleOwner,
         val binding: ShoppingItemLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -179,18 +179,13 @@ class ShoppingRecyclerviewListAdapter(
             }
         }
     }
-}
 
-
-
-
-class ShoppingItemDiffCallback : DiffUtil.ItemCallback<ShoppingItem>() {
-
-    override fun areItemsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {
-        return oldItem == newItem
+    class ShoppingItemDiffCallback : DiffUtil.ItemCallback<ShoppingItem>() {
+        override fun areItemsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+        override fun areContentsTheSame(oldItem: ShoppingItem, newItem: ShoppingItem): Boolean {
+            return oldItem == newItem
+        }
     }
 }

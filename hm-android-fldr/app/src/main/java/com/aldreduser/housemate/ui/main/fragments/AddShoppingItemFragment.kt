@@ -18,9 +18,9 @@ import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.necessaryAreFilled
 import kotlinx.android.synthetic.main.fragment_add_shopping_item.*
 
-class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+private const val TAG = "AddShopItem__TAG"
 
-    private val fragmentTag = "AddShopItemTAG"
+class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     private var binding: FragmentAddShoppingItemBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
 
@@ -59,7 +59,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-        Log.i(fragmentTag, "onDestroy: AddShoppingItemFragment")
+        Log.i(TAG, "onDestroy: AddShoppingItemFragment")
     }
 
     // Triggered when the user picks a date

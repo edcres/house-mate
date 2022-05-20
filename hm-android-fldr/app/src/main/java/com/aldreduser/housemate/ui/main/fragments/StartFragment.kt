@@ -25,9 +25,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class StartFragment : Fragment() {
+private const val TAG = "StartFragment__TAG"
 
-    private val fragmentTAG = "StartFragmentTAG"
+class StartFragment : Fragment() {
     private val mainSharedPrefTag = "MainSPTAG"
     private var binding: FragmentStartBinding? = null
     private val listsViewModel: ListsViewModel by activityViewModels()
@@ -59,7 +59,7 @@ class StartFragment : Fragment() {
         super.onDestroyView()
         listsViewModel.sharedPrefs = null
         binding = null
-        Log.i(fragmentTAG, "onViewCreated: StartFragment")
+        Log.i(TAG, "onViewCreated: StartFragment")
     }
 
     private fun startApplication() {
@@ -98,7 +98,7 @@ class StartFragment : Fragment() {
                 listsViewModel.listInView[0] -> R.id.action_startFragment_to_addShoppingItemFragment
                 listsViewModel.listInView[1] -> R.id.action_startFragment_to_addChoresItemFragment
                 else -> {
-                    Log.i(fragmentTAG, "itemToEdit set to null")
+                    Log.i(TAG, "itemToEdit set to null")
                 }
             }
             if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
