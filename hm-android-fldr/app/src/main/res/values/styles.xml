@@ -12,6 +12,8 @@
         <item name="actionModeStyle">@style/Widget.AppCompat.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_close_24dp</item>
         <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+<!--        bottom sheet-->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
      <!-- Contextual Action Bar (material design) -->
@@ -24,6 +26,16 @@
      <!--    textView-->
      <style name="Widget.TipTime.TextView" parent="Widget.MaterialComponents.TextView">
          <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+     </style>
+
+     <style name="AppBottomSheetDialogTheme"
+         parent="Theme.Design.Light.BottomSheetDialog">
+         <item name="bottomSheetStyle">@style/AppModalStyle</item>
+     </style>
+
+     <style name="AppModalStyle"
+         parent="Theme.Design.Light.BottomSheetDialog">
+         <item name="android:background">@drawable/bottom_sheet_background</item>
      </style>
 
 </resources>

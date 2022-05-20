@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/drawable-anydpi/ic_edit_24dp.xml" value="0.142" />
         <entry key="app/src/main/res/drawable-anydpi/ic_more_options_24dp.xml" value="0.142" />
         <entry key="app/src/main/res/drawable-anydpi/ic_navigation_24dp.xml" value="0.142" />
+        <entry key="app/src/main/res/drawable/bottom_sheet_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_add_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.142" />
         <entry key="app/src/main/res/drawable/ic_delete_item_24.xml" value="0.1" />
