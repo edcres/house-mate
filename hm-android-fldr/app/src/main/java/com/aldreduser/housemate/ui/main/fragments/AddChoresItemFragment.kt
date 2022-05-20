@@ -107,6 +107,16 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         binding?.apply {
             itemNameInput.setText(itemToEdit.name)
             if (!itemToEdit.neededBy.isNullOrEmpty()) whenNeededBtn.text = itemToEdit.neededBy
+            when(itemToEdit.difficulty) {
+                1 -> difficultyButton1.isChecked = true
+                2 -> difficultyButton2.isChecked = true
+                3 -> difficultyButton3.isChecked = true
+            }
+            when(itemToEdit.priority) {
+                1 -> priorityButton1.isChecked = true
+                2 -> priorityButton2.isChecked = true
+                3 -> priorityButton3.isChecked = true
+            }
         }
     }
     private fun addItem() {
