@@ -37,30 +37,28 @@ class ShoppingRecyclerviewListAdapter(
         val binding: ShoppingItemLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ShoppingItem) {
+        fun bind(shoppingItem: ShoppingItem) {
             binding.apply {
-                populateUI(item)
+                populateUI(shoppingItem)
                 observeHiddenTxt()
                 observeEditMode()
-
-                if (listsViewModel.itemsExpanded[item.name!!] == true) {
+                if (listsViewModel.itemsExpanded[shoppingItem.name!!] == true) {
                     shoppingExpandableContainerCardview.visibility = View.VISIBLE
                 }
-                volunteerListener(item)
+                volunteerListener(shoppingItem)
                 removeItemButton.setOnClickListener {
-                    listsViewModel.deleteListItem(ListType.SHOPPING.toString(), item.name)
+                    listsViewModel.deleteListItem(ListType.SHOPPING.toString(), shoppingItem.name)
                 }
                 shoppingItIsDone.setOnClickListener {
                     listsViewModel.toggleItemCompletion(
                         ListType.SHOPPING.toString(),
-                        item.name,
+                        shoppingItem.name,
                         shoppingItIsDone.isChecked
                     )
                 }
-                expandContainer(item)
-                editItemButton.setOnClickListener {
-                    listsViewModel.setItemToEdit(item)
-                }
+                expandContainer(shoppingItem)
+                editItemButton.setOnClickListener { listsViewModel.setItemToEdit(shoppingItem) }
+                shoppingCardview.setOnClickListener { listsViewModel.setItemForSheet(shoppingItem) }
                 executePendingBindings()
             }
         }

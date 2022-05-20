@@ -27,6 +27,9 @@ class ListsViewModel: ViewModel() {
     var clientGroupIDCollection: String? = null
     private var clientIDCollection: String? = null
 
+    private var _itemForSheet = MutableLiveData<Any>()
+    val itemForSheet: LiveData<Any> get() = _itemForSheet
+
     private var _shoppingItems = MutableLiveData<MutableList<ShoppingItem>>()
     val shoppingItems: LiveData<MutableList<ShoppingItem>> get() = _shoppingItems
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
@@ -57,6 +60,9 @@ class ListsViewModel: ViewModel() {
     }
 
     // HELPERS //
+    fun setItemForSheet(itemSent: Any) {
+        _itemForSheet.postValue(itemSent)
+    }
     fun toggleHiddenTxt() {
         // This is a work around a bug. The purpose is for the recyclerview to get resized.
         _hiddenTxt.value = !_hiddenTxt.value!!

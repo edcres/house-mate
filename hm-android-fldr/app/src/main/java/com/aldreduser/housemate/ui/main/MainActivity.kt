@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), StartFragment.OnBottomSheetCallListene
     }
 
     override fun sendItemToView(itemToView: Any, listType: ListType) {
-        modalBottomSheet = BottomSheetFragment.newInstance(itemToView)
+        modalBottomSheet = BottomSheetFragment.newInstance(itemToView, listType)
         modalBottomSheet?.show(supportFragmentManager, modalBottomSheet?.tag)
     }
 }

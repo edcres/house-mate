@@ -15,19 +15,23 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /** todo:
  * (x)acty
- * sheet frag
+ * (x)sheet frag
  *
  * shopping:
- * - normal frag
+ * (x)- normal frag
  * - item click (adapter)
- * - frag .xml
+ * - vm var
+ * - frag listener
  *
  * do the logic in the sheet fragment
  *
  * chores:
  * - normal frag
  * - item click (adapter)
- * - frag .xml
+ * - vm var
+ * - frag listener
+ *
+ * sheet frag logic
  */
 
 private const val TAG = "ModalBottomSheet__TAG"
