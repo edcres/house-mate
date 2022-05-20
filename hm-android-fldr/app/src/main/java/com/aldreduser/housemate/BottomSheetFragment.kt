@@ -14,6 +14,7 @@ import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.chores_item_layout.*
 import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
 import java.nio.charset.StandardCharsets
 
@@ -27,17 +28,16 @@ import java.nio.charset.StandardCharsets
  * (x)- vm var
  * (x)- frag listener
  *
- * do the logic in the sheet fragment
+ * do the logic in the sheet fragment for chores
  *
  * chores:
- * - normal frag
  * - item click (adapter)
- * - vm var
- * - frag listener
  *
  * sheet frag logic
  *
  * take out the container
+ * adapters
+ * item.xml
  */
 
 private const val TAG = "ModalBottomSheet__TAG"
@@ -84,8 +84,9 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun startShoppingView(item: ShoppingItem) {
         binding?.apply {
-            sheetQtyTxt.text = presentItemQty(item.quantity!!)
-            sheetTitleTxt.text = item.name
+            shoppingExpandableContainer.visibility = View.VISIBLE
+            shoppingSheetQtyTxt.text = presentItemQty(item.quantity!!)
+            shoppingSheetTitleTxt.text = item.name
             shoppingWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
                 displayDate(item.neededBy)
             } else {
@@ -108,7 +109,17 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun startChoresView(item: ChoresItem) {
-        // todo:
+        binding?.apply {
+            choresExpandableContainer.visibility = View.VISIBLE
+            choreSheetTitleTxt.text = item.name
+            choresWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
+                displayDate(item.neededBy)
+            } else {choresWhenNeededDoneText.visibility = View.GONE; ""}
+            choresDifficulty.text = displayDifficulty(item.difficulty!!)
+            choresPriorityText.text = displayPriority(item.priority!!)
+            choresAddedByText.text = displayAddedBy(item.addedBy!!)
+            choresWhoIsDoingItText.setText(item.volunteer)
+        }
     }
 
     companion object {

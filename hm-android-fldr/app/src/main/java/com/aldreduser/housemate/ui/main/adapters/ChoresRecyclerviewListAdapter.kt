@@ -33,7 +33,7 @@ class ChoresRecyclerviewListAdapter(
         holderChores.bind(getItem(position)!!)
 
     class ChoresViewHolder private constructor(
-        val listsViewModel: ListsViewModel,
+        private val listsViewModel: ListsViewModel,
         private val fragLifecycleOwner: LifecycleOwner,
         val binding: ChoresItemLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -59,9 +59,8 @@ class ChoresRecyclerviewListAdapter(
                     )
                 }
                 expandContainer(item)
-                editItemButton.setOnClickListener {
-                    listsViewModel.setItemToEdit(item)
-                }
+                editItemButton.setOnClickListener { listsViewModel.setItemToEdit(item) }
+                choresCardview.setOnClickListener { listsViewModel.setItemForSheet(item) }
                 executePendingBindings()
             }
         }
@@ -168,15 +167,15 @@ class ChoresRecyclerviewListAdapter(
             }
         }
     }
-}
 
-class ChoresItemDiffCallback : DiffUtil.ItemCallback<ChoresItem>() {
+    class ChoresItemDiffCallback : DiffUtil.ItemCallback<ChoresItem>() {
 
-    override fun areItemsTheSame(oldItem: ChoresItem, newItem: ChoresItem): Boolean {
-        return oldItem.id == newItem.id
-    }
+        override fun areItemsTheSame(oldItem: ChoresItem, newItem: ChoresItem): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    override fun areContentsTheSame(oldItem: ChoresItem, newItem: ChoresItem): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: ChoresItem, newItem: ChoresItem): Boolean {
+            return oldItem == newItem
+        }
     }
 }
