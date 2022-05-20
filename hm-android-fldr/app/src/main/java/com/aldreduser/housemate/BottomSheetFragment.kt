@@ -11,9 +11,11 @@ import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentBottomSheetBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.util.ListType
+import com.aldreduser.housemate.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.fragment_bottom_sheet.*
+import java.nio.charset.StandardCharsets
 
 /** todo:
  * (x)acty
@@ -34,6 +36,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  * - frag listener
  *
  * sheet frag logic
+ *
+ * take out the container
  */
 
 private const val TAG = "ModalBottomSheet__TAG"
@@ -62,14 +66,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val shoppingItem = if(listType == ListType.SHOPPING) itemToView as ShoppingItem else null
-        val choresItem = if(listType == ListType.CHORES) itemToView as ChoresItem else null
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-
-            if (shoppingItem != null) {
-                sheetTitleTxt.text = shoppingItem.name
-            }
+        }
+        if(listType == ListType.SHOPPING) {
+            startShoppingView(itemToView as ShoppingItem)
+        } else if(listType == ListType.CHORES) {
+            startChoresView(itemToView as ChoresItem)
         }
     }
 
@@ -77,6 +80,35 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onDestroy()
         binding = null
         dialog.dismiss()
+    }
+
+    private fun startShoppingView(item: ShoppingItem) {
+        binding?.apply {
+            sheetQtyTxt.text = presentItemQty(item.quantity!!)
+            sheetTitleTxt.text = item.name
+            shoppingWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
+                displayDate(item.neededBy)
+            } else {
+                shoppingWhenNeededDoneText.visibility = View.GONE; ""
+            }
+            shoppingWhereText.text = if (item.purchaseLocation!!.isNotEmpty()) {
+                item.purchaseLocation
+            } else {
+                shoppingWhereText.visibility = View.GONE; ""
+            }
+            shoppingCostText.text = if (item.cost!! != 0.0) {
+                displayCost(item.cost)
+            } else {
+                shoppingCostText.visibility = View.GONE; ""
+            }
+            shoppingPriorityText.text = displayPriority(item.priority!!)
+            shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
+            shoppingWhoIsGettingItText.setText(item.volunteer)
+        }
+    }
+
+    private fun startChoresView(item: ChoresItem) {
+        // todo:
     }
 
     companion object {

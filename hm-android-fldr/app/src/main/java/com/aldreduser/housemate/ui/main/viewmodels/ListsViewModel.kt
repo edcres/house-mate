@@ -60,6 +60,9 @@ class ListsViewModel: ViewModel() {
     }
 
     // HELPERS //
+    fun chooseCorrectListType() {
+
+    }
     fun setItemForSheet(itemSent: Any) {
         _itemForSheet.postValue(itemSent)
     }
