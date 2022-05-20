@@ -89,6 +89,8 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:hintTextColor="@color/colorPrimaryDark"
                 android:hint="@string/hint_volunteer"
                 android:visibility="visible">
 
@@ -182,6 +184,8 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:hintTextColor="@color/colorPrimaryDark"
                 android:hint="@string/hint_volunteer"
                 android:visibility="visible">
 

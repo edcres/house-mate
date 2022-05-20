@@ -15,31 +15,6 @@ import com.aldreduser.housemate.util.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-/** todo:
- * (x)acty
- * (x)sheet frag
- *
- * shopping:
- * (x)- normal frag
- * (x)- item click (adapter)
- * (x)- vm var
- * (x)- frag listener
- *
- * do the logic in the sheet fragment for chores
- *
- * chores:
- * - item click (adapter)
- *
- * sheet frag logic
- *
- * take out the container
- * adapters
- * item.xml
- *
- * volunteer functionality
- * volunteer widget color
- */
-
 private const val TAG = "ModalBottomSheet__TAG"
 
 class BottomSheetFragment : BottomSheetDialogFragment() {

@@ -29,7 +29,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/chores_item_layout.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_add_chores_item.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_add_shopping_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_add_shopping_item.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.2188018798828124" />
         <entry key="app/src/main/res/layout/fragment_chores_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_shopping_list.xml" value="0.25" />
