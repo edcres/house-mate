@@ -15,10 +15,7 @@ import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.ChoresItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.util.displayAddedBy
-import com.aldreduser.housemate.util.displayDate
-import com.aldreduser.housemate.util.displayDifficulty
-import com.aldreduser.housemate.util.displayPriority
+import com.aldreduser.housemate.util.*
 
 class ChoresRecyclerviewListAdapter(
     private val listsViewModel: ListsViewModel,
@@ -52,11 +49,11 @@ class ChoresRecyclerviewListAdapter(
                 }
                 volunteerListener(item)
                 removeItemButton.setOnClickListener {
-                    listsViewModel.deleteListItem(listsViewModel.listTypes[1], item.name)
+                    listsViewModel.deleteListItem(ListType.CHORES.toString(), item.name)
                 }
                 choresItIsDone.setOnClickListener {
                     listsViewModel.toggleItemCompletion(
-                        listsViewModel.listTypes[1],
+                        ListType.CHORES.toString(),
                         item.name,
                         choresItIsDone.isChecked
                     )
@@ -119,7 +116,7 @@ class ChoresRecyclerviewListAdapter(
                 choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
                     if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                         listsViewModel.sendItemVolunteerToDb(
-                            listsViewModel.listTypes[1],
+                            ListType.CHORES.toString(),
                             item.name!!,
                             choresWhoIsDoingItText.text.toString()
                         )

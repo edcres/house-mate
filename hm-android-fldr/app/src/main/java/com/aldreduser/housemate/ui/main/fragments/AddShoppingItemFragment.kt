@@ -14,6 +14,7 @@ import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentAddShoppingItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
+import com.aldreduser.housemate.util.ListType
 import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.necessaryAreFilled
 import kotlinx.android.synthetic.main.fragment_add_shopping_item.*
@@ -132,7 +133,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 whenNeededBtn.text.toString()
             } else ""
             listsViewModel.sendItemToDatabase(
-                listsViewModel.listTypes[0],
+                ListType.SHOPPING.toString(),
                 itemNameInput.text.toString(),
                 qty, cost,
                 whereToGetInput.text.toString(),

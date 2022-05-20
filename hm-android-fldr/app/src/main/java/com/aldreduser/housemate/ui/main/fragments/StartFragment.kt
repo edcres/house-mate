@@ -19,6 +19,7 @@ import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFrag
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFragment
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.PAST_GROUPS_SP_TAG
+import com.aldreduser.housemate.util.ListType
 import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.validateGroupId
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -72,8 +73,8 @@ class StartFragment : Fragment() {
             makeDialogBoxAndSetGroupID()
         } else {
             listsViewModel.setClientID()
-            listsViewModel.setItemsRealtime(listsViewModel.listTypes[0])
-            listsViewModel.setItemsRealtime(listsViewModel.listTypes[1])
+            listsViewModel.setItemsRealtime(ListType.SHOPPING.toString())
+            listsViewModel.setItemsRealtime(ListType.CHORES.toString())
         }
     }
 
@@ -155,10 +156,16 @@ class StartFragment : Fragment() {
 
     private fun setUpTabs() {
         binding?.listsViewPager?.adapter = ViewPagerFragmentAdapter(this.requireActivity())
-        binding?.let { TabLayoutMediator(binding!!.startFragmentTabLayout, it.listsViewPager) {
-                tab: TabLayout.Tab, position: Int ->
-            tab.text = listsViewModel.listTypes[position]
-        }.attach()
+        binding?.let {
+            TabLayoutMediator(
+                binding!!.startFragmentTabLayout,
+                it.listsViewPager
+            ) { tab: TabLayout.Tab, position: Int ->
+                when(position) {
+                    0 -> tab.text = ListType.SHOPPING.toString()
+                    1 -> tab.text = ListType.CHORES.toString()
+                }
+            }.attach()
         }
     }
 
@@ -256,7 +263,7 @@ class StartFragment : Fragment() {
         }
 
         override fun getItemCount(): Int {
-            return listsViewModel.listTypes.size
+            return ListType.values().size
         }
     }
 }

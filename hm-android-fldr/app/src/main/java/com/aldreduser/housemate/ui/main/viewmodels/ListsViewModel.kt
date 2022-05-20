@@ -9,6 +9,7 @@ import com.aldreduser.housemate.data.ListsRepository
 import com.aldreduser.housemate.data.model.CalendarDate
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
+import com.aldreduser.housemate.util.ListType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -85,8 +86,8 @@ class ListsViewModel: ViewModel() {
     fun setGroupID(selectedGroup: String) {
         clientGroupIDCollection = selectedGroup
         sendGroupToSP()
-        setItemsRealtime(listTypes[0])
-        setItemsRealtime(listTypes[1])
+        setItemsRealtime(ListType.SHOPPING.toString())
+        setItemsRealtime(ListType.CHORES.toString())
     }
     private fun sendGroupToSP() {
         sendDataToSP(GROUP_ID_SP_TAG, clientGroupIDCollection!!)
@@ -107,13 +108,13 @@ class ListsViewModel: ViewModel() {
         Log.d(TAG, "setItemsRealtime: called")
         CoroutineScope(Dispatchers.IO).launch {
             when (listTag) {
-                listTypes[0] ->
+                ListType.SHOPPING.toString() ->
                     listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
                         .collect {
                             Log.d(TAG, "setItemsRealtime: collected")
                             _shoppingItems.postValue(it.toMutableList())
                         }
-                listTypes[1] ->
+                ListType.CHORES.toString() ->
                     listsRepository.setUpChoresRealtimeFetching(clientGroupIDCollection!!)
                         .collect { _choreItems.postValue(it.toMutableList()) }
             }
@@ -128,13 +129,13 @@ class ListsViewModel: ViewModel() {
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             when (listTag) {
-                listTypes[0] -> {
+                ListType.SHOPPING.toString() -> {
                     listsRepository.addShoppingItemToDb(
                         clientGroupIDCollection!!, itemName, itemQuantity, itemCost,
                         purchaseLocation, itemNeededBy, itemPriority, userName!!
                     )
                 }
-                listTypes[1] -> {
+                ListType.CHORES.toString() -> {
                     listsRepository.addChoresItemToDb(
                         clientGroupIDCollection!!, itemName, itemDifficulty,
                         itemNeededBy, itemPriority, userName!!
@@ -147,14 +148,14 @@ class ListsViewModel: ViewModel() {
     fun toggleItemCompletion(listTag: String, itemName: String, isCompleted: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
             when (listTag) {
-                listTypes[0] -> {
+                ListType.SHOPPING.toString() -> {
                     listsRepository.toggleShoppingCompletion(
                         clientGroupIDCollection!!,
                         itemName,
                         isCompleted
                     )
                 }
-                listTypes[1] -> {
+                ListType.CHORES.toString() -> {
                     listsRepository.toggleChoreCompletion(
                         clientGroupIDCollection!!,
                         itemName,
@@ -168,12 +169,12 @@ class ListsViewModel: ViewModel() {
     fun sendItemVolunteerToDb(listTag: String, listItem: String, volunteerName: String) {
         CoroutineScope(Dispatchers.IO).launch {
             when(listTag) {
-                listTypes[0] -> {listsRepository.sendShoppingVolunteersToDb(
+                ListType.SHOPPING.toString() -> {listsRepository.sendShoppingVolunteersToDb(
                     clientGroupIDCollection!!,
                     listItem,
                     volunteerName
                 )}
-                listTypes[1] -> {
+                ListType.CHORES.toString() -> {
                     listsRepository.sendChoresVolunteersToDb(
                         clientGroupIDCollection!!,
                         listItem,
@@ -187,10 +188,10 @@ class ListsViewModel: ViewModel() {
     fun deleteListItem(listTag: String, itemName: String) {
         CoroutineScope(Dispatchers.IO).launch {
             when (listTag) {
-                listTypes[0] -> {
+                ListType.SHOPPING.toString() -> {
                     listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)
                 }
-                listTypes[1] -> {
+                ListType.CHORES.toString() -> {
                     listsRepository.deleteChoresListItem(clientGroupIDCollection!!, itemName)
                 }
             }

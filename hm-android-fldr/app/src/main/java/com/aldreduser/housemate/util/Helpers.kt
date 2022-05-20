@@ -7,6 +7,10 @@ import android.widget.Toast
 const val SHOPPING_ITEM = "Shopping"
 const val CHORE_ITEM = "Chore"
 
+enum class ListType {
+    SHOPPING, CHORES
+}
+
 fun displayDate(date: String): String {
     return "needed by $date"
 }

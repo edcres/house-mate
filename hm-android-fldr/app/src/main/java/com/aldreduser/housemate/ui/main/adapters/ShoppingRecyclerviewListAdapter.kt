@@ -48,11 +48,11 @@ class ShoppingRecyclerviewListAdapter(
                 }
                 volunteerListener(item)
                 removeItemButton.setOnClickListener {
-                    listsViewModel.deleteListItem(listsViewModel.listTypes[0], item.name)
+                    listsViewModel.deleteListItem(ListType.SHOPPING.toString(), item.name)
                 }
                 shoppingItIsDone.setOnClickListener {
                     listsViewModel.toggleItemCompletion(
-                        listsViewModel.listTypes[0],
+                        ListType.SHOPPING.toString(),
                         item.name,
                         shoppingItIsDone.isChecked
                     )
@@ -127,7 +127,7 @@ class ShoppingRecyclerviewListAdapter(
                 shoppingWhoIsGettingItText.setOnKeyListener { _, keyCode, keyEvent ->
                     if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP){
                         listsViewModel.sendItemVolunteerToDb(
-                            listsViewModel.listTypes[0],
+                            ListType.SHOPPING.toString(),
                             item.name!!,
                             shoppingWhoIsGettingItText.text.toString()
                         )
