@@ -12,10 +12,18 @@
         tools:layout="@layout/fragment_start" >
         <action
             android:id="@+id/action_startFragment_to_addShoppingItemFragment"
-            app:destination="@id/addShoppingItemFragment" />
+            app:destination="@id/addShoppingItemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
         <action
             android:id="@+id/action_startFragment_to_addChoresItemFragment"
-            app:destination="@id/addChoresItemFragment" />
+            app:destination="@id/addChoresItemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     </fragment>
     <fragment
         android:id="@+id/addShoppingItemFragment"
