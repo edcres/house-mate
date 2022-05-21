@@ -35,10 +35,10 @@ class ListsViewModel: ViewModel() {
     private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
     val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
 
-    var fragmentInView: String? = null
-    var listInView = mutableMapOf<Int, String>()
-    val listTypes = listOf("Shopping", "Chores")
-    val itemsExpanded = mutableMapOf<String, Boolean>()
+    var fragmentInView: String? = null                  // todo:
+    var listInView = mutableMapOf<Int, String>()        // todo:
+//    val listTypes = listOf("Shopping", "Chores")
+//    val itemsExpanded = mutableMapOf<String, Boolean>()
     private var _menuEditIsOn = MutableLiveData(false)
     val menuEditIsOn: LiveData<Boolean> get() = _menuEditIsOn
     private var _itemToEdit = MutableLiveData<Any?>()
