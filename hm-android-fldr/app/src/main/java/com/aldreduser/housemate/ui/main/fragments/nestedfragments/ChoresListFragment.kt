@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aldreduser.housemate.databinding.FragmentChoresListBinding
 import com.aldreduser.housemate.ui.main.adapters.ChoresRecyclerviewListAdapter
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
-import com.aldreduser.housemate.util.DragManageAdapter
 
 private const val TAG = "ChoresListFragment__TAG"
 
@@ -44,7 +42,6 @@ class ChoresListFragment : Fragment() {
         listsViewModel.choreItems.observe(viewLifecycleOwner) { result ->
             recyclerAdapter.submitList(result)
         }
-        setUpItemPositionMove()
     }
 
     override fun onResume() {
@@ -58,23 +55,5 @@ class ChoresListFragment : Fragment() {
         super.onDestroyView()
         binding = null
         Log.i(TAG, "onDestroyView: ChoresListFragment")
-    }
-
-    private fun setUpItemPositionMove() {
-        binding?.apply {
-//            val dividerItemDecoration = DividerItemDecoration(this, manager.orientation)
-//            rv_name.addItemDecoration(dividerItemDecoration)
-
-            // Setup ItemTouchHelper
-            val itemDragCallback = DragManageAdapter(
-                null,
-                recyclerAdapter,
-                requireContext(),
-                ItemTouchHelper.UP.or(ItemTouchHelper.DOWN),
-                ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)
-            )
-            val helper = ItemTouchHelper(itemDragCallback)
-            helper.attachToRecyclerView(binding!!.choresListRecyclerview)
-        }
     }
 }
