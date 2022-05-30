@@ -1,18 +1,13 @@
 package com.aldreduser.housemate.ui.main.adapters
 
-import android.graphics.drawable.Drawable
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
-import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.ChoresItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.*
@@ -167,7 +162,7 @@ class ChoresRecyclerviewListAdapter(
     class ChoresItemDiffCallback : DiffUtil.ItemCallback<ChoresItem>() {
 
         override fun areItemsTheSame(oldItem: ChoresItem, newItem: ChoresItem): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.name == newItem.name
         }
 
         override fun areContentsTheSame(oldItem: ChoresItem, newItem: ChoresItem): Boolean {
