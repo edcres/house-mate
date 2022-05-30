@@ -30,10 +30,10 @@ class ListsViewModel: ViewModel() {
     private var _itemForSheet = MutableLiveData<Any>()
     val itemForSheet: LiveData<Any> get() = _itemForSheet
 
-    private var _shoppingItems = MutableLiveData<MutableList<ShoppingItem>>()
-    val shoppingItems: LiveData<MutableList<ShoppingItem>> get() = _shoppingItems
-    private var _choreItems = MutableLiveData<MutableList<ChoresItem>>()
-    val choreItems: LiveData<MutableList<ChoresItem>> get() = _choreItems
+    private var _shoppingItems = MutableLiveData<List<ShoppingItem>>()
+    val shoppingItems: LiveData<List<ShoppingItem>> get() = _shoppingItems
+    private var _choreItems = MutableLiveData<List<ChoresItem>>()
+    val choreItems: LiveData<List<ChoresItem>> get() = _choreItems
 
     var fragmentInView: String? = null                  // todo:
     var listInView = mutableMapOf<Int, String>()        // todo:
@@ -89,8 +89,8 @@ class ListsViewModel: ViewModel() {
         return calendarDate
     }
     fun clearLists() {
-        _shoppingItems.postValue(mutableListOf())
-        _choreItems.postValue(mutableListOf())
+        _shoppingItems.postValue(listOf())
+        _choreItems.postValue(listOf())
     }
     fun setGroupID(selectedGroup: String) {
         clientGroupIDCollection = selectedGroup
@@ -121,11 +121,11 @@ class ListsViewModel: ViewModel() {
                     listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
                         .collect {
                             Log.d(TAG, "setItemsRealtime: collected")
-                            _shoppingItems.postValue(it.toMutableList())
+                            _shoppingItems.postValue(it)
                         }
                 ListType.CHORES.toString() ->
                     listsRepository.setUpChoresRealtimeFetching(clientGroupIDCollection!!)
-                        .collect { _choreItems.postValue(it.toMutableList()) }
+                        .collect { _choreItems.postValue(it) }
             }
         }
     }
