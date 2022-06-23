@@ -1,4 +1,4 @@
-package com.aldreduser.housemate
+package com.aldreduser.housemate.ui.main.fragments
 
 import android.app.Dialog
 import android.os.Bundle

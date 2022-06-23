@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="8dp"
             android:padding="8dp"
             android:visibility="gone"
             android:paddingStart="16dp"
@@ -28,6 +29,7 @@
                     android:id="@+id/shopping_sheet_qty_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     style="@style/TextAppearance.Material3.HeadlineMedium"
                     tools:text="4"
                     app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:textStyle="bold"
                     style="@style/TextAppearance.Material3.HeadlineMedium"
                     tools:text="bread"
                     app:layout_constraintStart_toEndOf="@+id/shopping_sheet_qty_txt"
@@ -55,34 +58,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_img_txt" />
-
-            <TextView
-                android:id="@+id/shopping_when_needed_done_text"
-                style="@style/Widget.TipTime.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
-                tools:text="by: 6/4/21" />
-            <!--            gone-->
-
-            <TextView
-                android:id="@+id/shopping_where_text"
-                style="@style/Widget.TipTime.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
-                tools:text="whole foods" />
-
-            <TextView
-                android:id="@+id/shopping_cost_text"
-                style="@style/Widget.TipTime.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
-                tools:text="price: $4.30" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -104,8 +79,36 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/shopping_when_needed_done_text"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible"
+                tools:text="by: 6/4/21" />
+            <!--            gone-->
+
+            <TextView
+                android:id="@+id/shopping_where_text"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible"
+                tools:text="whole foods" />
+
+            <TextView
+                android:id="@+id/shopping_cost_text"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible"
+                tools:text="price: $4.30" />
+
+            <TextView
                 android:id="@+id/shopping_priority_text"
-                style="@style/Widget.TipTime.TextView"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -114,7 +117,7 @@
 
             <TextView
                 android:id="@+id/shopping_added_by_text"
-                style="@style/Widget.TipTime.TextView"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -142,6 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextAppearance.Material3.HeadlineMedium"
+                    android:textStyle="bold"
                     tools:text="bread"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -158,26 +162,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/add_img_txt" />
-
-            <TextView
-                android:id="@+id/chores_when_needed_done_text"
-                style="@style/Widget.TipTime.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
-                tools:text="by 6/4/21" />
-            <!--                    gone-->
-
-            <TextView
-                android:id="@+id/chores_difficulty"
-                style="@style/Widget.TipTime.TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
-                tools:text="@string/label_difficulty_1" />
-
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -198,10 +182,28 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/chores_when_needed_done_text"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible"
+                tools:text="by 6/4/21" />
+            <!--                    gone-->
+
+            <TextView
+                android:id="@+id/chores_difficulty"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible"
+                tools:text="@string/label_difficulty_1" />
 
             <TextView
                 android:id="@+id/chores_priority_text"
-                style="@style/Widget.TipTime.TextView"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -210,7 +212,7 @@
 
             <TextView
                 android:id="@+id/chores_added_by_text"
-                style="@style/Widget.TipTime.TextView"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

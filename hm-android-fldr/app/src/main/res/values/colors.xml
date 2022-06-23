@@ -14,7 +14,7 @@
     <color name="background">#25C678</color>
     <color name="recyclerItem">#14DD7B</color>
     <color name="expandBtn">#09C86B</color>
-    <color name="colorItemContainer">#20EC88</color>
+    <color name="colorItemContainer">#39EF96</color>
     <color name="recyclerEditButtons">#F4F400</color>
 
     <color name="colorHighlight">#FFFF00</color>
@@ -23,7 +23,7 @@
     <color name="toolbarItemsLight">#BF000000</color>
     <color name="toolbarItemsDark">#BFFFFFFF</color>
 
-    <color name="addDateBtn">#02A655</color>
+    <color name="addDateBtn">#039C50</color>
     <color name="neededByNtnTxt">#404040</color>
     <color name="divider">#AB4A4A4A</color>
 

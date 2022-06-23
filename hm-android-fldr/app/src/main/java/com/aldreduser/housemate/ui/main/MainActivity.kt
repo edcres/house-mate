@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
-import com.aldreduser.housemate.BottomSheetFragment
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.ui.main.fragments.BottomSheetFragment
 import com.aldreduser.housemate.ui.main.fragments.StartFragment
 import com.aldreduser.housemate.util.ListType
 
