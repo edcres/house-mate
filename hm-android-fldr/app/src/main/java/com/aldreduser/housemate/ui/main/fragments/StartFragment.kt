@@ -26,6 +26,7 @@ import com.aldreduser.housemate.util.validateGroupId
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.fragment_start.*
 
 private const val TAG = "StartFragment__TAG"
 
@@ -95,6 +96,22 @@ class StartFragment : Fragment() {
         navController.navigate(navAction)
     }
     private fun setObservers() {
+        listsViewModel.menuEditIsOn.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                true -> {
+                    binding!!.homeScreenTopAppbar
+                        .setBackgroundColor(resources.getColor(R.color.colorHighlight))
+                    binding!!.startFragmentTabLayout
+                        .setBackgroundColor(resources.getColor(R.color.colorHighlight))
+                }
+                false -> {
+                    binding!!.homeScreenTopAppbar
+                        .setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    binding!!.startFragmentTabLayout
+                        .setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                }
+            }
+        }
         listsViewModel.itemToEdit.observe(viewLifecycleOwner) {
             val navController = Navigation.findNavController(requireParentFragment().requireView())
             val navAction = when (listsViewModel.fragmentInView) {
