@@ -13,8 +13,7 @@
     <color name="tabSelectedTxt">#686800</color>
     <color name="background">#25C678</color>
     <color name="recyclerItem">#14DD7B</color>
-    <color name="expandBtn">#09C86B</color>
-    <color name="colorItemContainer">#39EF96</color>
+    <color name="colorItemContainer">#14EC82</color>
     <color name="recyclerEditButtons">#F4F400</color>
 
     <color name="colorHighlight">#FFFF00</color>

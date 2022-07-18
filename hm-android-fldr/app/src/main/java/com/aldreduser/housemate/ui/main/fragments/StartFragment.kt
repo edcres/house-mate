@@ -126,6 +126,8 @@ class StartFragment : Fragment() {
         }
         listsViewModel.itemForSheet.observe(viewLifecycleOwner) {
             val itemType = if (it is ShoppingItem) ListType.SHOPPING else ListType.CHORES
+
+                // todo:
             if (sheetListener != null) sheetListener!!.sendItemToView(it, itemType)
         }
     }
