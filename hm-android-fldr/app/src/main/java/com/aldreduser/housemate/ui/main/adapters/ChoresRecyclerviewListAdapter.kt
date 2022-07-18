@@ -92,10 +92,8 @@ class ChoresRecyclerviewListAdapter(
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
                             editItemButton.visibility = View.VISIBLE
-//                            choresExpandButton.visibility = View.GONE
                         }
                         else -> {
-//                            choresExpandButton.visibility = View.VISIBLE
                             removeItemButton.visibility = View.GONE
                             editItemButton.visibility = View.GONE
                         }

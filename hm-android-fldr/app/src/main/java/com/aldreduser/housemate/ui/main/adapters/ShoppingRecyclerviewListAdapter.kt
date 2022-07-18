@@ -1,6 +1,7 @@
 package com.aldreduser.housemate.ui.main.adapters
 
 import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,8 @@ import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.ShoppingItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.*
+
+private const val TAG = "ShopListAdapter__TAG"
 
 class ShoppingRecyclerviewListAdapter(
     private val listsViewModel: ListsViewModel,

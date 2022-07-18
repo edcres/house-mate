@@ -125,7 +125,6 @@ class StartFragment : Fragment() {
             if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
         }
         listsViewModel.itemForSheet.observe(viewLifecycleOwner) {
-            // todo: test if 'is' will work
             val itemType = if (it is ShoppingItem) ListType.SHOPPING else ListType.CHORES
             if (sheetListener != null) sheetListener!!.sendItemToView(it, itemType)
         }

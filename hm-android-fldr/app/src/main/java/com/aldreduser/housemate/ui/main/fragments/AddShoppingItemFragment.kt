@@ -105,8 +105,8 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             costInput.setText(itemToEdit.cost.toString())
             when(itemToEdit.priority) {
                 1 -> priorityButton1.isChecked = true
-                2 -> priorityButton1.isChecked = true
-                3 -> priorityButton1.isChecked = true
+                2 -> priorityButton2.isChecked = true
+                3 -> priorityButton3.isChecked = true
             }
         }
     }
