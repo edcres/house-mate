@@ -27,8 +27,8 @@ class ListsViewModel: ViewModel() {
     var clientGroupIDCollection: String? = null
     private var clientIDCollection: String? = null
 
-    private var _itemForSheet = MutableLiveData<Any>()
-    val itemForSheet: LiveData<Any> get() = _itemForSheet
+    private var _itemForSheet = MutableLiveData<Any?>()
+    val itemForSheet: LiveData<Any?> get() = _itemForSheet
 
     private var _shoppingItems = MutableLiveData<List<ShoppingItem>>()
     val shoppingItems: LiveData<List<ShoppingItem>> get() = _shoppingItems
@@ -58,7 +58,7 @@ class ListsViewModel: ViewModel() {
     }
 
     // HELPERS //
-    fun setItemForSheet(itemSent: Any) {
+    fun setItemForSheet(itemSent: Any?) {
         _itemForSheet.postValue(itemSent)
     }
     fun toggleHiddenTxt() {

@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aldreduser.housemate.R
+import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentStartBinding
 import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ChoresListFragment
@@ -125,10 +126,17 @@ class StartFragment : Fragment() {
             if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
         }
         listsViewModel.itemForSheet.observe(viewLifecycleOwner) {
-            val itemType = if (it is ShoppingItem) ListType.SHOPPING else ListType.CHORES
+//            val itemType = if (it is ShoppingItem) ListType.SHOPPING else ListType.CHORES
+            when (it) {
+                is ShoppingItem ->
+                    if (sheetListener != null) sheetListener!!.sendItemToView(it, ListType.SHOPPING)
+                is ChoresItem ->
+                    if (sheetListener != null) sheetListener!!.sendItemToView(it, ListType.CHORES)
+            }
 
                 // todo:
-            if (sheetListener != null) sheetListener!!.sendItemToView(it, itemType)
+            Log.d(TAG, "setObservers: itemForSheet observed")
+//            if (sheetListener != null && it != null) sheetListener!!.sendItemToView(it, itemType)
         }
     }
 

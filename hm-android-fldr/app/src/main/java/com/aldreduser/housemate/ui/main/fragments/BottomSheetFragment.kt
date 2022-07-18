@@ -55,6 +55,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onDestroy()
         binding = null
         dialog.dismiss()
+        listsViewModel.setItemForSheet(null)
     }
 
     private fun startShoppingView(item: ShoppingItem) {
