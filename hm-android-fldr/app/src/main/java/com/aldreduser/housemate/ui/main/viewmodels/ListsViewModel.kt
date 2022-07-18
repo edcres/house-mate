@@ -35,10 +35,8 @@ class ListsViewModel: ViewModel() {
     private var _choreItems = MutableLiveData<List<ChoresItem>>()
     val choreItems: LiveData<List<ChoresItem>> get() = _choreItems
 
-    var fragmentInView: String? = null                  // todo:
-    var listInView = mutableMapOf<Int, String>()        // todo:
-//    val listTypes = listOf("Shopping", "Chores")
-//    val itemsExpanded = mutableMapOf<String, Boolean>()
+    var fragmentInView: String? = null
+    var listInView = mutableMapOf<Int, String>()
     private var _menuEditIsOn = MutableLiveData(false)
     val menuEditIsOn: LiveData<Boolean> get() = _menuEditIsOn
     private var _itemToEdit = MutableLiveData<Any?>()
@@ -60,9 +58,6 @@ class ListsViewModel: ViewModel() {
     }
 
     // HELPERS //
-    fun chooseCorrectListType() {
-
-    }
     fun setItemForSheet(itemSent: Any) {
         _itemForSheet.postValue(itemSent)
     }

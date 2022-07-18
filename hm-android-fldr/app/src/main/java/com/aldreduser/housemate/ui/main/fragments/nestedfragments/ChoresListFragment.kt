@@ -27,7 +27,8 @@ class ChoresListFragment : Fragment() {
         val fragmentBinding = FragmentChoresListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
-        recyclerAdapter = ChoresRecyclerviewListAdapter(listsViewModel, viewLifecycleOwner)
+        recyclerAdapter =
+            ChoresRecyclerviewListAdapter(listsViewModel, viewLifecycleOwner, resources)
         return fragmentBinding.root
     }
 

@@ -57,13 +57,14 @@ class StartFragment : Fragment() {
         setUpTabs()
         startApplication()
         setObservers()
+        Log.d(TAG, "onViewCreated: called")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         listsViewModel.sharedPrefs = null
         binding = null
-        Log.i(TAG, "onViewCreated: StartFragment")
+        Log.d(TAG, "onDestroyView: StartFragment")
     }
 
     private fun startApplication() {
@@ -75,9 +76,9 @@ class StartFragment : Fragment() {
         if (currentClientGroupID == null) {
             makeDialogBoxAndSetGroupID()
         } else {
-            listsViewModel.setClientID()
-            listsViewModel.setItemsRealtime(ListType.SHOPPING.toString())
-            listsViewModel.setItemsRealtime(ListType.CHORES.toString())
+                listsViewModel.setClientID()
+                listsViewModel.setItemsRealtime(ListType.SHOPPING.toString())
+                listsViewModel.setItemsRealtime(ListType.CHORES.toString())
         }
     }
 

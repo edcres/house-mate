@@ -28,7 +28,8 @@ class ShoppingListFragment : Fragment() {
         val fragmentBinding = FragmentShoppingListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
-        recyclerAdapter = ShoppingRecyclerviewListAdapter(listsViewModel, viewLifecycleOwner)
+        recyclerAdapter =
+            ShoppingRecyclerviewListAdapter(listsViewModel, viewLifecycleOwner, resources)
         return fragmentBinding.root
     }
 

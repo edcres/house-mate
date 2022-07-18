@@ -1,5 +1,6 @@
 package com.aldreduser.housemate.ui.main.adapters
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.databinding.ChoresItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
@@ -14,14 +16,15 @@ import com.aldreduser.housemate.util.*
 
 class ChoresRecyclerviewListAdapter(
     private val listsViewModel: ListsViewModel,
-    private val fragLifecycleOwner: LifecycleOwner
+    private val fragLifecycleOwner: LifecycleOwner,
+    private val resources: Resources
 ) :
     ListAdapter<ChoresItem, ChoresRecyclerviewListAdapter.ChoresViewHolder>(
         ChoresItemDiffCallback()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ChoresViewHolder {
-        return ChoresViewHolder.from(listsViewModel, fragLifecycleOwner,parent)
+        return ChoresViewHolder.from(listsViewModel, fragLifecycleOwner, resources, parent)
     }
 
     override fun onBindViewHolder(holderChores: ChoresViewHolder, position: Int) =
@@ -30,6 +33,7 @@ class ChoresRecyclerviewListAdapter(
     class ChoresViewHolder private constructor(
         private val listsViewModel: ListsViewModel,
         private val fragLifecycleOwner: LifecycleOwner,
+        private val resources: Resources,
         val binding: ChoresItemLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -38,7 +42,6 @@ class ChoresRecyclerviewListAdapter(
                 populateUI(item)
                 observeHiddenTxt()
                 observeEditMode()
-//                volunteerListener(item)
                 removeItemButton.setOnClickListener {
                     listsViewModel.deleteListItem(ListType.CHORES.toString(), item.name!!)
                 }
@@ -49,7 +52,6 @@ class ChoresRecyclerviewListAdapter(
                         choresItIsDone.isChecked
                     )
                 }
-//                expandContainer(item)
                 editItemButton.setOnClickListener { listsViewModel.setItemToEdit(item) }
                 choresCardview.setOnClickListener { listsViewModel.setItemForSheet(item) }
                 executePendingBindings()
@@ -60,13 +62,14 @@ class ChoresRecyclerviewListAdapter(
             binding.apply {
                 choresItIsDone.isChecked = item.completed!!
                 choresItemName.text = item.name
-//                choresWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
-//                    displayDate(item.neededBy)
-//                } else {choresWhenNeededDoneText.visibility = View.GONE; ""}
-//                choresDifficulty.text = displayDifficulty(item.difficulty!!)
-//                choresPriorityText.text = displayPriority(item.priority!!)
-//                choresAddedByText.text = displayAddedBy(item.addedBy!!)
-//                choresWhoIsDoingItText.setText(item.volunteer)
+                when (item.priority) {
+                    1 -> choresItemContainer
+                        .setBackgroundColor(resources.getColor(R.color.red))
+                    2 -> choresItemContainer
+                        .setBackgroundColor(resources.getColor(R.color.not_urgent))
+                    3 -> choresItemContainer
+                        .setBackgroundColor(resources.getColor(R.color.recyclerItem))
+                }
             }
         }
 
@@ -149,12 +152,13 @@ class ChoresRecyclerviewListAdapter(
             fun from(
                 listsViewModel: ListsViewModel,
                 fragLifecycleOwner: LifecycleOwner,
+                resources: Resources,
                 parent: ViewGroup
             ): ChoresViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ChoresItemLayoutBinding
                     .inflate(layoutInflater, parent, false)
-                return ChoresViewHolder(listsViewModel, fragLifecycleOwner, binding)
+                return ChoresViewHolder(listsViewModel, fragLifecycleOwner, resources, binding)
             }
         }
     }

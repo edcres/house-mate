@@ -1,5 +1,6 @@
 package com.aldreduser.housemate.ui.main.adapters
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.ShoppingItemLayoutBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
@@ -14,14 +16,15 @@ import com.aldreduser.housemate.util.*
 
 class ShoppingRecyclerviewListAdapter(
     private val listsViewModel: ListsViewModel,
-    private val fragLifecycleOwner: LifecycleOwner
+    private val fragLifecycleOwner: LifecycleOwner,
+    private val resources: Resources
 ) :
     ListAdapter<ShoppingItem, ShoppingRecyclerviewListAdapter.ShoppingViewHolder>(
         ShoppingItemDiffCallback()
     ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingViewHolder {
-        return ShoppingViewHolder.from(listsViewModel, fragLifecycleOwner, parent)
+        return ShoppingViewHolder.from(listsViewModel, fragLifecycleOwner, resources, parent)
     }
 
     override fun onBindViewHolder(holderShopping: ShoppingViewHolder, position: Int) =
@@ -30,6 +33,7 @@ class ShoppingRecyclerviewListAdapter(
     class ShoppingViewHolder private constructor(
         private val listsViewModel: ListsViewModel,
         private val fragLifecycleOwner: LifecycleOwner,
+        private val resources: Resources,
         val binding: ShoppingItemLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -38,10 +42,6 @@ class ShoppingRecyclerviewListAdapter(
                 populateUI(shoppingItem)
                 observeHiddenTxt()
                 observeEditMode()
-//                if (listsViewModel.itemsExpanded[shoppingItem.name!!] == true) {
-//                    shoppingExpandableContainerCardview.visibility = View.VISIBLE
-//                }
-//                volunteerListener(shoppingItem)
                 removeItemButton.setOnClickListener {
                     listsViewModel.deleteListItem(ListType.SHOPPING.toString(), shoppingItem.name!!)
                 }
@@ -52,7 +52,6 @@ class ShoppingRecyclerviewListAdapter(
                         shoppingItIsDone.isChecked
                     )
                 }
-//                expandContainer(shoppingItem)
                 editItemButton.setOnClickListener { listsViewModel.setItemToEdit(shoppingItem) }
                 shoppingCardview.setOnClickListener { listsViewModel.setItemForSheet(shoppingItem) }
                 executePendingBindings()
@@ -64,28 +63,19 @@ class ShoppingRecyclerviewListAdapter(
                 shoppingItIsDone.isChecked = item.completed!!
                 shoppingItemName.text = item.name
                 shoppingItemQty.text = presentItemQty(item.quantity!!)
-//                shoppingWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
-//                    displayDate(item.neededBy)
-//                } else {
-//                    shoppingWhenNeededDoneText.visibility = View.GONE; ""
-//                }
-//                shoppingWhereText.text = if (item.purchaseLocation!!.isNotEmpty()) {
-//                    item.purchaseLocation
-//                } else {
-//                    shoppingWhereText.visibility = View.GONE; ""
-//                }
-//                shoppingCostText.text = if (item.cost!! != 0.0) {
-//                    displayCost(item.cost)
-//                } else {
-//                    shoppingCostText.visibility = View.GONE; ""
-//                }
-//                shoppingPriorityText.text = displayPriority(item.priority!!)
-//                shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
-//                shoppingWhoIsGettingItText.setText(item.volunteer)
+                when (item.priority) {
+                    1 -> shoppingItemContainer
+                        .setBackgroundColor(resources.getColor(R.color.red))
+                    2 -> shoppingItemContainer
+                        .setBackgroundColor(resources.getColor(R.color.not_urgent))
+                    3 -> shoppingItemContainer
+                        .setBackgroundColor(resources.getColor(R.color.recyclerItem))
+                }
             }
         }
 
         private fun observeHiddenTxt() {
+            // Covers up a bug rendering updates in the list.
             listsViewModel.hiddenTxt.observe(fragLifecycleOwner) {
                 binding.apply {
                     when (dummyTxt.text.toString()) {
@@ -104,10 +94,8 @@ class ShoppingRecyclerviewListAdapter(
                         true -> {
                             removeItemButton.visibility = View.VISIBLE
                             editItemButton.visibility = View.VISIBLE
-//                            shoppingExpandButton.visibility = View.GONE
                         }
                         else -> {
-//                            shoppingExpandButton.visibility = View.VISIBLE
                             removeItemButton.visibility = View.GONE
                             editItemButton.visibility = View.GONE
                         }
@@ -116,60 +104,17 @@ class ShoppingRecyclerviewListAdapter(
             }
         }
 
-//        private fun volunteerListener(item: ShoppingItem) {
-//            binding.apply {
-//                shoppingWhoIsGettingItText.setOnKeyListener { _, keyCode, keyEvent ->
-//                    if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP){
-//                        listsViewModel.sendItemVolunteerToDb(
-//                            ListType.SHOPPING.toString(),
-//                            item.name!!,
-//                            shoppingWhoIsGettingItText.text.toString()
-//                        )
-//                        true
-//                    } else false
-//                }
-//            }
-//        }
-
-//        private fun expandContainer(item: ShoppingItem) {
-//            binding.apply {
-//                shoppingExpandButton.setOnClickListener {
-//                    // If view is GONE change image make view visible
-//                    //   else if view is visible change image make view GONE
-//                    val expandableContainer = shoppingExpandableContainerCardview
-//                    val imageToContract: Drawable? = ContextCompat.getDrawable(
-//                        shoppingExpandButton.context, R.drawable.ic_expand_less_24
-//                    )
-//                    val imageToExpand: Drawable? = ContextCompat.getDrawable(
-//                        shoppingExpandButton.context, R.drawable.ic_expand_more_24
-//                    )
-//                    if (expandableContainer.visibility == View.GONE) {
-//                        listsViewModel.itemsExpanded[item.name!!] = true
-//                        expandableContainer.visibility = View.VISIBLE
-//                        shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-//                            null, imageToContract, null, null
-//                        )
-//                    } else if (expandableContainer.visibility == View.VISIBLE) {
-//                        listsViewModel.itemsExpanded[item.name!!] = false
-//                        expandableContainer.visibility = View.GONE
-//                        shoppingExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-//                            null, imageToExpand, null, null
-//                        )
-//                    }
-//                }
-//            }
-//        }
-
         companion object {
             fun from(
                 listsViewModel: ListsViewModel,
                 fragLifecycleOwner: LifecycleOwner,
+                resources: Resources,
                 parent: ViewGroup
             ): ShoppingViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ShoppingItemLayoutBinding
                     .inflate(layoutInflater, parent, false)
-                return ShoppingViewHolder(listsViewModel, fragLifecycleOwner, binding)
+                return ShoppingViewHolder(listsViewModel, fragLifecycleOwner, resources, binding)
             }
         }
     }

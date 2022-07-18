@@ -30,7 +30,7 @@ data class ShoppingItem (
     val purchaseLocation: String? = "",
 
     // Not necessary and used in chores
-    val neededBy: String? = "",  //date
-    val volunteer: String? = "", //who's buying it
-    val priority: Int? = 2
+    val neededBy: String? = "",  // date
+    val volunteer: String? = "",
+    val priority: Int? = 2      // 1 = urgent, 3 = eventually
 )

@@ -39,12 +39,8 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
-            fabAddItem.setOnClickListener {
-                addItemClicked()
-            }
-            whenNeededBtn.setOnClickListener {
-                whenNeededClicked()
-            }
+            fabAddItem.setOnClickListener { addItemClicked() }
+            whenNeededBtn.setOnClickListener { whenNeededClicked() }
         }
         setupAppBar()
         val itemToEdit = listsViewModel.itemToEdit.value
@@ -75,12 +71,9 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         )
         if (necessaryAreFilled) {
             addItem()
-            val navController = Navigation
-                .findNavController(requireParentFragment().requireView())
+            val navController = Navigation.findNavController(requireParentFragment().requireView())
             navController.navigate(R.id.action_addShoppingItemFragment_to_startFragment)
-        } else {
-            displayToast(requireContext(),"Fill boxed marked with *")
-        }
+        } else { displayToast(requireContext(),"Fill boxed marked with *") }
     }
     private fun whenNeededClicked() {
         val calendarDate = listsViewModel.getDateTimeCalendar()

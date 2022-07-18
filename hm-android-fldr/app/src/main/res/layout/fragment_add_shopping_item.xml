@@ -57,9 +57,9 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
+                        android:hint="@string/hint_quantity"
                         app:boxStrokeColor="@color/colorPrimaryDark"
                         app:hintTextColor="@color/colorPrimaryDark"
-                        android:hint="@string/hint_quantity"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -76,10 +76,10 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:minWidth="160dp"
                         android:layout_gravity="end"
                         android:layout_marginStart="16dp"
                         android:hint="@string/hint_name"
+                        android:minWidth="160dp"
                         app:boxStrokeColor="@color/colorPrimaryDark"
                         app:hintTextColor="@color/colorPrimaryDark"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -99,24 +99,25 @@
                     android:id="@+id/when_needed_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginBottom="14dp"
-                    android:text="@string/hint_when_needed"
                     android:backgroundTint="@color/addDateBtn"
+                    android:text="@string/hint_when_needed"
                     android:textColor="@color/colorPrimary" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/where_to_get"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:hintTextColor="@color/colorPrimaryDark"
                     android:hint="@string/hint_where_to_get"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:hintTextColor="@color/colorPrimaryDark">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/where_to_get_input"
                         android:layout_width="match_parent"
@@ -126,13 +127,14 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/cost_box"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:hintTextColor="@color/colorPrimaryDark"
                     android:hint="@string/hint_cost"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:hintTextColor="@color/colorPrimaryDark">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/cost_input"
                         android:layout_width="match_parent"
@@ -141,12 +143,12 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    style="@style/Widget.TipTime.TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.TipTime.TextView"
-                    android:text="@string/label_priority"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp" />
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/label_priority" />
 
                 <RadioGroup
                     android:id="@+id/choose_priority_button"
@@ -160,30 +162,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
                         android:text="@string/label_priority_1" />
 
                     <RadioButton
                         android:id="@+id/priority_button_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_priority_2"
                         android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
-                        tools:checked="true"/>
+                        android:text="@string/label_priority_2"
+                        tools:checked="true" />
 
                     <RadioButton
                         android:id="@+id/priority_button_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
+                        android:checked="true"
                         android:text="@string/label_priority_3" />
 
                 </RadioGroup>
-
             </LinearLayout>
-
         </ScrollView>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -193,11 +191,10 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:gravity="center"
-            app:backgroundTint="@color/colorHighlight"
             android:text="@string/add_item_button"
+            app:backgroundTint="@color/colorHighlight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
