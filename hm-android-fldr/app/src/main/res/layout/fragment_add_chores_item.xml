@@ -53,24 +53,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:hintTextColor="@color/colorPrimaryDark"
                     android:hint="@string/hint_name"
-                    android:minWidth="160dp">
+                    android:minWidth="160dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:hintTextColor="@color/colorPrimaryDark">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/item_name_input"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textShortMessage" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    style="@style/Widget.TipTime.TextView"
+                    style="@style/TextAppearance.Material3.TitleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
                     android:text="@string/label_difficulty" />
 
                 <RadioGroup
@@ -83,23 +83,24 @@
 
                     <RadioButton
                         android:id="@+id/difficulty_button_1"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
                         android:text="@string/label_difficulty_1" />
 
                     <RadioButton
                         android:id="@+id/difficulty_button_2"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="118dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/label_difficulty_2"
                         android:layout_marginStart="8dp"
-                        android:layout_marginLeft="8dp"
+                        android:text="@string/label_difficulty_2"
                         tools:checked="true" />
 
                     <RadioButton
                         android:id="@+id/difficulty_button_3"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -109,19 +110,20 @@
 
                 <Button
                     android:id="@+id/when_needed_btn"
+                    style="@style/TextAppearance.Material3.TitleMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginBottom="16dp"
-                    android:text="@string/hint_when_needed"
                     android:backgroundTint="@color/addDateBtn"
+                    android:text="@string/hint_when_needed"
                     android:textColor="@color/colorPrimary" />
 
                 <TextView
-                    style="@style/Widget.TipTime.TextView"
+                    style="@style/TextAppearance.Material3.TitleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -136,6 +138,7 @@
 
                     <RadioButton
                         android:id="@+id/priority_button_1"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -143,6 +146,7 @@
 
                     <RadioButton
                         android:id="@+id/priority_button_2"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -151,6 +155,7 @@
 
                     <RadioButton
                         android:id="@+id/priority_button_3"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"

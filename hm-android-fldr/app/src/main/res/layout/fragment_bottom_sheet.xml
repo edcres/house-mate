@@ -14,12 +14,12 @@
             android:id="@+id/shopping_expandable_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:padding="8dp"
+            android:layout_marginBottom="16dp"
             android:orientation="vertical"
+            android:padding="8dp"
             android:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,12 +63,12 @@
                     android:id="@+id/shop_sheet_edit_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/colorItemContainer"
                     android:src="@drawable/ic_edit_item_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginEnd="8dp"
-                    android:backgroundTint="@color/colorItemContainer" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,6 +97,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/shopping_who_is_getting_it_text"
+                    style="@style/TextAppearance.Material3.TitleMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -210,11 +211,11 @@
             android:id="@+id/chores_expandable_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
             android:padding="8dp"
             android:visibility="gone">
 

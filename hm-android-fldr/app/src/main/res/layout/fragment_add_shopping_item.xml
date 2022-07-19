@@ -65,6 +65,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/item_quantity_input"
+                            style="@style/TextAppearance.Material3.TitleMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number|numberDecimal" />
@@ -88,6 +89,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/item_name_input"
+                            style="@style/TextAppearance.Material3.TitleMedium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textShortMessage" />
@@ -98,6 +100,7 @@
 
                 <Button
                     android:id="@+id/when_needed_btn"
+                    style="@style/TextAppearance.Material3.TitleMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -121,6 +124,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/where_to_get_input"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textShortMessage" />
@@ -138,13 +142,14 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/cost_input"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number|numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    style="@style/Widget.TipTime.TextView"
+                    style="@style/TextAppearance.Material3.TitleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -159,6 +164,7 @@
 
                     <RadioButton
                         android:id="@+id/priority_button_1"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -166,6 +172,7 @@
 
                     <RadioButton
                         android:id="@+id/priority_button_2"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -173,6 +180,7 @@
 
                     <RadioButton
                         android:id="@+id/priority_button_3"
+                        style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
