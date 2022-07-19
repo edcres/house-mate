@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Default-->
     <color name="colorPrimary">#14DD7B</color>
     <color name="colorPrimaryDark">#00542C</color>
     <color name="colorSecondary">#EAEA33</color>
     <color name="colorSecondaryDark">#686800</color>
     <color name="colorAccent">#EAEA14</color>
     <color name="black">#000000</color>
-    <!--Default-->
 
     <color name="tabIndicator">#00542C</color>
     <color name="tabSelectedTxt">#686800</color>
     <color name="background">#25C678</color>
     <color name="recyclerItem">#14DD7B</color>
-    <color name="colorItemContainer">#14EC82</color>
+    <color name="bottomSheetBackground">#14EC82</color>
     <color name="recyclerEditButtons">#F4F400</color>
-
     <color name="colorHighlight">#FFFF00</color>
-    <color name="colorInactiveItem">#B36B6B1C</color>
 
     <color name="toolbarItemsLight">#BF000000</color>
     <color name="toolbarItemsDark">#BFFFFFFF</color>
@@ -25,7 +21,6 @@
     <color name="addDateBtn">#039C50</color>
     <color name="neededByNtnTxt">#404040</color>
     <color name="divider">#AB4A4A4A</color>
-
 
     <color name="not_urgent">#C3C330</color>
     <color name="red">#BD2F2F</color>

@@ -46,6 +46,7 @@
         <entry key="app/src/main/res/menu/contextual_action_bar.xml" value="0.1" />
         <entry key="app/src/main/res/menu/edit_fragments_top_app_bar.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main_activity_top_app_bar.xml" value="0.335" />
+        <entry key="app/src/main/res/menu/start_fragment_top_app_bar.xml" value="0.16631038905515177" />
       </map>
     </option>
   </component>

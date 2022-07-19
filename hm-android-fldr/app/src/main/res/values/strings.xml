@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">House Mate</string>
 
-    <string name="label_shopping_list">Shopping List</string>
-    <string name="label_chores_list">Chores</string>
-
     <string name="appbar_more_options">More Options</string>
     <string name="appbar_edit">Edit</string>
     <string name="appbar_delete">Delete</string>
@@ -11,7 +8,6 @@
     <string name="appbar_current_group">Current Group</string>
     <string name="appbar_past_groups">Past Groups</string>
     <string name="appbar_change_username">Change Username</string>
-    <string name="appbar_more_place_holder">Place Holder</string>
 
     <string name="hint_quantity">quantity</string>
     <string name="hint_name">* name</string>
@@ -25,15 +21,10 @@
     <string name="label_priority_2">Not Urgent</string>
     <string name="label_priority_3">Eventually</string>
 
-    <!--    probably get rid of these-->
     <string name="label_difficulty">Difficulty:</string>
     <string name="label_difficulty_1">Simple</string>
     <string name="label_difficulty_2">Medium</string>
     <string name="label_difficulty_3">Challenging</string>
 
     <string name="add_item_button">add item</string>
-
-    <!--dataBound values-->
-    <string name="shopping">shopping</string>
-    <string name="chores">chores</string>
 </resources>
