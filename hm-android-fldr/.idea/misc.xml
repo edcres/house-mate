@@ -39,7 +39,7 @@
         <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chores_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_shopping_list.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.1" />
         <entry key="app/src/main/res/layout/name_dialog_box.xml" value="0.22777777777777777" />
         <entry key="app/src/main/res/layout/past_groups_list_box.xml" value="0.25" />
         <entry key="app/src/main/res/layout/shopping_item_layout.xml" value="0.335" />

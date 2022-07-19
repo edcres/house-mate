@@ -24,8 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:navigationIcon="@drawable/ic_navigation_24dp"
                 app:menu="@menu/edit_fragments_top_app_bar"
+                app:navigationIcon="@drawable/ic_navigation_24dp"
                 app:titleTextColor="@color/toolbarItemsLight" />
 
         </com.google.android.material.appbar.AppBarLayout>
