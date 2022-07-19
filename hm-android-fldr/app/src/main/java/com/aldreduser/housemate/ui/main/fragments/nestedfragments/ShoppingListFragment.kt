@@ -24,7 +24,6 @@ class ShoppingListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i(TAG, "onCreateView: ShoppingListFragment")
         val fragmentBinding = FragmentShoppingListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding
@@ -42,7 +41,6 @@ class ShoppingListFragment : Fragment() {
             shoppingListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
         listsViewModel.shoppingItems.observe(viewLifecycleOwner) { result ->
-            Log.d(TAG, "onViewCreated: shoppingItems observed")
             recyclerAdapter.submitList(result)
         }
     }

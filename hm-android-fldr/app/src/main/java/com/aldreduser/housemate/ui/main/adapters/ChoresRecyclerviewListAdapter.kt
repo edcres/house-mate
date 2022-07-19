@@ -102,50 +102,6 @@ class ChoresRecyclerviewListAdapter(
             }
         }
 
-//        private fun volunteerListener(item: ChoresItem) {
-//            binding.apply {
-//                choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
-//                    if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
-//                        listsViewModel.sendItemVolunteerToDb(
-//                            ListType.CHORES.toString(),
-//                            item.name!!,
-//                            choresWhoIsDoingItText.text.toString()
-//                        )
-//                        true
-//                    } else false
-//                }
-//            }
-//        }
-
-//        private fun expandContainer(item: ChoresItem) {
-//            binding.apply {
-//                choresExpandButton.setOnClickListener {
-//                    // If view is GONE change image make view visible
-//                    //  else if view is visible change image make view GONE
-//                    val expandableContainer = choresExpandableContainerCardview
-//                    val imageToContract: Drawable? = ContextCompat.getDrawable(
-//                        choresExpandButton.context, R.drawable.ic_expand_less_24
-//                    )
-//                    val imageToExpand: Drawable? = ContextCompat.getDrawable(
-//                        choresExpandButton.context, R.drawable.ic_expand_more_24
-//                    )
-//                    if (expandableContainer.visibility == View.GONE) {
-//                        listsViewModel.itemsExpanded[item.name!!] = true
-//                        expandableContainer.visibility = View.VISIBLE
-//                        choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-//                            null, imageToContract, null, null
-//                        )
-//                    } else if (expandableContainer.visibility == View.VISIBLE) {
-//                        listsViewModel.itemsExpanded[item.name!!] = true
-//                        expandableContainer.visibility = View.GONE
-//                        choresExpandButton.setCompoundDrawablesWithIntrinsicBounds(
-//                            null, imageToExpand, null, null
-//                        )
-//                    }
-//                }
-//            }
-//        }
-
         companion object {
             fun from(
                 listsViewModel: ListsViewModel,

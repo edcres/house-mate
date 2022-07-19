@@ -23,7 +23,6 @@ class ChoresListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.i(TAG, "onCreateView: ChoresListFragment")
         val fragmentBinding = FragmentChoresListBinding
             .inflate(inflater, container, false)
         binding = fragmentBinding

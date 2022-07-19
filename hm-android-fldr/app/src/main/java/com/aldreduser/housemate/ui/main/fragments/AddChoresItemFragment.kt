@@ -12,13 +12,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
-import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentAddChoresItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.ListType
 import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.necessaryAreFilled
-import com.google.common.io.Resources
 import kotlinx.android.synthetic.main.fragment_add_shopping_item.*
 
 private const val TAG = "AddChoreItem__TAG"

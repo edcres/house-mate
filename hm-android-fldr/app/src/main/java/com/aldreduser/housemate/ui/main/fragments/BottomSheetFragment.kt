@@ -33,7 +33,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = FragmentBottomSheetBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root

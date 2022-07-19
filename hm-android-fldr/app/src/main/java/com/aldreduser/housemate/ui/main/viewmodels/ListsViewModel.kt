@@ -116,13 +116,11 @@ class ListsViewModel : ViewModel() {
 
     // DATABASE FUNCTIONS //
     fun setItemsRealtime(listTag: String) {
-        Log.d(TAG, "setItemsRealtime: called")
         viewModelScope.launch {
             when (listTag) {
                 ListType.SHOPPING.toString() ->
                     listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
                         .collect {
-                            Log.d(TAG, "setItemsRealtime: collected")
                             _shoppingItems.postValue(it)
                         }
                 ListType.CHORES.toString() ->

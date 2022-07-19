@@ -27,7 +27,6 @@ import com.aldreduser.housemate.util.validateGroupId
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.fragment_start.*
 
 private const val TAG = "StartFragment__TAG"
 
@@ -40,7 +39,7 @@ class StartFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = FragmentStartBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
