@@ -66,16 +66,19 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             shoppingWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
                 displayDate(item.neededBy)
             } else {
+                shopDateImg.visibility = View.GONE
                 shoppingWhenNeededDoneText.visibility = View.GONE; ""
             }
             shoppingWhereText.text = if (item.purchaseLocation!!.isNotEmpty()) {
                 item.purchaseLocation
             } else {
+                shopWhereImg.visibility = View.GONE
                 shoppingWhereText.visibility = View.GONE; ""
             }
             shoppingCostText.text = if (item.cost!! != 0.0) {
                 displayCost(item.cost)
             } else {
+                shopCostImg.visibility = View.GONE
                 shoppingCostText.visibility = View.GONE; ""
             }
             shoppingPriorityText.text = displayPriority(item.priority!!)
@@ -91,7 +94,10 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             choreSheetTitleTxt.text = item.name
             choresWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
                 displayDate(item.neededBy)
-            } else {choresWhenNeededDoneText.visibility = View.GONE; ""}
+            } else {
+                choresDateImg.visibility = View.GONE
+                choresWhenNeededDoneText.visibility = View.GONE; ""
+            }
             choresDifficulty.text = displayDifficulty(item.difficulty!!)
             choresPriorityText.text = displayPriority(item.priority!!)
             choresAddedByText.text = displayAddedBy(item.addedBy!!)
