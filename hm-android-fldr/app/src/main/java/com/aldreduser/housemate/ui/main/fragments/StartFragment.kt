@@ -76,9 +76,9 @@ class StartFragment : Fragment() {
         if (currentClientGroupID == null) {
             makeDialogBoxAndSetGroupID()
         } else {
-                listsViewModel.setClientID()
-                listsViewModel.setItemsRealtime(ListType.SHOPPING.toString())
-                listsViewModel.setItemsRealtime(ListType.CHORES.toString())
+            listsViewModel.setClientID()
+            listsViewModel.setItemsRealtime(ListType.SHOPPING.toString())
+            listsViewModel.setItemsRealtime(ListType.CHORES.toString())
         }
     }
 
@@ -96,8 +96,10 @@ class StartFragment : Fragment() {
         }
         navController.navigate(navAction)
     }
+
     private fun setObservers() {
         listsViewModel.menuEditIsOn.observe(viewLifecycleOwner) { result ->
+            // Change UI colors to signal that edit mode is on.
             when (result) {
                 true -> {
                     binding!!.homeScreenTopAppbar
@@ -114,6 +116,7 @@ class StartFragment : Fragment() {
             }
         }
         listsViewModel.itemToEdit.observe(viewLifecycleOwner) {
+            // Send an item to edit to it's edit fragment.
             val navController = Navigation.findNavController(requireParentFragment().requireView())
             val navAction = when (listsViewModel.fragmentInView) {
                 listsViewModel.listInView[0] -> R.id.action_startFragment_to_addShoppingItemFragment
@@ -125,6 +128,7 @@ class StartFragment : Fragment() {
             if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
         }
         listsViewModel.itemForSheet.observe(viewLifecycleOwner) {
+            // Open the bottom sheet with data from an item.
             when (it) {
                 is ShoppingItem ->
                     if (sheetListener != null) sheetListener!!.sendItemToView(it, ListType.SHOPPING)
@@ -189,7 +193,7 @@ class StartFragment : Fragment() {
                 binding!!.startFragmentTabLayout,
                 it.listsViewPager
             ) { tab: TabLayout.Tab, position: Int ->
-                when(position) {
+                when (position) {
                     0 -> tab.text = ListType.SHOPPING.toString()
                     1 -> tab.text = ListType.CHORES.toString()
                 }
@@ -206,8 +210,10 @@ class StartFragment : Fragment() {
             .setTitle("Your user name")
             .setPositiveButton("Accept") { dialog, _ ->
                 listsViewModel.userName = inputNameDialog.text.toString()
-                Log.i(tag, "makeDialogBoxAndSetUserName: accept clicked " +
-                        "${listsViewModel.userName}")
+                Log.i(
+                    tag, "makeDialogBoxAndSetUserName: accept clicked " +
+                            "${listsViewModel.userName}"
+                )
                 listsViewModel
                     .sendDataToSP(ListsViewModel.USER_NAME_SP_TAG, listsViewModel.userName!!)
                 dialog.dismiss()
@@ -268,6 +274,7 @@ class StartFragment : Fragment() {
             }
             .show()
     }
+
     private fun makeDialogBoxAndDisplayGroupID() {
         val inputDialog = MaterialAlertDialogBuilder(requireContext())
         inputDialog.setTitle(listsViewModel.clientGroupIDCollection)
@@ -278,7 +285,7 @@ class StartFragment : Fragment() {
     }
     // SET UP FUNCTIONS //
 
-    // Adapter for the viewPager2 (Inner Class) //
+    // Adapter for the viewPager2 (Inner Class)
     private inner class ViewPagerFragmentAdapter(fragmentActivity: FragmentActivity) :
         FragmentStateAdapter(fragmentActivity) {
 

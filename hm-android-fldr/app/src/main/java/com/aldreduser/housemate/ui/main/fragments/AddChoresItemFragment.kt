@@ -68,6 +68,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     // CLICK HANDLERS //
     private fun addItemClicked() {
+        // Create a new chores item.
         val necessaryAreFilled = necessaryAreFilled(
             binding!!.itemNameInput.text.toString(),
             "placeholder"
@@ -82,6 +83,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
     }
     private fun whenNeededClicked() {
+        // Prompt user to pick a calendar date for the 'whenNeeded' attribute.
         val calendarDate = listsViewModel.getDateTimeCalendar()
         DatePickerDialog(
             requireContext(), this,
@@ -131,6 +133,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
         }
     }
     private fun addItem() {
+        // Send a new shopping item to the database
         binding!!.apply {
             val difficulty = when (chooseDifficultyButton.checkedRadioButtonId) {
                 difficultyButton1.id -> 1

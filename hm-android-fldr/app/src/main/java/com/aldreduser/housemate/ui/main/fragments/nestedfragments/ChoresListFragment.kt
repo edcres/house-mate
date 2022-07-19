@@ -40,6 +40,7 @@ class ChoresListFragment : Fragment() {
             choresListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
         listsViewModel.choreItems.observe(viewLifecycleOwner) { result ->
+            // Get all shopping items.
             recyclerAdapter.submitList(result)
         }
     }

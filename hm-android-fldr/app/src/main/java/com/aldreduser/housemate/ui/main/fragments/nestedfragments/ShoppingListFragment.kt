@@ -41,6 +41,7 @@ class ShoppingListFragment : Fragment() {
             shoppingListRecyclerview.layoutManager = LinearLayoutManager(requireContext())
         }
         listsViewModel.shoppingItems.observe(viewLifecycleOwner) { result ->
+            // Get all shopping items.
             recyclerAdapter.submitList(result)
         }
     }

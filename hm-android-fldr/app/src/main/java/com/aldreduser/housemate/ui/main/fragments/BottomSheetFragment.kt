@@ -44,17 +44,19 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
             shopSheetEditBtn.setOnClickListener {
+                // Navigate to edit fragment
                 dialog.dismiss()
                 vm.setItemToEdit(vm.itemForSheet.value)
             }
             choresSheetEditBtn.setOnClickListener {
+                // Navigate to edit fragment
                 dialog.dismiss()
                 vm.setItemToEdit(vm.itemForSheet.value)
             }
         }
-        if(listType == ListType.SHOPPING) {
+        if (listType == ListType.SHOPPING) {
             startShoppingView(itemToView as ShoppingItem)
-        } else if(listType == ListType.CHORES) {
+        } else if (listType == ListType.CHORES) {
             startChoresView(itemToView as ChoresItem)
         }
     }
@@ -100,7 +102,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         binding?.apply {
             choresExpandableContainer.visibility = View.VISIBLE
             choreSheetTitleTxt.text = item.name
-            choresWhenNeededDoneText.text = if(item.neededBy!!.isNotEmpty()) {
+            choresWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
                 displayDate(item.neededBy)
             } else {
                 choresDateImg.visibility = View.GONE
@@ -115,9 +117,10 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun shoppingVolunteerListener(item: ShoppingItem) {
+        // Send volunteer input to db.
         binding?.apply {
             shoppingWhoIsGettingItText.setOnKeyListener { _, keyCode, keyEvent ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP){
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                     vm.sendItemVolunteerToDb(
                         ListType.SHOPPING.toString(),
                         item.name!!,
@@ -130,9 +133,10 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun choresVolunteerListener(item: ChoresItem) {
+        // Send volunteer input to db.
         binding?.apply {
             choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
-                if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                     vm.sendItemVolunteerToDb(
                         ListType.CHORES.toString(),
                         item.name!!,

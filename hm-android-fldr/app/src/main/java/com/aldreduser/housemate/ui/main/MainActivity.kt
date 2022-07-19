@@ -14,8 +14,8 @@ import com.aldreduser.housemate.util.ListType
  *
  * The app displays a list of shopping items and a list of chores
  * The data is shared across members of the same group.
- *  - To join a group, users have to type the correct group id
- * To view more information on a list item, the user has to click the drop down button.
+ *  - To join a group, users type the correct group id
+ * To view more information on a list item, the user clicks a listItem
  */
 
 class MainActivity : AppCompatActivity(), StartFragment.OnBottomSheetCallListener {

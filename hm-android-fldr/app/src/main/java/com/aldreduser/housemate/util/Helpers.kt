@@ -46,6 +46,7 @@ fun validateGroupId(string: String) = if (string.length == 13) {
 } else false
 
 private fun isFirstNDigits(n: Int, string: String): Boolean {
+    // Checks if the first n digits are numbers in a string.
     var firstNIsLetters = true
     for (i in 0 until n) {
         try {
@@ -58,6 +59,7 @@ private fun isFirstNDigits(n: Int, string: String): Boolean {
 }
 
 private fun isLastNLetters(n: Int, string: String): Boolean {
+    // Checks if the last n are letters in a string.
     var lastNIsDigits = true
     val nBeforeTheLast = string.length - n
     for (i in nBeforeTheLast until string.length) {

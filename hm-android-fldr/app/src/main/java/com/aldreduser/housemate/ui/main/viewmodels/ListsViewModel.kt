@@ -58,25 +58,28 @@ class ListsViewModel : ViewModel() {
 
     // HELPERS //
     fun setItemForSheet(itemSent: Any?) {
+        // Opens the bottom sheet with the chosen item .
         _itemForSheet.postValue(itemSent)
     }
 
+    fun setItemToEdit(chosenItem: Any?) {
+        // Navigates to teh edit fragment with the chosen item.
+        _itemToEdit.postValue(chosenItem)
+    }
+
     fun toggleHiddenTxt() {
-        // This is a work around a bug. The purpose is for the recyclerview to get resized.
+        // This is a work around for a bug. The purpose is for the fragment to get resized.
         _hiddenTxt.value = !_hiddenTxt.value!!
     }
 
     fun toggleEditBtn() {
+        // Toggles edit mode for the lost items.
         _menuEditIsOn.value = !_menuEditIsOn.value!!
     }
 
     fun turnOffEditMode(): Boolean {
         _menuEditIsOn.postValue(false)
         return false
-    }
-
-    fun setItemToEdit(chosenItem: Any?) {
-        _itemToEdit.postValue(chosenItem)
     }
 
     fun getDateTimeCalendar(): CalendarDate {
@@ -116,6 +119,7 @@ class ListsViewModel : ViewModel() {
 
     // DATABASE FUNCTIONS //
     fun setItemsRealtime(listTag: String) {
+        // Set up realtime fetching from the remote database.
         viewModelScope.launch {
             when (listTag) {
                 ListType.SHOPPING.toString() ->
@@ -155,6 +159,7 @@ class ListsViewModel : ViewModel() {
     }
 
     fun toggleItemCompletion(listTag: String, itemName: String, isCompleted: Boolean) {
+        // Set the completion attribute of a list item.
         viewModelScope.launch {
             when (listTag) {
                 ListType.SHOPPING.toString() -> {
