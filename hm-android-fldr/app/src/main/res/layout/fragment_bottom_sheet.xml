@@ -10,20 +10,24 @@
         app:behavior_peekHeight="400dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" >
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/shopping_expandable_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:padding="8dp"
             android:visibility="gone"
             android:paddingStart="16dp"
             android:paddingEnd="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/shopping_header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
                     android:id="@+id/shopping_sheet_qty_txt"
@@ -57,17 +61,19 @@
                 android:background="@color/divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_img_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/shopping_header" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:hint="@string/hint_volunteer"
+                android:layout_marginTop="8dp"
                 app:boxStrokeColor="@color/colorPrimaryDark"
                 app:hintTextColor="@color/colorPrimaryDark"
-                android:hint="@string/hint_volunteer"
-                android:visibility="visible">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shopping_divider_1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/shopping_who_is_getting_it_text"
@@ -78,58 +84,112 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <ImageView
+                android:id="@+id/shop_date_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar_24"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
             <TextView
                 android:id="@+id/shopping_when_needed_done_text"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/shop_date_img"
+                app:layout_constraintStart_toEndOf="@+id/shop_date_img"
+                app:layout_constraintTop_toTopOf="@+id/shop_date_img"
                 tools:text="by: 6/4/21" />
-            <!--            gone-->
+
+            <ImageView
+                android:id="@+id/shop_where_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_storefront_24"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shop_date_img" />
 
             <TextView
                 android:id="@+id/shopping_where_text"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/shop_where_img"
+                app:layout_constraintStart_toEndOf="@+id/shop_where_img"
+                app:layout_constraintTop_toTopOf="@+id/shop_where_img"
                 tools:text="whole foods" />
+
+            <ImageView
+                android:id="@+id/shop_cost_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_credit_card_24"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shop_where_img" />
 
             <TextView
                 android:id="@+id/shopping_cost_text"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/shop_cost_img"
+                app:layout_constraintStart_toEndOf="@+id/shop_cost_img"
+                app:layout_constraintTop_toTopOf="@+id/shop_cost_img"
                 tools:text="price: $4.30" />
+
+            <ImageView
+                android:id="@+id/shop_priority_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_order_list_24"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shop_cost_img" />
 
             <TextView
                 android:id="@+id/shopping_priority_text"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/shop_priority_img"
+                app:layout_constraintStart_toEndOf="@+id/shop_priority_img"
+                app:layout_constraintTop_toTopOf="@+id/shop_priority_img"
                 tools:text="@string/label_priority_2" />
+
+            <ImageView
+                android:id="@+id/shop_added_by_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person_24"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shop_priority_img" />
 
             <TextView
                 android:id="@+id/shopping_added_by_text"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/shop_added_by_img"
+                app:layout_constraintStart_toEndOf="@+id/shop_added_by_img"
+                app:layout_constraintTop_toTopOf="@+id/shop_added_by_img"
                 tools:text="by: Sam" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chores_expandable_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dp"
             android:orientation="vertical"
             android:visibility="gone"
             android:paddingStart="16dp"
@@ -137,8 +197,12 @@
             android:padding="8dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/chore_display_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
                     android:id="@+id/chore_sheet_title_txt"
@@ -161,17 +225,18 @@
                 android:background="@color/divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_img_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/chore_display_container" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:hint="@string/hint_volunteer"
                 app:boxStrokeColor="@color/colorPrimaryDark"
                 app:hintTextColor="@color/colorPrimaryDark"
-                android:hint="@string/hint_volunteer"
-                android:visibility="visible">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_1">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/chores_who_is_doing_it_text"
@@ -182,43 +247,86 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <ImageView
+                android:id="@+id/chores_date_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_calendar_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+
             <TextView
                 android:id="@+id/chores_when_needed_done_text"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/chores_date_img"
+                app:layout_constraintStart_toEndOf="@+id/chores_date_img"
+                app:layout_constraintTop_toTopOf="@+id/chores_date_img"
                 tools:text="by 6/4/21" />
-            <!--                    gone-->
+
+            <ImageView
+                android:id="@+id/chores_difficulty_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_levels_24"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chores_date_img" />
 
             <TextView
                 android:id="@+id/chores_difficulty"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/chores_difficulty_img"
+                app:layout_constraintStart_toEndOf="@+id/chores_difficulty_img"
+                app:layout_constraintTop_toTopOf="@+id/chores_difficulty_img"
                 tools:text="@string/label_difficulty_1" />
+
+            <ImageView
+                android:id="@+id/chores_priority_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_order_list_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chores_difficulty_img" />
 
             <TextView
                 android:id="@+id/chores_priority_text"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/chores_priority_img"
+                app:layout_constraintStart_toEndOf="@+id/chores_priority_img"
+                app:layout_constraintTop_toTopOf="@+id/chores_priority_img"
                 tools:text="@string/label_priority_2" />
+
+            <ImageView
+                android:id="@+id/chores_added_by_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person_24"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chores_priority_img" />
 
             <TextView
                 android:id="@+id/chores_added_by_text"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:visibility="visible"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/chores_added_by_img"
+                app:layout_constraintStart_toEndOf="@+id/chores_added_by_img"
+                app:layout_constraintTop_toTopOf="@+id/chores_added_by_img"
                 tools:text="by Ashley" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>
