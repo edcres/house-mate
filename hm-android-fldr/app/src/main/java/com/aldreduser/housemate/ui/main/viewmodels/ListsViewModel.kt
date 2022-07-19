@@ -76,7 +76,7 @@ class ListsViewModel : ViewModel() {
     }
 
     fun setItemToEdit(chosenItem: Any?) {
-        _itemToEdit.value = chosenItem
+        _itemToEdit.postValue(chosenItem)
     }
 
     fun getDateTimeCalendar(): CalendarDate {

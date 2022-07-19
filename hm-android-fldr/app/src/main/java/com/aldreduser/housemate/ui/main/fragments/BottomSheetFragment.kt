@@ -21,7 +21,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var dialog: BottomSheetDialog
     private var binding: FragmentBottomSheetBinding? = null
-    private val listsViewModel: ListsViewModel by activityViewModels()
+    private val vm: ListsViewModel by activityViewModels()
     private lateinit var listType: ListType
     private lateinit var itemToView: Any
 
@@ -43,6 +43,14 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
+            shopSheetEditBtn.setOnClickListener {
+                dialog.dismiss()
+                vm.setItemToEdit(vm.itemForSheet.value)
+            }
+            choresSheetEditBtn.setOnClickListener {
+                dialog.dismiss()
+                vm.setItemToEdit(vm.itemForSheet.value)
+            }
         }
         if(listType == ListType.SHOPPING) {
             startShoppingView(itemToView as ShoppingItem)
@@ -55,7 +63,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onDestroy()
         binding = null
         dialog.dismiss()
-        listsViewModel.setItemForSheet(null)
+        vm.setItemForSheet(null)
     }
 
     private fun startShoppingView(item: ShoppingItem) {
@@ -110,7 +118,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         binding?.apply {
             shoppingWhoIsGettingItText.setOnKeyListener { _, keyCode, keyEvent ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP){
-                    listsViewModel.sendItemVolunteerToDb(
+                    vm.sendItemVolunteerToDb(
                         ListType.SHOPPING.toString(),
                         item.name!!,
                         shoppingWhoIsGettingItText.text.toString()
@@ -125,7 +133,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         binding?.apply {
             choresWhoIsDoingItText.setOnKeyListener { _, keyCode, keyEvent ->
                 if(keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
-                    listsViewModel.sendItemVolunteerToDb(
+                    vm.sendItemVolunteerToDb(
                         ListType.CHORES.toString(),
                         item.name!!,
                         choresWhoIsDoingItText.text.toString()
