@@ -12,31 +12,23 @@ fun displayDate(date: String) = "needed by $date"
 
 fun displayCost(cost: Double) = "price: $$cost"
 
-fun displayPriority(priority: Int): String {
-    var priorityString = ""
-    when (priority) {
-        1 -> priorityString = "Urgent"
-        2 -> priorityString = "Not Urgent"
-        3 -> priorityString = "Needed Eventually"
-    }
-    return priorityString
+fun displayPriority(priority: Int) = when (priority) {
+    1 -> "Urgent"
+    2 -> "Not Urgent"
+    3 -> "Needed Eventually"
+    else -> ""
 }
 
-fun displayDifficulty(difficulty: Int): String {
-    var difficultyString = ""
-    when (difficulty) {
-        1 -> difficultyString = "Simple"
-        2 -> difficultyString = "Medium Challenge"
-        3 -> difficultyString = "Challenging"
-    }
-    return difficultyString
+fun displayDifficulty(difficulty: Int) = when (difficulty) {
+    1 -> "Simple"
+    2 -> "Medium Challenge"
+    3 -> "Challenging"
+    else -> ""
 }
 
 fun displayAddedBy(addedBy: String) = "added by $addedBy"
 
-fun necessaryAreFilled(name: String, qty: String): Boolean {
-    return (name.isNotEmpty() && qty.isNotEmpty())
-}
+fun necessaryAreFilled(name: String, qty: String): Boolean = (name.isNotEmpty() && qty.isNotEmpty())
 
 fun presentItemQty(qty: Double) =
     if (getLastTwoDigits(qty.toString()) == ".0") {
@@ -50,8 +42,7 @@ fun getLastTwoDigits(theString: String): String {
 }
 
 fun validateGroupId(string: String) = if (string.length == 13) {
-    isFirstNDigits(8, string) &&
-            isLastNLetters(5, string)
+    isFirstNDigits(8, string) && isLastNLetters(5, string)
 } else false
 
 private fun isFirstNDigits(n: Int, string: String): Boolean {
