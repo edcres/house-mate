@@ -36,7 +36,7 @@
         <entry key="app/src/main/res/layout/chores_item_layout.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_add_chores_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_shopping_item.xml" value="0.22876495361328125" />
-        <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.23192749023437503" />
+        <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_chores_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_shopping_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.25" />
