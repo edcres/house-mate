@@ -17,6 +17,7 @@ import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.ListType
 import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.necessaryAreFilled
+import com.aldreduser.housemate.util.presentItemQty
 import kotlinx.android.synthetic.main.fragment_add_shopping_item.*
 
 private const val TAG = "AddShopItem__TAG"
@@ -98,7 +99,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     // HELPERS //
     private fun setItemToView(itemToEdit: ShoppingItem) {
         binding?.apply {
-            itemQuantityInput.setText(itemToEdit.quantity.toString())
+            itemQuantityInput.setText(presentItemQty(itemToEdit.quantity ?: 0.0))
             itemNameInput.setText(itemToEdit.name)
             if (!itemToEdit.neededBy.isNullOrEmpty()) whenNeededBtn.text = itemToEdit.neededBy
             whereToGetInput.setText(itemToEdit.purchaseLocation)
