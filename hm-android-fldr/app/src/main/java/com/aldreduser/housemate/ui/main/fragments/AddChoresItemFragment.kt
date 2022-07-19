@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
+import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentAddChoresItemBinding
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.util.ListType
@@ -47,13 +48,13 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 whenNeededClicked()
             }
         }
-        setupAppBar()
         val itemToEdit = listsViewModel.itemToEdit.value
         if (itemToEdit != null) {
             setItemToView(itemToEdit as ChoresItem)
             listsViewModel.setItemToEdit(null)
         }
         listsViewModel.turnOffEditMode()
+        setUpAppBar(itemToEdit as ChoresItem?)
     }
 
     override fun onDestroyView() {
@@ -93,15 +94,27 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     // CLICK HANDLERS //
 
     // SET UP FUNCTIONS //
-    private fun setupAppBar() {
+    private fun setUpAppBar(choresItem: ChoresItem?) {
         binding!!.apply {
+            val navController = Navigation.findNavController(requireParentFragment().requireView())
             addItemTopAppbar.title = "Add Chore Item"
-            addItemTopAppbar.setNavigationOnClickListener {
-                val navController = Navigation.findNavController(requireParentFragment().requireView())
-                navController.navigateUp()
+            addItemTopAppbar.setNavigationOnClickListener { navController.navigateUp() }
+            addItemTopAppbar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.top_bar_delete -> {
+                        if (choresItem != null) {
+                            listsViewModel
+                                .deleteListItem(ListType.CHORES.toString(), choresItem.name!!)
+                        }
+                        navController.navigateUp()
+                        true
+                    }
+                    else -> false
+                }
             }
         }
     }
+    // SET UP FUNCTIONS //
 
     // HELPERS //
     private fun setItemToView(itemToEdit: ChoresItem) {

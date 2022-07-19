@@ -43,13 +43,13 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             fabAddItem.setOnClickListener { addItemClicked() }
             whenNeededBtn.setOnClickListener { whenNeededClicked() }
         }
-        setupAppBar()
         val itemToEdit = listsViewModel.itemToEdit.value
         if (itemToEdit != null) {
             setItemToView(itemToEdit as ShoppingItem)
             listsViewModel.setItemToEdit(null)
         }
         listsViewModel.turnOffEditMode()
+        setUpAppBar(itemToEdit as ShoppingItem?)
     }
 
     override fun onDestroyView() {
@@ -60,7 +60,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     // Triggered when the user picks a date
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        val dateToDisplay = "${month+1}/$dayOfMonth/$year"
+        val dateToDisplay = "${month + 1}/$dayOfMonth/$year"
         when_needed_btn.text = dateToDisplay
     }
 
@@ -74,8 +74,11 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             addItem()
             val navController = Navigation.findNavController(requireParentFragment().requireView())
             navController.navigate(R.id.action_addShoppingItemFragment_to_startFragment)
-        } else { displayToast(requireContext(),"Fill boxed marked with *") }
+        } else {
+            displayToast(requireContext(), "Fill boxed marked with *")
+        }
     }
+
     private fun whenNeededClicked() {
         val calendarDate = listsViewModel.getDateTimeCalendar()
         DatePickerDialog(
@@ -86,15 +89,27 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     // CLICK HANDLERS //
 
     // SET UP FUNCTIONS //
-    private fun setupAppBar() {
+    private fun setUpAppBar(shoppingItem: ShoppingItem?) {
         binding!!.apply {
+            val navController = Navigation.findNavController(requireParentFragment().requireView())
             addItemTopAppbar.title = "Add Shopping Item"
-            addItemTopAppbar.setNavigationOnClickListener {
-                val navController = Navigation.findNavController(requireParentFragment().requireView())
-                navController.navigateUp()
+            addItemTopAppbar.setNavigationOnClickListener { navController.navigateUp() }
+            addItemTopAppbar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.top_bar_delete -> {
+                        if (shoppingItem != null) {
+                            listsViewModel
+                                .deleteListItem(ListType.SHOPPING.toString(), shoppingItem.name!!)
+                        }
+                        navController.navigateUp()
+                        true
+                    }
+                    else -> false
+                }
             }
         }
     }
+    // SET UP FUNCTIONS //
 
     // HELPERS //
     private fun setItemToView(itemToEdit: ShoppingItem) {
@@ -104,7 +119,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             if (!itemToEdit.neededBy.isNullOrEmpty()) whenNeededBtn.text = itemToEdit.neededBy
             whereToGetInput.setText(itemToEdit.purchaseLocation)
             costInput.setText(itemToEdit.cost.toString())
-            when(itemToEdit.priority) {
+            when (itemToEdit.priority) {
                 1 -> priorityButton1.isChecked = true
                 2 -> priorityButton2.isChecked = true
                 3 -> priorityButton3.isChecked = true
@@ -126,9 +141,9 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 else -> 2
             }
             val whenNeeded =
-                if(whenNeededBtn.text.toString() != getString(R.string.hint_when_needed)) {
-                whenNeededBtn.text.toString()
-            } else ""
+                if (whenNeededBtn.text.toString() != getString(R.string.hint_when_needed)) {
+                    whenNeededBtn.text.toString()
+                } else ""
             listsViewModel.sendItemToDatabase(
                 ListType.SHOPPING.toString(),
                 itemNameInput.text.toString(),

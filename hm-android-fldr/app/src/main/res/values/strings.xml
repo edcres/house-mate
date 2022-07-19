@@ -6,6 +6,7 @@
 
     <string name="appbar_more_options">More Options</string>
     <string name="appbar_edit">Edit</string>
+    <string name="appbar_delete">Delete</string>
     <string name="appbar_exit_group">Change Group</string>
     <string name="appbar_current_group">Current Group</string>
     <string name="appbar_past_groups">Past Groups</string>
@@ -16,7 +17,7 @@
     <string name="hint_name">* name</string>
     <string name="hint_when_needed">WHEN NEEDED</string>
     <string name="hint_where_to_get">where to get it</string>
-    <string name="hint_cost">cost</string>
+    <string name="hint_cost">cost $</string>
     <string name="hint_volunteer">volunteer</string>
 
     <string name="label_priority">Priority:</string>
@@ -35,6 +36,4 @@
     <!--dataBound values-->
     <string name="shopping">shopping</string>
     <string name="chores">chores</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
