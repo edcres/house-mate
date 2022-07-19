@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
             android:padding="8dp"
             android:visibility="gone"
             android:paddingStart="16dp"
@@ -25,6 +26,7 @@
                 android:id="@+id/shopping_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -55,7 +57,7 @@
             <View
                 android:id="@+id/shopping_divider_1"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/divider"
@@ -189,9 +191,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chores_expandable_container"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:orientation="vertical"
             android:visibility="gone"
+            android:layout_marginTop="8dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:padding="8dp">
@@ -200,6 +204,7 @@
                 android:id="@+id/chore_display_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
@@ -219,7 +224,7 @@
             <View
                 android:id="@+id/divider_1"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/divider"
@@ -233,6 +238,7 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_volunteer"
+                android:layout_marginTop="8dp"
                 app:boxStrokeColor="@color/colorPrimaryDark"
                 app:hintTextColor="@color/colorPrimaryDark"
                 app:layout_constraintStart_toStartOf="parent"
