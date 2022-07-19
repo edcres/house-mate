@@ -126,17 +126,12 @@ class StartFragment : Fragment() {
             if (listsViewModel.itemToEdit.value != null) navController.navigate(navAction)
         }
         listsViewModel.itemForSheet.observe(viewLifecycleOwner) {
-//            val itemType = if (it is ShoppingItem) ListType.SHOPPING else ListType.CHORES
             when (it) {
                 is ShoppingItem ->
                     if (sheetListener != null) sheetListener!!.sendItemToView(it, ListType.SHOPPING)
                 is ChoresItem ->
                     if (sheetListener != null) sheetListener!!.sendItemToView(it, ListType.CHORES)
             }
-
-                // todo:
-            Log.d(TAG, "setObservers: itemForSheet observed")
-//            if (sheetListener != null && it != null) sheetListener!!.sendItemToView(it, itemType)
         }
     }
 

@@ -19,7 +19,7 @@ class ListsRepository {
         return dbApiService.getChoreItemsRealtime(groupID)
     }
 
-    fun addShoppingItemToDb(
+    suspend fun addShoppingItemToDb(
             groupID: String,
             itemName: String,
             itemQuantity: Double,
@@ -34,7 +34,7 @@ class ListsRepository {
             purchaseLocation, itemNeededBy, itemPriority, addedBy
         )
     }
-    fun addChoresItemToDb(
+    suspend fun addChoresItemToDb(
         groupID: String,
         itemName: String,
         itemDifficulty: Int,

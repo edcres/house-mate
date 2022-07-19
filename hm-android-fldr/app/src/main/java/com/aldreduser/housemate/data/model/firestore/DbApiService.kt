@@ -182,8 +182,7 @@ class DbApiService {
             }.addOnFailureListener { e ->
                 Log.e(TAG, "sendVolunteerToDb: failed", e)
             }
-        // I was going to use this batch write when the fragment is destroyed but
-        //  there's not enough time for the db operation to complete if the app closes.
+        // Use this batch write when the fragment is destroyed but. (WorkManager)
 //        parameter -> volunteersList: Map<String, String>
 //        db.runBatch { batch ->
 //            volunteersList.forEach {

@@ -10,7 +10,6 @@ import com.aldreduser.housemate.data.model.CalendarDate
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.util.ListType
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,7 +18,7 @@ import java.util.*
 
 private const val TAG = "ListsVm__TAG"
 
-class ListsViewModel: ViewModel() {
+class ListsViewModel : ViewModel() {
 
     private val listsRepository = ListsRepository()
     var sharedPrefs: SharedPreferences? = null
@@ -61,20 +60,25 @@ class ListsViewModel: ViewModel() {
     fun setItemForSheet(itemSent: Any?) {
         _itemForSheet.postValue(itemSent)
     }
+
     fun toggleHiddenTxt() {
         // This is a work around a bug. The purpose is for the recyclerview to get resized.
         _hiddenTxt.value = !_hiddenTxt.value!!
     }
+
     fun toggleEditBtn() {
         _menuEditIsOn.value = !_menuEditIsOn.value!!
     }
+
     fun turnOffEditMode(): Boolean {
         _menuEditIsOn.postValue(false)
         return false
     }
+
     fun setItemToEdit(chosenItem: Any?) {
         _itemToEdit.value = chosenItem
     }
+
     fun getDateTimeCalendar(): CalendarDate {
         val calendarDate = CalendarDate()
         val calendar = Calendar.getInstance()
@@ -83,20 +87,23 @@ class ListsViewModel: ViewModel() {
         calendarDate.year = calendar.get(Calendar.YEAR)
         return calendarDate
     }
+
     fun clearLists() {
         _shoppingItems.postValue(listOf())
         _choreItems.postValue(listOf())
     }
+
     fun setGroupID(selectedGroup: String) {
         clientGroupIDCollection = selectedGroup
         sendGroupToSP()
         setItemsRealtime(ListType.SHOPPING.toString())
         setItemsRealtime(ListType.CHORES.toString())
     }
+
     private fun sendGroupToSP() {
         sendDataToSP(GROUP_ID_SP_TAG, clientGroupIDCollection!!)
         val pastGroups = getDataFromSP(PAST_GROUPS_SP_TAG)?.split("-")
-        if(pastGroups.isNullOrEmpty()) {
+        if (pastGroups.isNullOrEmpty()) {
             sendDataToSP(PAST_GROUPS_SP_TAG, clientGroupIDCollection!!)
         } else {
             val newGroups = pastGroups.toMutableList()
@@ -110,7 +117,7 @@ class ListsViewModel: ViewModel() {
     // DATABASE FUNCTIONS //
     fun setItemsRealtime(listTag: String) {
         Log.d(TAG, "setItemsRealtime: called")
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             when (listTag) {
                 ListType.SHOPPING.toString() ->
                     listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
@@ -131,7 +138,7 @@ class ListsViewModel: ViewModel() {
         itemNeededBy: String,
         itemPriority: Int, itemDifficulty: Int,
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             when (listTag) {
                 ListType.SHOPPING.toString() -> {
                     listsRepository.addShoppingItemToDb(
@@ -150,7 +157,7 @@ class ListsViewModel: ViewModel() {
     }
 
     fun toggleItemCompletion(listTag: String, itemName: String, isCompleted: Boolean) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             when (listTag) {
                 ListType.SHOPPING.toString() -> {
                     listsRepository.toggleShoppingCompletion(
@@ -171,13 +178,15 @@ class ListsViewModel: ViewModel() {
     }
 
     fun sendItemVolunteerToDb(listTag: String, listItem: String, volunteerName: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when(listTag) {
-                ListType.SHOPPING.toString() -> {listsRepository.sendShoppingVolunteersToDb(
-                    clientGroupIDCollection!!,
-                    listItem,
-                    volunteerName
-                )}
+        viewModelScope.launch {
+            when (listTag) {
+                ListType.SHOPPING.toString() -> {
+                    listsRepository.sendShoppingVolunteersToDb(
+                        clientGroupIDCollection!!,
+                        listItem,
+                        volunteerName
+                    )
+                }
                 ListType.CHORES.toString() -> {
                     listsRepository.sendChoresVolunteersToDb(
                         clientGroupIDCollection!!,
@@ -190,7 +199,7 @@ class ListsViewModel: ViewModel() {
     }
 
     fun deleteListItem(listTag: String, itemName: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             when (listTag) {
                 ListType.SHOPPING.toString() -> {
                     listsRepository.deleteShoppingListItem(clientGroupIDCollection!!, itemName)
@@ -207,6 +216,7 @@ class ListsViewModel: ViewModel() {
     fun getDataFromSP(theTag: String): String? {
         return sharedPrefs!!.getString(theTag, null)
     }
+
     @SuppressLint("ApplySharedPref")
     fun sendDataToSP(theTag: String, dataToSend: String) {
         val spEditor: SharedPreferences.Editor = sharedPrefs!!.edit()
@@ -220,27 +230,25 @@ class ListsViewModel: ViewModel() {
     // SHARED PREFERENCE //
 
     // ID QUERIES //
-    fun generateClientGroupID() {
-        // Get the latest groupID from the remote db (ie. 00000001asdfg)
-        CoroutineScope(Dispatchers.IO).launch {
-            clientGroupIDCollection = listsRepository.getLastGroupAdded()
-            withContext(Dispatchers.Main) {
-                if (clientGroupIDCollection != null) {
-                    sendGroupToSP()
-                    setClientID()
-                } else {
-                    Log.e(TAG, "generateClientGroupID(): clientGroupIDCollection is null")
-                }
+    fun generateClientGroupID() = viewModelScope.launch {
+        // Get the latest groupID from the remote db
+        clientGroupIDCollection = listsRepository.getLastGroupAdded()
+        withContext(Dispatchers.Main) {
+            if (clientGroupIDCollection != null) {
+                sendGroupToSP()
+                setClientID()
+            } else {
+                Log.e(TAG, "generateClientGroupID(): clientGroupIDCollection is null")
             }
         }
     }
+
     fun setClientID() {
         // Client Id is changed permanently whenever a new group is added
         clientIDCollection = null
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             clientIDCollection =
-                listsRepository.
-                getLastClientAdded(clientGroupIDCollection!!)
+                listsRepository.getLastClientAdded(clientGroupIDCollection!!)
             withContext(Dispatchers.Main) {
                 if (clientIDCollection != null) {
                     sendDataToSP(CLIENT_ID_SP_TAG, clientIDCollection!!)
