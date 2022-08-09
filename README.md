@@ -1,12 +1,13 @@
 # house-mate
 
 App meant for house mates to share a list of items to buy and chores to do in the house.
-(Only the Android version is completed)
 
 - Users first create a group ID and a user ID is created automatically
 - Once the group is created in a firestore database, other users can join the group using the group id
 - Users can add shopping and chore items with more data (like priority and who added it)
 - All this data is shared in realtime among members of the group
+
+(Only the Android version is completed)
 
 ---
 
