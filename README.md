@@ -31,6 +31,11 @@ App meant for house mates to share a list of items to buy and chores to do in th
 
 ### Item Lists Screen
 
+<p align="left" style="display:flex">
+  <img align="center" width=132 src="https://user-images.githubusercontent.com/79296181/183625921-537824fb-d75e-4fdb-8ca7-ae1d9fa5cb32.gif" />
+  <img align="center" width=132 src="https://user-images.githubusercontent.com/79296181/183625899-c0406d44-e837-4db9-9124-a0e51310eb50.gif" />
+</p>
+
 - One tab for shopping items, one tab for chore items
 - Items have the name of the item and a checkbox to mark it completed
   - Each item has the color of it's priority (red = 1, yellow = 2, green = 3)
@@ -44,6 +49,8 @@ App meant for house mates to share a list of items to buy and chores to do in th
 ---
 
 ### Add Item Screen
+
+<img align="center" width=132 src="https://user-images.githubusercontent.com/79296181/183625856-597feb52-c103-4fd7-93fa-36b14c83ef91.gif" />
 
 - There's a version for a shopping item and one for chores item
 - Here the user fills in information about the item
