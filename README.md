@@ -14,6 +14,7 @@ App meant for house mates to share a list of items to buy and chores to do in th
 ### Tools and skills used:
 
 - MVVM architecture
+  - Shared ViewModel
 - Material Design
 - Jetpack Navigation Component
 - Modal Bottom Sheet
