@@ -35,6 +35,7 @@ App meant for house mates to share a list of items to buy and chores to do in th
 <p align="left" style="display:flex">
   <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/183625921-537824fb-d75e-4fdb-8ca7-ae1d9fa5cb32.gif" />
   <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/183625899-c0406d44-e837-4db9-9124-a0e51310eb50.gif" />
+  <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/184468344-e3adc342-6ab3-4c42-8857-827d65766397.jpg" />
 </p>
 
 - One tab for shopping items, one tab for chore items
