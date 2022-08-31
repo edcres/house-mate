@@ -8,11 +8,11 @@
     <color name="black">#000000</color>
 
     <color name="tabIndicator">#00542C</color>
-    <color name="tabSelectedTxt">#686800</color>
+    <color name="tabSelectedTxt">#878700</color>
     <color name="background">#25C678</color>
     <color name="recyclerItem">#14DD7B</color>
     <color name="bottomSheetBackground">#14EC82</color>
-    <color name="recyclerEditButtons">#F4F400</color>
+    <color name="recyclerEditButtons">#F3F311</color>
     <color name="colorHighlight">#FFFF00</color>
 
     <color name="toolbarItemsLight">#BF000000</color>
@@ -22,6 +22,6 @@
     <color name="neededByNtnTxt">#404040</color>
     <color name="divider">#AB4A4A4A</color>
 
-    <color name="not_urgent">#C3C330</color>
-    <color name="red">#BD2F2F</color>
+    <color name="subtle_yellow">#D1D151</color>
+    <color name="red">#CF4F4F</color>
 </resources>

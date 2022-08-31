@@ -103,9 +103,9 @@ class StartFragment : Fragment() {
             when (result) {
                 true -> {
                     binding!!.homeScreenTopAppbar
-                        .setBackgroundColor(resources.getColor(R.color.colorHighlight))
+                        .setBackgroundColor(resources.getColor(R.color.subtle_yellow))
                     binding!!.startFragmentTabLayout
-                        .setBackgroundColor(resources.getColor(R.color.colorHighlight))
+                        .setBackgroundColor(resources.getColor(R.color.subtle_yellow))
                 }
                 false -> {
                     binding!!.homeScreenTopAppbar

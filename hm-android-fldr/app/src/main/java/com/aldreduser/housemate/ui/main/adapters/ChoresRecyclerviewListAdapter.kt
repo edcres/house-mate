@@ -66,7 +66,7 @@ class ChoresRecyclerviewListAdapter(
                     1 -> choresItemContainer
                         .setBackgroundColor(resources.getColor(R.color.red))
                     2 -> choresItemContainer
-                        .setBackgroundColor(resources.getColor(R.color.not_urgent))
+                        .setBackgroundColor(resources.getColor(R.color.subtle_yellow))
                     3 -> choresItemContainer
                         .setBackgroundColor(resources.getColor(R.color.recyclerItem))
                 }
