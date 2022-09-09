@@ -31,11 +31,16 @@ App meant for house mates to share a list of items to buy and chores to do in th
 ---
 
 ### Item Lists Screen
+![20220908_221320]()
+![20220908_223640]()
+![Screenshot_20220908-215459]()
+
+![20220908_230511]()
 
 <p align="left" style="display:flex">
-  <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/183625921-537824fb-d75e-4fdb-8ca7-ae1d9fa5cb32.gif" />
-  <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/183625899-c0406d44-e837-4db9-9124-a0e51310eb50.gif" />
-  <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/184468344-e3adc342-6ab3-4c42-8857-827d65766397.jpg" />
+  <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/189297482-6a518c9f-1dbd-4ee7-bbf0-0159ad3a1f1d.gif" />
+  <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/189297487-f454fa5a-63b0-46c1-b7fa-4deadfa180ac.gif" />
+  <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/189297379-eb1da789-8d7c-4d07-b2dd-2989f46c2b37.jpg" />
 </p>
 
 - One tab for shopping items, one tab for chore items
@@ -52,7 +57,7 @@ App meant for house mates to share a list of items to buy and chores to do in th
 
 ### Add Item Screen
 
-<img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/183625856-597feb52-c103-4fd7-93fa-36b14c83ef91.gif" />
+<img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/189297433-98994e06-5426-4410-aec1-5b13803b1b68.gif" />
 
 - There's a version for a shopping item and one for chores item
 - Here the user fills in information about the item
