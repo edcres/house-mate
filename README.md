@@ -31,11 +31,6 @@ App meant for house mates to share a list of items to buy and chores to do in th
 ---
 
 ### Item Lists Screen
-![20220908_221320]()
-![20220908_223640]()
-![Screenshot_20220908-215459]()
-
-![20220908_230511]()
 
 <p align="left" style="display:flex">
   <img align="center" width=180 src="https://user-images.githubusercontent.com/79296181/189297482-6a518c9f-1dbd-4ee7-bbf0-0159ad3a1f1d.gif" />
