@@ -1,11 +1,11 @@
 # house-mate
 
-App meant for house mates to share a list of items to buy and chores to do in the house.
+App meant for housemates to share a list of items to buy and chores to do in the house.
 
 - Users first create a group ID and a user ID is created automatically
 - Once the group is created in a firestore database, other users can join the group using the group id
 - Users can add shopping and chore items with more data (like priority and who added it)
-- All this data is shared in realtime among members of the group
+- All this data is shared in real time among members of the group
 
 (Only the Android version is completed)
 
@@ -24,7 +24,7 @@ App meant for house mates to share a list of items to buy and chores to do in th
 - LiveData
   - Livedata Observers
   - Kotlin Flow
-- Kotlin coroutines (for synchronous excecutions)
+- Kotlin coroutines (for synchronous executions)
 - RecyclerView
 - Date Picker
 
@@ -46,7 +46,7 @@ App meant for house mates to share a list of items to buy and chores to do in th
   - Option to edit the item
 - When Edit mode is on, the user can edit or delete items by pressing a button
 - Press the floating action button to add a new item
-- The items are updated in realtime when the list is edited from another client device
+- The items are updated in real time when the list is edited from another client device
 
 ---
 
