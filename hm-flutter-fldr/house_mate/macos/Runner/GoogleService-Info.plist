@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>795882824191-9q690ul7p55ci21sba72sibj77badas5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.795882824191-9q690ul7p55ci21sba72sibj77badas5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAOKA4qVZMBIBS9TJaNrDKgY0RNWb6vqYI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>795882824191</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.houseMate</string>
+	<key>PROJECT_ID</key>
+	<string>house-mate-3b2d2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>house-mate-3b2d2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:795882824191:ios:dc12d1cd40d058f6e847ca</string>
+</dict>
+</plist>
