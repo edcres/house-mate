@@ -44,4 +44,4 @@ app.*.map.json
 /android/app/release
 
 # firebase options
-/lib/firebase_options
+firebase_options
