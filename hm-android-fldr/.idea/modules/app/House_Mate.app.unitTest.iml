@@ -30,6 +30,7 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
+                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b62643204ab55048ac011ed9450b3230/transformed/databinding-runtime-7.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/2a0249ec7dccc7df3efc5af041f302c0/transformed/databinding-adapters-7.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-common/7.1.0/309e530b6d30fe547f4bf9ff342984b0c80b3815/databinding-common-7.1.0.jar</arg>
