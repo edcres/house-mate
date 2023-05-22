@@ -41,12 +41,17 @@ class ApplicationState extends ChangeNotifier {
         .collection(GENERAL_COLLECTION)
         .doc(GROUP_IDS_DOC);
 
+    // TODO: this is just to test if I can get firestore data
+    // print("test print 1");
     docRef.get().then(
       (DocumentSnapshot doc) {
+        // print("test print 2");
         final data = doc.data() as Map<String, dynamic>;
 
         // semd this to the UI
         final dataTodisplay = data[LAST_GROUP_ADDED_FIELD];
+        // TODO: use this varibale
+        print(dataTodisplay);
       },
       onError: (e) => print("Error getting document: $e"),
     );

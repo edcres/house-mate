@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'app_state.dart';
 import 'firebase_options.dart';
 
 // void main() {
@@ -42,6 +43,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // TODO: remove the fsData declaration
+  ApplicationState appState = ApplicationState();
   int _counter = 0;
   String _fsData = "Firestore data";
 
