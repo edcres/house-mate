@@ -8,9 +8,37 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ListsCubit(),
-      child: const HomeView(),
+    final selectedTab = context.select((ListsCubit cubit) => cubit.state.tab);
+
+    return Scaffold(
+      body: IndexedStack(
+        index: selectedTab.index,
+        children: const [TodosOverviewPage(), StatsPage()],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        key: const Key('homeView_addTodo_floatingActionButton'),
+        onPressed: () => Navigator.of(context).push(EditTodoPage.route()),
+        child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _HomeTabButton(
+              groupValue: selectedTab,
+              value: HomeTab.todos,
+              icon: const Icon(Icons.list_rounded),
+            ),
+            _HomeTabButton(
+              groupValue: selectedTab,
+              value: HomeTab.stats,
+              icon: const Icon(Icons.show_chart_rounded),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
