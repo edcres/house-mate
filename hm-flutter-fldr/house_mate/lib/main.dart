@@ -43,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // TODO: remove the fsData declaration
-  ItemsState appState = ItemsState();
+  ListsState appState = ListsState();
   int _counter = 0;
   String _fsData = "Firestore data";
 
