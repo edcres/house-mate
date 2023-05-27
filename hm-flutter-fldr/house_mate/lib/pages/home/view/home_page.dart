@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab.index,
-        children: const [TodosOverviewPage(), StatsPage()],
+        children: const [ShoppingItems(), ChoreItems()],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
