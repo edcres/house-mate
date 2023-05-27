@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'cubit/items_state.dart';
+import 'cubit/lists_state.dart';
 
 // void main() {
 //   runApp(const MyApp());
