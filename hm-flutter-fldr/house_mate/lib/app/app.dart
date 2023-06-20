@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:house_mate/theme/theme.dart';
 
 import '../pages/home/view/home_page.dart';
 
@@ -17,8 +18,8 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ListsTheme.light,
-      darkTheme: ListsTheme.dark,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
       home: const HomePage(),
     );
   }
