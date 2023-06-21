@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:house_mate/pages/home/cubit/home_cubit.dart';
 
 import '../../../cubit/lists_cubit.dart';
 
@@ -8,7 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedTab = context.select((ListsCubit cubit) => cubit.state.tab);
+    final selectedTab = context.select((HomeCubit cubit) => cubit.state.tab);
 
     return Scaffold(
       body: IndexedStack(
@@ -57,7 +58,7 @@ class _HomeTabButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => context.read<ListsCubit>().setTab(value),
+      onPressed: () => context.read<HomeCubit>().setTab(value),
       iconSize: 32,
       color:
           groupValue != value ? null : Theme.of(context).colorScheme.secondary,
