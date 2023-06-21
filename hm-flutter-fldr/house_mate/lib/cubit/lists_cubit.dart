@@ -1,10 +1,12 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+// TODO: maybe get rid of this
 
-import 'lists_state.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ListsCubit extends Cubit<ListsState> {
-  ListsCubit() : super(ListsState());
+// import 'lists_state.dart';
 
-  // TODO: change this
-  // void setTab(HomeTab tab) => emit(HomeState(tab: tab));
-}
+// class ListsCubit extends Cubit<ListsState> {
+//   ListsCubit() : super(ListsState());
+
+//   // TODO: change this
+//   void setTab(HomeTab tab) => emit(HomeState(tab: tab));
+// }
