@@ -4,6 +4,7 @@ import 'package:house_mate/pages/home/cubit/home_cubit.dart';
 import 'package:house_mate/pages/items_list/view/view.dart';
 
 import '../../../old_cubit/old_lists_cubit.dart';
+import '../../edit_item/view/edit_item_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,7 +21,7 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         key: const Key('homeView_addTodo_floatingActionButton'),
-        onPressed: () => Navigator.of(context).push(EditTodoPage.route()),
+        onPressed: () => Navigator.of(context).push(EditItemPage.route()),
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomAppBar(
