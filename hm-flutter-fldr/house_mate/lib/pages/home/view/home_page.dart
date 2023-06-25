@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/pages/home/cubit/home_cubit.dart';
+import 'package:house_mate/pages/items_list/view/view.dart';
 
 import '../../../old_cubit/old_lists_cubit.dart';
 
@@ -14,7 +15,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab.index,
-        children: const [ShoppingItems(), ChoreItems()],
+        children: const [ItemsListPage(), ItemsListPage()],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
