@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/pages/home/cubit/home_cubit.dart';
 import 'package:house_mate/pages/items_list/view/view.dart';
 
-import '../../../old_cubit/old_lists_cubit.dart';
 import '../../edit_item/view/edit_item_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,10 +19,10 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        key: const Key('homeView_addTodo_floatingActionButton'),
-        onPressed: () => Navigator.of(context).push(EditItemPage.route()),
-        child: const Icon(Icons.add),
-      ),
+          key: const Key('homeView_addTodo_floatingActionButton'),
+          onPressed: () => Navigator.of(context).push(EditItemPage.route()),
+          child: const Icon(Icons.add),
+          0),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         child: Row(
