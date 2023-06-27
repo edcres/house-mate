@@ -19,10 +19,10 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-          key: const Key('homeView_addTodo_floatingActionButton'),
-          onPressed: () => Navigator.of(context).push(EditItemPage.route()),
-          child: const Icon(Icons.add),
-          0),
+        key: const Key('homeView_addTodo_floatingActionButton'),
+        onPressed: () => Navigator.of(context).push(EditItemPage.route()),
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         child: Row(
