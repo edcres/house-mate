@@ -1,42 +1,42 @@
 part of 'items_list_bloc.dart';
 
-enum TodosOverviewStatus { initial, loading, success, failure }
+enum ItemsOverviewStatus { initial, loading, success, failure }
 
-class TodosOverviewState extends Equatable {
-  const TodosOverviewState({
-    this.status = TodosOverviewStatus.initial,
-    this.todos = const [],
-    this.filter = TodosViewFilter.all,
-    this.lastDeletedTodo,
+class ItemsOverviewState extends Equatable {
+  const ItemsOverviewState({
+    this.status = ItemsOverviewStatus.initial,
+    this.listItems = const [],
+    this.filter = ItemsViewFilter.all,
+    this.lastDeletedItem,
   });
 
-  final TodosOverviewStatus status;
-  final List<Todo> todos;
-  final TodosViewFilter filter;
-  final Todo? lastDeletedTodo;
+  final ItemsOverviewStatus status;
+  final List<ListItem> listItems;
+  final ItemsViewFilter filter;
+  final ListItem? lastDeletedItem;
 
-  Iterable<Todo> get filteredTodos => filter.applyAll(todos);
+  Iterable<ListItem> get filteredItems => filter.applyAll(listItems);
 
-  TodosOverviewState copyWith({
-    TodosOverviewStatus Function()? status,
-    List<Todo> Function()? todos,
-    TodosViewFilter Function()? filter,
-    Todo? Function()? lastDeletedTodo,
+  ItemsOverviewState copyWith({
+    ItemsOverviewStatus Function()? status,
+    List<ListItem> Function()? items,
+    ItemsViewFilter Function()? filter,
+    ListItem? Function()? lastDeletedItem,
   }) {
-    return TodosOverviewState(
+    return ItemsOverviewState(
       status: status != null ? status() : this.status,
-      todos: todos != null ? todos() : this.todos,
+      listItems: items != null ? items() : this.listItems,
       filter: filter != null ? filter() : this.filter,
-      lastDeletedTodo:
-          lastDeletedTodo != null ? lastDeletedTodo() : this.lastDeletedTodo,
+      lastDeletedItem:
+          lastDeletedItem != null ? lastDeletedItem() : this.lastDeletedItem,
     );
   }
 
   @override
   List<Object?> get props => [
         status,
-        todos,
+        listItems,
         filter,
-        lastDeletedTodo,
+        lastDeletedItems,
       ];
 }
