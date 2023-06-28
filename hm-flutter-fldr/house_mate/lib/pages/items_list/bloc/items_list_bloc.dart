@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// TODO: used in event and state files for 'ViewFilter', plus more
+import 'package:house_mate/pages/items_list/items_list.dart';
 
 part 'items_list_event.dart';
 part 'items_list_state.dart';
