@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../edit_item/view/edit_item_page.dart';
+import '../bloc/items_list_bloc.dart';
 
 class ItemsListPage extends StatelessWidget {
   const ItemsListPage({super.key});
@@ -7,16 +11,16 @@ class ItemsListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TodosOverviewBloc(
-        todosRepository: context.read<TodosRepository>(),
-      )..add(const TodosOverviewSubscriptionRequested()),
-      child: const TodosOverviewView(),
+      create: (context) => ItemsListBloc(
+        listItemsRepository: context.read<ListItemsRepository>(),
+      )..add(const ItemsListSubscriptionRequested()),
+      child: const ItemsListView(),
     );
   }
 }
 
-class TodosOverviewView extends StatelessWidget {
-  const TodosOverviewView({super.key});
+class ItemsListView extends StatelessWidget {
+  const ItemsListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class TodosOverviewView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.todosOverviewAppBarTitle),
+        title: Text(l10n.ItemsListAppBarTitle),
         actions: const [
           ItemsListFilterButton(),
           ItemsListOptionsButton(),
@@ -42,7 +46,7 @@ class TodosOverviewView extends StatelessWidget {
                   ..hideCurrentSnackBar()
                   ..showSnackBar(
                     SnackBar(
-                      content: Text(l10n.todosOverviewErrorSnackbarText),
+                      content: Text(l10n.ItemsListErrorSnackbarText),
                     ),
                   );
               }
@@ -50,22 +54,22 @@ class TodosOverviewView extends StatelessWidget {
           ),
           BlocListener<ItemsListBloc, ItemsListState>(
             listenWhen: (previous, current) =>
-                previous.lastDeletedTodo != current.lastDeletedTodo &&
-                current.lastDeletedTodo != null,
+                previous.lastDeletedItem != current.lastDeletedItem &&
+                current.lastDeletedItem != null,
             listener: (context, state) {
-              final deletedTodo = state.lastDeletedTodo!;
+              final deletedItem = state.lastDeletedItem!;
               final messenger = ScaffoldMessenger.of(context);
               messenger
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
                     content: Text(
-                      l10n.todosOverviewTodoDeletedSnackbarText(
-                        deletedTodo.title,
+                      l10n.itemsListItemDeletedSnackbarText(
+                        deletedItem.title,
                       ),
                     ),
                     action: SnackBarAction(
-                      label: l10n.todosOverviewUndoDeletionButtonText,
+                      label: l10n.itemsListUndoDeletionButtonText,
                       onPressed: () {
                         messenger.hideCurrentSnackBar();
                         context
@@ -80,7 +84,7 @@ class TodosOverviewView extends StatelessWidget {
         ],
         child: BlocBuilder<ItemsListBloc, ItemsListState>(
           builder: (context, state) {
-            if (state.todos.isEmpty) {
+            if (state.listItems.isEmpty) {
               if (state.status == ItemsListStatus.loading) {
                 return const Center(child: CupertinoActivityIndicator());
               } else if (state.status != ItemsListStatus.success) {
@@ -88,7 +92,7 @@ class TodosOverviewView extends StatelessWidget {
               } else {
                 return Center(
                   child: Text(
-                    l10n.todosOverviewEmptyText,
+                    l10n.itemsListEmptyText,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 );
@@ -98,13 +102,13 @@ class TodosOverviewView extends StatelessWidget {
             return CupertinoScrollbar(
               child: ListView(
                 children: [
-                  for (final todo in state.filteredTodos)
+                  for (final item in state.filteredItems)
                     ItemsListTile(
-                      todo: todo,
+                      listItem: item,
                       onToggleCompleted: (isCompleted) {
                         context.read<ItemsListBloc>().add(
-                              ItemsListTodoCompletionToggled(
-                                todo: todo,
+                              ItemsListItemCompletionToggled(
+                                listItem: item,
                                 isCompleted: isCompleted,
                               ),
                             );
@@ -112,11 +116,11 @@ class TodosOverviewView extends StatelessWidget {
                       onDismissed: (_) {
                         context
                             .read<ItemsListBloc>()
-                            .add(ItemsListTodoDeleted(todo));
+                            .add(ItemsListItemDeleted(item));
                       },
                       onTap: () {
                         Navigator.of(context).push(
-                          EditItemPage.route(initialTodo: todo),
+                          EditItemPage.route(initialItem: item),
                         );
                       },
                     ),
