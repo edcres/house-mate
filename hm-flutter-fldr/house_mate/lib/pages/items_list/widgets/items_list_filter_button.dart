@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:house_mate\items_list\items_list.dart';
+import 'package:house_mate/pages/items_list/items_list.dart';
 
 class ItemsListFilterButton extends StatelessWidget {
   const ItemsListFilterButton({super.key});
