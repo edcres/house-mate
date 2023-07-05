@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:equatable/equatable.dart';z
 
 part 'edit_item_event.dart';
 part 'edit_item_state.dart';
