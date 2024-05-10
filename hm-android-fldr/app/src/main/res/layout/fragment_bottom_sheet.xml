@@ -5,6 +5,7 @@
     tools:context=".ui.main.fragments.BottomSheetFragment">
 
     <FrameLayout
+        android:id="@+id/bottom_sheet_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_peekHeight="400dp"

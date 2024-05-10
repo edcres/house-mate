@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.databinding.FragmentBottomSheetBinding
@@ -71,6 +72,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private fun startShoppingView(item: ShoppingItem) {
         binding?.apply {
             shoppingExpandableContainer.visibility = View.VISIBLE
+            // TODO:
+//            shoppingExpandableContainer.setBackgroundColor(resources.getColor(R.color.red))
             shoppingSheetQtyTxt.text = presentItemQty(item.quantity!!)
             shoppingSheetTitleTxt.text = item.name
             shoppingWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
