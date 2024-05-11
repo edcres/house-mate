@@ -72,8 +72,11 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private fun startShoppingView(item: ShoppingItem) {
         binding?.apply {
             shoppingExpandableContainer.visibility = View.VISIBLE
-            // TODO:
-//            shoppingExpandableContainer.setBackgroundColor(resources.getColor(R.color.red))
+            when (item.priority) {
+                1 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background_red)
+                2 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background_yellow)
+                3 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background)
+            }
             shoppingSheetQtyTxt.text = presentItemQty(item.quantity!!)
             shoppingSheetTitleTxt.text = item.name
             shoppingWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
