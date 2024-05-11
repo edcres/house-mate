@@ -24,4 +24,5 @@
 
     <color name="subtle_yellow">#D1D151</color>
     <color name="red">#CF4F4F</color>
+    <color name="transparent">#00CF4F4F</color>
 </resources>

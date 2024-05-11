@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.fragment.app.activityViewModels
 import com.aldreduser.housemate.R
 import com.aldreduser.housemate.data.model.ChoresItem
@@ -72,11 +73,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private fun startShoppingView(item: ShoppingItem) {
         binding?.apply {
             shoppingExpandableContainer.visibility = View.VISIBLE
-            when (item.priority) {
-                1 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background_red)
-                2 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background_yellow)
-                3 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background)
-            }
+            setColorForSheet(bottomSheetFrame, item.priority)
             shoppingSheetQtyTxt.text = presentItemQty(item.quantity!!)
             shoppingSheetTitleTxt.text = item.name
             shoppingWhenNeededDoneText.text = if (item.neededBy!!.isNotEmpty()) {
@@ -151,6 +148,14 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
                     true
                 } else false
             }
+        }
+    }
+
+    private fun setColorForSheet(bottomSheetFrame: FrameLayout, priority: Int?) {
+        if (priority != null) when (priority) {
+            1 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background_red)
+            2 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background_yellow)
+            3 -> bottomSheetFrame.setBackgroundResource(R.drawable.bottom_sheet_background)
         }
     }
 
