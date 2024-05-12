@@ -86,5 +86,27 @@ fun add1AndScrambleLetters(oldID: String): String {
     return newID
 }
 
+fun commaPastOrders(rawOrders: List<String>): List<String> {
+    val commaOrders = mutableListOf<String>()
+    for (i in rawOrders) commaOrders.add(addCommasToOrder(i))
+    return commaOrders
+}
+
+fun addCommasToOrder(order: String): String {
+    var newOrderReversed = ""
+    var counter = 0
+    for (i in order.length-1 downTo 0) {
+        newOrderReversed += order[i]
+        if (order[i].isDigit()) {
+            counter ++
+            if (counter == 3) {
+                newOrderReversed += ","
+                counter = 0
+            }
+        }
+    }
+    return newOrderReversed.reversed()
+}
+
 fun displayToast(context: Context, msg: String) =
     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

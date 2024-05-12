@@ -22,6 +22,7 @@ import com.aldreduser.housemate.ui.main.fragments.nestedfragments.ShoppingListFr
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel
 import com.aldreduser.housemate.ui.main.viewmodels.ListsViewModel.Companion.PAST_GROUPS_SP_TAG
 import com.aldreduser.housemate.util.ListType
+import com.aldreduser.housemate.util.commaPastOrders
 import com.aldreduser.housemate.util.displayToast
 import com.aldreduser.housemate.util.validateGroupId
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -259,9 +260,10 @@ class StartFragment : Fragment() {
     private fun makeDialogBoxAndShowPastGroups(pastOrdersList: List<String>) {
         val inputDialog = MaterialAlertDialogBuilder(requireContext())
         var selectedGroup: String? = null
+        val commaOrders = commaPastOrders(pastOrdersList)
         inputDialog
-            .setSingleChoiceItems(pastOrdersList.toTypedArray(), -1) { _, which ->
-                selectedGroup = pastOrdersList[which]
+            .setSingleChoiceItems(commaOrders.toTypedArray(), -1) { _, which ->
+                selectedGroup = commaOrders[which]
             }
             .setPositiveButton("Accept") { dialog, _ ->
                 if (selectedGroup != null)
