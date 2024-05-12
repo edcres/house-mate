@@ -92,16 +92,27 @@ fun commaPastOrders(rawOrders: List<String>): List<String> {
     return commaOrders
 }
 
-fun addCommasToOrder(order: String): String {
+fun addCommasToOrder(order: String?): String {
     var newOrderReversed = ""
-    var counter = 0
-    for (i in order.length-1 downTo 0) {
-        newOrderReversed += order[i]
-        if (order[i].isDigit()) {
-            counter ++
-            if (counter == 3) {
-                newOrderReversed += ","
-                counter = 0
+    var digitsStarted = false
+    if (order != null) {
+        var counter = 0
+        for (i in order.length - 1 downTo 0) {
+            newOrderReversed += order[i]
+            // Find the spot between letter and number
+            if (!digitsStarted) {
+                if (order[i].isLetter() && order[i-1].isDigit()) {
+                    newOrderReversed += "-"
+                    digitsStarted = true
+                }
+            }
+            // Add a like between numbers
+            if (order[i].isDigit()) {
+                counter++
+                if (counter == 3) {
+                    newOrderReversed += "-"
+                    counter = 0
+                }
             }
         }
     }
