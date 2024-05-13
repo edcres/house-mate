@@ -27,11 +27,12 @@ class ListsRepository {
             purchaseLocation: String,
             itemNeededBy: String,
             itemPriority: Int,
-        addedBy: String
+            addedBy: String,
+            notes: String
     ) {
         dbApiService.addShoppingItemToDatabase(
             groupID, itemName, itemQuantity, itemCost,
-            purchaseLocation, itemNeededBy, itemPriority, addedBy
+            purchaseLocation, itemNeededBy, itemPriority, addedBy, notes
         )
     }
     suspend fun addChoresItemToDb(
@@ -40,10 +41,11 @@ class ListsRepository {
         itemDifficulty: Int,
         itemNeededBy: String,
         itemPriority: Int,
-        addedBy: String
+        addedBy: String,
+        notes: String
     ) {
         dbApiService.addChoresItemToDatabase(
-            groupID, itemName, itemDifficulty, itemNeededBy, itemPriority, addedBy
+            groupID, itemName, itemDifficulty, itemNeededBy, itemPriority, addedBy, notes
         )
     }
 
