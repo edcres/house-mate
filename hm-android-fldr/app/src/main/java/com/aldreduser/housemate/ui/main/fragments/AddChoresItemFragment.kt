@@ -125,6 +125,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 2 -> difficultyButton2.isChecked = true
                 3 -> difficultyButton3.isChecked = true
             }
+            itemNotesInput.setText(itemToEdit.notes)
             when(itemToEdit.priority) {
                 1 -> priorityButton1.isChecked = true
                 2 -> priorityButton2.isChecked = true

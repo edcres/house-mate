@@ -120,7 +120,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             itemNameInput.setText(itemToEdit.name)
             if (!itemToEdit.neededBy.isNullOrEmpty()) whenNeededBtn.text = itemToEdit.neededBy
             whereToGetInput.setText(itemToEdit.purchaseLocation)
-            // TODO: set notes on screen
+            itemNotesInput.setText(itemToEdit.notes)
             costInput.setText(itemToEdit.cost.toString())
             when (itemToEdit.priority) {
                 1 -> priorityButton1.isChecked = true
