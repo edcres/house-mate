@@ -147,13 +147,14 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 if (whenNeededBtn.text.toString() != getString(R.string.hint_when_needed)) {
                     whenNeededBtn.text.toString()
                 } else ""
+            // TODO:
             listsViewModel.sendItemToDatabase(
                 ListType.SHOPPING.toString(),
                 itemNameInput.text.toString(),
                 qty, cost,
                 whereToGetInput.text.toString(),
                 whenNeeded,
-                priority, 0
+                priority, 0, notes = ""
             )
         }
     }
