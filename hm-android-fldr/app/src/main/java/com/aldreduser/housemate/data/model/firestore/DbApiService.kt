@@ -120,7 +120,8 @@ class DbApiService {
         purchaseLocation: String,
         itemNeededBy: String,
         itemPriority: Int,
-        addedBy: String
+        addedBy: String,
+        notes: String
     ) {
         val shoppingItemData = hashMapOf(
             NAME_FIELD to itemName,
@@ -131,7 +132,8 @@ class DbApiService {
             PRIORITY_FIELD to itemPriority,
             COMPLETED_FIELD to false,
             VOLUNTEER_FIELD to "",
-            ADDED_BY_FIELD to addedBy
+            ADDED_BY_FIELD to addedBy,
+            NOTES_FIELD to notes
         )
         groupIDsDocumentDB.collection(clientGroupIDCollection).document(SHOPPING_LIST_DOC)
             .collection(SHOPPING_ITEMS_COLLECTION).document(itemName).set(shoppingItemData)
@@ -147,7 +149,8 @@ class DbApiService {
         itemDifficulty: Int,
         itemNeededBy: String,
         itemPriority: Int,
-        addedBy: String
+        addedBy: String,
+        notes: String
     ) {
         val choresItemData = hashMapOf(
             NAME_FIELD to itemName,
@@ -156,7 +159,8 @@ class DbApiService {
             PRIORITY_FIELD to itemPriority,
             COMPLETED_FIELD to false,
             VOLUNTEER_FIELD to "",
-            ADDED_BY_FIELD to addedBy
+            ADDED_BY_FIELD to addedBy,
+            NOTES_FIELD to notes
         )
         groupIDsDocumentDB.collection(clientGroupIDCollection).document(CHORES_LIST_DOC)
             .collection(CHORE_ITEMS_COLLECTION).document(itemName).set(choresItemData)
