@@ -15,6 +15,7 @@
     <string name="hint_where_to_get">where to get it</string>
     <string name="hint_cost">cost $</string>
     <string name="hint_volunteer">volunteer</string>
+    <string name="hint_notes">notes</string>
 
     <string name="label_priority">Priority:</string>
     <string name="label_priority_1">Urgent</string>
