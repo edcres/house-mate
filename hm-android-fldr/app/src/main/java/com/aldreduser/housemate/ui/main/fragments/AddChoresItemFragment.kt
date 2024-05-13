@@ -149,7 +149,6 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 if(whenNeededBtn.text.toString() != getString(R.string.hint_when_needed)) {
                     whenNeededBtn.text.toString()
                 } else ""
-            // TODO:
             listsViewModel.sendItemToDatabase(
                 ListType.CHORES.toString(),
                 itemNameInput.text.toString(),
@@ -157,7 +156,7 @@ class AddChoresItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 "",
                 whenNeeded,
                 priority, difficulty,
-                notes = ""
+                itemNotesInput.text.toString()
             )
         }
     }

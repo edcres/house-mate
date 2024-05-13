@@ -120,6 +120,7 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
             itemNameInput.setText(itemToEdit.name)
             if (!itemToEdit.neededBy.isNullOrEmpty()) whenNeededBtn.text = itemToEdit.neededBy
             whereToGetInput.setText(itemToEdit.purchaseLocation)
+            // TODO: set notes on screen
             costInput.setText(itemToEdit.cost.toString())
             when (itemToEdit.priority) {
                 1 -> priorityButton1.isChecked = true
@@ -147,14 +148,14 @@ class AddShoppingItemFragment : Fragment(), DatePickerDialog.OnDateSetListener {
                 if (whenNeededBtn.text.toString() != getString(R.string.hint_when_needed)) {
                     whenNeededBtn.text.toString()
                 } else ""
-            // TODO:
             listsViewModel.sendItemToDatabase(
                 ListType.SHOPPING.toString(),
                 itemNameInput.text.toString(),
                 qty, cost,
                 whereToGetInput.text.toString(),
                 whenNeeded,
-                priority, 0, notes = ""
+                priority, 0,
+                itemNotesInput.text.toString()
             )
         }
     }
