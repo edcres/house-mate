@@ -196,6 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="72dp"
                     android:hint="@string/hint_notes"
                     app:boxStrokeColor="@color/colorPrimaryDark"
                     app:hintTextColor="@color/colorPrimaryDark"
@@ -207,7 +208,7 @@
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:inputType="textMultiLine" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
