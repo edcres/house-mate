@@ -47,6 +47,7 @@ class DbApiService {
         const val VOLUNTEER_FIELD = "volunteer"
         const val PRIORITY_FIELD = "priority"
         const val DIFFICULTY_FIELD = "difficulty"
+        const val NOTES_FIELD = "notes"
     }
 
     // SET UP FUNCTIONS //

@@ -16,6 +16,7 @@ Shopping items properties:
 -needed by (this date)
 -who volunteers to buying it
 -priority 1-3 (compared to others shopping items)
+-notes
 */
 @IgnoreExtraProperties
 data class ShoppingItem (
@@ -32,5 +33,6 @@ data class ShoppingItem (
     // Not necessary and used in chores
     val neededBy: String? = "",  // date
     val volunteer: String? = "",
-    val priority: Int? = 2      // 1 = urgent, 3 = eventually
+    val priority: Int? = 2,      // 1 = urgent, 3 = eventually
+    val notes: String = ""
 )

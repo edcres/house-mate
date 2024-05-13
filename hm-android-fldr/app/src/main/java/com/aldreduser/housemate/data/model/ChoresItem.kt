@@ -14,6 +14,7 @@ Chores properties:
 -needed by (this date)
 -who volunteers to do it
 -priority 1-3 (compared to others shopping items)
+-notes
 */
 @IgnoreExtraProperties
 data class ChoresItem (
@@ -28,5 +29,6 @@ data class ChoresItem (
     // Not necessary and used in shoppingItem
     val neededBy: String? = "",  //date
     val volunteer: String? = "", //who's buying it
-    val priority: Int? = 2
+    val priority: Int? = 2,
+    val notes: String = ""
 )
