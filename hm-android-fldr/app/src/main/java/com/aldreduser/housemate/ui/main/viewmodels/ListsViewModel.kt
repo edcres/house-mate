@@ -138,20 +138,20 @@ class ListsViewModel : ViewModel() {
         listTag: String, itemName: String, itemQuantity: Double,
         itemCost: Double, purchaseLocation: String,
         itemNeededBy: String,
-        itemPriority: Int, itemDifficulty: Int,
+        itemPriority: Int, itemDifficulty: Int, notes: String
     ) {
         viewModelScope.launch {
             when (listTag) {
                 ListType.SHOPPING.toString() -> {
                     listsRepository.addShoppingItemToDb(
                         clientGroupIDCollection!!, itemName, itemQuantity, itemCost,
-                        purchaseLocation, itemNeededBy, itemPriority, userName!!
+                        purchaseLocation, itemNeededBy, itemPriority, userName!!, notes
                     )
                 }
                 ListType.CHORES.toString() -> {
                     listsRepository.addChoresItemToDb(
                         clientGroupIDCollection!!, itemName, itemDifficulty,
-                        itemNeededBy, itemPriority, userName!!
+                        itemNeededBy, itemPriority, userName!!, notes
                     )
                 }
             }
