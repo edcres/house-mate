@@ -97,6 +97,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             shoppingPriorityText.text = displayPriority(item.priority!!)
             shoppingAddedByText.text = displayAddedBy(item.addedBy!!)
             shoppingWhoIsGettingItText.setText(item.volunteer)
+            shoppingItemNotesText.text = item.notes
         }
         shoppingVolunteerListener(item)
     }
@@ -115,6 +116,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             choresPriorityText.text = displayPriority(item.priority!!)
             choresAddedByText.text = displayAddedBy(item.addedBy!!)
             choresWhoIsDoingItText.setText(item.volunteer)
+            choresItemNotesText.text = item.notes
         }
         choresVolunteerListener(item)
     }
