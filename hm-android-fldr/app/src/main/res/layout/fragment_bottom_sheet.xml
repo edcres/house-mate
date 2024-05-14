@@ -209,10 +209,12 @@
                 android:id="@+id/shopping_item_notes_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginBottom="72dp"
+                android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="@color/notes"
-                app:layout_constraintStart_toEndOf="@+id/shop_added_by_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shopping_added_by_text"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -388,10 +390,12 @@
                 android:id="@+id/chores_item_notes_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginBottom="72dp"
+                android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:textColor="@color/notes"
-                app:layout_constraintStart_toEndOf="@+id/chores_added_by_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chores_added_by_text"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
