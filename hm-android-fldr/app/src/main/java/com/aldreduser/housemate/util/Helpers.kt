@@ -126,5 +126,7 @@ fun addCommasToOrder(order: String?): String {
 
 fun removeCommas(commaEdOrder: String) = commaEdOrder.split('-').joinToString("")
 
+
+
 fun displayToast(context: Context, msg: String) =
     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

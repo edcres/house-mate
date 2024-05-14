@@ -158,10 +158,10 @@ class StartFragment : Fragment() {
                 listOptionPastGroups -> {
                     val pastGroups = listsViewModel.getDataFromSP(PAST_GROUPS_SP_TAG)
                     if (pastGroups != null) {
-                        makeDialogBoxAndShowPastGroups(pastGroups.split("-"))
-                    } else {
-                        displayToast(requireContext(), "No past groups")
-                    }
+                        makeDialogBoxAndShowPastGroups(
+                            (pastGroups.split("-").toSet().toList())
+                        )
+                    } else displayToast(requireContext(), "No past groups")
                     true
                 }
                 listOptionChangeUsername -> {
