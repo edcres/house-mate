@@ -100,6 +100,9 @@ fun addCommasToOrder(order: String?): String {
         for (i in order.length - 1 downTo 0) {
             newOrderReversed += order[i]
             // Find the spot between letter and number
+            // TODO: 'if(i > 0)' just covers up a crash bug on 'order[i - 1]'
+            //      - Happens when displaying past groups
+            //      - Causes another small bug
             if(i > 0) {
                 if (!digitsStarted) {
                     if (order[i].isLetter() && order[i - 1].isDigit()) {
