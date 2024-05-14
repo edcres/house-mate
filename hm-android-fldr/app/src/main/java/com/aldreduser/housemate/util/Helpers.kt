@@ -100,18 +100,20 @@ fun addCommasToOrder(order: String?): String {
         for (i in order.length - 1 downTo 0) {
             newOrderReversed += order[i]
             // Find the spot between letter and number
-            if (!digitsStarted) {
-                if (order[i].isLetter() && order[i-1].isDigit()) {
-                    newOrderReversed += "-"
-                    digitsStarted = true
+            if(i > 0) {
+                if (!digitsStarted) {
+                    if (order[i].isLetter() && order[i - 1].isDigit()) {
+                        newOrderReversed += "-"
+                        digitsStarted = true
+                    }
                 }
-            }
-            // Add a like between numbers
-            if (order[i].isDigit()) {
-                counter++
-                if (counter == 3) {
-                    newOrderReversed += "-"
-                    counter = 0
+                // Add a like between numbers
+                if (order[i].isDigit()) {
+                    counter++
+                    if (counter == 3) {
+                        newOrderReversed += "-"
+                        counter = 0
+                    }
                 }
             }
         }
