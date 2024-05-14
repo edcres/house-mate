@@ -264,7 +264,7 @@ class StartFragment : Fragment() {
             }
             .setPositiveButton("Accept") { dialog, _ ->
                 if (selectedGroup != null)
-                    listsViewModel.setGroupID(selectedGroup!!)
+                    listsViewModel.setGroupID(removeCommas(selectedGroup!!))
                 dialog.dismiss()
 
             }
