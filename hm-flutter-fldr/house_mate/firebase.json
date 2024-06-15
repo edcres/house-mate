@@ -1,9 +1,1 @@
-{
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "emulators": {
-    "singleProjectMode": true
-  }
-}
+{"firestore":{"rules":"firestore.rules","indexes":"firestore.indexes.json"},"emulators":{"singleProjectMode":true},"flutter":{"platforms":{"android":{"default":{"projectId":"house-mate-3b2d2","appId":"1:795882824191:android:eaab2cea0327a132e847ca","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"house-mate-3b2d2","configurations":{"android":"1:795882824191:android:eaab2cea0327a132e847ca","ios":"1:795882824191:ios:dc12d1cd40d058f6e847ca","macos":"1:795882824191:ios:dc12d1cd40d058f6e847ca","web":"1:795882824191:web:6fe1002f52e69c96e847ca","windows":"1:795882824191:web:fab96368c1c5b354e847ca"}}}}}}

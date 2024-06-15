@@ -25,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -70,8 +64,28 @@ class DefaultFirebaseOptions {
     messagingSenderId: '795882824191',
     projectId: 'house-mate-3b2d2',
     storageBucket: 'house-mate-3b2d2.appspot.com',
-    iosClientId:
-        '795882824191-9q690ul7p55ci21sba72sibj77badas5.apps.googleusercontent.com',
+    iosClientId: '795882824191-9q690ul7p55ci21sba72sibj77badas5.apps.googleusercontent.com',
     iosBundleId: 'com.example.houseMate',
   );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAOKA4qVZMBIBS9TJaNrDKgY0RNWb6vqYI',
+    appId: '1:795882824191:ios:dc12d1cd40d058f6e847ca',
+    messagingSenderId: '795882824191',
+    projectId: 'house-mate-3b2d2',
+    storageBucket: 'house-mate-3b2d2.appspot.com',
+    iosClientId: '795882824191-9q690ul7p55ci21sba72sibj77badas5.apps.googleusercontent.com',
+    iosBundleId: 'com.example.houseMate',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyApwHE0bWTkKAPLphMs4jMlOhC_aGvIJOI',
+    appId: '1:795882824191:web:fab96368c1c5b354e847ca',
+    messagingSenderId: '795882824191',
+    projectId: 'house-mate-3b2d2',
+    authDomain: 'house-mate-3b2d2.firebaseapp.com',
+    storageBucket: 'house-mate-3b2d2.appspot.com',
+    measurementId: 'G-DY0QCZMPGL',
+  );
+
 }
