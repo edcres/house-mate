@@ -42,6 +42,10 @@ class UpdateItem extends TodoEvent {
   List<Object> get props => [id, updatedTask];
 }
 
+class EnterEditMode extends TodoEvent {}
+
+class ExitEditMode extends TodoEvent {}
+
 // State Definition
 class TodoState extends Equatable {
   final List<Todo> items;
