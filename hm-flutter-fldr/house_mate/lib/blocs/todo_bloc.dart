@@ -49,11 +49,19 @@ class ExitEditMode extends TodoEvent {}
 // State Definition
 class TodoState extends Equatable {
   final List<Todo> items;
+  final bool isEditMode;
 
-  TodoState({required this.items});
+  TodoState({required this.items, this.isEditMode = false});
+
+  TodoState copyWith({List<Todo>? items, bool? isEditMode}) {
+    return TodoState(
+      items: items ?? this.items,
+      isEditMode: isEditMode ?? this.isEditMode,
+    );
+  }
 
   @override
-  List<Object> get props => [items];
+  List<Object> get props => [items, isEditMode];
 }
 
 // BLoC Definition
