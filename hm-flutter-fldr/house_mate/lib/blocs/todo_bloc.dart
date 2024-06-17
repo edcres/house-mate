@@ -46,6 +46,15 @@ class EnterEditMode extends TodoEvent {}
 
 class ExitEditMode extends TodoEvent {}
 
+class DeleteItem extends TodoEvent {
+  final String id;
+
+  DeleteItem(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
+
 // State Definition
 class TodoState extends Equatable {
   final List<Todo> items;
