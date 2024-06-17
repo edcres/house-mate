@@ -82,8 +82,14 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<AddItem>(_onAddItem);
     on<ToggleItem>(_onToggleItem);
     on<UpdateItem>(_onUpdateItem);
+    on<DeleteItem>(_onDeleteItem);
     on<EnterEditMode>(_onEnterEditMode);
     on<ExitEditMode>(_onExitEditMode);
+  }
+
+  Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
+    await _firestore.collection('todos').doc(event.id).delete();
+    add(LoadItems());
   }
 
   void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
