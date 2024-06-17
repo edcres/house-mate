@@ -18,6 +18,22 @@ class TabsScreen extends StatelessWidget {
               Tab(text: 'Chores'),
             ],
           ),
+          actions: [
+            BlocBuilder<TodoBloc, TodoState>(
+              builder: (context, state) {
+                return IconButton(
+                  icon: Icon(state.isEditMode ? Icons.done : Icons.edit),
+                  onPressed: () {
+                    if (state.isEditMode) {
+                      context.read<TodoBloc>().add(ExitEditMode());
+                    } else {
+                      context.read<TodoBloc>().add(EnterEditMode());
+                    }
+                  },
+                );
+              },
+            ),
+          ],
         ),
         body: TabBarView(
           children: [
