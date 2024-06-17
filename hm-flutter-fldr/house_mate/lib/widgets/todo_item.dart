@@ -5,8 +5,13 @@ class TodoItem extends StatelessWidget {
   final Todo todo;
   final VoidCallback onTap;
   final VoidCallback onEdit;
+  final VoidCallback onToggle;
 
-  TodoItem({required this.todo, required this.onTap, required this.onEdit});
+  TodoItem(
+      {required this.todo,
+      required this.onTap,
+      required this.onEdit,
+      required this.onToggle});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,7 @@ class TodoItem extends StatelessWidget {
                   ? Icons.check_box
                   : Icons.check_box_outline_blank,
             ),
-            onPressed: onTap,
+            onPressed: onToggle,
           ),
         ],
       ),

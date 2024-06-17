@@ -67,6 +67,9 @@ class ItemsScreen extends StatelessWidget {
                       todo: items[index]),
                 ));
               },
+              onToggle: () {
+                context.read<TodoBloc>().add(ToggleItem(items[index].id));
+              },
             );
           },
         );
