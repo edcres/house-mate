@@ -73,6 +73,16 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<AddItem>(_onAddItem);
     on<ToggleItem>(_onToggleItem);
     on<UpdateItem>(_onUpdateItem);
+    on<EnterEditMode>(_onEnterEditMode);
+    on<ExitEditMode>(_onExitEditMode);
+  }
+
+  void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
+    emit(state.copyWith(isEditMode: true));
+  }
+
+  void _onExitEditMode(ExitEditMode event, Emitter<TodoState> emit) {
+    emit(state.copyWith(isEditMode: false));
   }
 
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
