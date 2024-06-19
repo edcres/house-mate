@@ -42,10 +42,6 @@ class UpdateItem extends TodoEvent {
   List<Object> get props => [id, updatedTask];
 }
 
-class EnterEditMode extends TodoEvent {}
-
-class ExitEditMode extends TodoEvent {}
-
 class DeleteItem extends TodoEvent {
   final String id;
 
@@ -54,6 +50,10 @@ class DeleteItem extends TodoEvent {
   @override
   List<Object> get props => [id];
 }
+
+class EnterEditMode extends TodoEvent {}
+
+class ExitEditMode extends TodoEvent {}
 
 // State Definition
 class TodoState extends Equatable {
@@ -87,21 +87,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<ExitEditMode>(_onExitEditMode);
   }
 
-  Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
-    await _firestore.collection('todos').doc(event.id).delete();
-    add(LoadItems());
-  }
-
-  void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
-    emit(state.copyWith(isEditMode: true));
-  }
-
-  void _onExitEditMode(ExitEditMode event, Emitter<TodoState> emit) {
-    emit(state.copyWith(isEditMode: false));
-  }
+  final String groupID = '00000001aaaaa';
+  final String collectionPath =
+      'todos/Group IDs/00000001aaaaa/Items List/List Items';
 
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
-    final snapshot = await _firestore.collection('todos').get();
+    final snapshot = await _firestore.collection(collectionPath).get();
     final items = snapshot.docs.map((doc) {
       final data = doc.data();
       final itemType =
@@ -116,7 +107,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
-    final newDoc = await _firestore.collection('todos').add({
+    await _firestore.collection(collectionPath).doc(event.item).set({
       'task': event.item,
       'isCompleted': false,
       'itemType': event.itemType.toString().split('.').last,
@@ -126,16 +117,29 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onToggleItem(ToggleItem event, Emitter<TodoState> emit) async {
     final item = state.items.firstWhere((item) => item.id == event.id);
-    await _firestore.collection('todos').doc(event.id).update({
+    await _firestore.collection(collectionPath).doc(event.id).update({
       'isCompleted': !item.isCompleted,
     });
     add(LoadItems());
   }
 
   Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
-    await _firestore.collection('todos').doc(event.id).update({
+    await _firestore.collection(collectionPath).doc(event.id).update({
       'task': event.updatedTask,
     });
     add(LoadItems());
+  }
+
+  Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
+    await _firestore.collection(collectionPath).doc(event.id).delete();
+    add(LoadItems());
+  }
+
+  void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
+    emit(state.copyWith(isEditMode: true));
+  }
+
+  void _onExitEditMode(ExitEditMode event, Emitter<TodoState> emit) {
+    emit(state.copyWith(isEditMode: false));
   }
 }
