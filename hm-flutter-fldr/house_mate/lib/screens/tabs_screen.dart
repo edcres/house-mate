@@ -4,6 +4,12 @@ import '../blocs/todo_bloc.dart';
 import 'items_screen.dart';
 import '../models/todo.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../blocs/todo_bloc.dart';
+import 'items_screen.dart';
+import '../models/todo.dart';
+
 class TabsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,16 +47,24 @@ class TabsScreen extends StatelessWidget {
             ItemsScreen(itemType: ItemType.Chore),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AddItemDialog();
+        floatingActionButton: Builder(
+          builder: (context) {
+            return FloatingActionButton(
+              onPressed: () {
+                final tabController = DefaultTabController.of(context);
+                final itemType = tabController?.index == 1
+                    ? ItemType.Chore
+                    : ItemType.Shopping;
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AddItemDialog(initialItemType: itemType);
+                  },
+                );
               },
+              child: Icon(Icons.add),
             );
           },
-          child: Icon(Icons.add),
         ),
       ),
     );
@@ -58,13 +72,23 @@ class TabsScreen extends StatelessWidget {
 }
 
 class AddItemDialog extends StatefulWidget {
+  final ItemType initialItemType;
+
+  AddItemDialog({required this.initialItemType});
+
   @override
   _AddItemDialogState createState() => _AddItemDialogState();
 }
 
 class _AddItemDialogState extends State<AddItemDialog> {
   final _controller = TextEditingController();
-  ItemType _selectedItemType = ItemType.Shopping;
+  late ItemType _selectedItemType;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedItemType = widget.initialItemType;
+  }
 
   @override
   Widget build(BuildContext context) {
