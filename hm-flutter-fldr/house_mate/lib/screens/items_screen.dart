@@ -49,7 +49,7 @@ class ItemsScreen extends StatelessWidget {
                           onPressed: () {
                             context
                                 .read<TodoBloc>()
-                                .add(DeleteItem(items[index].id));
+                                .add(DeleteItem(items[index].id, itemType));
                           },
                         ),
                       ],
@@ -63,7 +63,7 @@ class ItemsScreen extends StatelessWidget {
                       onPressed: () {
                         context
                             .read<TodoBloc>()
-                            .add(ToggleItem(items[index].id));
+                            .add(ToggleItem(items[index].id, itemType));
                       },
                     ),
               onTap: !state.isEditMode

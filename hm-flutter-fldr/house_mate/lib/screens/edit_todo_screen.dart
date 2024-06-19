@@ -41,9 +41,8 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
               onPressed: () {
                 final updatedTask = _controller.text;
                 if (updatedTask.isNotEmpty) {
-                  context
-                      .read<TodoBloc>()
-                      .add(UpdateItem(widget.todo.id, updatedTask));
+                  context.read<TodoBloc>().add(UpdateItem(
+                      widget.todo.id, updatedTask, widget.todo.itemType));
                 }
                 Navigator.of(context).pop();
               },
