@@ -43,9 +43,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                 if (updatedTask.isNotEmpty) {
                   context
                       .read<TodoBloc>()
-                      // TODO: remove this comment
-                      // .add(UpdateItem(widget.index, updatedTask));
-                      .add(UpdateItem(widget.index as String, updatedTask));
+                      .add(UpdateItem(widget.todo.id, updatedTask));
                 }
                 Navigator.of(context).pop();
               },
