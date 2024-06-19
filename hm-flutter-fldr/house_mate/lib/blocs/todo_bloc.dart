@@ -124,10 +124,17 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
-    await _firestore.collection(collectionPath).doc(event.id).update({
-      'task': event.updatedTask,
-    });
-    add(LoadItems());
+    final oldDoc = _firestore.collection(collectionPath).doc(event.id);
+    final oldData = (await oldDoc.get()).data();
+    if (oldData != null) {
+      await _firestore.collection(collectionPath).doc(event.updatedTask).set({
+        'task': event.updatedTask,
+        'isCompleted': oldData['isCompleted'],
+        'itemType': oldData['itemType'],
+      });
+      await oldDoc.delete();
+      add(LoadItems());
+    }
   }
 
   Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
