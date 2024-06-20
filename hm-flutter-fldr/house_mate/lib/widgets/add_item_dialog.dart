@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:house_mate/blocs/todo_event.dart';
 import '../blocs/todo_bloc.dart';
 import '../data/models/todo_item.dart';
 
@@ -54,6 +55,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
           onPressed: () {
             final item = _controller.text;
             if (item.isNotEmpty) {
+              // IDK if 'AddItem' should be done through TodoBloc instead of TodoEvent
               context.read<TodoBloc>().add(AddItem(item, _selectedItemType));
             }
             Navigator.of(context).pop();
