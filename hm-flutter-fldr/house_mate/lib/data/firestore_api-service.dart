@@ -3,6 +3,7 @@ import 'package:house_mate/Helper.dart';
 
 class FirestoreApiService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final String DEFAULT_ID = "00000000asdfg";
   final String GENERAL_COLLECTION = "todos";
   final String GROUP_IDS_DOC = "Group IDs";
   final String CLIENT_IDS_DOC = "Client IDs";
@@ -38,7 +39,7 @@ class FirestoreApiService {
         await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
 
     String lastClientId =
-        clientIdsDoc.data()?[LAST_CLIENT_ADDED_FIELD] ?? '00000001ffffe';
+        clientIdsDoc.data()?[LAST_CLIENT_ADDED_FIELD] ?? DEFAULT_ID;
     String newClientId = helper.generateNewID(lastClientId);
 
     await groupIDsDoc
@@ -52,21 +53,22 @@ class FirestoreApiService {
   // Group ID
   Future<String> createGroup() async {
     final QuerySnapshot<Map<String, dynamic>> groupsSnapshot = await groupIDsDoc
-        .collection('groups')
+        .collection(helper.generateNewID(DEFAULT_ID))
+        // TODO: what is 'id'  ?
         .orderBy('id', descending: true)
         .limit(1)
         .get();
 
     String lastGroupId = groupsSnapshot.docs.isNotEmpty
         ? groupsSnapshot.docs.first.id
-        : '00000000aaaaa';
+        : DEFAULT_ID;
     String newGroupId = helper.generateNewID(lastGroupId);
 
     // Create lastClientAdded, ShoppingList, ChoresList
-    await groupIDsDoc.collection(newGroupId).doc(CLIENT_IDS_DOC).set(
-        {LAST_CLIENT_ADDED_FIELD: '00000001fffff'}, SetOptions(merge: true));
-    await groupIDsDoc.collection(newGroupId).doc('Shopping List').set({});
-    await groupIDsDoc.collection(newGroupId).doc('Chores List').set({});
+    await groupIDsDoc
+        .collection(newGroupId)
+        .doc(CLIENT_IDS_DOC)
+        .set({LAST_CLIENT_ADDED_FIELD: DEFAULT_ID}, SetOptions(merge: true));
 
     return newGroupId;
   }
