@@ -1,6 +1,6 @@
-import 'todo.dart';
+import 'todo_item.dart';
 
-class ChoreItem extends Todo {
+class ChoreItem extends TodoItem {
   ChoreItem({
     required String id,
     required String task,

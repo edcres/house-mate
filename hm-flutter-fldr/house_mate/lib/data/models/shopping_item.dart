@@ -1,6 +1,6 @@
-import 'todo.dart';
+import 'todo_item.dart';
 
-class ShoppingItem extends Todo {
+class ShoppingItem extends TodoItem {
   ShoppingItem({
     required String id,
     required String task,

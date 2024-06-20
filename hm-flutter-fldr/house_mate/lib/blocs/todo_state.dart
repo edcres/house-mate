@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
-import 'package:house_mate/data/models/todo.dart';
+import 'package:house_mate/data/models/todo_item.dart';
 
 class TodoState extends Equatable {
-  final List<Todo> items;
+  final List<TodoItem> items;
   final bool isEditMode;
 
   TodoState({required this.items, this.isEditMode = false});
 
-  TodoState copyWith({List<Todo>? items, bool? isEditMode}) {
+  TodoState copyWith({List<TodoItem>? items, bool? isEditMode}) {
     return TodoState(
       items: items ?? this.items,
       isEditMode: isEditMode ?? this.isEditMode,

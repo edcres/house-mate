@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../data/models/todo.dart';
+import '../data/models/todo_item.dart';
 
 class TodoItemWidget extends StatelessWidget {
-  final Todo todo;
+  final TodoItem todo;
   final VoidCallback onTap;
   final VoidCallback onEdit;
   final VoidCallback onToggle;
