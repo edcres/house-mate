@@ -14,10 +14,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  // Get user/group IDs from local storage.
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? userId = prefs.getString('user_id');
   final String? groupId = prefs.getString('group_id');
 
+  // Create userID
   if (userId == null) {
     final String newUserId = await createUserId();
     await prefs.setString('user_id', newUserId);
@@ -102,12 +104,25 @@ Future<String> createGroupId() async {
       : '00000000aaaaa';
   String newGroupId = generateNextGroupId(lastGroupId);
 
+  // Create lastClientAdded, ShoppingList, ChoresList
   await firestore
       .collection('todos')
       .doc('Group IDs')
-      .collection('groups')
-      .doc(newGroupId)
-      .set({'id': newGroupId});
+      .collection(newGroupId)
+      .doc('Client IDs')
+      .set({'lastClientAdded': '00000001fffff'}, SetOptions(merge: true));
+  await firestore
+      .collection('todos')
+      .doc('Group IDs')
+      .collection(newGroupId)
+      .doc('Shopping List')
+      .set({});
+  await firestore
+      .collection('todos')
+      .doc('Group IDs')
+      .collection(newGroupId)
+      .doc('Chores List')
+      .set({});
 
   return newGroupId;
 }
@@ -133,8 +148,8 @@ Future<bool> checkGroupIdExists(String groupId) async {
   final DocumentSnapshot<Map<String, dynamic>> groupDoc = await firestore
       .collection('todos')
       .doc('Group IDs')
-      .collection('groups')
-      .doc(groupId)
+      .collection(groupId)
+      .doc('Client IDs')
       .get();
 
   return groupDoc.exists;
