@@ -16,15 +16,9 @@ void main() async {
 
   // Get user/group IDs from local storage.
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  final String? userId = prefs.getString('user_id');
   final String? groupId = prefs.getString('group_id');
 
   // Create userID
-  if (userId == null) {
-    final String newUserId = await createUserId();
-    await prefs.setString('user_id', newUserId);
-  }
-
   runApp(MyApp(initialGroupId: groupId));
 }
 
