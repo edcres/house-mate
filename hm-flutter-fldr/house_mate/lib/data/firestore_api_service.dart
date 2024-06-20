@@ -72,14 +72,8 @@ class FirestoreApiService {
 
   // Check if group exists.
   Future<bool> checkGroupIdExists(String groupId) async {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-    final DocumentSnapshot<Map<String, dynamic>> groupDoc = await firestore
-        .collection('todos')
-        .doc('Group IDs')
-        .collection(groupId)
-        .doc('Client IDs')
-        .get();
-
+    final DocumentSnapshot<Map<String, dynamic>> groupDoc =
+        await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
     return groupDoc.exists;
   }
 }
