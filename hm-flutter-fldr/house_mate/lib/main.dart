@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,16 +43,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<bool> checkGroupIdExists(String groupId) async {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final DocumentSnapshot<Map<String, dynamic>> groupDoc = await firestore
-      .collection('todos')
-      .doc('Group IDs')
-      .collection(groupId)
-      .doc('Client IDs')
-      .get();
-
-  return groupDoc.exists;
 }
