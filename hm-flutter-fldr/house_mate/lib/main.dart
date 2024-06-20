@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'blocs/todo_bloc.dart';
 
 void main() async {
-  Helper helper = new Helper();
+  Helper helper = Helper();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
