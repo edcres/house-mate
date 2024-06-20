@@ -1,97 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:house_mate/blocs/todo_event.dart';
+import 'package:house_mate/blocs/todo_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:equatable/equatable.dart';
 import '../data/models/todo.dart';
 import '../data/models/shopping_item.dart';
 import '../data/models/chore_item.dart';
-
-abstract class TodoEvent extends Equatable {
-  const TodoEvent();
-
-  @override
-  List<Object> get props => [];
-}
-
-class LoadItems extends TodoEvent {
-  final String groupId;
-
-  const LoadItems(this.groupId);
-
-  @override
-  List<Object> get props => [groupId];
-}
-
-class AddItem extends TodoEvent {
-  final String item;
-  final ItemType itemType;
-
-  AddItem(this.item, this.itemType);
-
-  @override
-  List<Object> get props => [item, itemType];
-}
-
-class ToggleItem extends TodoEvent {
-  final String id;
-  final ItemType itemType;
-
-  ToggleItem(this.id, this.itemType);
-
-  @override
-  List<Object> get props => [id, itemType];
-}
-
-class UpdateItem extends TodoEvent {
-  final String id;
-  final String updatedTask;
-  final ItemType itemType;
-
-  UpdateItem(this.id, this.updatedTask, this.itemType);
-
-  @override
-  List<Object> get props => [id, updatedTask, itemType];
-}
-
-class DeleteItem extends TodoEvent {
-  final String id;
-  final ItemType itemType;
-
-  DeleteItem(this.id, this.itemType);
-
-  @override
-  List<Object> get props => [id, itemType];
-}
-
-class EnterEditMode extends TodoEvent {}
-
-class ExitEditMode extends TodoEvent {}
-
-class CreateGroup extends TodoEvent {
-  final String groupId;
-
-  CreateGroup(this.groupId);
-
-  @override
-  List<Object> get props => [groupId];
-}
-
-class TodoState extends Equatable {
-  final List<Todo> items;
-  final bool isEditMode;
-
-  TodoState({required this.items, this.isEditMode = false});
-
-  TodoState copyWith({List<Todo>? items, bool? isEditMode}) {
-    return TodoState(
-      items: items ?? this.items,
-      isEditMode: isEditMode ?? this.isEditMode,
-    );
-  }
-
-  @override
-  List<Object> get props => [items, isEditMode];
-}
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
