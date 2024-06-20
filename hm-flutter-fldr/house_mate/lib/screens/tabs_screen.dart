@@ -1,10 +1,113 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:house_mate/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../blocs/todo_bloc.dart';
 import 'items_screen.dart';
 import '../models/todo.dart';
+import '../widgets/add_item_dialog.dart';
 
-class TabsScreen extends StatelessWidget {
+class TabsScreen extends StatefulWidget {
+  final String? initialGroupId;
+
+  TabsScreen({required this.initialGroupId});
+
+  @override
+  _TabsScreenState createState() => _TabsScreenState();
+}
+
+class _TabsScreenState extends State<TabsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialGroupId == null) {
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        _showGroupIdDialog(context);
+      });
+    }
+  }
+
+  Future<void> _showGroupIdDialog(BuildContext context) async {
+    final TextEditingController groupIdController = TextEditingController();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Enter Group ID'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: groupIdController,
+                decoration: InputDecoration(hintText: 'Group ID'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  final String enteredGroupId = groupIdController.text.trim();
+                  if (await checkGroupIdExists(enteredGroupId)) {
+                    await prefs.setString('group_id', enteredGroupId);
+                    context.read<TodoBloc>().add(LoadItems(enteredGroupId));
+                    Navigator.of(context).pop();
+                  } else {
+                    // Show error message
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Group ID does not exist.')),
+                    );
+                  }
+                },
+                child: Text('Submit'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final String newGroupId = await createGroupId();
+                  await prefs.setString('group_id', newGroupId);
+                  context.read<TodoBloc>().add(LoadItems(newGroupId));
+                  Navigator.of(context).pop();
+                },
+                child: Text('Create New Group'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _showMoreOptionsDialog(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? groupId = prefs.getString('group_id');
+    final String? userId = prefs.getString('user_id');
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('More Options'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Current Group ID: $groupId'),
+              Text('Current User ID: $userId'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -33,6 +136,12 @@ class TabsScreen extends StatelessWidget {
                 );
               },
             ),
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {
+                _showMoreOptionsDialog(context);
+              },
+            ),
           ],
         ),
         body: TabBarView(
@@ -45,14 +154,16 @@ class TabsScreen extends StatelessWidget {
           builder: (context) {
             return FloatingActionButton(
               onPressed: () {
-                final tabController = DefaultTabController.of(context);
-                final itemType = tabController?.index == 1
-                    ? ItemType.Chore
-                    : ItemType.Shopping;
+                final int currentIndex =
+                    DefaultTabController.of(context)!.index;
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return AddItemDialog(initialItemType: itemType);
+                    return AddItemDialog(
+                      initialItemType: currentIndex == 0
+                          ? ItemType.Shopping
+                          : ItemType.Chore,
+                    );
                   },
                 );
               },
@@ -61,68 +172,6 @@ class TabsScreen extends StatelessWidget {
           },
         ),
       ),
-    );
-  }
-}
-
-class AddItemDialog extends StatefulWidget {
-  final ItemType initialItemType;
-
-  AddItemDialog({required this.initialItemType});
-
-  @override
-  _AddItemDialogState createState() => _AddItemDialogState();
-}
-
-class _AddItemDialogState extends State<AddItemDialog> {
-  final _controller = TextEditingController();
-  late ItemType _selectedItemType;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedItemType = widget.initialItemType;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Add Item'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(
-            controller: _controller,
-            decoration: InputDecoration(hintText: 'Enter item here'),
-          ),
-          DropdownButton<ItemType>(
-            value: _selectedItemType,
-            onChanged: (ItemType? newValue) {
-              setState(() {
-                _selectedItemType = newValue!;
-              });
-            },
-            items: ItemType.values.map((ItemType classType) {
-              return DropdownMenuItem<ItemType>(
-                value: classType,
-                child: Text(classType.toString().split('.').last),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            final item = _controller.text;
-            if (item.isNotEmpty) {
-              context.read<TodoBloc>().add(AddItem(item, _selectedItemType));
-            }
-            Navigator.of(context).pop();
-          },
-          child: Text('Add'),
-        ),
-      ],
     );
   }
 }

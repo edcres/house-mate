@@ -16,12 +16,14 @@ void main() async {
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? userId = prefs.getString('user_id');
+  final String? groupId = prefs.getString('group_id');
+
   if (userId == null) {
     final String newUserId = await createUserId();
     await prefs.setString('user_id', newUserId);
   }
 
-  runApp(MyApp());
+  runApp(MyApp(initialGroupId: groupId));
 }
 
 Future<String> createUserId() async {
@@ -65,17 +67,75 @@ String generateNextClientId(String lastClientId) {
 }
 
 class MyApp extends StatelessWidget {
+  final String? initialGroupId;
+
+  MyApp({required this.initialGroupId});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TodoBloc()..add(LoadItems()),
+      create: (context) =>
+          TodoBloc()..add(LoadItems(initialGroupId ?? '00000001aaaaa')),
       child: MaterialApp(
         title: 'Flutter To-Do List',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: TabsScreen(),
+        home: TabsScreen(initialGroupId: initialGroupId),
       ),
     );
   }
+}
+
+Future<String> createGroupId() async {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final QuerySnapshot<Map<String, dynamic>> groupsSnapshot = await firestore
+      .collection('todos')
+      .doc('Group IDs')
+      .collection('groups')
+      .orderBy('id', descending: true)
+      .limit(1)
+      .get();
+
+  String lastGroupId = groupsSnapshot.docs.isNotEmpty
+      ? groupsSnapshot.docs.first.id
+      : '00000000aaaaa';
+  String newGroupId = generateNextGroupId(lastGroupId);
+
+  await firestore
+      .collection('todos')
+      .doc('Group IDs')
+      .collection('groups')
+      .doc(newGroupId)
+      .set({'id': newGroupId});
+
+  return newGroupId;
+}
+
+String generateNextGroupId(String lastGroupId) {
+  // Extract the first 8 characters as integers
+  final int prefix = int.parse(lastGroupId.substring(0, 8));
+  final int newPrefix = prefix + 1;
+
+  // Generate a random string of 5 letters from the specified set
+  const letters = 'asdfglkjh';
+  final random = Random();
+  final String suffix =
+      List.generate(5, (index) => letters[random.nextInt(letters.length)])
+          .join();
+
+  final String newGroupId = newPrefix.toString().padLeft(8, '0') + suffix;
+  return newGroupId;
+}
+
+Future<bool> checkGroupIdExists(String groupId) async {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final DocumentSnapshot<Map<String, dynamic>> groupDoc = await firestore
+      .collection('todos')
+      .doc('Group IDs')
+      .collection('groups')
+      .doc(groupId)
+      .get();
+
+  return groupDoc.exists;
 }
