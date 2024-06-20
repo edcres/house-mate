@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/todo_bloc.dart';
-import '../widgets/todo_item.dart';
+import '../widgets/todo_item_widget.dart';
 import 'edit_todo_screen.dart';
-import '../data/models/todo.dart';
+import '../data/models/todo_item.dart';
 
 class ItemsScreen extends StatelessWidget {
   final ItemType itemType;
