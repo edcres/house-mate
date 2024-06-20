@@ -1,14 +1,16 @@
-import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:house_mate/Helper.dart';
+import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/firebase_options.dart';
 import 'package:house_mate/screens/tabs_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'blocs/todo_bloc.dart';
 
 void main() async {
+  Helper helper = new Helper();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -16,7 +18,7 @@ void main() async {
 
   // Get user/group IDs from local storage.
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  final String? groupId = prefs.getString('group_id');
+  final String? groupId = prefs.getString(helper.GROUP_ID_SP);
 
   // Create userID
   runApp(MyApp(initialGroupId: groupId));
@@ -29,9 +31,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Helper helper = Helper();
     return BlocProvider(
       create: (context) =>
-          TodoBloc()..add(LoadItems(initialGroupId ?? '00000001aaaaa')),
+          TodoBloc()..add(LoadItems(initialGroupId ?? helper.DEFAULT_ID)),
       child: MaterialApp(
         title: 'Flutter To-Do List',
         theme: ThemeData(

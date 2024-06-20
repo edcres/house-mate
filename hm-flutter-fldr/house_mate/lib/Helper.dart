@@ -2,6 +2,9 @@ import 'dart:math';
 
 class Helper {
   // Group ID
+  final String DEFAULT_ID = "00000000asdfg";
+  final String GROUP_ID_SP = "group_id";
+
   String generateNewID(String pastId) {
     final int prefix = int.parse(pastId.substring(0, 8));
     final int newPrefix = prefix + 1;
