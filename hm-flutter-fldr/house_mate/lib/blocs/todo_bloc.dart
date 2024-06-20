@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../data/models/todo.dart';
+import '../data/models/todo_item.dart';
 import '../data/models/shopping_item.dart';
 import '../data/models/chore_item.dart';
 
