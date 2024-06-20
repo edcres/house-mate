@@ -55,7 +55,8 @@ class _AddItemDialogState extends State<AddItemDialog> {
           onPressed: () {
             final item = _controller.text;
             if (item.isNotEmpty) {
-              // IDK if 'AddItem' should be done through TodoBloc instead of TodoEvent
+              // TODO: IDK if 'AddItem' should be done through
+              //    TodoBloc instead of TodoEvent
               context.read<TodoBloc>().add(AddItem(item, _selectedItemType));
             }
             Navigator.of(context).pop();
