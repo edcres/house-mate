@@ -63,7 +63,7 @@ class _TabsScreenState extends State<TabsScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final String newGroupId = await createGroupId();
+                  final String newGroupId = await createGroup();
                   await prefs.setString('group_id', newGroupId);
                   context.read<TodoBloc>().add(LoadItems(newGroupId));
                   Navigator.of(context).pop();
