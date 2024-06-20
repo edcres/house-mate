@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/todo_bloc.dart';
 import '../widgets/todo_item.dart';
 import 'edit_todo_screen.dart';
-import '../models/todo.dart';
+import '../data/models/todo.dart';
 
 class ItemsScreen extends StatelessWidget {
   final ItemType itemType;

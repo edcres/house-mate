@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/todo_bloc.dart';
-import '../models/todo.dart';
+import '../data/models/todo.dart';
 
 class EditTodoScreen extends StatefulWidget {
   final int index;
