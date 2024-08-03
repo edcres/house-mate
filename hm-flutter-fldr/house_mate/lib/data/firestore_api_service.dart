@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:house_mate/Helper.dart';
+import 'package:house_mate/data/models/todo_item.dart';
+import 'package:house_mate/helper.dart';
+import 'package:house_mate/data/models/shopping_item.dart';
 
 class FirestoreApiService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -30,6 +32,24 @@ class FirestoreApiService {
 
   FirestoreApiService() {
     groupIDsDoc = firestore.collection(GENERAL_COLLECTION).doc(GROUP_IDS_DOC);
+  }
+
+  // This could go to the helper class
+  String _getCollectionPath(String groupId, ItemType itemType) {
+    return '$groupIDsDoc/$groupId/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
+    // return '$GENERAL_COLLECTION/$GROUP_IDS_DOC/$groupId/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
+  }
+
+  // Get Shopping Items
+  Future<void> getShoppingItems(String groupId) async {
+    final shoppingSnapshot = await firestore
+        .collection(_getCollectionPath(groupId, ItemType.Shopping))
+        .get();
+    final shoppingItems = shoppingSnapshot.docs.map((doc) {
+      final data = doc.data();
+      return ShoppingItem(
+          id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
+    }).toList();
   }
 
   // User ID

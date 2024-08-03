@@ -23,12 +23,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     return prefs.getString('user_id')!;
   }
 
-  String _getCollectionPath(ItemType itemType, String groupId) {
-    return 'todos/Group IDs/$groupId/${itemType == ItemType.Shopping ? 'Shopping List' : 'Chores List'}/${itemType == ItemType.Shopping ? 'Shopping Items' : 'Chore Items'}';
-  }
-
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
     final groupId = event.groupId;
+
     final shoppingSnapshot = await _firestore
         .collection(_getCollectionPath(ItemType.Shopping, groupId))
         .get();
