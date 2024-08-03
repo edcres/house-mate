@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
@@ -8,8 +7,6 @@ import '../data/models/shopping_item.dart';
 import '../data/models/chore_item.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   TodoBloc() : super(TodoState(items: [])) {
     on<LoadItems>(_onLoadItems);
     on<AddItem>(_onAddItem);
