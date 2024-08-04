@@ -100,10 +100,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
-    await _firestore
-        .collection(_getCollectionPath(event.itemType, groupId))
-        .doc(event.id)
-        .delete();
+    // await _firestore
+    //     .collection(_getCollectionPath(event.itemType, groupId))
+    //     .doc(event.id)
+    //     .delete();
     add(LoadItems(groupId));
   }
 

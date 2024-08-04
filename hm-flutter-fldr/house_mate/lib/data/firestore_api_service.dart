@@ -73,7 +73,7 @@ class FirestoreApiService {
 
   // Toggle Item
   // TODO: return data
-  Future<void> _onToggleItem(
+  Future<void> toggleItem(
       String groupId, ItemType itemType, TodoItem item, String eventId) async {
     await firestore
         .collection(_getCollectionPath(groupId, itemType))
@@ -85,7 +85,7 @@ class FirestoreApiService {
 
   // Update item
   // TODO: return data
-  Future<void> _onUpdateItem(String groupId, ItemType itemType, TodoItem item,
+  Future<void> updateItem(String groupId, ItemType itemType, TodoItem item,
       String eventId, String updatedTask) async {
     final oldDoc = firestore
         .collection(_getCollectionPath(groupId, itemType))
@@ -103,6 +103,16 @@ class FirestoreApiService {
       // TODO: Why is it deleting the old doc???
       await oldDoc.delete();
     }
+  }
+
+  // Delete item
+  // TODO: return data
+  Future<void> deleteItem(
+      String groupId, ItemType itemType, String eventId) async {
+    await firestore
+        .collection(_getCollectionPath(groupId, itemType))
+        .doc(eventId)
+        .delete();
   }
 
   // User ID
