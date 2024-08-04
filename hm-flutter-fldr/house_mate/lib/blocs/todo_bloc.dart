@@ -94,22 +94,22 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     //     'itemType': oldData['itemType'],
     //   });
     //   await oldDoc.delete();
-      add(LoadItems(groupId));
-    }
-  }
-
-  Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
-    final groupId = await _getUserId();
-    // await _firestore
-    //     .collection(_getCollectionPath(event.itemType, groupId))
-    //     .doc(event.id)
-    //     .delete();
     add(LoadItems(groupId));
   }
+}
 
-  Future<void> _onCreateGroup() async {
-    // TODO: create ID function
-    // Future<void> _onCreateGroup(CreateGroup event, Emitter<TodoState> emit) async {
+Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
+  final groupId = await _getUserId();
+  // await _firestore
+  //     .collection(_getCollectionPath(event.itemType, groupId))
+  //     .doc(event.id)
+  //     .delete();
+  add(LoadItems(groupId));
+}
+
+// Future<void> _onCreateGroup() async {
+  // TODO: create ID function
+  Future<void> _onCreateGroup(CreateGroup event, Emitter<TodoState> emit) async {
     // final groupDocPath = 'todos/Group IDs/${event.groupId}';
     // final clientIDsDocPath = '$groupDocPath/Client IDs';
 
