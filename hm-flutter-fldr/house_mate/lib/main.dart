@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/helper.dart';
-import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/firebase_options.dart';
 import 'package:house_mate/screens/tabs_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
