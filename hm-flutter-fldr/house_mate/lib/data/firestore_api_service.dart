@@ -36,11 +36,12 @@ class FirestoreApiService {
 
   // This could go to the helper class
   String _getCollectionPath(String groupId, ItemType itemType) {
-    return '$groupIDsDoc/$groupId/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
+    return '$groupIDsDoc/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
     // return '$GENERAL_COLLECTION/$GROUP_IDS_DOC/$groupId/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
   }
 
   // Get Shopping Items
+  // TODO: Make this a realtime query
   Future<void> getShoppingItems(String groupId) async {
     final shoppingSnapshot = await firestore
         .collection(_getCollectionPath(groupId, ItemType.Shopping))
@@ -50,6 +51,58 @@ class FirestoreApiService {
       return ShoppingItem(
           id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
     }).toList();
+  }
+
+  // Get Chore Items
+  // TODO: do the same thing as shopping items
+  // TODO: Make this a realtime query
+  Future<void> getChoreItems(String groupId) async {}
+
+  // Add Item
+  // TODO: return data
+  Future<void> addItem(ItemType itemType, String groupId, String item) async {
+    await firestore
+        .collection(_getCollectionPath(groupId, itemType))
+        .doc(item)
+        .set({
+      'task': item,
+      'isCompleted': false,
+      'itemType': itemType.toString().split('.').last,
+    });
+  }
+
+  // Toggle Item
+  // TODO: return data
+  Future<void> _onToggleItem(
+      String groupId, ItemType itemType, TodoItem item, String eventId) async {
+    await firestore
+        .collection(_getCollectionPath(groupId, itemType))
+        .doc(eventId)
+        .update({
+      'isCompleted': !item.isCompleted,
+    });
+  }
+
+  // Update item
+  // TODO: return data
+  Future<void> _onUpdateItem(String groupId, ItemType itemType, TodoItem item,
+      String eventId, String updatedTask) async {
+    final oldDoc = firestore
+        .collection(_getCollectionPath(groupId, itemType))
+        .doc(eventId);
+    final oldData = (await oldDoc.get()).data();
+    if (oldData != null) {
+      await firestore
+          .collection(_getCollectionPath(groupId, itemType))
+          .doc(updatedTask)
+          .set({
+        'task': updatedTask,
+        'isCompleted': oldData['isCompleted'],
+        'itemType': oldData['itemType'],
+      });
+      // TODO: Why is it deleting the old doc???
+      await oldDoc.delete();
+    }
   }
 
   // User ID

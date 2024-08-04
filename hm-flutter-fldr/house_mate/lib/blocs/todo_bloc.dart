@@ -26,70 +26,77 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
     final groupId = event.groupId;
 
-    final shoppingSnapshot = await _firestore
-        .collection(_getCollectionPath(ItemType.Shopping, groupId))
-        .get();
-    final choreSnapshot = await _firestore
-        .collection(_getCollectionPath(ItemType.Chore, groupId))
-        .get();
+    // TODO: call Shopping items from apiService
+    // TODO: call Chore items from apiService
+    // final shoppingSnapshot = await _firestore
+    //     .collection(_getCollectionPath(ItemType.Shopping, groupId))
+    //     .get();
+    // final choreSnapshot = await _firestore
+    //     .collection(_getCollectionPath(ItemType.Chore, groupId))
+    //     .get();
 
-    final shoppingItems = shoppingSnapshot.docs.map((doc) {
-      final data = doc.data();
-      return ShoppingItem(
-          id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
-    }).toList();
+    // final shoppingItems = shoppingSnapshot.docs.map((doc) {
+    //   final data = doc.data();
+    //   return ShoppingItem(
+    //       id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
+    // }).toList();
 
-    final choreItems = choreSnapshot.docs.map((doc) {
-      final data = doc.data();
-      return ChoreItem(
-          id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
-    }).toList();
+    // final choreItems = choreSnapshot.docs.map((doc) {
+    //   final data = doc.data();
+    //   return ChoreItem(
+    //       id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
+    // }).toList();
 
+    // TODO: Get the shopping items and chore items in realtime from the database
     final items = [...shoppingItems, ...choreItems];
     emit(TodoState(items: items));
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
-    await _firestore
-        .collection(_getCollectionPath(event.itemType, groupId))
-        .doc(event.item)
-        .set({
-      'task': event.item,
-      'isCompleted': false,
-      'itemType': event.itemType.toString().split('.').last,
-    });
+
+    // TODO: call addItem from apiService
+    // await _firestore
+    //     .collection(_getCollectionPath(event.itemType, groupId))
+    //     .doc(event.item)
+    //     .set({
+    //   'task': event.item,
+    //   'isCompleted': false,
+    //   'itemType': event.itemType.toString().split('.').last,
+    // });
     add(LoadItems(groupId));
   }
 
   Future<void> _onToggleItem(ToggleItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
     final item = state.items.firstWhere((item) => item.id == event.id);
-    await _firestore
-        .collection(_getCollectionPath(event.itemType, groupId))
-        .doc(event.id)
-        .update({
-      'isCompleted': !item.isCompleted,
-    });
+    // TODO: call the funciton from apiService
+    // await _firestore
+    //     .collection(_getCollectionPath(event.itemType, groupId))
+    //     .doc(event.id)
+    //     .update({
+    //   'isCompleted': !item.isCompleted,
+    // });
     add(LoadItems(groupId));
   }
 
   Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
-    final oldDoc = _firestore
-        .collection(_getCollectionPath(event.itemType, groupId))
-        .doc(event.id);
-    final oldData = (await oldDoc.get()).data();
-    if (oldData != null) {
-      await _firestore
-          .collection(_getCollectionPath(event.itemType, groupId))
-          .doc(event.updatedTask)
-          .set({
-        'task': event.updatedTask,
-        'isCompleted': oldData['isCompleted'],
-        'itemType': oldData['itemType'],
-      });
-      await oldDoc.delete();
+    // TODO: call the funciton from apiService
+    // final oldDoc = _firestore
+    //     .collection(_getCollectionPath(event.itemType, groupId))
+    //     .doc(event.id);
+    // final oldData = (await oldDoc.get()).data();
+    // if (oldData != null) {
+    //   await _firestore
+    //       .collection(_getCollectionPath(event.itemType, groupId))
+    //       .doc(event.updatedTask)
+    //       .set({
+    //     'task': event.updatedTask,
+    //     'isCompleted': oldData['isCompleted'],
+    //     'itemType': oldData['itemType'],
+    //   });
+    //   await oldDoc.delete();
       add(LoadItems(groupId));
     }
   }
