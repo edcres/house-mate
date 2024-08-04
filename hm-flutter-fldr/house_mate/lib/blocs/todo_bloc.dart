@@ -107,14 +107,15 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     add(LoadItems(groupId));
   }
 
-  Future<void> _onCreateGroup(
-      CreateGroup event, Emitter<TodoState> emit) async {
-    final groupDocPath = 'todos/Group IDs/${event.groupId}';
-    final clientIDsDocPath = '$groupDocPath/Client IDs';
+  Future<void> _onCreateGroup() async {
+    // TODO: create ID function
+    // Future<void> _onCreateGroup(CreateGroup event, Emitter<TodoState> emit) async {
+    // final groupDocPath = 'todos/Group IDs/${event.groupId}';
+    // final clientIDsDocPath = '$groupDocPath/Client IDs';
 
-    await _firestore.doc(clientIDsDocPath).set({
-      'lastClientAdded': '00000001fffff',
-    });
+    // await _firestore.doc(clientIDsDocPath).set({
+    //   'lastClientAdded': '00000001fffff',
+    // });
   }
 
   void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
