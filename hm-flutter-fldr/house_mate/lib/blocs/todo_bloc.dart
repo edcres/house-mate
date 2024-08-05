@@ -118,12 +118,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   // TODO: create ID function
   Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
-    // final groupDocPath = 'todos/Group IDs/${event.groupId}';
-    // final clientIDsDocPath = '$groupDocPath/Client IDs';
-
-    // await _firestore.doc(clientIDsDocPath).set({
-    //   'lastClientAdded': '00000001fffff',
-    // });
+    // TODO: Maybe do something with this group ID (like save it oin shared preferences ass current group and in the list of groups)
+    String newGroupID = await _firestoreApiService.createGroup();
   }
 
   void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
