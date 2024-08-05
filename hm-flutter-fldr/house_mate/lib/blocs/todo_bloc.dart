@@ -54,16 +54,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
-
-    // TODO: test then remove this comment
-    // await _firestore
-    //     .collection(_getCollectionPath(event.itemType, groupId))
-    //     .doc(event.item)
-    //     .set({
-    //   'task': event.item,
-    //   'isCompleted': false,
-    //   'itemType': event.itemType.toString().split('.').last,
-    // });
     _firestoreApiService.addItem(groupId, event.itemType, event.item);
     add(LoadItems(groupId));
   }
@@ -71,34 +61,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onToggleItem(ToggleItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
     final item = state.items.firstWhere((item) => item.id == event.id);
-    // TODO: call the funciton from apiService
-    // await _firestore
-    //     .collection(_getCollectionPath(event.itemType, groupId))
-    //     .doc(event.id)
-    //     .update({
-    //   'isCompleted': !item.isCompleted,
-    // });
     _firestoreApiService.toggleItem(groupId, event.itemType, item, event.id);
     add(LoadItems(groupId));
   }
 
   Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
-    // TODO: call the funciton from apiService
-    // final oldDoc = _firestore
-    //     .collection(_getCollectionPath(event.itemType, groupId))
-    //     .doc(event.id);
-    // final oldData = (await oldDoc.get()).data();
-    // if (oldData != null) {
-    //   await _firestore
-    //       .collection(_getCollectionPath(event.itemType, groupId))
-    //       .doc(event.updatedTask)
-    //       .set({
-    //     'task': event.updatedTask,
-    //     'isCompleted': oldData['isCompleted'],
-    //     'itemType': oldData['itemType'],
-    //   });
-    //   await oldDoc.delete();
     _firestoreApiService.updateItem(
         groupId, event.itemType, event.id, event.updatedTask);
     add(LoadItems(groupId));
@@ -106,16 +74,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
-    // await _firestore
-    //     .collection(_getCollectionPath(event.itemType, groupId))
-    //     .doc(event.id)
-    //     .delete();
     _firestoreApiService.deleteItem(groupId, event.itemType, event.id);
     add(LoadItems(groupId));
   }
 
-// Future<void> _onCreateGroup() async {
-  // TODO: create ID function
   Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
     // TODO: Maybe do something with this group ID (like save it oin shared preferences ass current group and in the list of groups)
