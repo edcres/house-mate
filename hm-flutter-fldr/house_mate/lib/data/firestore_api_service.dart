@@ -85,8 +85,8 @@ class FirestoreApiService {
 
   // Update item
   // TODO: return data
-  Future<void> updateItem(String groupId, ItemType itemType, TodoItem item,
-      String eventId, String updatedTask) async {
+  Future<void> updateItem(String groupId, ItemType itemType, String eventId,
+      String updatedTask) async {
     final oldDoc = firestore
         .collection(_getCollectionPath(groupId, itemType))
         .doc(eventId);

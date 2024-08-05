@@ -55,7 +55,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
     final groupId = await _getUserId();
 
-    // TODO: call addItem from apiService
+    // TODO: test then remove this comment
     // await _firestore
     //     .collection(_getCollectionPath(event.itemType, groupId))
     //     .doc(event.item)
@@ -64,6 +64,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     //   'isCompleted': false,
     //   'itemType': event.itemType.toString().split('.').last,
     // });
+    _firestoreApiService.addItem(groupId, event.itemType, event.item);
     add(LoadItems(groupId));
   }
 
@@ -77,6 +78,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     //     .update({
     //   'isCompleted': !item.isCompleted,
     // });
+    _firestoreApiService.toggleItem(groupId, event.itemType, item, event.id);
     add(LoadItems(groupId));
   }
 
@@ -97,6 +99,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     //     'itemType': oldData['itemType'],
     //   });
     //   await oldDoc.delete();
+    _firestoreApiService.updateItem(
+        groupId, event.itemType, event.id, event.updatedTask);
     add(LoadItems(groupId));
   }
 
@@ -106,6 +110,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     //     .collection(_getCollectionPath(event.itemType, groupId))
     //     .doc(event.id)
     //     .delete();
+    _firestoreApiService.deleteItem(groupId, event.itemType, event.id);
     add(LoadItems(groupId));
   }
 
