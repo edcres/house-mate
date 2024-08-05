@@ -1,10 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
+import 'package:house_mate/data/firestore_api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  TodoBloc() : super(TodoState(items: [])) {
+  final FirestoreApiService _firestoreApiService;
+
+  TodoBloc(this._firestoreApiService) : super(TodoState(items: [])) {
     on<LoadItems>(_onLoadItems);
     on<AddItem>(_onAddItem);
     on<ToggleItem>(_onToggleItem);
