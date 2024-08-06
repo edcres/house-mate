@@ -7,7 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final FirestoreApiService _firestoreApiService;
 
-  TodoBloc(this._firestoreApiService) : super(TodoState(items: [])) {
+  TodoBloc()
+      : _firestoreApiService = FirestoreApiService(),
+        super(TodoState(items: [])) {
     on<LoadItems>(_onLoadItems);
     on<AddItem>(_onAddItem);
     on<ToggleItem>(_onToggleItem);
