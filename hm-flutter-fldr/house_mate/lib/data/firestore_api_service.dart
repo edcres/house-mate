@@ -82,12 +82,7 @@ class FirestoreApiService {
     });
   }
 
-  // Get Chore Items
-  // TODO: do the same thing as shopping items
-  // TODO: Make this a realtime query
-
   // Add Item
-  // TODO: return data
   Future<void> addItem(String groupId, ItemType itemType, String item) async {
     await firestore
         .collection(_getCollectionPath(groupId, itemType))
@@ -100,7 +95,6 @@ class FirestoreApiService {
   }
 
   // Toggle Item
-  // TODO: return data
   Future<void> toggleItem(
       String groupId, ItemType itemType, TodoItem item, String eventId) async {
     await firestore
@@ -112,7 +106,6 @@ class FirestoreApiService {
   }
 
   // Update item
-  // TODO: return data
   Future<void> updateItem(String groupId, ItemType itemType, String eventId,
       String updatedTask) async {
     final oldDoc = firestore
@@ -134,7 +127,6 @@ class FirestoreApiService {
   }
 
   // Delete item
-  // TODO: return data
   Future<void> deleteItem(
       String groupId, ItemType itemType, String eventId) async {
     await firestore
