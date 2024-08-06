@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
 import 'package:house_mate/data/firestore_api_service.dart';
-import 'package:house_mate/data/models/todo_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
