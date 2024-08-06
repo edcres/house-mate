@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:house_mate/data/models/chore_item.dart';
 import 'package:house_mate/data/models/todo_item.dart';
 import 'package:house_mate/helper.dart';
 import 'package:house_mate/data/models/shopping_item.dart';
@@ -41,22 +42,49 @@ class FirestoreApiService {
   }
 
   // Get Shopping Items
-  // TODO: Make this a realtime query
-  Future<void> getShoppingItems(String groupId) async {
-    final shoppingSnapshot = await firestore
+  Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
+    return groupIDsDoc
         .collection(_getCollectionPath(groupId, ItemType.Shopping))
-        .get();
-    final shoppingItems = shoppingSnapshot.docs.map((doc) {
-      final data = doc.data();
-      return ShoppingItem(
-          id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
-    }).toList();
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        return ShoppingItem(
+            id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
+      }).toList();
+    });
+  }
+
+  // Get Shopping Items
+  // TODO: Make this a realtime query
+  // Future<void> getShoppingItems(String groupId) async {
+  //   final shoppingSnapshot = await firestore
+  //       .collection(_getCollectionPath(groupId, ItemType.Shopping))
+  //       .get();
+  //   final shoppingItems = shoppingSnapshot.docs.map((doc) {
+  //     final data = doc.data();
+  //     return ShoppingItem(
+  //         id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
+  //   }).toList();
+  // }
+
+  // Get Chore Items
+  Stream<List<ChoreItem>> getChoreItems(String groupId) {
+    return groupIDsDoc
+        .collection(_getCollectionPath(groupId, ItemType.Chore))
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        return ChoreItem(
+            id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
+      }).toList();
+    });
   }
 
   // Get Chore Items
   // TODO: do the same thing as shopping items
   // TODO: Make this a realtime query
-  Future<void> getChoreItems(String groupId) async {}
 
   // Add Item
   // TODO: return data
