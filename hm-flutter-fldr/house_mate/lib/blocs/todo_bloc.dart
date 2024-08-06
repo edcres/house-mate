@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
 import 'package:house_mate/data/firestore_api_service.dart';
+import 'package:house_mate/data/models/todo_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
@@ -26,6 +27,15 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
     final groupId = event.groupId;
 
+    // Listen to shopping items updates
+    _firestoreApiService.getShoppingItems(groupId).listen((shoppingItems) {
+      // Listen to chore items updates
+      _firestoreApiService.getChoreItems(groupId).listen((choreItems) {
+        final items = [...shoppingItems, ...choreItems];
+        emit(TodoState(items: items));
+      });
+    });
+
     // TODO: call Shopping items from apiService
     // TODO: call Chore items from apiService
     // final shoppingSnapshot = await _firestore
@@ -48,8 +58,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     // }).toList();
 
     // TODO: Get the shopping items and chore items in realtime from the database
-    final items = [...shoppingItems, ...choreItems];
-    emit(TodoState(items: items));
+    // final items = [...shoppingItems, ...choreItems];
+    // emit(TodoState(items: items));
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
