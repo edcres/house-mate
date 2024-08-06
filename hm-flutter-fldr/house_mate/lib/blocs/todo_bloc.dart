@@ -35,31 +35,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         emit(TodoState(items: items));
       });
     });
-
-    // TODO: call Shopping items from apiService
-    // TODO: call Chore items from apiService
-    // final shoppingSnapshot = await _firestore
-    //     .collection(_getCollectionPath(ItemType.Shopping, groupId))
-    //     .get();
-    // final choreSnapshot = await _firestore
-    //     .collection(_getCollectionPath(ItemType.Chore, groupId))
-    //     .get();
-
-    // final shoppingItems = shoppingSnapshot.docs.map((doc) {
-    //   final data = doc.data();
-    //   return ShoppingItem(
-    //       id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
-    // }).toList();
-
-    // final choreItems = choreSnapshot.docs.map((doc) {
-    //   final data = doc.data();
-    //   return ChoreItem(
-    //       id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
-    // }).toList();
-
-    // TODO: Get the shopping items and chore items in realtime from the database
-    // final items = [...shoppingItems, ...choreItems];
-    // emit(TodoState(items: items));
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
