@@ -74,7 +74,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
-    // TODO: Maybe do something with this group ID (like save it oin shared preferences ass current group and in the list of groups)
+    // TODO: Do something with this group ID (like save it in shared preferences ass current group and in the list of groups)
     String newGroupID = await _firestoreApiService.createGroup();
   }
 

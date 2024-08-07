@@ -153,7 +153,6 @@ class FirestoreApiService {
   }
 
   // Group ID
-  // TODO: Call this funciton
   Future<String> createGroup() async {
     final QuerySnapshot<Map<String, dynamic>> groupsSnapshot = await groupIDsDoc
         .collection(helper.generateNewID(helper.DEFAULT_ID))
@@ -174,7 +173,6 @@ class FirestoreApiService {
   }
 
   // Check if group exists.
-  // TODO: Call this funciton
   Future<bool> checkGroupIdExists(String groupId) async {
     final DocumentSnapshot<Map<String, dynamic>> groupDoc =
         await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
