@@ -70,3 +70,9 @@ class CreateGroup extends TodoEvent {
   @override
   List<Object> get props => [groupId];
 }
+
+// TODO: maybe delete this. Made it when adding checkGroupIdExists and createGroup to the tabs screen
+class CheckGroupIdExists extends TodoEvent {
+  final String groupId;
+  CheckGroupIdExists(this.groupId);
+}
