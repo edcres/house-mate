@@ -27,8 +27,7 @@ class FirestoreApiService {
   final String PRIORITY_FIELD = "priority";
   final String DIFFICULTY_FIELD = "difficulty";
   final String NOTES_FIELD = "notes";
-  DocumentReference groupIDsDoc =
-      DocumentReference as DocumentReference<Object?>;
+  late DocumentReference groupIDsDoc;
   Helper helper = Helper();
 
   FirestoreApiService() {
