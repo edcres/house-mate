@@ -56,7 +56,6 @@ class FirestoreApiService {
   }
 
   // Get Shopping Items
-  // TODO: Make this a realtime query
   // Future<void> getShoppingItems(String groupId) async {
   //   final shoppingSnapshot = await firestore
   //       .collection(_getCollectionPath(groupId, ItemType.Shopping))
