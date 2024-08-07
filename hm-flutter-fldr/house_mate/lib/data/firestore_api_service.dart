@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:house_mate/data/models/chore_item.dart';
 import 'package:house_mate/data/models/todo_item.dart';
@@ -135,6 +137,7 @@ class FirestoreApiService {
 
   // User ID
   Future<String> createUserId(String groupId) async {
+    print("-------------------- createUserId called --------------------");
     final DocumentSnapshot<Map<String, dynamic>> clientIdsDoc =
         await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
 
@@ -152,12 +155,20 @@ class FirestoreApiService {
 
   // Group ID
   Future<String> createGroup() async {
+    print("-------------------- createGroup called --------------------");
+    // Get the last group added
     final QuerySnapshot<Map<String, dynamic>> groupsSnapshot = await groupIDsDoc
         .collection(helper.generateNewID(helper.DEFAULT_ID))
         .orderBy('id', descending: true)
         .limit(1)
         .get();
 
+    if (groupsSnapshot == null) {
+      print("doc is null");
+    } else
+      print("doc not null\n${groupsSnapshot.docs.isEmpty}");
+
+    // Check if a group exists and add a group
     String lastGroupId = groupsSnapshot.docs.isNotEmpty
         ? groupsSnapshot.docs.first.id
         : helper.DEFAULT_ID;
@@ -165,7 +176,8 @@ class FirestoreApiService {
 
     // Create lastClientAdded, ShoppingList, ChoresList
     await groupIDsDoc.collection(newGroupId).doc(CLIENT_IDS_DOC).set(
-        {LAST_CLIENT_ADDED_FIELD: helper.DEFAULT_ID}, SetOptions(merge: true));
+        {LAST_CLIENT_ADDED_FIELD: helper.generateNewID(helper.DEFAULT_ID)},
+        SetOptions(merge: true));
 
     return newGroupId;
   }

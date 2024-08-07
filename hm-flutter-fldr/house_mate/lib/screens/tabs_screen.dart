@@ -20,6 +20,7 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   @override
   void initState() {
+    print(" ===========tabs were started ====================");
     super.initState();
     if (widget.initialGroupId == null) {
       WidgetsBinding.instance?.addPostFrameCallback((_) {
