@@ -15,6 +15,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<ToggleItem>(_onToggleItem);
     on<UpdateItem>(_onUpdateItem);
     on<DeleteItem>(_onDeleteItem);
+    on<CheckGroupIdExists>(_onCheckGroupIdExists);
     on<CreateGroup>(_onCreateGroup);
     on<EnterEditMode>(_onEnterEditMode);
     on<ExitEditMode>(_onExitEditMode);
@@ -62,6 +63,13 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     final groupId = await _getUserId();
     _firestoreApiService.deleteItem(groupId, event.itemType, event.id);
     add(LoadItems(groupId));
+  }
+
+  Future<void> _onCheckGroupIdExists(
+      CheckGroupIdExists event, Emitter<TodoState> emit) async {
+    final exists = await _firestoreApiService.checkGroupIdExists(event.groupId);
+    emit(state.copyWith(
+        groupIdExists: exists)); // Update state based on existence
   }
 
   Future<void> _onCreateGroup(

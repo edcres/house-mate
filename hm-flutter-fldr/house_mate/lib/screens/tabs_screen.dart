@@ -49,7 +49,12 @@ class _TabsScreenState extends State<TabsScreen> {
               ElevatedButton(
                 onPressed: () async {
                   final String enteredGroupId = groupIdController.text.trim();
-                  if (await checkGroupIdExists(enteredGroupId)) {
+                  context
+                      .read<TodoBloc>()
+                      .add(CheckGroupIdExists(enteredGroupId));
+                  // Listen to the bloc's state to determine existence
+                  final state = context.read<TodoBloc>().state;
+                  if (state.groupIdExists) {
                     await prefs.setString('group_id', enteredGroupId);
                     context.read<TodoBloc>().add(LoadItems(enteredGroupId));
                     Navigator.of(context).pop();
@@ -64,10 +69,8 @@ class _TabsScreenState extends State<TabsScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final String newGroupId = await createGroup();
-                  await prefs.setString('group_id', newGroupId);
-                  context.read<TodoBloc>().add(LoadItems(newGroupId));
-                  Navigator.of(context).pop();
+                  context.read<TodoBloc>().add(CreateGroup());
+                  // You may need to listen for the new group ID as well, depending on your flow
                 },
                 child: Text('Create New Group'),
               ),
@@ -77,6 +80,59 @@ class _TabsScreenState extends State<TabsScreen> {
       },
     );
   }
+
+  // Future<void> _showGroupIdDialog(BuildContext context) async {
+  //   final TextEditingController groupIdController = TextEditingController();
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('Enter Group ID'),
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+
+  //             TextField(
+  //               controller: groupIdController,
+  //               decoration: InputDecoration(hintText: 'Group ID'),
+  //             ),
+  //             SizedBox(height: 20),
+  //             ElevatedButton(
+  //               onPressed: () async {
+
+  //                 final String enteredGroupId = groupIdController.text.trim();
+  //                 if (await checkGroupIdExists(enteredGroupId)) {
+  //                   await prefs.setString('group_id', enteredGroupId);
+  //                   context.read<TodoBloc>().add(LoadItems(enteredGroupId));
+  //                   Navigator.of(context).pop();
+  //                 } else {
+  //                   // Show error message
+  //                   ScaffoldMessenger.of(context).showSnackBar(
+  //                     SnackBar(content: Text('Group ID does not exist.')),
+  //                   );
+  //                 }
+  //               },
+  //               child: Text('Submit'),
+  //             ),
+  //             ElevatedButton(
+  //               onPressed: () async {
+  //                 final String newGroupId = await createGroup();
+  //                 await prefs.setString('group_id', newGroupId);
+  //                 context.read<TodoBloc>().add(LoadItems(newGroupId));
+  //                 Navigator.of(context).pop();
+  //               },
+  //               child: Text('Create New Group'),
+  //             ),
+
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   Future<void> _showMoreOptionsDialog(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
