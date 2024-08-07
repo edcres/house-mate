@@ -62,14 +62,7 @@ class EnterEditMode extends TodoEvent {}
 
 class ExitEditMode extends TodoEvent {}
 
-class CreateGroup extends TodoEvent {
-  final String groupId;
-
-  CreateGroup(this.groupId);
-
-  @override
-  List<Object> get props => [groupId];
-}
+class CreateGroup extends TodoEvent {}
 
 // TODO: maybe delete this. Made it when adding checkGroupIdExists and createGroup to the tabs screen
 class CheckGroupIdExists extends TodoEvent {
