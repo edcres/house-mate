@@ -2,7 +2,7 @@ import 'dart:math';
 
 class Helper {
   // Group ID
-  final String DEFAULT_ID = "00000000asdfg";
+  final String DEFAULT_ID = "00000001asdfg";
   final String GROUP_ID_SP = "group_id";
 
   String generateNewID(String pastId) {
