@@ -22,7 +22,6 @@ class _TabsScreenState extends State<TabsScreen> {
   final helper = Helper();
   @override
   void initState() {
-    print(" ===========tabs were started ====================");
     super.initState();
     if (widget.initialGroupId == null) {
       WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -74,27 +73,7 @@ class _TabsScreenState extends State<TabsScreen> {
                 onPressed: () async {
                   // Trigger the CreateGroup event
                   context.read<TodoBloc>().add(CreateGroup());
-
-                  // Get the current state after the event is processed
-                  // final state = context.read<TodoBloc>().state;
-                  // if (state.newGroupId != null) {
-                  //   // Store the newGroupId in SharedPreferences
-                  //   await prefs.setString('group_id', state.newGroupId!);
-                  //   context.read<TodoBloc>().add(LoadItems(state.newGroupId!));
-                  //   Navigator.of(context).pop();
-                  // }
-                  // final newGroupId = await context.read<TodoBloc>().createGroup()
-
-                  // String newGroupId = await context.read<TodoBloc>().add(CreateGroup()); // Capture the returned group ID
-                  // await prefs.setString('group_id', newGroupId);
-                  // context.read<TodoBloc>().add(LoadItems(newGroupId));
-                  // Navigator.of(context).pop();
-
-                  // context.read<TodoBloc>().add(CreateGroup());
-                  // await prefs.setString('group_id', newGroupId);
-                  // context.read<TodoBloc>().add(LoadItems(newGroupId));
                   Navigator.of(context).pop();
-                  // You may need to listen for the new group ID as well, depending on your flow
                 },
                 child: Text('Create New Group'),
               ),
@@ -104,59 +83,6 @@ class _TabsScreenState extends State<TabsScreen> {
       },
     );
   }
-
-  // Future<void> _showGroupIdDialog(BuildContext context) async {
-  //   final TextEditingController groupIdController = TextEditingController();
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Enter Group ID'),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-
-  //             TextField(
-  //               controller: groupIdController,
-  //               decoration: InputDecoration(hintText: 'Group ID'),
-  //             ),
-  //             SizedBox(height: 20),
-  //             ElevatedButton(
-  //               onPressed: () async {
-
-  //                 final String enteredGroupId = groupIdController.text.trim();
-  //                 if (await checkGroupIdExists(enteredGroupId)) {
-  //                   await prefs.setString('group_id', enteredGroupId);
-  //                   context.read<TodoBloc>().add(LoadItems(enteredGroupId));
-  //                   Navigator.of(context).pop();
-  //                 } else {
-  //                   // Show error message
-  //                   ScaffoldMessenger.of(context).showSnackBar(
-  //                     SnackBar(content: Text('Group ID does not exist.')),
-  //                   );
-  //                 }
-  //               },
-  //               child: Text('Submit'),
-  //             ),
-  //             ElevatedButton(
-  //               onPressed: () async {
-  //                 final String newGroupId = await createGroup();
-  //                 await prefs.setString('group_id', newGroupId);
-  //                 context.read<TodoBloc>().add(LoadItems(newGroupId));
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: Text('Create New Group'),
-  //             ),
-
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
 
   Future<void> _showMoreOptionsDialog(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
