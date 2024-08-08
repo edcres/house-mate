@@ -76,9 +76,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
     String newGroupId = await _firestoreApiService.createGroup();
-    // TODO: when fixing clientId funcitonality, wait for groupId query, then do the query
-    String newUserId = await _firestoreApiService
-        .createUserId(helper.DEFAULT_ID /*newGroupId*/);
+    String newUserId = await _firestoreApiService.createUserId(newGroupId);
     emit(state.copyWith(
       groupId: newGroupId,
       userId: newUserId,
