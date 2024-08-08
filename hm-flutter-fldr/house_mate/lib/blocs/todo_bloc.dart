@@ -81,7 +81,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         .createUserId(helper.DEFAULT_ID /*newGroupId*/);
     emit(state.copyWith(
       newGroupId: newGroupId,
-      newUserId: newUserId,
+      userId: newUserId,
     ));
   }
 
