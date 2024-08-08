@@ -73,6 +73,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     emit(state.copyWith(groupIdExists: exists));
   }
 
+  Future<void> _onJoinGroup(JoinGroup event, Emitter<TodoState> emit) async {
+    // TODO:
+    final exists = await _firestoreApiService.checkGroupIdExists(event.groupId);
+    emit(state.copyWith(groupIdExists: exists));
+  }
+
   Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
     String newGroupId = await _firestoreApiService.createGroup();

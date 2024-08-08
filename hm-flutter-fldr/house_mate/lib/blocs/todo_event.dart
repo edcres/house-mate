@@ -64,8 +64,12 @@ class ExitEditMode extends TodoEvent {}
 
 class CreateGroup extends TodoEvent {}
 
-// TODO: maybe delete this. Made it when adding checkGroupIdExists and createGroup to the tabs screen
 class CheckGroupIdExists extends TodoEvent {
   final String groupId;
   CheckGroupIdExists(this.groupId);
+}
+
+class JoinGroup extends TodoEvent {
+  final String groupId;
+  JoinGroup(this.groupId);
 }
