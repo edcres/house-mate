@@ -137,6 +137,7 @@ class FirestoreApiService {
 
   // User ID
   Future<String> createUserId(String groupId) async {
+    // TODO: Get the last client id for the group and make a new ID. Add new id to last client added
     print("-------------------- createUserId called --------------------");
     final DocumentSnapshot<Map<String, dynamic>> clientIdsDoc =
         await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
@@ -154,30 +155,52 @@ class FirestoreApiService {
   }
 
   // Group ID
+  // TODO: if there are no past groups, create a last group added field and give it the defaultID value
   Future<String> createGroup() async {
     print("-------------------- createGroup called --------------------");
-    // Get the last group added
-    final QuerySnapshot<Map<String, dynamic>> groupsSnapshot = await groupIDsDoc
-        .collection(helper.generateNewID(helper.DEFAULT_ID))
-        .orderBy('id', descending: true)
-        .limit(1)
-        .get();
+    // Get the last group added field (just check the field, delete this code)
+    final DocumentSnapshot docSnap = await groupIDsDoc.get();
+    // String? lastGroupId = null;
+    String newGroupId = "";
+    if (docSnap.exists) {
+      print("-------------------- docsnap exists --------------------");
+      // Get the value of the field 'last group added'
+      final data = docSnap.data() as Map<String, dynamic>;
+      String? lastGroupId = data[LAST_GROUP_ADDED_FIELD];
+      if (lastGroupId != null) {
+        newGroupId = helper.generateNewID(lastGroupId);
+        groupIDsDoc.update({LAST_GROUP_ADDED_FIELD: newGroupId});
+      } else {
+        print("Last group ID is null");
+      }
+    } else {
+      newGroupId = helper.generateNewID(helper.DEFAULT_ID);
+      await groupIDsDoc.set({
+        LAST_GROUP_ADDED_FIELD: newGroupId,
+      }, SetOptions(merge: true));
+      print("docSnap doesn't exist");
+    }
 
-    if (groupsSnapshot == null) {
-      print("doc is null");
-    } else
-      print("doc not null\n${groupsSnapshot.docs.isEmpty}");
-
-    // Check if a group exists and add a group
-    String lastGroupId = groupsSnapshot.docs.isNotEmpty
-        ? groupsSnapshot.docs.first.id
-        : helper.DEFAULT_ID;
-    String newGroupId = helper.generateNewID(lastGroupId);
-
-    // Create lastClientAdded, ShoppingList, ChoresList
+    // Create lastClientAdded
     await groupIDsDoc.collection(newGroupId).doc(CLIENT_IDS_DOC).set(
         {LAST_CLIENT_ADDED_FIELD: helper.generateNewID(helper.DEFAULT_ID)},
         SetOptions(merge: true));
+    // final QuerySnapshot<Map<String, dynamic>> groupsSnapshot = await groupIDsDoc;
+    // .collection(helper.generateNewID(helper.DEFAULT_ID))
+    // .orderBy('id', descending: true)
+    // .limit(1)
+    // .get();
+
+    // if (groupsSnapshot == null) {
+    //   print("doc is null");
+    // } else
+    //   print("doc not null\n${groupsSnapshot.docs.isEmpty}");
+
+    // Check if a group exists and add a group
+    // String lastGroupId = groupsSnapshot.docs.isNotEmpty
+    //     ? groupsSnapshot.docs.first.id
+    //     : helper.DEFAULT_ID;
+    // String newGroupId = helper.generateNewID(lastGroupId);
 
     return newGroupId;
   }
