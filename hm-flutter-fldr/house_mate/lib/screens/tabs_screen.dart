@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:house_mate/Helper.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,7 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  final helper = Helper();
   @override
   void initState() {
     print(" ===========tabs were started ====================");
@@ -56,7 +58,7 @@ class _TabsScreenState extends State<TabsScreen> {
                   // Listen to the bloc's state to determine existence
                   final state = context.read<TodoBloc>().state;
                   if (state.groupIdExists) {
-                    await prefs.setString('group_id', enteredGroupId);
+                    await prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
                     context.read<TodoBloc>().add(LoadItems(enteredGroupId));
                     Navigator.of(context).pop();
                   } else {
@@ -158,7 +160,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
   Future<void> _showMoreOptionsDialog(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? groupId = prefs.getString('group_id');
+    final String? groupId = prefs.getString(helper.GROUP_ID_SP);
     final String? userId = prefs.getString('user_id');
 
     showDialog(
@@ -194,7 +196,7 @@ class _TabsScreenState extends State<TabsScreen> {
         if (state.newGroupId != null) {
           // Store the newGroupId in SharedPreferences
           final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('group_id', state.newGroupId!);
+          await prefs.setString(helper.GROUP_ID_SP, state.newGroupId!);
         }
       },
       child: DefaultTabController(
