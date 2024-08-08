@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:house_mate/Helper.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
 import 'package:house_mate/data/firestore_api_service.dart';
@@ -6,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final FirestoreApiService _firestoreApiService;
+  final Helper helper = Helper();
 
   TodoBloc()
       : _firestoreApiService = FirestoreApiService(),
@@ -74,8 +76,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
     String newGroupId = await _firestoreApiService.createGroup();
+    // TODO: when fixing clientId funcitonality, wait for groupId query, then do the query
+    String newUserId = await _firestoreApiService
+        .createUserId(helper.DEFAULT_ID /*newGroupId*/);
     emit(state.copyWith(
       newGroupId: newGroupId,
+      newUserId: newUserId,
     ));
   }
 

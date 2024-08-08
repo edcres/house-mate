@@ -134,21 +134,33 @@ class FirestoreApiService {
   }
 
   // User ID
+  // TODO; Call this. When new group. When old group
+  // TODO: This doesn't work in the native android app so I wont finish this here yet.
   Future<String> createUserId(String groupId) async {
-    // Go in the current group and get the last user ID
-    final DocumentSnapshot<Map<String, dynamic>> clientIdsDoc =
-        await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
-    String lastClientId =
-        clientIdsDoc.data()?[LAST_CLIENT_ADDED_FIELD] ?? helper.DEFAULT_ID;
-    // Create a new user id using the old one
-    String newClientId = helper.generateNewID(lastClientId);
-    // Update the last client added field in the database
+    // Create lastClientAdded
+    // Need to fix this. Now it just creates a random ID based on nothing. USe the commented out code below as reference
+    String newClientId = helper.generateNewID(helper.DEFAULT_ID);
     await groupIDsDoc
         .collection(groupId)
         .doc(CLIENT_IDS_DOC)
         .set({LAST_CLIENT_ADDED_FIELD: newClientId}, SetOptions(merge: true));
     return newClientId;
   }
+  // Future<String> createUserId(String groupId) async {
+  //   // Go in the current group and get the last user ID
+  //   final DocumentSnapshot<Map<String, dynamic>> clientIdsDoc =
+  //       await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
+  //   String lastClientId =
+  //       clientIdsDoc.data()?[LAST_CLIENT_ADDED_FIELD] ?? helper.DEFAULT_ID;
+  //   // Create a new user id using the old one
+  //   String newClientId = helper.generateNewID(lastClientId);
+  //   // Update the last client added field in the database
+  //   await groupIDsDoc
+  //       .collection(groupId)
+  //       .doc(CLIENT_IDS_DOC)
+  //       .set({LAST_CLIENT_ADDED_FIELD: newClientId}, SetOptions(merge: true));
+  //   return newClientId;
+  // }
 
   // Group ID
   Future<String> createGroup() async {
@@ -173,19 +185,6 @@ class FirestoreApiService {
       print("docSnap doesn't exist");
     }
     return newGroupId;
-  }
-
-  // TODO; Call this. When new group. When old group
-  // TODO: This doesn't work in the native android app so I wont finish this here yet.
-  Future<String> createClient(String groupId) async {
-    // Create lastClientAdded
-    // Need to fix this. Now it just creates a random ID based on nothing
-    String newClientId = helper.generateNewID(helper.DEFAULT_ID);
-    await groupIDsDoc
-        .collection(groupId)
-        .doc(CLIENT_IDS_DOC)
-        .set({LAST_CLIENT_ADDED_FIELD: newClientId}, SetOptions(merge: true));
-    return newClientId;
   }
 
   // Check if group exists.
