@@ -4,6 +4,7 @@ class Helper {
   // Group ID
   final String DEFAULT_ID = "00000000asdfg";
   final String GROUP_ID_SP = "group_id";
+  final String USER_ID_SP = "user_id";
 
   String generateNewID(String pastId) {
     final int prefix = int.parse(pastId.substring(0, 8));

@@ -161,7 +161,7 @@ class _TabsScreenState extends State<TabsScreen> {
   Future<void> _showMoreOptionsDialog(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? groupId = prefs.getString(helper.GROUP_ID_SP);
-    final String? userId = prefs.getString('user_id');
+    final String? userId = prefs.getString(helper.USER_ID_SP);
 
     showDialog(
       context: context,
