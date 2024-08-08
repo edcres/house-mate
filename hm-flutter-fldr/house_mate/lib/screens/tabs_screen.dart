@@ -119,10 +119,10 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return BlocListener<TodoBloc, TodoState>(
       listener: (context, state) async {
-        if (state.newGroupId != null) {
+        if (state.groupId != null) {
           // Store the newGroupId in SharedPreferences
           final prefs = await SharedPreferences.getInstance();
-          await prefs.setString(helper.GROUP_ID_SP, state.newGroupId!);
+          await prefs.setString(helper.GROUP_ID_SP, state.groupId!);
         }
       },
       child: DefaultTabController(
