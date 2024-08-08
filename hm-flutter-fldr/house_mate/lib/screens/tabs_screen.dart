@@ -70,18 +70,27 @@ class _TabsScreenState extends State<TabsScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final newGroupId = await context.read<TodoBloc>().createGroup()
-
-                  String newGroupId = await context.read<TodoBloc>().add(CreateGroup()); // Capture the returned group ID
-                  await prefs.setString('group_id', newGroupId);
-                  context.read<TodoBloc>().add(LoadItems(newGroupId));
-                  Navigator.of(context).pop();
-
-
-
+                  // Trigger the CreateGroup event
                   context.read<TodoBloc>().add(CreateGroup());
-                  await prefs.setString('group_id', newGroupId);
-                  context.read<TodoBloc>().add(LoadItems(newGroupId));
+
+                  // Get the current state after the event is processed
+                  // final state = context.read<TodoBloc>().state;
+                  // if (state.newGroupId != null) {
+                  //   // Store the newGroupId in SharedPreferences
+                  //   await prefs.setString('group_id', state.newGroupId!);
+                  //   context.read<TodoBloc>().add(LoadItems(state.newGroupId!));
+                  //   Navigator.of(context).pop();
+                  // }
+                  // final newGroupId = await context.read<TodoBloc>().createGroup()
+
+                  // String newGroupId = await context.read<TodoBloc>().add(CreateGroup()); // Capture the returned group ID
+                  // await prefs.setString('group_id', newGroupId);
+                  // context.read<TodoBloc>().add(LoadItems(newGroupId));
+                  // Navigator.of(context).pop();
+
+                  // context.read<TodoBloc>().add(CreateGroup());
+                  // await prefs.setString('group_id', newGroupId);
+                  // context.read<TodoBloc>().add(LoadItems(newGroupId));
                   Navigator.of(context).pop();
                   // You may need to listen for the new group ID as well, depending on your flow
                 },
@@ -93,7 +102,6 @@ class _TabsScreenState extends State<TabsScreen> {
       },
     );
   }
-  
 
   // Future<void> _showGroupIdDialog(BuildContext context) async {
   //   final TextEditingController groupIdController = TextEditingController();
@@ -181,66 +189,79 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('To-Do List'),
-          bottom: TabBar(
-            tabs: [
-              Tab(text: 'Shopping'),
-              Tab(text: 'Chores'),
+    return BlocListener<TodoBloc, TodoState>(
+      listener: (context, state) async {
+        if (state.newGroupId != null) {
+          // Store the newGroupId in SharedPreferences
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('group_id', state.newGroupId!);
+          // Optionally load items or perform other actions
+          context.read<TodoBloc>().add(LoadItems(state.newGroupId!));
+          // Close the dialog if it's still open
+          Navigator.of(context).pop();
+        }
+      },
+      child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('To-Do List'),
+            bottom: TabBar(
+              tabs: [
+                Tab(text: 'Shopping'),
+                Tab(text: 'Chores'),
+              ],
+            ),
+            actions: [
+              BlocBuilder<TodoBloc, TodoState>(
+                builder: (context, state) {
+                  return IconButton(
+                    icon: Icon(state.isEditMode ? Icons.done : Icons.edit),
+                    onPressed: () {
+                      if (state.isEditMode) {
+                        context.read<TodoBloc>().add(ExitEditMode());
+                      } else {
+                        context.read<TodoBloc>().add(EnterEditMode());
+                      }
+                    },
+                  );
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.more_vert),
+                onPressed: () {
+                  _showMoreOptionsDialog(context);
+                },
+              ),
             ],
           ),
-          actions: [
-            BlocBuilder<TodoBloc, TodoState>(
-              builder: (context, state) {
-                return IconButton(
-                  icon: Icon(state.isEditMode ? Icons.done : Icons.edit),
-                  onPressed: () {
-                    if (state.isEditMode) {
-                      context.read<TodoBloc>().add(ExitEditMode());
-                    } else {
-                      context.read<TodoBloc>().add(EnterEditMode());
-                    }
-                  },
-                );
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.more_vert),
-              onPressed: () {
-                _showMoreOptionsDialog(context);
-              },
-            ),
-          ],
-        ),
-        body: TabBarView(
-          children: [
-            ItemsScreen(itemType: ItemType.Shopping),
-            ItemsScreen(itemType: ItemType.Chore),
-          ],
-        ),
-        floatingActionButton: Builder(
-          builder: (context) {
-            return FloatingActionButton(
-              onPressed: () {
-                final int currentIndex =
-                    DefaultTabController.of(context)!.index;
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AddItemDialog(
-                      initialItemType: currentIndex == 0
-                          ? ItemType.Shopping
-                          : ItemType.Chore,
-                    );
-                  },
-                );
-              },
-              child: Icon(Icons.add),
-            );
-          },
+          body: TabBarView(
+            children: [
+              ItemsScreen(itemType: ItemType.Shopping),
+              ItemsScreen(itemType: ItemType.Chore),
+            ],
+          ),
+          floatingActionButton: Builder(
+            builder: (context) {
+              return FloatingActionButton(
+                onPressed: () {
+                  final int currentIndex =
+                      DefaultTabController.of(context)!.index;
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AddItemDialog(
+                        initialItemType: currentIndex == 0
+                            ? ItemType.Shopping
+                            : ItemType.Chore,
+                      );
+                    },
+                  );
+                },
+                child: Icon(Icons.add),
+              );
+            },
+          ),
         ),
       ),
     );
