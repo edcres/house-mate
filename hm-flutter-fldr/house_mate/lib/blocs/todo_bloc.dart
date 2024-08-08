@@ -68,8 +68,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onCheckGroupIdExists(
       CheckGroupIdExists event, Emitter<TodoState> emit) async {
     final exists = await _firestoreApiService.checkGroupIdExists(event.groupId);
-    emit(state.copyWith(
-        groupIdExists: exists)); // Update state based on existence
+    emit(state.copyWith(groupIdExists: exists));
   }
 
   Future<void> _onCreateGroup(
