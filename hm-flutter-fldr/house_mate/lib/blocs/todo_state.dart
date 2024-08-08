@@ -17,11 +17,13 @@ class TodoState extends Equatable {
     List<TodoItem>? items,
     bool? isEditMode,
     bool? groupIdExists,
+    String? newGroupId,
   }) {
     return TodoState(
       items: items ?? this.items,
       isEditMode: isEditMode ?? this.isEditMode,
       groupIdExists: groupIdExists ?? this.groupIdExists,
+      newGroupId: newGroupId ?? this.newGroupId,
     );
   }
 

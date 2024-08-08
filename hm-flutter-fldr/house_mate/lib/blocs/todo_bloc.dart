@@ -72,11 +72,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         groupIdExists: exists)); // Update state based on existence
   }
 
-  Future<String> _onCreateGroup(
+  Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
-    // TODO: Do something with this group ID (like save it in shared preferences ass current group and in the list of groups)
-    String newGroupID = await _firestoreApiService.createGroup();
-    return newGroupID;
+    String newGroupId = await _firestoreApiService.createGroup();
+    emit(state.copyWith(
+      newGroupId: newGroupId,
+    ));
   }
 
   void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
