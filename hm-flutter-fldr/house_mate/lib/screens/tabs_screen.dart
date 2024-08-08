@@ -195,10 +195,6 @@ class _TabsScreenState extends State<TabsScreen> {
           // Store the newGroupId in SharedPreferences
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('group_id', state.newGroupId!);
-          // Optionally load items or perform other actions
-          context.read<TodoBloc>().add(LoadItems(state.newGroupId!));
-          // Close the dialog if it's still open
-          Navigator.of(context).pop();
         }
       },
       child: DefaultTabController(
