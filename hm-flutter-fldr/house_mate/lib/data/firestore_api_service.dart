@@ -147,7 +147,6 @@ class FirestoreApiService {
         .collection(groupId)
         .doc(CLIENT_IDS_DOC)
         .set({LAST_CLIENT_ADDED_FIELD: newClientId}, SetOptions(merge: true));
-
     return newClientId;
   }
 
