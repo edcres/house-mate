@@ -70,6 +70,15 @@ class _TabsScreenState extends State<TabsScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
+                  final newGroupId = await context.read<TodoBloc>().createGroup()
+
+                  String newGroupId = await context.read<TodoBloc>().add(CreateGroup()); // Capture the returned group ID
+                  await prefs.setString('group_id', newGroupId);
+                  context.read<TodoBloc>().add(LoadItems(newGroupId));
+                  Navigator.of(context).pop();
+
+
+
                   context.read<TodoBloc>().add(CreateGroup());
                   await prefs.setString('group_id', newGroupId);
                   context.read<TodoBloc>().add(LoadItems(newGroupId));
@@ -84,6 +93,7 @@ class _TabsScreenState extends State<TabsScreen> {
       },
     );
   }
+  
 
   // Future<void> _showGroupIdDialog(BuildContext context) async {
   //   final TextEditingController groupIdController = TextEditingController();
