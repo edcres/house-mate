@@ -135,7 +135,6 @@ class FirestoreApiService {
 
   // User ID
   Future<String> createUserId(String groupId) async {
-    // TODO: Get the last client id for the group and make a new ID. Add new id to last client added
     // Go in the current group and get the last user ID
     final DocumentSnapshot<Map<String, dynamic>> clientIdsDoc =
         await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
