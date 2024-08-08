@@ -134,10 +134,8 @@ class FirestoreApiService {
   }
 
   // User ID
-  // TODO; Call this. When new group. When old group
   // TODO: This doesn't work in the native android app so I wont finish this here yet.
   Future<String> createUserId(String groupId) async {
-    // Create lastClientAdded
     // Need to fix this. Now it just creates a random ID based on nothing. USe the commented out code below as reference
     String newClientId = helper.generateNewID(helper.DEFAULT_ID);
     await groupIDsDoc

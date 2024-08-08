@@ -58,8 +58,7 @@ class _TabsScreenState extends State<TabsScreen> {
                   final state = context.read<TodoBloc>().state;
                   if (state.groupIdExists) {
                     await prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
-                    // TODO: join group, add new user id to shared pref and to last client added field
-
+                    context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
                     context.read<TodoBloc>().add(LoadItems(enteredGroupId));
                     Navigator.of(context).pop();
                   } else {

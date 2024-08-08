@@ -75,8 +75,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onJoinGroup(JoinGroup event, Emitter<TodoState> emit) async {
     // TODO: When fixing user id bugs, change this
-    final String newUserId = helper.generateNewID(helper.DEFAULT_ID);
-    _firestoreApiService.addUserToGroup(newUserId);
+    final String newUserId =
+        await _firestoreApiService.createUserId(event.groupId);
     emit(state.copyWith(userId: newUserId));
   }
 
