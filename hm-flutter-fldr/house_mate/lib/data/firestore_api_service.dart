@@ -172,12 +172,20 @@ class FirestoreApiService {
       }, SetOptions(merge: true));
       print("docSnap doesn't exist");
     }
-
-    // Create lastClientAdded
-    await groupIDsDoc.collection(newGroupId).doc(CLIENT_IDS_DOC).set(
-        {LAST_CLIENT_ADDED_FIELD: helper.generateNewID(helper.DEFAULT_ID)},
-        SetOptions(merge: true));
     return newGroupId;
+  }
+
+  // TODO; Call this. When new group. When old group
+  // TODO: This doesn't work in the native android app so I wont finish this here yet.
+  Future<String> createClient(String groupId) async {
+    // Create lastClientAdded
+    // Need to fix this. Now it just creates a random ID based on nothing
+    String newClientId = helper.generateNewID(helper.DEFAULT_ID);
+    await groupIDsDoc
+        .collection(groupId)
+        .doc(CLIENT_IDS_DOC)
+        .set({LAST_CLIENT_ADDED_FIELD: newClientId}, SetOptions(merge: true));
+    return newClientId;
   }
 
   // Check if group exists.
