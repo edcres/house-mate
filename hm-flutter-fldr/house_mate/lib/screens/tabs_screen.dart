@@ -71,6 +71,7 @@ class _TabsScreenState extends State<TabsScreen> {
               ElevatedButton(
                 onPressed: () async {
                   context.read<TodoBloc>().add(CreateGroup());
+                  Navigator.of(context).pop();
                   // You may need to listen for the new group ID as well, depending on your flow
                 },
                 child: Text('Create New Group'),
