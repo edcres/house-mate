@@ -80,7 +80,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     String newUserId = await _firestoreApiService
         .createUserId(helper.DEFAULT_ID /*newGroupId*/);
     emit(state.copyWith(
-      newGroupId: newGroupId,
+      groupId: newGroupId,
       userId: newUserId,
     ));
   }

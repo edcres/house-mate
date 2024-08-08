@@ -26,7 +26,7 @@ class TodoState extends Equatable {
       items: items ?? this.items,
       isEditMode: isEditMode ?? this.isEditMode,
       groupIdExists: groupIdExists ?? this.groupIdExists,
-      groupId: newGroupId ?? this.groupId,
+      groupId: groupId ?? this.groupId,
     );
   }
 
