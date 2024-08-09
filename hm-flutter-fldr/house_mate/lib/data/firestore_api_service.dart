@@ -144,25 +144,9 @@ class FirestoreApiService {
         .set({LAST_CLIENT_ADDED_FIELD: newClientId}, SetOptions(merge: true));
     return newClientId;
   }
-  // Future<String> createUserId(String groupId) async {
-  //   // Go in the current group and get the last user ID
-  //   final DocumentSnapshot<Map<String, dynamic>> clientIdsDoc =
-  //       await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();
-  //   String lastClientId =
-  //       clientIdsDoc.data()?[LAST_CLIENT_ADDED_FIELD] ?? helper.DEFAULT_ID;
-  //   // Create a new user id using the old one
-  //   String newClientId = helper.generateNewID(lastClientId);
-  //   // Update the last client added field in the database
-  //   await groupIDsDoc
-  //       .collection(groupId)
-  //       .doc(CLIENT_IDS_DOC)
-  //       .set({LAST_CLIENT_ADDED_FIELD: newClientId}, SetOptions(merge: true));
-  //   return newClientId;
-  // }
 
   // Group ID
   Future<String> createGroup() async {
-    // Get the last group added field (just check the field, delete this code)
     final DocumentSnapshot docSnap = await groupIDsDoc.get();
     String newGroupId = "";
     if (docSnap.exists) {
@@ -185,7 +169,6 @@ class FirestoreApiService {
     return newGroupId;
   }
 
-  // Check if group exists.
   Future<bool> checkGroupIdExists(String groupId) async {
     final DocumentSnapshot<Map<String, dynamic>> groupDoc =
         await groupIDsDoc.collection(groupId).doc(CLIENT_IDS_DOC).get();

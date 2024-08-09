@@ -39,24 +39,15 @@ class _TabsScreenState extends State<TabsScreen> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return BlocListener<TodoBloc, TodoState>(
+          // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
           listener: (context, state) {
-            // Adjust this condition based on your actual state for checking group ID existence
-            print(
-                "----------------------------  this happened -1   ------------------------------");
             if (state.groupIdExists) {
-              print(
-                  "----------------------------  this happened 0   ------------------------------");
               final String enteredGroupId = groupIdController.text.trim();
               prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
-              print(
-                  "----------------------------  this happened 0.5   ------------------------------");
               context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
-              print(
-                  "----------------------------  ^^^this happened 0.75   ------------------------------");
+              prefs.setString(helper.USER_ID_SP, state.userId!);
               context.read<TodoBloc>().add(LoadItems(enteredGroupId));
-              print(
-                  "----------------------------  this happened 1   ------------------------------");
-              Navigator.of(context).pop(); // Close dialog
+              Navigator.of(context).pop();
             } else {
               // Show error message
               ScaffoldMessenger.of(context).showSnackBar(
@@ -134,6 +125,8 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return BlocListener<TodoBloc, TodoState>(
       // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
+      //        - This is buggy with group and user id. Like entering a wrong group is save
+      //        - The user id is not saved if joining an existing groups
       listener: (context, state) async {
         if (state.groupId != null) {
           final prefs = await SharedPreferences.getInstance();
