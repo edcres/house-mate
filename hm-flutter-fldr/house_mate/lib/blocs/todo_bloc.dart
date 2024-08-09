@@ -13,6 +13,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       : _firestoreApiService = FirestoreApiService(),
         super(TodoState(items: [])) {
     on<LoadItems>(_onLoadItems);
+    on<JoinGroup>(_onJoinGroup);
     on<AddItem>(_onAddItem);
     on<ToggleItem>(_onToggleItem);
     on<UpdateItem>(_onUpdateItem);
@@ -70,7 +71,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onCheckGroupIdExists(
       CheckGroupIdExists event, Emitter<TodoState> emit) async {
     final exists = await _firestoreApiService.checkGroupIdExists(event.groupId);
-    emit(state.copyWith(groupIdExists: exists));
+    emit(state.copyWith(groupIdExists: exists, groupId: event.groupId));
   }
 
   Future<void> _onJoinGroup(JoinGroup event, Emitter<TodoState> emit) async {
