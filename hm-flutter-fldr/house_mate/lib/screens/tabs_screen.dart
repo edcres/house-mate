@@ -99,64 +99,6 @@ class _TabsScreenState extends State<TabsScreen> {
     );
   }
 
-  // Future<void> _showGroupIdDialog(BuildContext context) async {
-  //   final TextEditingController groupIdController = TextEditingController();
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Enter Group ID'),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             TextField(
-  //               controller: groupIdController,
-  //               decoration: InputDecoration(hintText: 'Group ID'),
-  //             ),
-  //             SizedBox(height: 20),
-  //             ElevatedButton(
-  //               onPressed: () async {
-  //                 final String enteredGroupId = groupIdController.text.trim();
-  //                 context
-  //                     .read<TodoBloc>()
-  //                     .add(CheckGroupIdExists(enteredGroupId));
-  //                 print(
-  //                     "-------------------------  this happened -2  ------------------------------------------------");
-  //                 // TODO: remove this
-  //                 // Listen to the bloc's state to determine existence
-  //                 // final state = context.read<TodoBloc>().state;
-  //                 // if (state.groupIdExists) {
-  //                 //   await prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
-  //                 //   context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
-  //                 //   context.read<TodoBloc>().add(LoadItems(enteredGroupId));
-  //                 //   Navigator.of(context).pop();
-  //                 // } else {
-  //                 //   // Show error message
-  //                 //   ScaffoldMessenger.of(context).showSnackBar(
-  //                 //     SnackBar(content: Text('Group ID does not exist.')),
-  //                 //   );
-  //                 // }
-  //               },
-  //               child: Text('Submit'),
-  //             ),
-  //             ElevatedButton(
-  //               onPressed: () async {
-  //                 // Trigger the CreateGroup event
-  //                 context.read<TodoBloc>().add(CreateGroup());
-  //                 Navigator.of(context).pop();
-  //               },
-  //               child: Text('Create New Group'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   Future<void> _showMoreOptionsDialog(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? groupId = prefs.getString(helper.GROUP_ID_SP);
@@ -191,6 +133,7 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<TodoBloc, TodoState>(
+      // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
       listener: (context, state) async {
         if (state.groupId != null) {
           final prefs = await SharedPreferences.getInstance();
