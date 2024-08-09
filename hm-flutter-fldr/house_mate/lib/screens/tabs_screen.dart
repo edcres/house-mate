@@ -42,10 +42,14 @@ class _TabsScreenState extends State<TabsScreen> {
           // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
           listener: (context, state) {
             if (state.groupIdExists) {
+              print(
+                  "--------------------------------  call 9 BlocListener1 --------------------------");
               final String enteredGroupId = groupIdController.text.trim();
               prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
               context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
               prefs.setString(helper.USER_ID_SP, state.userId!);
+              print(
+                  "--------------------------------  call 3 (load items called) BlocListener1 --------------------------");
               context.read<TodoBloc>().add(LoadItems(enteredGroupId));
               Navigator.of(context).pop();
             } else {
@@ -128,6 +132,8 @@ class _TabsScreenState extends State<TabsScreen> {
       //        - This is buggy with group and user id. Like entering a wrong group is save
       //        - The user id is not saved if joining an existing groups
       listener: (context, state) async {
+        print(
+            "--------------------------------  call 10 BlocListener2 --------------------------");
         if (state.groupId != null) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString(helper.GROUP_ID_SP, state.groupId!);

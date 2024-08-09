@@ -36,17 +36,24 @@ class FirestoreApiService {
 
   // This could go to the helper class
   String _getCollectionPath(String groupId, ItemType itemType) {
-    return '$groupIDsDoc/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
-    // return '$GENERAL_COLLECTION/$GROUP_IDS_DOC/$groupId/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
+    return '$groupId/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
   }
 
   // Get Shopping Items
   Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
+    print(
+        "--------------------------------  call 7 --------------------------");
+    print(
+        "--------------------------------  call 7.5 ${_getCollectionPath(groupId, ItemType.Shopping)} --------------------------");
     return groupIDsDoc
         .collection(_getCollectionPath(groupId, ItemType.Shopping))
         .snapshots()
         .map((snapshot) {
+      print(
+          "--------------------------------  call 8 --------------------------");
       return snapshot.docs.map((doc) {
+        print(
+            "--------------------------------  call 9 --------------------------");
         final data = doc.data();
         return ShoppingItem(
             id: doc.id, task: data['task'], isCompleted: data['isCompleted']);

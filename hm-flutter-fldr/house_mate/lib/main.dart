@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Helper helper = Helper();
+    print(
+        "--------------------------------  call 1 --------------------------");
     return BlocProvider(
       create: (context) =>
           TodoBloc()..add(LoadItems(initialGroupId ?? helper.DEFAULT_ID)),

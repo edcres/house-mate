@@ -32,13 +32,19 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
     final groupId = event.groupId;
 
+    print(
+        "--------------------------------  call 4 --------------------------");
     // Listen to shopping items updates
     _firestoreApiService.getShoppingItems(groupId).listen((shoppingItems) {
       // Listen to chore items updates
+      print(
+          "--------------------------------  call 5 --------------------------");
       _firestoreApiService.getChoreItems(groupId).listen((choreItems) {
         final items = [...shoppingItems, ...choreItems];
         emit(TodoState(items: items));
       });
+      print(
+          "--------------------------------  call 6 --------------------------");
     });
   }
 
