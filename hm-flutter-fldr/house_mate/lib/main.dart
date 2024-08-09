@@ -14,10 +14,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // Get user/group IDs from local storage.
+  // Get group ID from local storage.
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? groupId = prefs.getString(helper.GROUP_ID_SP);
-  // Create userID
   runApp(MyApp(initialGroupId: groupId));
 }
 
