@@ -97,7 +97,7 @@ class FirestoreApiService {
   Future<void> addItem(String groupId, ItemType itemType, String item) async {
     print(
         "------------------------------l-  add call 1 --------------------------");
-    await firestore
+    await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(item)
         .set({
