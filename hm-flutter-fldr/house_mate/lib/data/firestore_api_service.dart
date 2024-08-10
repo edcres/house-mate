@@ -63,7 +63,7 @@ class FirestoreApiService {
 
   // Get Shopping Items
   // Future<void> getShoppingItems(String groupId) async {
-  //   final shoppingSnapshot = await firestore
+  //   final shoppingSnapshot = await groupIDsDoc
   //       .collection(_getCollectionPath(groupId, ItemType.Shopping))
   //       .get();
   //   final shoppingItems = shoppingSnapshot.docs.map((doc) {
@@ -112,7 +112,7 @@ class FirestoreApiService {
   // Toggle Item
   Future<void> toggleItem(
       String groupId, ItemType itemType, TodoItem item, String eventId) async {
-    await firestore
+    await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(eventId)
         .update({
@@ -123,12 +123,12 @@ class FirestoreApiService {
   // Update item
   Future<void> updateItem(String groupId, ItemType itemType, String eventId,
       String updatedTask) async {
-    final oldDoc = firestore
+    final oldDoc = groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(eventId);
     final oldData = (await oldDoc.get()).data();
     if (oldData != null) {
-      await firestore
+      await groupIDsDoc
           .collection(_getCollectionPath(groupId, itemType))
           .doc(updatedTask)
           .set({
@@ -144,7 +144,7 @@ class FirestoreApiService {
   // Delete item
   Future<void> deleteItem(
       String groupId, ItemType itemType, String eventId) async {
-    await firestore
+    await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(eventId)
         .delete();
