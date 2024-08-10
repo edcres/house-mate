@@ -24,6 +24,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<ExitEditMode>(_onExitEditMode);
   }
 
+  // TODO: everything that calls this, shouldn't
   Future<String> _getUserId() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('user_id')!;
@@ -53,8 +54,18 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
-    final groupId = await _getUserId();
-    _firestoreApiService.addItem(groupId, event.itemType, event.item);
+    print(
+        "------------------------------l-  add call 3 --------------------------");
+    final groupId = state.groupId;
+    if (groupId == null) {
+      _firestoreApiService.addItem(groupId!, event.itemType, event.item);
+    } else {
+      print("GroupId is null");
+    }
+    print(
+        "------------------------------l-  add call 4 user=${groupId} --------------------------");
+    print(
+        "------------------------------l-  add call5 --------------------------");
     add(LoadItems(groupId));
   }
 
