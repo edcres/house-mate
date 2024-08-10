@@ -27,8 +27,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Helper helper = Helper();
-    print(
-        "--------------------------------  call 1 grp=$groupId --------------------------");
     return BlocProvider(
       create: (context) {
         final bloc = TodoBloc();

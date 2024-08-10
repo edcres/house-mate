@@ -60,25 +60,13 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
-    print(
-        "------------------------------l-  add call 3 --------------------------");
     final groupId = state.groupId;
-    print(
-        "------------------------------l-  add call 3.5 groupid=${groupId} --------------------------");
     if (groupId != null) {
-      print(
-          "------------------------------l-  add call 3.6 groupid=${groupId} --------------------------");
       _firestoreApiService.addItem(groupId, event.itemType, event.item);
-      print(
-          "------------------------------l-  add call 3.7 groupid=${groupId} --------------------------");
       add(LoadItems(groupId));
-      print(
-          "------------------------------l-  add call 3.8 groupid=${groupId} --------------------------");
     } else {
       print("GroupId is null");
     }
-    print(
-        "------------------------------l-  add call 4 group=${groupId} --------------------------");
   }
 
   Future<void> _onToggleItem(ToggleItem event, Emitter<TodoState> emit) async {
@@ -148,6 +136,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     emit(state.copyWith(isEditMode: false));
   }
 
+  // Possible addition for good practice
   // Stream<TodoState> mapEventToState(TodoEvent event) async* {
   //   if (event is LoadItems) {
   //     yield state.copyWith(items: [], groupId: event.groupId);

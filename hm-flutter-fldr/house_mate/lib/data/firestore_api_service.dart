@@ -95,8 +95,6 @@ class FirestoreApiService {
 
   // Add Item
   Future<void> addItem(String groupId, ItemType itemType, String item) async {
-    print(
-        "------------------------------l-  add call 1 --------------------------");
     await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(item)
@@ -105,8 +103,6 @@ class FirestoreApiService {
       'isCompleted': false,
       'itemType': itemType.toString().split('.').last,
     });
-    print(
-        "------------------------------l-  add call 1.5 --------------------------");
   }
 
   // Toggle Item
