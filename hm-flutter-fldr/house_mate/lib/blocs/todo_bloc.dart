@@ -35,28 +35,28 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
     // TODO: put this back
-    // print(
-    //     "------------------------------l-  add call 9999 groupid=${state.groupId} --------------------------");
-    // final groupId = event.groupId;
+    print(
+        "------------------------------l-  add call 9999 groupid=${state.groupId} --------------------------");
+    final groupId = event.groupId;
 
-    // print(
-    //     "--------------------------------  call 4 --------------------------");
-    // // Listen to shopping items updates
-    // _firestoreApiService.getShoppingItems(groupId).listen((shoppingItems) {
-    //   // Listen to chore items updates
-    //   print(
-    //       "--------------------------------  call 5 --------------------------");
-    //   _firestoreApiService.getChoreItems(groupId).listen((choreItems) {
-    //     final items = [...shoppingItems, ...choreItems];
-    //     print(
-    //         "--------------------------------  call 5.5 --------------------------");
-    //     emit(TodoState(items: items)); // TODO: error happens here
-    //     print(
-    //         "--------------------------------  call 5.75 --------------------------");
-    //   });
-    //   print(
-    //       "--------------------------------  call 6 --------------------------");
-    // });
+    print(
+        "--------------------------------  call 4 --------------------------");
+    // Listen to shopping items updates
+    _firestoreApiService.getShoppingItems(groupId).listen((shoppingItems) {
+      // Listen to chore items updates
+      print(
+          "--------------------------------  call 5 --------------------------");
+      _firestoreApiService.getChoreItems(groupId).listen((choreItems) {
+        final items = [...shoppingItems, ...choreItems];
+        print(
+            "--------------------------------  call 5.5 --------------------------");
+        emit(TodoState(items: items)); // TODO: error happens here
+        print(
+            "--------------------------------  call 5.75 --------------------------");
+      });
+      print(
+          "--------------------------------  call 6 --------------------------");
+    });
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
