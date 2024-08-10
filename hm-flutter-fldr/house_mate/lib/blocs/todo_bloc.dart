@@ -25,10 +25,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   // TODO: everything that calls this, shouldn't
-  Future<String> _getUserId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('user_id')!;
-  }
+  // Future<String> _getUserId() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString('user_id')!;
+  // }
 
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
     final groupId = event.groupId;
