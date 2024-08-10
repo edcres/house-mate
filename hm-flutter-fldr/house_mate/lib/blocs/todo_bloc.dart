@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/Helper.dart';
 import 'package:house_mate/blocs/todo_event.dart';
@@ -22,6 +24,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<CreateGroup>(_onCreateGroup);
     on<EnterEditMode>(_onEnterEditMode);
     on<ExitEditMode>(_onExitEditMode);
+    on<SetGroupId>(_onSetGroupId);
   }
 
   // TODO: everything that calls this, shouldn't
@@ -61,9 +64,15 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     final groupId = state.groupId;
     print(
         "------------------------------l-  add call 3.5 groupid=${groupId} --------------------------");
-    if (groupId == null) {
-      _firestoreApiService.addItem(groupId!, event.itemType, event.item);
+    if (groupId != null) {
+      print(
+          "------------------------------l-  add call 3.6 groupid=${groupId} --------------------------");
+      _firestoreApiService.addItem(groupId, event.itemType, event.item);
+      print(
+          "------------------------------l-  add call 3.7 groupid=${groupId} --------------------------");
       add(LoadItems(groupId));
+      print(
+          "------------------------------l-  add call 3.8 groupid=${groupId} --------------------------");
     } else {
       print("GroupId is null");
     }
@@ -128,6 +137,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     ));
   }
 
+  void _onSetGroupId(SetGroupId event, Emitter<TodoState> emit) {
+    emit(state.copyWith(groupId: event.groupId, groupIdExists: true));
+  }
+
   void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
     emit(state.copyWith(isEditMode: true));
   }
@@ -135,4 +148,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   void _onExitEditMode(ExitEditMode event, Emitter<TodoState> emit) {
     emit(state.copyWith(isEditMode: false));
   }
+
+  // Stream<TodoState> mapEventToState(TodoEvent event) async* {
+  //   if (event is LoadItems) {
+  //     yield state.copyWith(items: [], groupId: event.groupId);
+  //   }
+  // }
 }
