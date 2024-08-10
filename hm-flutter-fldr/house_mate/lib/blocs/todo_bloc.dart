@@ -41,7 +41,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
           "--------------------------------  call 5 --------------------------");
       _firestoreApiService.getChoreItems(groupId).listen((choreItems) {
         final items = [...shoppingItems, ...choreItems];
-        emit(TodoState(items: items));
+        print(
+            "--------------------------------  call 5.5 --------------------------");
+        emit(TodoState(items: items)); // TODO: error happens here
+        print(
+            "--------------------------------  call 5.75 --------------------------");
       });
       print(
           "--------------------------------  call 6 --------------------------");
