@@ -105,6 +105,8 @@ class FirestoreApiService {
       'isCompleted': false,
       'itemType': itemType.toString().split('.').last,
     });
+    print(
+        "------------------------------l-  add call 1.5 --------------------------");
   }
 
   // Toggle Item
