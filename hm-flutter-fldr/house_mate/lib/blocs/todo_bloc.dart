@@ -59,6 +59,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     final groupId = state.groupId;
     if (groupId == null) {
       _firestoreApiService.addItem(groupId!, event.itemType, event.item);
+      add(LoadItems(groupId));
     } else {
       print("GroupId is null");
     }
@@ -66,27 +67,38 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         "------------------------------l-  add call 4 user=${groupId} --------------------------");
     print(
         "------------------------------l-  add call5 --------------------------");
-    add(LoadItems(groupId));
   }
 
   Future<void> _onToggleItem(ToggleItem event, Emitter<TodoState> emit) async {
-    final groupId = await _getUserId();
-    final item = state.items.firstWhere((item) => item.id == event.id);
-    _firestoreApiService.toggleItem(groupId, event.itemType, item, event.id);
-    add(LoadItems(groupId));
+    final groupId = state.groupId;
+    if (groupId == null) {
+      final item = state.items.firstWhere((item) => item.id == event.id);
+      _firestoreApiService.toggleItem(groupId!, event.itemType, item, event.id);
+      add(LoadItems(groupId));
+    } else {
+      print("GroupId is null");
+    }
   }
 
   Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
-    final groupId = await _getUserId();
-    _firestoreApiService.updateItem(
-        groupId, event.itemType, event.id, event.updatedTask);
-    add(LoadItems(groupId));
+    final groupId = state.groupId;
+    if (groupId == null) {
+      _firestoreApiService.updateItem(
+          groupId!, event.itemType, event.id, event.updatedTask);
+      add(LoadItems(groupId));
+    } else {
+      print("GroupId is null");
+    }
   }
 
   Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
-    final groupId = await _getUserId();
-    _firestoreApiService.deleteItem(groupId, event.itemType, event.id);
-    add(LoadItems(groupId));
+    final groupId = state.groupId;
+    if (groupId == null) {
+      _firestoreApiService.deleteItem(groupId!, event.itemType, event.id);
+      add(LoadItems(groupId));
+    } else {
+      print("GroupId is null");
+    }
   }
 
   Future<void> _onCheckGroupIdExists(
