@@ -31,6 +31,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   // }
 
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
+    print(
+        "------------------------------l-  add call 9999 groupid=${state.groupId} --------------------------");
     final groupId = event.groupId;
 
     print(
@@ -57,6 +59,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     print(
         "------------------------------l-  add call 3 --------------------------");
     final groupId = state.groupId;
+    print(
+        "------------------------------l-  add call 3.5 groupid=${groupId} --------------------------");
     if (groupId == null) {
       _firestoreApiService.addItem(groupId!, event.itemType, event.item);
       add(LoadItems(groupId));

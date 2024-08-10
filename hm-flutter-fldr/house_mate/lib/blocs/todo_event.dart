@@ -62,6 +62,16 @@ class EnterEditMode extends TodoEvent {}
 
 class ExitEditMode extends TodoEvent {}
 
+class SetGroupId extends TodoEvent {
+  // Locally
+  final String groupId;
+
+  SetGroupId(this.groupId);
+
+  @override
+  List<Object> get props => [groupId];
+}
+
 class CreateGroup extends TodoEvent {}
 
 class CheckGroupIdExists extends TodoEvent {

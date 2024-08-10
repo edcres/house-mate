@@ -14,31 +14,33 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // Get group ID from local storage.
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? groupId = prefs.getString(helper.GROUP_ID_SP);
-  runApp(MyApp(initialGroupId: groupId));
+  runApp(MyApp(groupId: groupId));
 }
 
 class MyApp extends StatelessWidget {
-  final String? initialGroupId;
+  final String? groupId;
 
-  MyApp({required this.initialGroupId});
+  MyApp({required this.groupId});
 
   @override
   Widget build(BuildContext context) {
     Helper helper = Helper();
     print(
-        "--------------------------------  call 1 grp=$initialGroupId --------------------------");
+        "--------------------------------  call 1 grp=$groupId --------------------------");
     return BlocProvider(
-      create: (context) =>
-          TodoBloc()..add(LoadItems(initialGroupId ?? helper.DEFAULT_ID)),
+      create: (context) {
+        final bloc = TodoBloc();
+        bloc.add(SetGroupId(groupId!));
+        return bloc..add(LoadItems(groupId ?? helper.DEFAULT_ID));
+      },
       child: MaterialApp(
         title: 'Flutter To-Do List',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: TabsScreen(initialGroupId: initialGroupId),
+        home: TabsScreen(initialGroupId: groupId),
       ),
     );
   }
