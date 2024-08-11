@@ -5,6 +5,8 @@ import 'package:house_mate/Helper.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
 import 'package:house_mate/data/firestore_api_service.dart';
+import 'package:house_mate/data/models/chore_item.dart';
+import 'package:house_mate/data/models/shopping_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
@@ -35,28 +37,54 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
     // TODO: put this back
-    print(
-        "------------------------------l-  add call 9999 groupid=${state.groupId} --------------------------");
     final groupId = event.groupId;
 
-    print(
-        "--------------------------------  call 4 --------------------------");
+    try {
+      // Wait for the first emission from both streams
+      final shoppingItemsFuture =
+          _firestoreApiService.getShoppingItems(groupId).first;
+      final choreItemsFuture =
+          _firestoreApiService.getChoreItems(groupId).first;
+
+      final results =
+          await Future.wait([shoppingItemsFuture, choreItemsFuture]);
+
+      // Combine the results
+      final shoppingItems = results[0] as List<ShoppingItem>;
+      final choreItems = results[1] as List<ChoreItem>;
+
+      final items = [...shoppingItems, ...choreItems];
+
+      print(
+          "--------------------------------  call 5.5 --------------------------");
+      emit(TodoState(items: items)); // Emit the new state
+      print(
+          "--------------------------------  call 5.75 --------------------------");
+    } catch (error) {
+      print("Error loading items: $error");
+      // You might want to emit an error state here
+    }
+    // final shoppingItemsStream = _firestoreApiService.getShoppingItems(groupId);
+    // final choreItemsStream = _firestoreApiService.getChoreItems(groupId);
+    // print(
+    //     "--------------------------------  call 14 --------------------------");
+    // shoppingItemsStream.listen((shoppingItems) {
+    //   // Listen to chore items updates
+    //   choreItemsStream.listen((choreItems) {
+    //     final items = [...shoppingItems, ...choreItems];
+    //     print(
+    //         "--------------------------------  call 15 --------------------------");
+    //     emit(TodoState(items: items)); // emit the new state
+    //   });
+    // });
     // Listen to shopping items updates
-    _firestoreApiService.getShoppingItems(groupId).listen((shoppingItems) {
-      // Listen to chore items updates
-      print(
-          "--------------------------------  call 5 --------------------------");
-      _firestoreApiService.getChoreItems(groupId).listen((choreItems) {
-        final items = [...shoppingItems, ...choreItems];
-        print(
-            "--------------------------------  call 5.5 --------------------------");
-        emit(TodoState(items: items)); // TODO: error happens here
-        print(
-            "--------------------------------  call 5.75 --------------------------");
-      });
-      print(
-          "--------------------------------  call 6 --------------------------");
-    });
+    // _firestoreApiService.getShoppingItems(groupId).listen((shoppingItems) {
+    //   // Listen to chore items updates
+    //   _firestoreApiService.getChoreItems(groupId).listen((choreItems) {
+    //     final items = [...shoppingItems, ...choreItems];
+    //     emit(TodoState(items: items)); // TODO: error may happen here
+    //   });
+    // });
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
