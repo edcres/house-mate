@@ -39,7 +39,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         "----------------------------  happens 3 group=${event.groupId}  --------------------------------------");
     // TODO: put this back
     final groupId = event.groupId;
-
+    if (groupId == "null") return;
     try {
       // Wait for the first emission from both streams
       final shoppingItemsFuture =

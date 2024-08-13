@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         bloc.add(SetGroupId(groupId ?? 'null'));
         print(
             "----------------------------  happens 2 group=$groupId  --------------------------------------");
-        return bloc..add(LoadItems(groupId ?? helper.DEFAULT_ID));
+        return bloc..add(LoadItems(groupId ?? "null"));
       },
       child: MaterialApp(
         title: 'Flutter To-Do List',
