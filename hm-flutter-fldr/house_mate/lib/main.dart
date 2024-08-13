@@ -38,10 +38,10 @@ class MyApp extends StatelessWidget {
         final bloc = TodoBloc();
         print(
             "----------------------------  happens 1.75 group=$groupId  --------------------------------------");
-        bloc.add(SetGroupId(groupId ?? 'null'));
+        bloc.add(SetGroupId(groupId ?? helper.NULL_STRING));
         print(
             "----------------------------  happens 2 group=$groupId  --------------------------------------");
-        return bloc..add(LoadItems(groupId ?? "null"));
+        return bloc..add(LoadItems(groupId ?? helper.NULL_STRING));
       },
       child: MaterialApp(
         title: 'Flutter To-Do List',

@@ -39,7 +39,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         "----------------------------  happens 3 group=${event.groupId}  --------------------------------------");
     // TODO: put this back
     final groupId = event.groupId;
-    if (groupId == "null") return;
+    if (groupId == helper.NULL_STRING) return;
     try {
       // Wait for the first emission from both streams
       final shoppingItemsFuture =
@@ -168,7 +168,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   void _onSetGroupId(SetGroupId event, Emitter<TodoState> emit) {
     String? groupId = event.groupId;
     bool exists = true;
-    if (event.groupId == 'null') {
+    if (event.groupId == helper.NULL_STRING) {
       groupId = null;
       exists = false;
     }
