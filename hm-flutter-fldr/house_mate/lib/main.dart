@@ -28,19 +28,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "----------------------------  happens 1 group=$groupId  --------------------------------------");
+    print("-------------------  happens 1 group=$groupId  ------------------");
     Helper helper = Helper();
     return BlocProvider(
       create: (context) {
-        print(
-            "----------------------------  happens 1.5 group=$groupId  --------------------------------------");
         final bloc = TodoBloc();
-        print(
-            "----------------------------  happens 1.75 group=$groupId  --------------------------------------");
         bloc.add(SetGroupId(groupId ?? helper.NULL_STRING));
-        print(
-            "----------------------------  happens 2 group=$groupId  --------------------------------------");
         return bloc..add(LoadItems(groupId ?? helper.NULL_STRING));
       },
       child: MaterialApp(
