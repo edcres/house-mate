@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/Helper.dart';
@@ -8,7 +7,6 @@ import 'package:house_mate/blocs/todo_state.dart';
 import 'package:house_mate/data/firestore_api_service.dart';
 import 'package:house_mate/data/models/chore_item.dart';
 import 'package:house_mate/data/models/shopping_item.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final FirestoreApiService _firestoreApiService;
@@ -94,6 +92,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     print(
         "-------------------------------- add call 1 --------------------------------");
     final groupId = state.groupId;
+    print(
+        "-------------------------------- add call 1.5 group=${state.groupId} --------------------------------");
     if (groupId != null) {
       print(
           "------------------------ add call 2 --------------------------------");
