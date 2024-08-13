@@ -165,13 +165,9 @@ class FirestoreApiService {
     if (docSnap.exists) {
       // Get the value of the field 'last group added'
       final data = docSnap.data() as Map<String, dynamic>;
-      String? lastGroupId = data[LAST_GROUP_ADDED_FIELD];
-      if (lastGroupId != null) {
-        newGroupId = helper.generateNewID(lastGroupId);
-        groupIDsDoc.update({LAST_GROUP_ADDED_FIELD: newGroupId});
-      } else {
-        print("Last group ID is null");
-      }
+      String lastGroupId = data[LAST_GROUP_ADDED_FIELD] ?? helper.DEFAULT_ID;
+      newGroupId = helper.generateNewID(lastGroupId);
+      groupIDsDoc.update({LAST_GROUP_ADDED_FIELD: newGroupId});
     } else {
       newGroupId = helper.generateNewID(helper.DEFAULT_ID);
       await groupIDsDoc.set({

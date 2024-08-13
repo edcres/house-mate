@@ -91,8 +91,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
+    print(
+        "-------------------------------- add call 1 --------------------------------");
     final groupId = state.groupId;
     if (groupId != null) {
+      print(
+          "------------------------ add call 2 --------------------------------");
       _firestoreApiService.addItem(groupId, event.itemType, event.item);
       add(LoadItems(groupId));
     } else {
@@ -147,12 +151,18 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
+    print(
+        "-------------------------------- create group 1 --------------------------------");
     String newGroupId = await _firestoreApiService.createGroup();
     String newUserId = await _firestoreApiService.createUserId(newGroupId);
+    print(
+        "-------------------------------- create group 2 --------------------------------");
     emit(state.copyWith(
       groupId: newGroupId,
       userId: newUserId,
     ));
+    print(
+        "-------------------------------- create group 3 --------------------------------");
   }
 
   void _onSetGroupId(SetGroupId event, Emitter<TodoState> emit) {
