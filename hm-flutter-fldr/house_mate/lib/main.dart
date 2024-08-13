@@ -8,6 +8,8 @@ import 'package:house_mate/screens/tabs_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'blocs/todo_bloc.dart';
 
+// TODO: Start the app in a cleaner way. Maybe have a function here to 'startApp()' and send the sharedPref to the bloc
+
 void main() async {
   Helper helper = Helper();
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,11 +28,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        "----------------------------  happens 1 group=$groupId  --------------------------------------");
     Helper helper = Helper();
     return BlocProvider(
       create: (context) {
+        print(
+            "----------------------------  happens 1.5 group=$groupId  --------------------------------------");
         final bloc = TodoBloc();
-        bloc.add(SetGroupId(groupId!));
+        print(
+            "----------------------------  happens 1.75 group=$groupId  --------------------------------------");
+        bloc.add(SetGroupId(groupId ?? 'null'));
+        print(
+            "----------------------------  happens 2 group=$groupId  --------------------------------------");
         return bloc..add(LoadItems(groupId ?? helper.DEFAULT_ID));
       },
       child: MaterialApp(

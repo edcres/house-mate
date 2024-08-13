@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/Helper.dart';
@@ -36,6 +37,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   // }
 
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
+    print(
+        "----------------------------  happens 3 group=${event.groupId}  --------------------------------------");
     // TODO: put this back
     final groupId = event.groupId;
 
@@ -93,7 +96,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       _firestoreApiService.addItem(groupId, event.itemType, event.item);
       add(LoadItems(groupId));
     } else {
-      print("GroupId is null");
+      print("GroupId is null1");
     }
   }
 
@@ -104,7 +107,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       _firestoreApiService.toggleItem(groupId!, event.itemType, item, event.id);
       add(LoadItems(groupId));
     } else {
-      print("GroupId is null");
+      print("GroupId is null2");
     }
   }
 
@@ -115,7 +118,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
           groupId!, event.itemType, event.id, event.updatedTask);
       add(LoadItems(groupId));
     } else {
-      print("GroupId is null");
+      print("GroupId is null3");
     }
   }
 
@@ -125,7 +128,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       _firestoreApiService.deleteItem(groupId!, event.itemType, event.id);
       add(LoadItems(groupId));
     } else {
-      print("GroupId is null");
+      print("GroupId is null4");
     }
   }
 
@@ -153,7 +156,13 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   void _onSetGroupId(SetGroupId event, Emitter<TodoState> emit) {
-    emit(state.copyWith(groupId: event.groupId, groupIdExists: true));
+    String? groupId = event.groupId;
+    bool exists = true;
+    if (event.groupId == 'null') {
+      groupId = null;
+      exists = false;
+    }
+    emit(state.copyWith(groupId: groupId, groupIdExists: exists));
   }
 
   void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
