@@ -29,8 +29,6 @@ class TodoState extends Equatable {
       groupId: groupId ?? this.groupId,
       userId: userId ?? this.userId,
     );
-    print(
-        "----------------------------- CopyWith called: groupId=${newState.groupId}, userId=${newState.userId}");
     return newState;
   }
 
