@@ -174,12 +174,14 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   void _onSetGroupId(SetGroupId event, Emitter<TodoState> emit) {
+    print("-----------------------   setGroup 1=${event.groupId}  ----------");
     String? groupId = event.groupId;
     bool exists = true;
-    if (event.groupId == helper.NULL_STRING) {
+    if (groupId == helper.NULL_STRING) {
       groupId = null;
       exists = false;
     }
+    print("-----------------------   setGroup 2=${groupId}  ----------");
     emit(state.copyWith(groupId: groupId, groupIdExists: exists));
   }
 
