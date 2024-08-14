@@ -41,9 +41,11 @@ class _TabsScreenState extends State<TabsScreen> {
         return BlocListener<TodoBloc, TodoState>(
           // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
           listener: (context, state) {
+            print(
+                "------------------------ call 2.25 BlocListener1 enterId ----------------");
             if (state.groupIdExists) {
               print(
-                  "--------------------------------  call 9 BlocListener1 --------------------------");
+                  "--------------------------------  call 2.5 BlocListener1 --------------------------");
               final String enteredGroupId = groupIdController.text.trim();
               prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
               context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
@@ -102,6 +104,7 @@ class _TabsScreenState extends State<TabsScreen> {
     showDialog(
       context: context,
       builder: (context) {
+        print("---------------- More options 1-----------------------");
         return AlertDialog(
           title: Text('More Options'),
           content: Column(
