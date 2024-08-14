@@ -22,13 +22,6 @@ class TodoState extends Equatable {
     String? groupId,
     String? userId,
   }) {
-    // return TodoState(
-    //   items: items ?? this.items,
-    //   isEditMode: isEditMode ?? this.isEditMode,
-    //   groupIdExists: groupIdExists ?? this.groupIdExists,
-    //   groupId: groupId ?? this.groupId,
-    //   userId: userId ?? this.userId,
-    // );
     final newState = TodoState(
       items: items ?? this.items,
       isEditMode: isEditMode ?? this.isEditMode,
@@ -42,7 +35,6 @@ class TodoState extends Equatable {
   }
 
   @override
-  // List<Object> get props => [items, isEditMode];
   List<Object?> get props =>
       [items, isEditMode, groupId, userId, groupIdExists];
 }

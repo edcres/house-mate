@@ -41,8 +41,6 @@ class FirestoreApiService {
 
   // Get Shopping Items
   Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
-    print(
-        "----------       getShopItems1=${_getCollectionPath(groupId, ItemType.Shopping)} ---");
     return groupIDsDoc
         .collection(_getCollectionPath(groupId, ItemType.Shopping))
         .snapshots()
@@ -54,18 +52,6 @@ class FirestoreApiService {
       }).toList();
     });
   }
-
-  // Get Shopping Items
-  // Future<void> getShoppingItems(String groupId) async {
-  //   final shoppingSnapshot = await groupIDsDoc
-  //       .collection(_getCollectionPath(groupId, ItemType.Shopping))
-  //       .get();
-  //   final shoppingItems = shoppingSnapshot.docs.map((doc) {
-  //     final data = doc.data();
-  //     return ShoppingItem(
-  //         id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
-  //   }).toList();
-  // }
 
   // Get Chore Items
   Stream<List<ChoreItem>> getChoreItems(String groupId) {
@@ -136,8 +122,8 @@ class FirestoreApiService {
 
   // User ID
   // TODO: This doesn't work in the native android app so I wont finish this here yet.
+  //    - Fix this. Now it just creates a random ID based on nothing.
   Future<String> createUserId(String groupId) async {
-    // Need to fix this. Now it just creates a random ID based on nothing. USe the commented out code below as reference
     String newClientId = helper.generateNewID(helper.DEFAULT_ID);
     await groupIDsDoc
         .collection(groupId)
@@ -161,7 +147,6 @@ class FirestoreApiService {
       await groupIDsDoc.set({
         LAST_GROUP_ADDED_FIELD: newGroupId,
       }, SetOptions(merge: true));
-      print("docSnap doesn't exist");
     }
     return newGroupId;
   }

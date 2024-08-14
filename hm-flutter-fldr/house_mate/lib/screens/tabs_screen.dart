@@ -41,14 +41,12 @@ class _TabsScreenState extends State<TabsScreen> {
         return BlocListener<TodoBloc, TodoState>(
           // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
           listener: (context, state) {
-            print("---------------     BlocListener1 1 enterId ----------");
+            print("---------------     BlocListener 1 ----------");
             if (state.groupIdExists) {
-              print("---------------     BlocListener1 2 ----------");
               final String enteredGroupId = groupIdController.text.trim();
               prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
               context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
               prefs.setString(helper.USER_ID_SP, state.userId!);
-              print("---------------     BlocListener1 3 load items called --");
               context.read<TodoBloc>().add(LoadItems(enteredGroupId));
               Navigator.of(context).pop();
             } else {
@@ -101,7 +99,6 @@ class _TabsScreenState extends State<TabsScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        print("---------------- More options 1-----------------------");
         return AlertDialog(
           title: Text('More Options'),
           content: Column(
@@ -129,11 +126,8 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return BlocListener<TodoBloc, TodoState>(
       // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
-      //        - This is buggy with group and user id. Like entering a wrong group is save
-      //        - The user id is not saved if joining an existing groups
       listener: (context, state) async {
-        print(
-            "---------------     BlocListener 2 1 group=${state.groupId}----------");
+        print("--------------     BlocListener 2 ----");
         if (state.groupId != null) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString(helper.GROUP_ID_SP, state.groupId!);
