@@ -42,18 +42,12 @@ class FirestoreApiService {
   // Get Shopping Items
   Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
     print(
-        "--------------------------------  call 7 --------------------------");
-    print(
-        "--------------------------------  call 7.5 ${_getCollectionPath(groupId, ItemType.Shopping)} --------------------------");
+        "----------       getShopItems1=${_getCollectionPath(groupId, ItemType.Shopping)} ---");
     return groupIDsDoc
         .collection(_getCollectionPath(groupId, ItemType.Shopping))
         .snapshots()
         .map((snapshot) {
-      print(
-          "--------------------------------  call 8 --------------------------");
       return snapshot.docs.map((doc) {
-        print(
-            "--------------------------------  call 9 --------------------------");
         final data = doc.data();
         return ShoppingItem(
             id: doc.id, task: data['task'], isCompleted: data['isCompleted']);
@@ -75,17 +69,11 @@ class FirestoreApiService {
 
   // Get Chore Items
   Stream<List<ChoreItem>> getChoreItems(String groupId) {
-    print(
-        "--------------------------------  call 11 --------------------------");
     return groupIDsDoc
         .collection(_getCollectionPath(groupId, ItemType.Chore))
         .snapshots()
         .map((snapshot) {
-      print(
-          "--------------------------------  call 12 --------------------------");
       return snapshot.docs.map((doc) {
-        print(
-            "--------------------------------  call 13 --------------------------");
         final data = doc.data();
         return ChoreItem(
             id: doc.id, task: data['task'], isCompleted: data['isCompleted']);

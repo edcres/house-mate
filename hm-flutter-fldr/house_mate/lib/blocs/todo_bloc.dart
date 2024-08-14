@@ -35,8 +35,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   // }
 
   Future<void> _onLoadItems(LoadItems event, Emitter<TodoState> emit) async {
-    print(
-        "----------------------------  happens 3 group=${event.groupId}  --------------------------------------");
+    print("------------     loadItems 1 groupEv=${event.groupId}  ---------");
+    print("------------     loadItems 2 groupSt=${state.groupId}  ---------");
     // TODO: put this back
     final groupId = event.groupId;
     if (groupId == helper.NULL_STRING) return;
@@ -46,21 +46,19 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
           _firestoreApiService.getShoppingItems(groupId).first;
       final choreItemsFuture =
           _firestoreApiService.getChoreItems(groupId).first;
-
       final results =
           await Future.wait([shoppingItemsFuture, choreItemsFuture]);
-
       // Combine the results
       final shoppingItems = results[0] as List<ShoppingItem>;
       final choreItems = results[1] as List<ChoreItem>;
-
       final items = [...shoppingItems, ...choreItems];
-
       print(
-          "--------------------------------  call 5.5 --------------------------");
-      emit(TodoState(items: items)); // Emit the new state
-      print(
-          "--------------------------------  call 5.75 --------------------------");
+          "------------     loadItems 2.50 groupSt=${state.groupId}  ---------");
+      // TODO: problem happens below
+      // emit(TodoState(items: items)); // Emit the new state
+      emit(state.copyWith(items: items));
+      print("------------     loadItems 3 groupEv=${event.groupId}  ---------");
+      print("------------     loadItems 4 groupSt=${state.groupId}  ---------");
     } catch (error) {
       print("Error loading items: $error");
       // You might want to emit an error state here
@@ -89,19 +87,16 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
-    print(
-        "-------------------------------- add call 1 --------------------------------");
+    print("----------------    add call 1 group=${state.groupId} -------");
     final groupId = state.groupId;
-    print(
-        "-------------------------------- add call 1.5 group=${state.groupId} --------------------------------");
     if (groupId != null) {
-      print(
-          "------------------------ add call 2 --------------------------------");
+      print("----------------    add call 2 group=${state.groupId} -------");
       _firestoreApiService.addItem(groupId, event.itemType, event.item);
       add(LoadItems(groupId));
     } else {
       print("GroupId is null1");
     }
+    print("----------------    add call 3 group=${state.groupId} -------");
   }
 
   Future<void> _onToggleItem(ToggleItem event, Emitter<TodoState> emit) async {
@@ -151,12 +146,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onCreateGroup(
       CreateGroup event, Emitter<TodoState> emit) async {
-    print(
-        "-------------------------------- create group 1 --------------------------------");
+    print("-----------------      create group 1 ----------");
     String newGroupId = await _firestoreApiService.createGroup();
     String newUserId = await _firestoreApiService.createUserId(newGroupId);
-    print(
-        "-------------------------------- create group 2 group=$newGroupId   --------------------------------");
+    print("-----------------      create group 2 group=$newGroupId   -------");
     emit(state.copyWith(
       groupId: newGroupId,
       userId: newUserId,
@@ -169,8 +162,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     // emit(updatedState);
     // print(
     //     "-------------------------------- create group 2.5 group=${updatedState.groupId}   --------------------------------");
-    print(
-        "-------------------------------- create group 3 --------------------------------");
+    print("-----------------      create group 3 --------");
   }
 
   void _onSetGroupId(SetGroupId event, Emitter<TodoState> emit) {

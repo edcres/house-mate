@@ -41,17 +41,14 @@ class _TabsScreenState extends State<TabsScreen> {
         return BlocListener<TodoBloc, TodoState>(
           // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
           listener: (context, state) {
-            print(
-                "------------------------ call 2.25 BlocListener1 enterId ----------------");
+            print("---------------     BlocListener1 1 enterId ----------");
             if (state.groupIdExists) {
-              print(
-                  "--------------------------------  call 2.5 BlocListener1 --------------------------");
+              print("---------------     BlocListener1 2 ----------");
               final String enteredGroupId = groupIdController.text.trim();
               prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
               context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
               prefs.setString(helper.USER_ID_SP, state.userId!);
-              print(
-                  "--------------------------------  call 3 (load items called) BlocListener1 --------------------------");
+              print("---------------     BlocListener1 3 load items called --");
               context.read<TodoBloc>().add(LoadItems(enteredGroupId));
               Navigator.of(context).pop();
             } else {
@@ -136,7 +133,7 @@ class _TabsScreenState extends State<TabsScreen> {
       //        - The user id is not saved if joining an existing groups
       listener: (context, state) async {
         print(
-            "--------------------------------  call 10 BlocListener2 --------------------------");
+            "---------------     BlocListener 2 1 group=${state.groupId}----------");
         if (state.groupId != null) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString(helper.GROUP_ID_SP, state.groupId!);
