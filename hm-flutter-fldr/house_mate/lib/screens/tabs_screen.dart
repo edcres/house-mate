@@ -41,7 +41,6 @@ class _TabsScreenState extends State<TabsScreen> {
         return BlocListener<TodoBloc, TodoState>(
           // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
           listener: (context, state) {
-            print("---------------     BlocListener 1 ----------");
             if (state.groupIdExists) {
               final String enteredGroupId = groupIdController.text.trim();
 
@@ -133,7 +132,6 @@ class _TabsScreenState extends State<TabsScreen> {
     return BlocListener<TodoBloc, TodoState>(
       // TODO: There are 2 bloclisteners in this class, I can probably merge this one into the other one.
       listener: (context, state) async {
-        print("--------------     BlocListener 2 ----");
         if (state.groupId != null) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString(helper.GROUP_ID_SP, state.groupId!);

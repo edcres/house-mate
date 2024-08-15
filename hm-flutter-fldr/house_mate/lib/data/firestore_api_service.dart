@@ -121,7 +121,7 @@ class FirestoreApiService {
   }
 
   // User ID
-  // TODO: This doesn't work in the native android app so I wont finish this here yet.
+  // TODO: This doesn't work in the native android app so I won't finish this here yet.
   //    - Fix this. Now it just creates a random ID based on nothing.
   Future<String> createUserId(String groupId) async {
     String newClientId = helper.generateNewID(helper.DEFAULT_ID);
