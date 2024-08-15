@@ -44,8 +44,14 @@ class _TabsScreenState extends State<TabsScreen> {
             print("---------------     BlocListener 1 ----------");
             if (state.groupIdExists) {
               final String enteredGroupId = groupIdController.text.trim();
-              prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
-              context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
+
+              // Join a new group if entered group is not the SP saved group.
+              final String? spGroupId = prefs.getString(helper.GROUP_ID_SP);
+              if (spGroupId != enteredGroupId) {
+                prefs.setString(helper.GROUP_ID_SP, enteredGroupId);
+                context.read<TodoBloc>().add(JoinGroup(enteredGroupId));
+              }
+
               prefs.setString(helper.USER_ID_SP, state.userId!);
               context.read<TodoBloc>().add(LoadItems(enteredGroupId));
               Navigator.of(context).pop();
