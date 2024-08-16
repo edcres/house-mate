@@ -127,8 +127,8 @@ class _TabsScreenState extends State<TabsScreen> {
               ListTile(
                 title: Text('Change Group'),
                 onTap: () {
-                  // Handle Change Group action
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pop(); // Close the current dialog
+                  _showGroupIdDialog(context); // Trigger the Group ID dialog
                 },
               ),
               ListTile(
@@ -176,6 +176,87 @@ class _TabsScreenState extends State<TabsScreen> {
       },
     );
   }
+
+  // Future<void> _showMoreOptionsDialog(BuildContext context) async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final String? groupId = prefs.getString(helper.GROUP_ID_SP);
+  //   final String? userId = prefs.getString(helper.USER_ID_SP);
+
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: Text('More Options'),
+  //         content: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             ListTile(
+  //               title: Text('Change Username'),
+  //               onTap: () {
+  //                 // Handle Change Username action
+  //                 Navigator.of(context).pop();
+  //               },
+  //             ),
+  //             ListTile(
+  //               title: Text('Past Groups'),
+  //               onTap: () {
+  //                 // Handle Past Groups action
+  //                 Navigator.of(context).pop();
+  //               },
+  //             ),
+  //             ListTile(
+  //               title: Text('Change Group'),
+  //               onTap: () {
+  //                 // Handle Change Group action
+  //                 Navigator.of(context).pop();
+  //               },
+  //             ),
+  //             ListTile(
+  //               title: Text('Current Group'),
+  //               onTap: () {
+  //                 Navigator.of(context).pop();
+  //                 // Show current group and user ID
+  //                 showDialog(
+  //                   context: context,
+  //                   builder: (context) {
+  //                     return AlertDialog(
+  //                       title: Text('Current Group and User ID'),
+  //                       content: Column(
+  //                         mainAxisSize: MainAxisSize.min,
+  //                         crossAxisAlignment: CrossAxisAlignment.start,
+  //                         children: [
+  //                           Text('Current Group ID: $groupId'),
+  //                           Text('Current User ID: $userId'),
+  //                         ],
+  //                       ),
+  //                       actions: [
+  //                         TextButton(
+  //                           onPressed: () {
+  //                             Navigator.of(context).pop();
+  //                           },
+  //                           child: Text('Close'),
+  //                         ),
+  //                       ],
+  //                     );
+  //                   },
+  //                 );
+  //               },
+  //             ),
+  //           ],
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: Text('Close'),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   // Future<void> _showMoreOptionsDialog(BuildContext context) async {
   //   final SharedPreferences prefs = await SharedPreferences.getInstance();
