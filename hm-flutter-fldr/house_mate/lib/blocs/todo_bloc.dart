@@ -26,6 +26,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<EnterEditMode>(_onEnterEditMode);
     on<ExitEditMode>(_onExitEditMode);
     on<SetGroupId>(_onSetGroupId);
+    on<SetUserName>(_onSetUserName);
   }
 
   // Possible addition for good practice
@@ -127,6 +128,10 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       exists = false;
     }
     emit(state.copyWith(groupId: groupId, groupIdExists: exists));
+  }
+
+  void _onSetUserName(SetUserName event, Emitter<TodoState> emit) {
+    emit(state.copyWith(userName: event.userName));
   }
 
   void _onEnterEditMode(EnterEditMode event, Emitter<TodoState> emit) {
