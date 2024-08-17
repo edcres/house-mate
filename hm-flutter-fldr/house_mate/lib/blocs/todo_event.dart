@@ -83,3 +83,13 @@ class JoinGroup extends TodoEvent {
   final String groupId;
   JoinGroup(this.groupId);
 }
+
+class SetUserName extends TodoEvent {
+  // Locally
+  final String userName;
+
+  SetUserName(this.userName);
+
+  @override
+  List<Object> get props => [userName];
+}
