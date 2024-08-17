@@ -6,6 +6,7 @@ class Helper {
   final String GROUP_ID_SP = "group_id";
   final String USER_ID_SP = "user_id";
   final String USER_NAME_SP = "user_name";
+  final String PAST_GROUPS = "past_groups";
   final String NULL_STRING = "null";
 
   String generateNewID(String pastId) {
