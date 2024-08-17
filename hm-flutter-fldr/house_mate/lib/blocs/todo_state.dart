@@ -7,13 +7,15 @@ class TodoState extends Equatable {
   final bool groupIdExists;
   final String? groupId;
   final String? userId;
+  final String? userName;
 
   TodoState(
       {required this.items,
       this.isEditMode = false,
       this.groupIdExists = false,
       this.groupId,
-      this.userId});
+      this.userId,
+      this.userName});
 
   TodoState copyWith({
     List<TodoItem>? items,
@@ -21,6 +23,7 @@ class TodoState extends Equatable {
     bool? groupIdExists,
     String? groupId,
     String? userId,
+    String? userName,
   }) {
     final newState = TodoState(
       items: items ?? this.items,
@@ -28,6 +31,7 @@ class TodoState extends Equatable {
       groupIdExists: groupIdExists ?? this.groupIdExists,
       groupId: groupId ?? this.groupId,
       userId: userId ?? this.userId,
+      userName: userName ?? this.userName,
     );
     return newState;
   }
