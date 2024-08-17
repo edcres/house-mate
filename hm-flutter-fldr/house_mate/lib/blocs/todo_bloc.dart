@@ -115,7 +115,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       CreateGroup event, Emitter<TodoState> emit) async {
     String newGroupId = await _firestoreApiService.createGroup();
     String newUserId = await _firestoreApiService.createUserId(newGroupId);
+    print("________________        userId=$newUserId   _____");
     emit(state.copyWith(groupId: newGroupId, userId: newUserId));
+    add(LoadItems(newGroupId));
   }
 
   void _onSetGroupId(SetGroupId event, Emitter<TodoState> emit) {
