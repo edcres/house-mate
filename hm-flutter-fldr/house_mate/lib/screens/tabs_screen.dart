@@ -112,9 +112,10 @@ class _TabsScreenState extends State<TabsScreen> {
             children: [
               ListTile(
                 title: Text('Change Username'),
-                onTap: () {
+                onTap: () async {
                   // Handle Change Username action
                   Navigator.of(context).pop();
+                  await _showChangeUsernameDialog(context);
                 },
               ),
               ListTile(
@@ -127,7 +128,7 @@ class _TabsScreenState extends State<TabsScreen> {
               ListTile(
                 title: Text('Change Group'),
                 onTap: () {
-                  Navigator.of(context).pop(); // Close the current dialog
+                  Navigator.of(context).pop();
                   _showGroupIdDialog(context); // Trigger the Group ID dialog
                 },
               ),
@@ -253,4 +254,47 @@ class _TabsScreenState extends State<TabsScreen> {
       ),
     );
   }
+}
+
+Future<void> _showChangeUsernameDialog(BuildContext context) async {
+  final TextEditingController userNameController = TextEditingController();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final Helper helper = Helper();
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      String savedName = prefs.getString(helper.USER_NAME_SP) ?? "Anon";
+      return AlertDialog(
+        title: Text('Change Username'),
+        content: TextField(
+          controller: userNameController,
+          decoration: InputDecoration(hintText: savedName),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              final String userName = userNameController.text.trim();
+              if (userName.isNotEmpty) {
+                // Save the username in shared preferences and bloc.
+                await prefs.setString(helper.USER_NAME_SP, userName);
+                context.read<TodoBloc>().add(SetUserName(userName));
+
+                Navigator.of(context).pop();
+              } else {
+                // Show a message or handle the case where the username is empty
+              }
+            },
+            child: Text('Save'),
+          ),
+        ],
+      );
+    },
+  );
 }
