@@ -48,12 +48,13 @@ class Helper {
     // Combine the numeric part with the letter part
     return '$formattedNumeric-$letterPart';
   }
-}
 
-void addIdToSPList(String newItem, List<String> list) {
-  // Remove an existing item if any, then add new one
-  if (list.contains(newItem)) {
-    list.remove(newItem);
+  List addIdToSPList(String newItem, List<String> list) {
+    // Remove an existing item if any, then add new one
+    if (list.contains(newItem)) {
+      list.remove(newItem);
+    }
+    list.add(newItem);
+    return list;
   }
-  list.add(newItem);
 }

@@ -27,12 +27,12 @@ class _TabsScreenState extends State<TabsScreen> {
     super.initState();
     if (widget.initialGroupId == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _showGroupIdDialog(context);
+        _chooseGroupDialog(context);
       });
     }
   }
 
-  Future<void> _showGroupIdDialog(BuildContext context) async {
+  Future<void> _chooseGroupDialog(BuildContext context) async {
     final TextEditingController groupIdController = TextEditingController();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -55,6 +55,9 @@ class _TabsScreenState extends State<TabsScreen> {
 
               prefs.setString(helper.USER_ID_SP, state.userId!);
               context.read<TodoBloc>().add(LoadItems(enteredGroupId));
+              // Add groupId to sp
+              prefs.setString(
+                  helper.PAST_GROUPS, helper.addIdToSPList(enteredGroupId));
               Navigator.of(context).pop();
             } else {
               // Show error message
@@ -131,7 +134,7 @@ class _TabsScreenState extends State<TabsScreen> {
                 title: Text('Change Group'),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _showGroupIdDialog(context); // Trigger the Group ID dialog
+                  _chooseGroupDialog(context); // Trigger the Group ID dialog
                 },
               ),
               ListTile(
