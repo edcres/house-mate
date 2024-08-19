@@ -58,6 +58,8 @@ class Helper {
       List pastGroupsList = pastGroups.split(GROUP_ID_SP_SEPARATOR);
       if (pastGroupsList.contains(newItem)) {
         pastGroupsList.remove(newItem);
+      } else if (pastGroupsList.length >= 5) {
+        pastGroupsList.removeAt(0);
       }
       pastGroupsList.add(newItem);
       return pastGroupsList;
