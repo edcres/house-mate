@@ -71,7 +71,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     final groupId = state.groupId;
     if (groupId != null) {
       final item = state.items.firstWhere((item) => item.id == event.id);
-      _firestoreApiService.toggleItem(groupId!, event.itemType, item, event.id);
+      _firestoreApiService.toggleItem(groupId, event.itemType, item, event.id);
       add(LoadItems(groupId));
     } else {
       print("GroupId is null2");
@@ -82,7 +82,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     final groupId = state.groupId;
     if (groupId != null) {
       _firestoreApiService.updateItem(
-          groupId!, event.itemType, event.id, event.updatedTask);
+          groupId, event.itemType, event.id, event.updatedTask);
       add(LoadItems(groupId));
     } else {
       print("GroupId is null3");
@@ -92,7 +92,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
     final groupId = state.groupId;
     if (groupId != null) {
-      _firestoreApiService.deleteItem(groupId!, event.itemType, event.id);
+      _firestoreApiService.deleteItem(groupId, event.itemType, event.id);
       add(LoadItems(groupId));
     } else {
       print("GroupId is null4");
