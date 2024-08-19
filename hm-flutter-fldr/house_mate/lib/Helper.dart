@@ -8,6 +8,7 @@ class Helper {
   final String USER_NAME_SP = "user_name";
   final String PAST_GROUPS = "past_groups";
   final String NULL_STRING = "null";
+  final String GROUP_ID_SP_SEPPARATOR = ",";
 
   String generateNewID(String pastId) {
     final int prefix = int.parse(pastId.substring(0, 8));
