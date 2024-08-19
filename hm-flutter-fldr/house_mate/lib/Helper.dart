@@ -49,13 +49,18 @@ class Helper {
     return '$formattedNumeric-$letterPart';
   }
 
-  List addIdToSPList(String newItem, String? pastGRoups) {
+  List addIdToSPList(String newItem, String? pastGroups) {
     // Remove an existing item if any, then add new one
-    // handle if list is null, probably means theres no list
-    if (pastGRoups.contains(newItem)) {
-      pastGRoups.remove(newItem);
+    if (pastGroups == null) {
+      List<String> newList = [newItem];
+      return newList;
+    } else {
+      List pastGroupsList = pastGroups.split(GROUP_ID_SP_SEPARATOR);
+      if (pastGroupsList.contains(newItem)) {
+        pastGroupsList.remove(newItem);
+      }
+      pastGroupsList.add(newItem);
+      return pastGroupsList;
     }
-    pastGRoups.add(newItem);
-    return pastGRoups;
   }
 }
