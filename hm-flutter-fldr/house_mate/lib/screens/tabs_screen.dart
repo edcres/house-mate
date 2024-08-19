@@ -58,7 +58,10 @@ class _TabsScreenState extends State<TabsScreen> {
               // Add groupId to sp
               List newPastGRoupsList = helper.addIdToSPList(
                   enteredGroupId, prefs.getString(helper.PAST_GROUPS));
-              prefs.setString(helper.PAST_GROUPS, newPastGRoupsList);
+              prefs.setString(
+                helper.PAST_GROUPS,
+                newPastGRoupsList.join(helper.GROUP_ID_SP_SEPARATOR),
+              );
               Navigator.of(context).pop();
             } else {
               // Show error message
