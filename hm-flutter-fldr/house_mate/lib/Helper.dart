@@ -8,7 +8,7 @@ class Helper {
   final String USER_NAME_SP = "user_name";
   final String PAST_GROUPS = "past_groups";
   final String NULL_STRING = "null";
-  final String GROUP_ID_SP_SEPPARATOR = ",";
+  final String GROUP_ID_SP_SEPARATOR = ",";
 
   String generateNewID(String pastId) {
     final int prefix = int.parse(pastId.substring(0, 8));
@@ -49,12 +49,13 @@ class Helper {
     return '$formattedNumeric-$letterPart';
   }
 
-  List addIdToSPList(String newItem, List<String> list) {
+  List addIdToSPList(String newItem, String? pastGRoups) {
     // Remove an existing item if any, then add new one
-    if (list.contains(newItem)) {
-      list.remove(newItem);
+    // handle if list is null, probably means theres no list
+    if (pastGRoups.contains(newItem)) {
+      pastGRoups.remove(newItem);
     }
-    list.add(newItem);
-    return list;
+    pastGRoups.add(newItem);
+    return pastGRoups;
   }
 }
