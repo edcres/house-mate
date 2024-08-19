@@ -26,7 +26,7 @@ class _TabsScreenState extends State<TabsScreen> {
   void initState() {
     super.initState();
     if (widget.initialGroupId == null) {
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _showGroupIdDialog(context);
       });
     }
@@ -236,7 +236,7 @@ class _TabsScreenState extends State<TabsScreen> {
               return FloatingActionButton(
                 onPressed: () {
                   final int currentIndex =
-                      DefaultTabController.of(context)!.index;
+                      DefaultTabController.of(context).index;
                   showDialog(
                     context: context,
                     builder: (context) {
