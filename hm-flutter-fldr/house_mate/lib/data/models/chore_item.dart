@@ -14,11 +14,27 @@ class ChoreItem extends TodoItem {
     // Only for Chores
     int difficulty = 1,
   }) : super(
-            id: id,
-            name: task,
-            completed: isCompleted,
-            itemType: ItemType.Chore);
+          id: id,
+          name: name,
+          addedBy: addedBy,
+          completed: completed,
+          neededBy: neededBy,
+          volunteer: volunteer,
+          priority: priority,
+          notes: notes,
+          itemType: ItemType.Chore, // TODO: get rid of this
+        );
 
   @override
-  List<Object> get props => [id, name, completed, itemType];
+  List<Object> get props => [
+        id,
+        name,
+        addedBy,
+        completed,
+        neededBy,
+        volunteer,
+        priority,
+        notes,
+        itemType,
+      ];
 }
