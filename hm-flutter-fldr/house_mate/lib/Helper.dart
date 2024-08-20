@@ -26,6 +26,19 @@ class Helper {
     }
   }
 
+  String displayDifficulty(int difficulty) {
+    switch (difficulty) {
+      case 1:
+        return "Simple";
+      case 2:
+        return "Medium Challenge";
+      case 3:
+        return "Challenging";
+      default:
+        return "";
+    }
+  }
+
   String generateNewID(String pastId) {
     final int prefix = int.parse(pastId.substring(0, 8));
     final int newPrefix = prefix + 1;
