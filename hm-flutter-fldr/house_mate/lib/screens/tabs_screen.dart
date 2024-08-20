@@ -155,8 +155,8 @@ class _TabsScreenState extends State<TabsScreen> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Current Group ID: $groupId'),
-                            Text('Current User ID: $userId'),
+                            Text('Current Group ID: ${helper.dashId(groupId)}'),
+                            Text('Current User ID: ${helper.dashId(userId)}'),
                           ],
                         ),
                         actions: [

@@ -25,30 +25,34 @@ class Helper {
   }
 
   // Format id with dashes
-  String dashId(String id) {
-    // Split the ID into numeric and letter parts
-    final RegExp idPattern = RegExp(r'(\d+)([a-zA-Z]+)');
-    final match = idPattern.firstMatch(id);
-    if (match == null) {
-      throw ArgumentError('ID format is incorrect.');
+  String dashId(String? id) {
+    if (id != null) {
+      // Split the ID into numeric and letter parts
+      final RegExp idPattern = RegExp(r'(\d+)([a-zA-Z]+)');
+      final match = idPattern.firstMatch(id);
+      if (match == null) {
+        throw ArgumentError('ID format is incorrect.');
+      }
+      String numericPart = match.group(1)!;
+      String letterPart = match.group(2)!;
+      // Reverse the numeric part for easier insertion of dashes every 3 characters
+      String reversedNumeric = numericPart.split('').reversed.join('');
+      // Insert dashes every 3 characters, but avoid adding a dash at the end if only 3 digits
+      String formattedReversedNumeric = reversedNumeric.replaceAllMapped(
+        RegExp(r'.{3}'),
+        (match) => '${match.group(0)}-',
+      );
+      // Reverse the numeric part back and remove any trailing dash
+      String formattedNumeric =
+          formattedReversedNumeric.split('').reversed.join('');
+      if (formattedNumeric.startsWith('-')) {
+        formattedNumeric = formattedNumeric.substring(1);
+      }
+      // Combine the numeric part with the letter part
+      return '$formattedNumeric-$letterPart';
+    } else {
+      return "null id";
     }
-    String numericPart = match.group(1)!;
-    String letterPart = match.group(2)!;
-    // Reverse the numeric part for easier insertion of dashes every 3 characters
-    String reversedNumeric = numericPart.split('').reversed.join('');
-    // Insert dashes every 3 characters, but avoid adding a dash at the end if only 3 digits
-    String formattedReversedNumeric = reversedNumeric.replaceAllMapped(
-      RegExp(r'.{3}'),
-      (match) => '${match.group(0)}-',
-    );
-    // Reverse the numeric part back and remove any trailing dash
-    String formattedNumeric =
-        formattedReversedNumeric.split('').reversed.join('');
-    if (formattedNumeric.startsWith('-')) {
-      formattedNumeric = formattedNumeric.substring(1);
-    }
-    // Combine the numeric part with the letter part
-    return '$formattedNumeric-$letterPart';
   }
 
   List addIdToSPList(String newItem, String? pastGroups) {
