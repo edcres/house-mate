@@ -4,17 +4,39 @@ enum ItemType { Shopping, Chore }
 
 abstract class TodoItem extends Equatable {
   final String id;
-  final String task;
-  final bool isCompleted;
-  final ItemType itemType;
+  final String name;
+  final bool addedBy;
+  final bool completed;
+  // Not required
+  final String neededBy;
+  final String volunteer;
+  final int priority;
+  final String notes;
+
+  final ItemType itemType; // TODO: probably remove this
 
   TodoItem({
     required this.id,
-    required this.task,
-    required this.isCompleted,
+    required this.name,
+    required this.addedBy,
+    required this.completed,
+    required this.neededBy,
+    required this.volunteer,
+    required this.priority,
+    required this.notes,
     required this.itemType,
   });
 
   @override
-  List<Object> get props => [id, task, isCompleted, itemType];
+  List<Object> get props => [
+        id,
+        name,
+        addedBy,
+        completed,
+        neededBy,
+        volunteer,
+        priority,
+        notes,
+        itemType,
+      ];
 }

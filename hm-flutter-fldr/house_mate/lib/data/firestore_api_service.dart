@@ -86,7 +86,7 @@ class FirestoreApiService {
         .collection(_getCollectionPath(groupId, itemType))
         .doc(eventId)
         .update({
-      'isCompleted': !item.isCompleted,
+      'isCompleted': !item.completed,
     });
   }
 

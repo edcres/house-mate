@@ -7,10 +7,10 @@ class ShoppingItem extends TodoItem {
     required bool isCompleted,
   }) : super(
             id: id,
-            task: task,
-            isCompleted: isCompleted,
+            name: task,
+            completed: isCompleted,
             itemType: ItemType.Shopping);
 
   @override
-  List<Object> get props => [id, task, isCompleted, itemType];
+  List<Object> get props => [id, name, completed, itemType];
 }

@@ -20,7 +20,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.todo.task;
+    _controller.text = widget.todo.name;
   }
 
   @override

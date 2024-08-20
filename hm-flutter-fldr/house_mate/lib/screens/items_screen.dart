@@ -23,9 +23,9 @@ class ItemsScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(
-                items[index].task,
+                items[index].name,
                 style: TextStyle(
-                  decoration: items[index].isCompleted
+                  decoration: items[index].completed
                       ? TextDecoration.lineThrough
                       : null,
                 ),
@@ -57,7 +57,7 @@ class ItemsScreen extends StatelessWidget {
                     )
                   : IconButton(
                       icon: Icon(
-                        items[index].isCompleted
+                        items[index].completed
                             ? Icons.check_box
                             : Icons.check_box_outline_blank,
                       ),
@@ -80,7 +80,7 @@ class ItemsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  items[index].task,
+                                  items[index].name,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -88,7 +88,7 @@ class ItemsScreen extends StatelessWidget {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  'Completed: ${items[index].isCompleted ? 'Yes' : 'No'}',
+                                  'Completed: ${items[index].completed ? 'Yes' : 'No'}',
                                   style: TextStyle(
                                     fontSize: 16,
                                   ),

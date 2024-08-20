@@ -17,9 +17,9 @@ class TodoItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        todo.task,
+        todo.name,
         style: TextStyle(
-          decoration: todo.isCompleted ? TextDecoration.lineThrough : null,
+          decoration: todo.completed ? TextDecoration.lineThrough : null,
         ),
       ),
       onTap: onTap,
@@ -32,9 +32,7 @@ class TodoItemWidget extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(
-              todo.isCompleted
-                  ? Icons.check_box
-                  : Icons.check_box_outline_blank,
+              todo.completed ? Icons.check_box : Icons.check_box_outline_blank,
             ),
             onPressed: onToggle,
           ),
