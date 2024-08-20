@@ -8,6 +8,7 @@ import '../blocs/todo_bloc.dart';
 import 'items_screen.dart';
 import '../data/models/todo_item.dart';
 import '../widgets/tabs_screen/add_item_dialog.dart';
+import '../widgets/tabs_screen/tabs_dialogs.dart';
 
 // TODO: move the dialogs to other files
 
@@ -124,14 +125,14 @@ class _TabsScreenState extends State<TabsScreen> {
                 onTap: () async {
                   // Handle Change Username action
                   Navigator.of(context).pop();
-                  await _showChangeUsernameDialog(context);
+                  await showChangeUsernameDialog(context);
                 },
               ),
               ListTile(
                 title: Text('Past Groups'),
                 onTap: () {
                   Navigator.of(context).pop();
-                  _showPastGroupsDialog(context);
+                  showPastGroupsDialog(context);
                 },
               ),
               ListTile(
@@ -263,87 +264,4 @@ class _TabsScreenState extends State<TabsScreen> {
       ),
     );
   }
-}
-
-Future<void> _showChangeUsernameDialog(BuildContext context) async {
-  final TextEditingController userNameController = TextEditingController();
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  final Helper helper = Helper();
-
-  showDialog(
-    context: context,
-    builder: (context) {
-      String savedName = prefs.getString(helper.USER_NAME_SP) ?? "Anon";
-      return AlertDialog(
-        title: Text('Change Username'),
-        content: TextField(
-          controller: userNameController,
-          decoration: InputDecoration(hintText: savedName),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () async {
-              final String userName = userNameController.text.trim();
-              if (userName.isNotEmpty) {
-                // Save the username in shared preferences and bloc.
-                await prefs.setString(helper.USER_NAME_SP, userName);
-                context.read<TodoBloc>().add(SetUserName(userName));
-
-                Navigator.of(context).pop();
-              } else {
-                // Show a message or handle the case where the username is empty
-              }
-            },
-            child: Text('Save'),
-          ),
-        ],
-      );
-    },
-  );
-}
-
-Future<void> _showPastGroupsDialog(BuildContext context) async {
-  final prefs = await SharedPreferences.getInstance();
-  final Helper helper = Helper();
-  // Retrieve the past groups string from SharedPreferences
-  String pastGroups =
-      await prefs.getString(helper.PAST_GROUPS) ?? helper.NULL_STRING;
-  final List<String> pastGroupsList = helper.pastGroupsToList(pastGroups);
-
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('Past Groups'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: pastGroupsList.reversed.map((group) {
-            return ListTile(
-              title: Text(helper.dashId(group)),
-              onTap: () {
-                Navigator.of(context).pop();
-                // TODO: I shouldn't have to use both the functions here.
-                context.read<TodoBloc>().add(CheckGroupIdExistsAndJoin(group));
-                // context.read<TodoBloc>().add(LoadItems(group));
-              },
-            );
-          }).toList(),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Close'),
-          ),
-        ],
-      );
-    },
-  );
 }
