@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../blocs/todo_bloc.dart';
 import 'items_screen.dart';
 import '../data/models/todo_item.dart';
-import '../widgets/add_item_dialog.dart';
+import '../widgets/tabs_screen/add_item_dialog.dart';
 
 // TODO: move the dialogs to other files
 
