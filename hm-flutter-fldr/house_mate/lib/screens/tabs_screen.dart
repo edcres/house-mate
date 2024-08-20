@@ -328,10 +328,10 @@ Future<void> _showPastGroupsDialog(BuildContext context) async {
               title: Text(helper.dashId(group)),
               onTap: () {
                 Navigator.of(context).pop();
-                // context.read<TodoBloc>().add(LoadItems(group));
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Selected $group')),
-                );
+                context.read<TodoBloc>().add(LoadItems(group));
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //   SnackBar(content: Text('Selected $group')),
+                // );
               },
             );
           }).toList(),
