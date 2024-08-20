@@ -9,6 +9,7 @@ class Helper {
   final String PAST_GROUPS = "past_groups";
   final String NULL_STRING = "null";
   final String GROUP_ID_SP_SEPARATOR = ",";
+  final String NO_PAST_GROUPS = "No Past Groups";
 
   String generateNewID(String pastId) {
     final int prefix = int.parse(pastId.substring(0, 8));
@@ -24,7 +25,9 @@ class Helper {
 
   // Format id with dashes
   String dashId(String? id) {
-    if (id != null) {
+    if (id == NO_PAST_GROUPS) {
+      return NO_PAST_GROUPS;
+    } else if (id != null) {
       // Split the ID into numeric and letter parts
       final RegExp idPattern = RegExp(r'(\d+)([a-zA-Z]+)');
       final match = idPattern.firstMatch(id);
@@ -72,7 +75,7 @@ class Helper {
 
   List<String> pastGroupsToList(String pastGroups) {
     if (pastGroups == NULL_STRING) {
-      List<String> emptyList = ['No Past Groups'];
+      List<String> emptyList = [NO_PAST_GROUPS];
       return emptyList;
     } else {
       return pastGroups.split(GROUP_ID_SP_SEPARATOR);
