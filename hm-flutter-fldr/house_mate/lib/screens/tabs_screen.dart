@@ -9,8 +9,6 @@ import 'items_screen.dart';
 import '../data/models/todo_item.dart';
 import '../widgets/tabs_screen/tabs_dialogs.dart';
 
-// TODO: move the dialogs to other files
-
 class TabsScreen extends StatefulWidget {
   final String? initialGroupId;
 
