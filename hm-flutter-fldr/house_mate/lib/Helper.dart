@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 class Helper {
   // Group ID
   final String DEFAULT_ID = "00000000asdfg";
