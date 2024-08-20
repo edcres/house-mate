@@ -57,6 +57,20 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
+  Future<void> _onCheckGroupIdExistsAndJoin(
+      CheckGroupIdExistsAndJoin event, Emitter<TodoState> emit) async {
+    final exists = await _firestoreApiService.checkGroupIdExists(event.groupId);
+    emit(state.copyWith(groupIdExists: exists, groupId: event.groupId));
+    add(LoadItems(event.groupId));
+  }
+
+  Future<void> _onJoinGroup(JoinGroup event, Emitter<TodoState> emit) async {
+    // TODO: When fixing user id bugs, change this
+    final String newUserId =
+        await _firestoreApiService.createUserId(event.groupId);
+    emit(state.copyWith(userId: newUserId));
+  }
+
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
     final groupId = state.groupId;
     if (groupId != null) {
@@ -97,19 +111,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     } else {
       print("GroupId is null4");
     }
-  }
-
-  Future<void> _onCheckGroupIdExistsAndJoin(
-      CheckGroupIdExistsAndJoin event, Emitter<TodoState> emit) async {
-    final exists = await _firestoreApiService.checkGroupIdExists(event.groupId);
-    emit(state.copyWith(groupIdExists: exists, groupId: event.groupId));
-  }
-
-  Future<void> _onJoinGroup(JoinGroup event, Emitter<TodoState> emit) async {
-    // TODO: When fixing user id bugs, change this
-    final String newUserId =
-        await _firestoreApiService.createUserId(event.groupId);
-    emit(state.copyWith(userId: newUserId));
   }
 
   Future<void> _onCreateGroup(

@@ -330,7 +330,7 @@ Future<void> _showPastGroupsDialog(BuildContext context) async {
                 Navigator.of(context).pop();
                 // TODO: I shouldn't have to use both the functions here.
                 context.read<TodoBloc>().add(CheckGroupIdExistsAndJoin(group));
-                context.read<TodoBloc>().add(LoadItems(group));
+                // context.read<TodoBloc>().add(LoadItems(group));
               },
             );
           }).toList(),
