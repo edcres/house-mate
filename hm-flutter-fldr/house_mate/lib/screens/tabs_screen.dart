@@ -54,12 +54,7 @@ class _TabsScreenState extends State<TabsScreen> {
               prefs.setString(helper.USER_ID_SP, state.userId!);
               context.read<TodoBloc>().add(LoadItems(enteredGroupId));
               // Add groupId to sp
-              List newPastGRoupsList = helper.addIdToSPList(
-                  enteredGroupId, prefs.getString(helper.PAST_GROUPS));
-              prefs.setString(
-                helper.PAST_GROUPS,
-                newPastGRoupsList.join(helper.GROUP_ID_SP_SEPARATOR),
-              );
+              helper.saveGroupToSp(enteredGroupId, prefs);
               Navigator.of(context).pop();
             } else {
               // Show error message

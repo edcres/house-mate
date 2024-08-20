@@ -1,4 +1,7 @@
+import 'dart:ffi';
 import 'dart:math';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Helper {
   // Group ID
@@ -54,6 +57,15 @@ class Helper {
     } else {
       return "null id";
     }
+  }
+
+  void saveGroupToSp(String enteredGroupId, SharedPreferences prefs) {
+    List newPastGRoupsList =
+        addIdToSPList(enteredGroupId, prefs.getString(PAST_GROUPS));
+    prefs.setString(
+      PAST_GROUPS,
+      newPastGRoupsList.join(GROUP_ID_SP_SEPARATOR),
+    );
   }
 
   List addIdToSPList(String newItem, String? pastGroups) {
