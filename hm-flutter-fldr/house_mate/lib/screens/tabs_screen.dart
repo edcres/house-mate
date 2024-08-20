@@ -309,6 +309,14 @@ Future<void> _showChangeUsernameDialog(BuildContext context) async {
 }
 
 Future<void> _showPastGroupsDialog(BuildContext context) async {
+  final List<String> pastGroups = [
+    'Group A',
+    'Group B',
+    'Group C',
+    'Group D',
+    'Group E'
+  ];
+
   showDialog(
     context: context,
     builder: (context) {
@@ -316,19 +324,17 @@ Future<void> _showPastGroupsDialog(BuildContext context) async {
         title: Text('Past Groups'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children: List.generate(5, (index) {
-            final option = index + 1;
+          children: pastGroups.map((group) {
             return ListTile(
-              title: Text('Group $option'),
+              title: Text(group),
               onTap: () {
-                // TODO: handle group chosen
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Selected Group $option')),
+                  SnackBar(content: Text('Selected $group')),
                 );
               },
             );
-          }),
+          }).toList(),
         ),
         actions: [
           TextButton(
