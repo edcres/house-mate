@@ -323,7 +323,7 @@ Future<void> _showPastGroupsDialog(BuildContext context) async {
         title: Text('Past Groups'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children: pastGroupsList.map((group) {
+          children: pastGroupsList.reversed.map((group) {
             return ListTile(
               title: Text(helper.dashId(group)),
               onTap: () {
