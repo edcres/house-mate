@@ -130,8 +130,8 @@ class _TabsScreenState extends State<TabsScreen> {
               ListTile(
                 title: Text('Past Groups'),
                 onTap: () {
-                  // Handle Past Groups action
                   Navigator.of(context).pop();
+                  _showPastGroupsDialog(context);
                 },
               ),
               ListTile(
@@ -301,6 +301,41 @@ Future<void> _showChangeUsernameDialog(BuildContext context) async {
               }
             },
             child: Text('Save'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> _showPastGroupsDialog(BuildContext context) async {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Past Groups'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(5, (index) {
+            final option = index + 1;
+            return ListTile(
+              title: Text('Group $option'),
+              onTap: () {
+                // TODO: handle group chosen
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Selected Group $option')),
+                );
+              },
+            );
+          }),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Close'),
           ),
         ],
       );
