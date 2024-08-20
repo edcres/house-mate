@@ -85,7 +85,7 @@ class _TabsScreenState extends State<TabsScreen> {
                     final String enteredGroupId = groupIdController.text.trim();
                     context
                         .read<TodoBloc>()
-                        .add(CheckGroupIdExists(enteredGroupId));
+                        .add(CheckGroupIdExistsAndJoin(enteredGroupId));
                   },
                   child: Text('Submit'),
                 ),
@@ -328,10 +328,9 @@ Future<void> _showPastGroupsDialog(BuildContext context) async {
               title: Text(helper.dashId(group)),
               onTap: () {
                 Navigator.of(context).pop();
+                // TODO: I shouldn't have to use both the functions here.
+                context.read<TodoBloc>().add(CheckGroupIdExistsAndJoin(group));
                 context.read<TodoBloc>().add(LoadItems(group));
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //   SnackBar(content: Text('Selected $group')),
-                // );
               },
             );
           }).toList(),

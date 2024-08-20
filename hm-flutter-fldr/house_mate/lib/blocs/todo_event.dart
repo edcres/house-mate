@@ -74,9 +74,9 @@ class SetGroupId extends TodoEvent {
 
 class CreateGroup extends TodoEvent {}
 
-class CheckGroupIdExists extends TodoEvent {
+class CheckGroupIdExistsAndJoin extends TodoEvent {
   final String groupId;
-  CheckGroupIdExists(this.groupId);
+  CheckGroupIdExistsAndJoin(this.groupId);
 }
 
 class JoinGroup extends TodoEvent {
