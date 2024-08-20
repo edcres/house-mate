@@ -8,10 +8,10 @@ abstract class TodoItem extends Equatable {
   final bool addedBy;
   final bool completed;
   // Not required
-  final String neededBy;
-  final String volunteer;
-  final int priority;
-  final String notes;
+  String neededBy = "";
+  String volunteer = "";
+  int priority = 3;
+  String notes = "";
 
   final ItemType itemType; // TODO: probably remove this
 
