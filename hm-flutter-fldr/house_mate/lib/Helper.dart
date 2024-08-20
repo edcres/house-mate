@@ -59,7 +59,8 @@ class Helper {
     }
   }
 
-  void saveGroupToSp(String enteredGroupId, SharedPreferences prefs) {
+  Future<void> saveGroupToSp(String enteredGroupId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     List newPastGRoupsList =
         addIdToSPList(enteredGroupId, prefs.getString(PAST_GROUPS));
     prefs.setString(
