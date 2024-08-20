@@ -308,60 +308,12 @@ Future<void> _showChangeUsernameDialog(BuildContext context) async {
   );
 }
 
-// Future<void> _showPastGroupsDialog(BuildContext context) async {
-//   final Helper helper = Helper();
-//   final List<String> pastGroups = [
-//     'Group A',
-//     'Group B',
-//     'Group C',
-//     'Group D',
-//     'Group E'
-//   ];
-
-//   showDialog(
-//     context: context,
-//     builder: (context) {
-//       final prefs = await SharedPreferences.getInstance();
-//       String pastGrops = await prefs.getString(helper.PAST_GROUPS) ?? helper.NULL_STRING;
-
-//       return AlertDialog(
-//         title: Text('Past Groups'),
-//         content: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: pastGroups.map((group) {
-//             return ListTile(
-//               title: Text(group),
-//               onTap: () {
-//                 Navigator.of(context).pop();
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   SnackBar(content: Text('Selected $group')),
-//                 );
-//               },
-//             );
-//           }).toList(),
-//         ),
-//         actions: [
-//           TextButton(
-//             onPressed: () {
-//               Navigator.of(context).pop();
-//             },
-//             child: Text('Close'),
-//           ),
-//         ],
-//       );
-//     },
-// );
-// }
-
 Future<void> _showPastGroupsDialog(BuildContext context) async {
   final prefs = await SharedPreferences.getInstance();
   final Helper helper = Helper();
-
   // Retrieve the past groups string from SharedPreferences
   String pastGroups =
       await prefs.getString(helper.PAST_GROUPS) ?? helper.NULL_STRING;
-
-  // Convert the past groups string into a list using your existing function
   final List<String> pastGroupsList = helper.pastGroupsToList(pastGroups);
 
   showDialog(
@@ -373,9 +325,10 @@ Future<void> _showPastGroupsDialog(BuildContext context) async {
           mainAxisSize: MainAxisSize.min,
           children: pastGroupsList.map((group) {
             return ListTile(
-              title: Text(group),
+              title: Text(helper.dashId(group)),
               onTap: () {
                 Navigator.of(context).pop();
+                // context.read<TodoBloc>().add(LoadItems(group));
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Selected $group')),
                 );
