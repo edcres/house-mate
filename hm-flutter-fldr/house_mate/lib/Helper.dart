@@ -68,7 +68,7 @@ class Helper {
     }
   }
 
-  List pastGroupsToList(String pastGroups) {
+  List<String> pastGroupsToList(String pastGroups) {
     if (pastGroups == NULL_STRING) {
       List<String> emptyList = ['No Past Groups'];
       return emptyList;
