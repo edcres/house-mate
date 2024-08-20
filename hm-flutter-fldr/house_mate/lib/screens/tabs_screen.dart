@@ -309,6 +309,7 @@ Future<void> _showChangeUsernameDialog(BuildContext context) async {
 }
 
 Future<void> _showPastGroupsDialog(BuildContext context) async {
+  final Helper helper = Helper();
   final List<String> pastGroups = [
     'Group A',
     'Group B',
@@ -320,6 +321,8 @@ Future<void> _showPastGroupsDialog(BuildContext context) async {
   showDialog(
     context: context,
     builder: (context) {
+      final prefs = await SharedPreferences.getInstance();
+      String pastGrops = await prefs.getString(helper.PAST_GROUPS) ?? helper.NULL_STRING;
       return AlertDialog(
         title: Text('Past Groups'),
         content: Column(

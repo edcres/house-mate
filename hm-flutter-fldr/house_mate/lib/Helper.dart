@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class Helper {
   // Group ID
   final String DEFAULT_ID = "00000000asdfg";
@@ -63,6 +65,15 @@ class Helper {
       }
       pastGroupsList.add(newItem);
       return pastGroupsList;
+    }
+  }
+
+  List pastGroupsToList(String pastGroups) {
+    if (pastGroups == NULL_STRING) {
+      List<String> emptyList = ['No Past Groups'];
+      return emptyList;
+    } else {
+      return pastGroups.split(GROUP_ID_SP_SEPARATOR);
     }
   }
 }
