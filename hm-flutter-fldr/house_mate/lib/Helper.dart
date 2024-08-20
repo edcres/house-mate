@@ -14,6 +14,19 @@ class Helper {
   final String GROUP_ID_SP_SEPARATOR = ",";
   final String NO_PAST_GROUPS = "No Past Groups";
 
+  String displayPriority(int priority) {
+    switch (priority) {
+      case 1:
+        return "Urgent";
+      case 2:
+        return "Not Urgent";
+      case 3:
+        return "Needed Eventually";
+      default:
+        return "";
+    }
+  }
+
   String generateNewID(String pastId) {
     final int prefix = int.parse(pastId.substring(0, 8));
     final int newPrefix = prefix + 1;
