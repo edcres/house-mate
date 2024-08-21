@@ -62,21 +62,6 @@ class FirestoreApiService {
   //   });
   // }
 
-  Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
-    return groupIDsDoc
-        .collection(_getCollectionPath(groupId, ItemType.Shopping))
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs.map((doc) {
-        final data = doc.data();
-        return ShoppingItem.fromJson({
-          'id': doc.id,
-          ...data,
-        });
-      }).toList();
-    });
-  }
-
   // // Get Shopping Items
   // Stream<List<ShoppingItem>> getShoppingIt(String groupId) {
   //   return groupIDsDoc
@@ -112,6 +97,35 @@ class FirestoreApiService {
   //     print("Error fetching posts: $error");
   //   });
   // }
+  Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
+    return groupIDsDoc
+        .collection(_getCollectionPath(groupId, ItemType.Shopping))
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        return ShoppingItem.fromJson({
+          'id': doc.id,
+          ...data,
+        });
+      }).toList();
+    });
+  }
+
+  Stream<List<ChoreItem>> getChoreItems(String groupId) {
+    return groupIDsDoc
+        .collection(_getCollectionPath(groupId, ItemType.Chore))
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        return ChoreItem.fromJson({
+          'id': doc.id,
+          ...data,
+        });
+      }).toList();
+    });
+  }
 
   // Get Chore Items
   // TODO: Origonal
@@ -130,21 +144,6 @@ class FirestoreApiService {
   //     }).toList();
   //   });
   // }
-
-  Stream<List<ShoppingItem>> getChoreItems(String groupId) {
-    return groupIDsDoc
-        .collection(_getCollectionPath(groupId, ItemType.Shopping))
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs.map((doc) {
-        final data = doc.data();
-        return ShoppingItem.fromJson({
-          'id': doc.id,
-          ...data,
-        });
-      }).toList();
-    });
-  }
 
   // Add Item
   // Future<void> addItem(String groupId, ItemType itemType, String item) async {

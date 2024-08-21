@@ -1,19 +1,21 @@
 import 'todo_item.dart';
 
 class ChoreItem extends TodoItem {
-  ChoreItem({
-    required String id,
-    required String name,
-    required String addedBy,
-    required bool completed,
-    // Not required
-    String neededBy = "",
-    String volunteer = "",
-    int priority = 3,
-    String notes = "",
-    // Only for Chores
-    int difficulty = 1,
-  }) : super(
+  final double difficulty;
+
+  ChoreItem(
+      {required String id,
+      required String name,
+      required String addedBy,
+      required bool completed,
+      // Not required
+      String neededBy = "",
+      String volunteer = "",
+      int priority = 3,
+      String notes = "",
+      // Only for Chores
+      this.difficulty = 1})
+      : super(
           id: id,
           name: name,
           addedBy: addedBy,
@@ -36,5 +38,28 @@ class ChoreItem extends TodoItem {
         priority,
         notes,
         itemType,
+        difficulty,
       ];
+
+  factory ChoreItem.fromJson(Map<String, dynamic> json) {
+    return ChoreItem(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      addedBy: json['addedBy'] as String,
+      completed: json['completed'] as bool,
+      neededBy: json['neededBy'] as String? ?? "",
+      volunteer: json['volunteer'] as String? ?? "",
+      priority: json['priority'] as int? ?? 3,
+      notes: json['notes'] as String? ?? "",
+      difficulty: (json['difficulty'] as num?)?.toDouble() ?? 1,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final json = super.toJson();
+    json.addAll({
+      'difficulty': difficulty,
+    });
+    return json;
+  }
 }
