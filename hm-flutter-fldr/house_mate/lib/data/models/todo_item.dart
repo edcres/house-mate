@@ -27,6 +27,21 @@ abstract class TodoItem extends Equatable {
     required this.itemType,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'addedBy': addedBy,
+      'completed': completed,
+      'neededBy': neededBy,
+      'volunteer': volunteer,
+      'priority': priority,
+      'notes': notes,
+      // TODO: what does tgos do?
+      'itemType': itemType.toString().split('.').last,
+    };
+  }
+
   @override
   List<Object> get props => [
         id,

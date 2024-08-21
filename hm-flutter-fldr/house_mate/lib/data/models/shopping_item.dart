@@ -61,19 +61,13 @@ class ShoppingItem extends TodoItem {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'addedBy': addedBy,
-      'completed': completed,
-      'neededBy': neededBy,
-      'volunteer': volunteer,
-      'priority': priority,
-      'notes': notes,
+    final json = super.toJson();
+    json.addAll({
       'quantity': quantity,
       'cost': cost,
       'purchaseLocation': purchaseLocation,
-    };
+    });
+    return json;
   }
 }
 

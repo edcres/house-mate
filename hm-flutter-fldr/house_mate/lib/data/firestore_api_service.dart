@@ -147,15 +147,21 @@ class FirestoreApiService {
   }
 
   // Add Item
-  Future<void> addItem(String groupId, ItemType itemType, String item) async {
+  // Future<void> addItem(String groupId, ItemType itemType, String item) async {
+  //   await groupIDsDoc
+  //       .collection(_getCollectionPath(groupId, itemType))
+  //       .doc(item)
+  //       .set({
+  //     'task': item,
+  //     'isCompleted': false,
+  //     'itemType': itemType.toString().split('.').last,
+  //   });
+  // }
+  Future<void> addItem(String groupId, ItemType itemType, TodoItem item) async {
     await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
-        .doc(item)
-        .set({
-      'task': item,
-      'isCompleted': false,
-      'itemType': itemType.toString().split('.').last,
-    });
+        .doc(item.id)
+        .set(item.toJson());
   }
 
   // Toggle Item
