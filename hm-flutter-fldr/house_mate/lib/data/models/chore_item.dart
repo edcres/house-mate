@@ -4,7 +4,7 @@ class ChoreItem extends TodoItem {
   ChoreItem({
     required String id,
     required String name,
-    required bool addedBy,
+    required String addedBy,
     required bool completed,
     // Not required
     String neededBy = "",

@@ -5,7 +5,7 @@ enum ItemType { Shopping, Chore }
 abstract class TodoItem extends Equatable {
   final String id;
   final String name;
-  final bool addedBy;
+  final String addedBy;
   final bool completed;
   // Not required
   String neededBy;
