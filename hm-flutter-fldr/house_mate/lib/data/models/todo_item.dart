@@ -1,49 +1,69 @@
 import 'package:equatable/equatable.dart';
+import 'package:house_mate/data/models/chore_item.dart';
+import 'package:house_mate/data/models/shopping_item.dart';
 
 enum ItemType { Shopping, Chore }
 
 abstract class TodoItem extends Equatable {
+  // Immutable field names
+  static const String fieldId = 'id';
+  static const String fieldName = 'name';
+  static const String fieldAddedBy = 'addedBy';
+  static const String fieldCompleted = 'completed';
+  static const String fieldNeededBy = 'neededBy';
+  static const String fieldVolunteer = 'volunteer';
+  static const String fieldPriority = 'priority';
+  static const String fieldNotes = 'notes';
+  static const String fieldItemType = 'itemType';
+
   final String id;
   final String name;
   final String addedBy;
   final bool completed;
-  // Not required
-  String neededBy;
-  String volunteer;
-  int priority;
-  String notes;
+  final String neededBy;
+  final String volunteer;
+  final int priority;
+  final String notes;
+  final ItemType itemType;
 
-  final ItemType itemType; // TODO: probably remove this
-
-  TodoItem({
+  const TodoItem({
     required this.id,
     required this.name,
     required this.addedBy,
     required this.completed,
-    required this.neededBy,
-    required this.volunteer,
-    required this.priority,
-    required this.notes,
+    this.neededBy = "",
+    this.volunteer = "",
+    this.priority = 3,
+    this.notes = "",
     required this.itemType,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'name': name,
-      'addedBy': addedBy,
-      'completed': completed,
-      'neededBy': neededBy,
-      'volunteer': volunteer,
-      'priority': priority,
-      'notes': notes,
-      // TODO: what does tgos do?
-      'itemType': itemType.toString().split('.').last,
+      fieldId: id,
+      fieldName: name,
+      fieldAddedBy: addedBy,
+      fieldCompleted: completed,
+      fieldNeededBy: neededBy,
+      fieldVolunteer: volunteer,
+      fieldPriority: priority,
+      fieldNotes: notes,
+      fieldItemType: itemType.toString().split('.').last,
     };
   }
 
+  static TodoItem fromJson(Map<String, dynamic> json) {
+    switch (ItemType.values
+        .firstWhere((e) => e.toString() == 'ItemType.${json[fieldItemType]}')) {
+      case ItemType.Shopping:
+        return ShoppingItem.fromJson(json);
+      case ItemType.Chore:
+        return ChoreItem.fromJson(json);
+    }
+  }
+
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         name,
         addedBy,
@@ -54,4 +74,78 @@ abstract class TodoItem extends Equatable {
         notes,
         itemType,
       ];
+
+  // Common deserialization logic
+  static Map<String, dynamic> commonFromJson(Map<String, dynamic> json) {
+    return {
+      fieldId: json[fieldId] as String,
+      fieldName: json[fieldName] as String,
+      fieldAddedBy: json[fieldAddedBy] as String,
+      fieldCompleted: json[fieldCompleted] as bool,
+      fieldNeededBy: json[fieldNeededBy] as String? ?? "",
+      fieldVolunteer: json[fieldVolunteer] as String? ?? "",
+      fieldPriority: json[fieldPriority] as int? ?? 3,
+      fieldNotes: json[fieldNotes] as String? ?? "",
+    };
+  }
 }
+
+
+
+
+// TODO: get rid of this
+// enum ItemType { Shopping, Chore }
+
+// abstract class TodoItem extends Equatable {
+//   final String id;
+//   final String name;
+//   final String addedBy;
+//   final bool completed;
+//   // Not required
+//   String neededBy;
+//   String volunteer;
+//   int priority;
+//   String notes;
+
+//   final ItemType itemType; // TODO: probably remove this
+
+//   TodoItem({
+//     required this.id,
+//     required this.name,
+//     required this.addedBy,
+//     required this.completed,
+//     required this.neededBy,
+//     required this.volunteer,
+//     required this.priority,
+//     required this.notes,
+//     required this.itemType,
+//   });
+
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'id': id,
+//       'name': name,
+//       'addedBy': addedBy,
+//       'completed': completed,
+//       'neededBy': neededBy,
+//       'volunteer': volunteer,
+//       'priority': priority,
+//       'notes': notes,
+//       // TODO: what does tgos do?
+//       'itemType': itemType.toString().split('.').last,
+//     };
+//   }
+
+//   @override
+//   List<Object> get props => [
+//         id,
+//         name,
+//         addedBy,
+//         completed,
+//         neededBy,
+//         volunteer,
+//         priority,
+//         notes,
+//         itemType,
+//       ];
+// }
