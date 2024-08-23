@@ -23,6 +23,7 @@ abstract class TodoItem extends Equatable {
   final String volunteer;
   final int priority;
   final String notes;
+  final ItemType itemType; // Only used locally
 
   const TodoItem({
     required this.id,
@@ -33,6 +34,7 @@ abstract class TodoItem extends Equatable {
     this.volunteer = "",
     this.priority = 3,
     this.notes = "",
+    required this.itemType,
   });
 
   Map<String, dynamic> toJson() {

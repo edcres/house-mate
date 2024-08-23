@@ -24,6 +24,7 @@ class ChoreItem extends TodoItem {
           volunteer: volunteer,
           priority: priority,
           notes: notes,
+          itemType: ItemType.Shopping,
         );
 
   @override
