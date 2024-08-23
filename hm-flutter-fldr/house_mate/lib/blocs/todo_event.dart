@@ -18,7 +18,7 @@ class LoadItems extends TodoEvent {
 }
 
 class AddItem extends TodoEvent {
-  final String item;
+  final TodoItem item;
   final ItemType itemType;
 
   AddItem(this.item, this.itemType);
