@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/Helper.dart';
 import 'package:house_mate/blocs/todo_bloc.dart';
 import 'package:house_mate/blocs/todo_event.dart';
+import 'package:house_mate/data/models/chore_item.dart';
+import 'package:house_mate/data/models/shopping_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/models/todo_item.dart';
 
@@ -55,10 +57,37 @@ class _AddItemDialogState extends State<AddItemDialog> {
       actions: [
         TextButton(
           onPressed: () {
-            final item = _controller.text;
-            if (item.isNotEmpty) {
-              context.read<TodoBloc>().add(AddItem(item, _selectedItemType));
+            // TODO: get rid of this
+            // final item = _controller.text;
+            // if (item.isNotEmpty) {
+            //   context.read<TodoBloc>().add(AddItem(item, _selectedItemType));
+            // }
+            final itemName = _controller.text;
+            if (itemName.isNotEmpty) {
+              final newItem;
+              switch (_selectedItemType) {
+                case ItemType.Shopping:
+                  newItem = ShoppingItem(
+                    id: '', // Generate or provide an ID
+                    name: itemName,
+                    addedBy: 'user_id', // Replace with actual user ID
+                    completed: false,
+                    // Set other fields as needed or with default values
+                  );
+                  break;
+                case ItemType.Chore:
+                  newItem = ChoreItem(
+                    id: '', // Generate or provide an ID
+                    name: itemName,
+                    addedBy: 'user_id', // Replace with actual user ID
+                    completed: false,
+                    // Set other fields as needed or with default values
+                  );
+                  break;
+              }
+              context.read<TodoBloc>().add(AddItem(newItem));
             }
+            Navigator.of(context).pop();
             Navigator.of(context).pop();
           },
           child: Text('Add'),
