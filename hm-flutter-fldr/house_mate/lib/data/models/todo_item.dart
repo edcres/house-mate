@@ -14,7 +14,6 @@ abstract class TodoItem extends Equatable {
   static const String fieldVolunteer = 'volunteer';
   static const String fieldPriority = 'priority';
   static const String fieldNotes = 'notes';
-  static const String fieldItemType = 'itemType';
 
   final String id;
   final String name;
@@ -24,7 +23,6 @@ abstract class TodoItem extends Equatable {
   final String volunteer;
   final int priority;
   final String notes;
-  final ItemType itemType;
 
   const TodoItem({
     required this.id,
@@ -35,7 +33,6 @@ abstract class TodoItem extends Equatable {
     this.volunteer = "",
     this.priority = 3,
     this.notes = "",
-    required this.itemType,
   });
 
   Map<String, dynamic> toJson() {
@@ -48,19 +45,29 @@ abstract class TodoItem extends Equatable {
       fieldVolunteer: volunteer,
       fieldPriority: priority,
       fieldNotes: notes,
-      fieldItemType: itemType.toString().split('.').last,
     };
   }
 
-  static TodoItem fromJson(Map<String, dynamic> json) {
-    switch (ItemType.values
-        .firstWhere((e) => e.toString() == 'ItemType.${json[fieldItemType]}')) {
+  static TodoItem fromJson(Map<String, dynamic> json, ItemType itemType) {
+    switch (itemType) {
       case ItemType.Shopping:
         return ShoppingItem.fromJson(json);
       case ItemType.Chore:
         return ChoreItem.fromJson(json);
+      default:
+        throw Exception('Unknown item type');
     }
   }
+
+  // static TodoItem fromJsonn(Map<String, dynamic> json) {
+  //   switch (ItemType.values
+  //       .firstWhere((e) => e.toString() == 'ItemType.${json[fieldItemType]}')) {
+  //     case ItemType.Shopping:
+  //       return ShoppingItem.fromJson(json);
+  //     case ItemType.Chore:
+  //       return ChoreItem.fromJson(json);
+  //   }
+  // }
 
   @override
   List<Object?> get props => [
@@ -72,7 +79,6 @@ abstract class TodoItem extends Equatable {
         volunteer,
         priority,
         notes,
-        itemType,
       ];
 
   // Common deserialization logic
