@@ -3,13 +3,13 @@ import 'package:house_mate/data/models/todo_item.dart';
 class ChoreItem extends TodoItem {
   static const String fieldDifficulty = 'difficulty';
 
-  final double difficulty;
+  final int difficulty;
 
   ChoreItem({
     required String id,
     required String name,
     required String addedBy,
-    this.difficulty = 1.0,
+    this.difficulty = 1,
   }) : super(
           id: id,
           name: name,
@@ -18,7 +18,7 @@ class ChoreItem extends TodoItem {
         );
 
   ChoreItem.fromJson(Map<String, dynamic> json)
-      : difficulty = (json[fieldDifficulty] as num?)?.toDouble() ?? 1.0,
+      : difficulty = (json[fieldDifficulty] as num?)?.toInt() ?? 1,
         super(
           id: json[TodoItem.fieldId] as String,
           name: json[TodoItem.fieldName] as String,
