@@ -18,18 +18,18 @@ abstract class TodoItem extends Equatable {
   final String id;
   final String name;
   final String addedBy;
-  final bool completed;
-  final String neededBy;
-  final String volunteer;
-  final int priority;
-  final String notes;
+  bool completed;
+  String neededBy;
+  String volunteer;
+  int priority;
+  String notes;
   final ItemType itemType; // Only used locally
 
-  const TodoItem({
+  TodoItem({
     required this.id,
     required this.name,
     required this.addedBy,
-    required this.completed,
+    this.completed = false,
     this.neededBy = "",
     this.volunteer = "",
     this.priority = 3,
@@ -61,16 +61,6 @@ abstract class TodoItem extends Equatable {
     }
   }
 
-  // static TodoItem fromJsonn(Map<String, dynamic> json) {
-  //   switch (ItemType.values
-  //       .firstWhere((e) => e.toString() == 'ItemType.${json[fieldItemType]}')) {
-  //     case ItemType.Shopping:
-  //       return ShoppingItem.fromJson(json);
-  //     case ItemType.Chore:
-  //       return ChoreItem.fromJson(json);
-  //   }
-  // }
-
   @override
   List<Object?> get props => [
         id,
@@ -97,63 +87,3 @@ abstract class TodoItem extends Equatable {
     };
   }
 }
-
-
-
-
-// TODO: get rid of this
-// enum ItemType { Shopping, Chore }
-
-// abstract class TodoItem extends Equatable {
-//   final String id;
-//   final String name;
-//   final String addedBy;
-//   final bool completed;
-//   // Not required
-//   String neededBy;
-//   String volunteer;
-//   int priority;
-//   String notes;
-
-//   final ItemType itemType; // TODO: probably remove this
-
-//   TodoItem({
-//     required this.id,
-//     required this.name,
-//     required this.addedBy,
-//     required this.completed,
-//     required this.neededBy,
-//     required this.volunteer,
-//     required this.priority,
-//     required this.notes,
-//     required this.itemType,
-//   });
-
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'id': id,
-//       'name': name,
-//       'addedBy': addedBy,
-//       'completed': completed,
-//       'neededBy': neededBy,
-//       'volunteer': volunteer,
-//       'priority': priority,
-//       'notes': notes,
-//       // TODO: what does tgos do?
-//       'itemType': itemType.toString().split('.').last,
-//     };
-//   }
-
-//   @override
-//   List<Object> get props => [
-//         id,
-//         name,
-//         addedBy,
-//         completed,
-//         neededBy,
-//         volunteer,
-//         priority,
-//         notes,
-//         itemType,
-//       ];
-// }
