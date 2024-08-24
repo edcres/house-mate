@@ -5,25 +5,15 @@ class ChoreItem extends TodoItem {
 
   final double difficulty;
 
-  const ChoreItem({
+  ChoreItem({
     required String id,
     required String name,
     required String addedBy,
-    required bool completed,
-    String neededBy = "",
-    String volunteer = "",
-    int priority = 3,
-    String notes = "",
     this.difficulty = 1.0,
   }) : super(
           id: id,
           name: name,
           addedBy: addedBy,
-          completed: completed,
-          neededBy: neededBy,
-          volunteer: volunteer,
-          priority: priority,
-          notes: notes,
           itemType: ItemType.Chore,
         );
 
@@ -36,11 +26,11 @@ class ChoreItem extends TodoItem {
       id: commonFields[TodoItem.fieldId],
       name: commonFields[TodoItem.fieldName],
       addedBy: commonFields[TodoItem.fieldAddedBy],
-      completed: commonFields[TodoItem.fieldCompleted],
-      neededBy: commonFields[TodoItem.fieldNeededBy],
-      volunteer: commonFields[TodoItem.fieldVolunteer],
-      priority: commonFields[TodoItem.fieldPriority],
-      notes: commonFields[TodoItem.fieldNotes],
+      // completed: commonFields[TodoItem.fieldCompleted],
+      // neededBy: commonFields[TodoItem.fieldNeededBy],
+      // volunteer: commonFields[TodoItem.fieldVolunteer],
+      // priority: commonFields[TodoItem.fieldPriority],
+      // notes: commonFields[TodoItem.fieldNotes],
       difficulty: (json[fieldDifficulty] as num?)?.toDouble() ?? 1.0,
     );
   }

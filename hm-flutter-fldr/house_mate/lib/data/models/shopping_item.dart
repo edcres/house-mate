@@ -33,6 +33,7 @@ class ShoppingItem extends TodoItem {
       id: commonFields[TodoItem.fieldId],
       name: commonFields[TodoItem.fieldName],
       addedBy: commonFields[TodoItem.fieldAddedBy],
+      // TODO: These fields give me errors
       // completed: commonFields[TodoItem.fieldCompleted],
       // neededBy: commonFields[TodoItem.fieldNeededBy],
       // volunteer: commonFields[TodoItem.fieldVolunteer],
