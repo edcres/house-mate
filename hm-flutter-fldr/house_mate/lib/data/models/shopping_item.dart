@@ -10,14 +10,12 @@ class ShoppingItem extends TodoItem {
   final String purchaseLocation;
 
   ShoppingItem({
-    required String id,
     required String name,
     required String addedBy,
     this.quantity = 0.0,
     this.cost = 0.0,
     this.purchaseLocation = "",
   }) : super(
-          id: id,
           name: name,
           addedBy: addedBy,
           itemType: ItemType.Shopping,

@@ -6,12 +6,10 @@ class ChoreItem extends TodoItem {
   final int difficulty;
 
   ChoreItem({
-    required String id,
     required String name,
     required String addedBy,
     this.difficulty = 1,
   }) : super(
-          id: id,
           name: name,
           addedBy: addedBy,
           itemType: ItemType.Chore,

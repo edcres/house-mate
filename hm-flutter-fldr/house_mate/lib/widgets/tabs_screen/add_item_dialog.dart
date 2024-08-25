@@ -106,7 +106,6 @@ class _AddItemDialogState extends State<AddItemDialog> {
               switch (_selectedItemType) {
                 case ItemType.Shopping:
                   newItem = ShoppingItem(
-                    id: '', // TODO: Generate or provide an ID. How do i get the ID from the database
                     name: itemName,
                     addedBy: 'user_id', // TODO: Replace with actual user ID
                     quantity: double.tryParse(_quantityController.text) ?? 0.0,
@@ -117,7 +116,6 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   break;
                 case ItemType.Chore:
                   newItem = ChoreItem(
-                    id: '', // TODO: Generate or provide an ID. How do i get the ID from the database
                     name: itemName,
                     addedBy: 'user_id', // TODO: Replace with actual user ID
                     difficulty: _difficulty ?? 1,
