@@ -107,7 +107,6 @@ class _AddItemDialogState extends State<AddItemDialog> {
                 case ItemType.Shopping:
                   newItem = ShoppingItem(
                     name: itemName,
-                    addedBy: 'user_id', // TODO: Replace with actual user ID
                     quantity: double.tryParse(_quantityController.text) ?? 0.0,
                     cost: double.tryParse(_costController.text) ?? 0.0,
                     purchaseLocation: _locationController.text,
@@ -117,7 +116,6 @@ class _AddItemDialogState extends State<AddItemDialog> {
                 case ItemType.Chore:
                   newItem = ChoreItem(
                     name: itemName,
-                    addedBy: 'user_id', // TODO: Replace with actual user ID
                     difficulty: _difficulty ?? 1,
                   );
                   newItem.itemType = ItemType.Chore;

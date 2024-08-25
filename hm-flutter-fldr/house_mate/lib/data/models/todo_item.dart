@@ -18,7 +18,7 @@ abstract class TodoItem extends Equatable {
 
   String id; // TODO: This field is not used
   final String name;
-  final String addedBy;
+  String addedBy;
   bool completed;
   String neededBy;
   String volunteer;
@@ -29,7 +29,7 @@ abstract class TodoItem extends Equatable {
   TodoItem({
     this.id = "0",
     required this.name,
-    required this.addedBy,
+    this.addedBy = "",
     this.completed = false,
     this.neededBy = "",
     this.volunteer = "",

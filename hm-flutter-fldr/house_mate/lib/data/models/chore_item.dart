@@ -7,11 +7,9 @@ class ChoreItem extends TodoItem {
 
   ChoreItem({
     required String name,
-    required String addedBy,
     this.difficulty = 1,
   }) : super(
           name: name,
-          addedBy: addedBy,
           itemType: ItemType.Chore,
         );
 
