@@ -73,10 +73,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
     final groupId = state.groupId;
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String savedName =
-        prefs.getString(helper.USER_NAME_SP) ?? helper.ANON_STRING;
-    event.item.addedBy = savedName;
+    event.item.addedBy = state.userName ?? helper.ANON_STRING;
     // TODO: When fixing user id bugs, change this
     if (groupId != null) {
       _firestoreApiService.addItem(groupId, event.itemType, event.item);
