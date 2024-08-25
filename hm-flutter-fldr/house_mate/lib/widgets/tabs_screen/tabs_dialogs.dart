@@ -13,7 +13,8 @@ Future<void> showChangeUsernameDialog(BuildContext context) async {
   showDialog(
     context: context,
     builder: (context) {
-      String savedName = prefs.getString(helper.USER_NAME_SP) ?? "Anon";
+      String savedName =
+          prefs.getString(helper.USER_NAME_SP) ?? helper.ANON_STRING;
       return AlertDialog(
         title: Text('Change Username'),
         content: TextField(

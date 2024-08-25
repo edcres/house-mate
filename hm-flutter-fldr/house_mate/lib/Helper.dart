@@ -10,6 +10,7 @@ class Helper {
   final String USER_NAME_SP = "user_name";
   final String PAST_GROUPS = "past_groups";
   final String NULL_STRING = "null";
+  final String ANON_STRING = "anon";
   final String GROUP_ID_SP_SEPARATOR = ",";
   final String NO_PAST_GROUPS = "No Past Groups";
 

@@ -7,6 +7,7 @@ import 'package:house_mate/blocs/todo_state.dart';
 import 'package:house_mate/data/firestore_api_service.dart';
 import 'package:house_mate/data/models/chore_item.dart';
 import 'package:house_mate/data/models/shopping_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final FirestoreApiService _firestoreApiService;
@@ -65,7 +66,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onJoinGroup(JoinGroup event, Emitter<TodoState> emit) async {
-    // TODO: When fixing user id bugs, change this
     final String newUserId =
         await _firestoreApiService.createUserId(event.groupId);
     emit(state.copyWith(userId: newUserId));
@@ -73,6 +73,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
     final groupId = state.groupId;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String savedName =
+        prefs.getString(helper.USER_NAME_SP) ?? helper.ANON_STRING;
+    event.item.addedBy = savedName;
+    // TODO: When fixing user id bugs, change this
     if (groupId != null) {
       _firestoreApiService.addItem(groupId, event.itemType, event.item);
       add(LoadItems(groupId));
