@@ -16,7 +16,7 @@ abstract class TodoItem extends Equatable {
   static const String fieldPriority = 'priority';
   static const String fieldNotes = 'notes';
 
-  final String id;
+  String id; // TODO: This field is not used
   final String name;
   final String addedBy;
   bool completed;
@@ -27,7 +27,7 @@ abstract class TodoItem extends Equatable {
   final ItemType itemType; // Only used locally
 
   TodoItem({
-    required this.id,
+    this.id = "0",
     required this.name,
     required this.addedBy,
     this.completed = false,
