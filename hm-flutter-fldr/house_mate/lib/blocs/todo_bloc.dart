@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/Helper.dart';
 import 'package:house_mate/blocs/todo_event.dart';
@@ -71,6 +70,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
+    print("_________________   addIt 2  ___");
     final groupId = state.groupId;
     event.item.addedBy = state.userName ?? helper.ANON_STRING;
     // TODO: When fixing user id bugs, change this

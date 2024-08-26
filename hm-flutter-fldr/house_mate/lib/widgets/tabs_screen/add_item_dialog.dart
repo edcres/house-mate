@@ -102,6 +102,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
           onPressed: () {
             final itemName = _itemNameController.text;
             if (itemName.isNotEmpty) {
+              print("_________________   addIt 1  ___");
               final newItem;
               switch (_selectedItemType) {
                 case ItemType.Shopping:
@@ -111,14 +112,12 @@ class _AddItemDialogState extends State<AddItemDialog> {
                     cost: double.tryParse(_costController.text) ?? 0.0,
                     purchaseLocation: _locationController.text,
                   );
-                  newItem.itemType = ItemType.Shopping;
                   break;
                 case ItemType.Chore:
                   newItem = ChoreItem(
                     name: itemName,
                     difficulty: _difficulty ?? 1,
                   );
-                  newItem.itemType = ItemType.Chore;
                   break;
               }
               newItem.completed; // TODO: do this
@@ -126,6 +125,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
               newItem.volunteer; // TODO: maybe do this in the bloc class
               newItem.priority = _priority ?? 3;
               newItem.notes = _notesController.text;
+              print("_________________   addIt 1.5  ___");
               context.read<TodoBloc>().add(AddItem(newItem, _selectedItemType));
             }
             Navigator.of(context).pop();
