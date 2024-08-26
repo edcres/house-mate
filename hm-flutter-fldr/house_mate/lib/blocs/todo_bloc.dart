@@ -7,7 +7,6 @@ import 'package:house_mate/blocs/todo_state.dart';
 import 'package:house_mate/data/firestore_api_service.dart';
 import 'package:house_mate/data/models/chore_item.dart';
 import 'package:house_mate/data/models/shopping_item.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final FirestoreApiService _firestoreApiService;
