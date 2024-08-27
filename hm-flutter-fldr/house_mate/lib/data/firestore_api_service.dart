@@ -39,64 +39,7 @@ class FirestoreApiService {
     return '$groupId/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
   }
 
-  // Get Shopping Items
-  // TODO: Origonal
-  // Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
-  //   return groupIDsDoc
-  //       .collection(_getCollectionPath(groupId, ItemType.Shopping))
-  //       .snapshots()
-  //       .map((snapshot) {
-  //     return snapshot.docs.map((doc) {
-  //       final data = doc.data();
-  //       return ShoppingItem(
-  //         id: doc.id,
-  //         task: data['task'],
-  //         isCompleted: data['isCompleted'],
-  //       );
-  //       // return ShoppingItem(
-  //       //   id: doc.id,
-  //       //   task: data['task'],
-  //       //   isCompleted: data['isCompleted'],
-  //       // );
-  //     }).toList();
-  //   });
-  // }
-
-  // // Get Shopping Items
-  // Stream<List<ShoppingItem>> getShoppingIt(String groupId) {
-  //   return groupIDsDoc
-  //       .collection(_getCollectionPath(groupId, ItemType.Shopping))
-  //       .snapshots()
-  //       .map((snapshot) {
-  //     return snapshot.docs.map((doc) {
-  //       final data = doc.data();
-  //       return ShoppingItem.fromJson(doc.data() as Map<String, dynamic>);
-  //       // return ShoppingItem(
-  //       //   id: doc.id,
-  //       //   task: data['task'],
-  //       //   isCompleted: data['isCompleted'],
-  //       // );
-  //     }).toList();
-  //   });
-  // }
-
-  // TODO: get rid of this
-  // Stream<List<ShoppingItem>> getShoppingItemss(String groupId) async* {
-  //   final collectionRef =
-  //       groupIDsDoc.collection(_getCollectionPath(groupId, ItemType.Shopping));
-  //   // async: Used to define an asynchronous function that returns a Future
-  //   // async*: Used to define an asynchronous generator function that returns a Stream
-  //   // yield: This is used within an async* function to produce a value for the stream.
-  //   // yield*: This is used to yield all the values from another iterable or stream. It's a way to flatten the structure so that instead of yielding a stream or iterable itself, you yield each of its values.
-  //   yield* collectionRef.snapshots().map((querySnapshot) {
-  //     return querySnapshot.docs.map((doc) {
-  //       return ShoppingItem.fromJson(doc.data() as Map<String, dynamic>);
-  //     }).toList();
-  //   }).handleError((error) {
-  //     // Handle error if necessary
-  //     print("Error fetching posts: $error");
-  //   });
-  // }
+  // TODO: Implement the stream in the rest of the code
   Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
     return groupIDsDoc
         .collection(_getCollectionPath(groupId, ItemType.Shopping))
@@ -128,34 +71,6 @@ class FirestoreApiService {
   }
 
   // Get Chore Items
-  // TODO: Origonal
-  // Stream<List<ChoreItem>> getChoreItems(String groupId) {
-  //   return groupIDsDoc
-  //       .collection(_getCollectionPath(groupId, ItemType.Chore))
-  //       .snapshots()
-  //       .map((snapshot) {
-  //     return snapshot.docs.map((doc) {
-  //       final data = doc.data();
-  //       return ChoreItem(
-  //         id: doc.id,
-  //         task: data['task'],
-  //         isCompleted: data['isCompleted'],
-  //       );
-  //     }).toList();
-  //   });
-  // }
-
-  // Add Item
-  // Future<void> addItem(String groupId, ItemType itemType, String item) async {
-  //   await groupIDsDoc
-  //       .collection(_getCollectionPath(groupId, itemType))
-  //       .doc(item)
-  //       .set({
-  //     'task': item,
-  //     'isCompleted': false,
-  //     'itemType': itemType.toString().split('.').last,
-  //   });
-  // }
   Future<void> addItem(String groupId, ItemType itemType, TodoItem item) async {
     await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
