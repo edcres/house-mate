@@ -159,7 +159,7 @@ class FirestoreApiService {
   Future<void> addItem(String groupId, ItemType itemType, TodoItem item) async {
     await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
-        .doc(item.id)
+        .doc(item.name)
         .set(item.toJson());
   }
 
