@@ -69,7 +69,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
             ListTile(
               title: Text(_dateNeeded == null
                   ? 'Select Date Needed'
-                  : 'Date Needed: ${_dateNeeded!.toLocal()}'.split(' ')[0]),
+                  : 'Needed by ${_dateNeeded!.month}/${_dateNeeded!.day}/${_dateNeeded!.year}'),
               trailing: Icon(Icons.calendar_today),
               onTap: () async {
                 DateTime? picked = await showDatePicker(
@@ -102,7 +102,6 @@ class _AddItemDialogState extends State<AddItemDialog> {
           onPressed: () {
             final itemName = _itemNameController.text;
             if (itemName.isNotEmpty) {
-              print("_________________   addIt 1  ___");
               final newItem;
               switch (_selectedItemType) {
                 case ItemType.Shopping:
@@ -120,7 +119,6 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   );
                   break;
               }
-              newItem.completed; // TODO: do this
               newItem.neededBy = _dateNeeded?.toString() ?? '';
               newItem.volunteer; // TODO: maybe do this in the bloc class
               newItem.priority = _priority ?? 3;
