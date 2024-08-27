@@ -40,7 +40,6 @@ abstract class TodoItem extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      fieldId: id,
       fieldName: name,
       fieldAddedBy: addedBy,
       fieldCompleted: completed,
@@ -64,7 +63,6 @@ abstract class TodoItem extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
         name,
         addedBy,
         completed,
