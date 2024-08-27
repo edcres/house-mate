@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Helper {
-  // Group ID
   final String DEFAULT_ID = "00000000asdfg";
   final String GROUP_ID_SP = "group_id";
   final String USER_ID_SP = "user_id";
@@ -13,6 +12,14 @@ class Helper {
   final String ANON_STRING = "anon";
   final String GROUP_ID_SP_SEPARATOR = ",";
   final String NO_PAST_GROUPS = "No Past Groups";
+
+  String formatDate(DateTime? rawDate) {
+    if (rawDate != null) {
+      return "${rawDate.month}/${rawDate.day}/${rawDate.year}";
+    } else {
+      return "";
+    }
+  }
 
   String displayPriority(int priority) {
     switch (priority) {

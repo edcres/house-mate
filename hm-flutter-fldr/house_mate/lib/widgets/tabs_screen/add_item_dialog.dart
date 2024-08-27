@@ -4,6 +4,7 @@ import 'package:house_mate/blocs/todo_bloc.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/data/models/chore_item.dart';
 import 'package:house_mate/data/models/shopping_item.dart';
+import 'package:house_mate/helper.dart';
 import '../../data/models/todo_item.dart';
 
 class AddItemDialog extends StatefulWidget {
@@ -21,6 +22,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _costController = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
+  final Helper helper = Helper();
   DateTime? _dateNeeded;
   int? _priority;
   int? _difficulty;
@@ -69,7 +71,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
             ListTile(
               title: Text(_dateNeeded == null
                   ? 'Select Date Needed'
-                  : 'Needed by ${_dateNeeded!.month}/${_dateNeeded!.day}/${_dateNeeded!.year}'),
+                  : 'Needed by ${helper.formatDate(_dateNeeded)}'),
               trailing: Icon(Icons.calendar_today),
               onTap: () async {
                 DateTime? picked = await showDatePicker(
@@ -119,11 +121,10 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   );
                   break;
               }
-              newItem.neededBy = _dateNeeded?.toString() ?? '';
+              newItem.neededBy = helper.formatDate(_dateNeeded);
               newItem.volunteer; // TODO: maybe do this in the bloc class
               newItem.priority = _priority ?? 3;
               newItem.notes = _notesController.text;
-              print("_________________   addIt 1.5  ___");
               context.read<TodoBloc>().add(AddItem(newItem, _selectedItemType));
             }
             Navigator.of(context).pop();
