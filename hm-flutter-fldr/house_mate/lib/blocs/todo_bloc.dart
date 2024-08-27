@@ -70,7 +70,6 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<TodoState> emit) async {
-    print("_________________   addIt 2  ___");
     final groupId = state.groupId;
     event.item.addedBy = state.userName ?? helper.ANON_STRING;
     // TODO: When fixing user id bugs, change this
