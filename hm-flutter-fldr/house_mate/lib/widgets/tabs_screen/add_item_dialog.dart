@@ -122,7 +122,6 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   break;
               }
               newItem.neededBy = helper.formatDate(_dateNeeded);
-              newItem.volunteer; // TODO: maybe do this in the bloc class
               newItem.priority = _priority ?? 3;
               newItem.notes = _notesController.text;
               context.read<TodoBloc>().add(AddItem(newItem, _selectedItemType));
