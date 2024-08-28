@@ -189,7 +189,8 @@ class _TabsScreenState extends State<TabsScreen> {
         if (state.groupId != null) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString(helper.GROUP_ID_SP, state.groupId!);
-          await prefs.setString(helper.USER_ID_SP, state.userId!);
+          // TODO: Change this when fixing userId
+          await prefs.setString(helper.USER_ID_SP, state.userId ?? "");
         }
       },
       child: DefaultTabController(

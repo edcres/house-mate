@@ -39,15 +39,20 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     final groupId = event.groupId;
     if (groupId == helper.NULL_STRING) return;
     try {
+      print("___________    load 1 _____");
       // Wait for the first emission from both streams
       final shoppingItemsFuture =
           _firestoreApiService.getShoppingItems(groupId).first;
+      print("___________    load 2 _____");
       final choreItemsFuture =
           _firestoreApiService.getChoreItems(groupId).first;
+      print("___________    load 2.5 _____");
       final results =
           await Future.wait([shoppingItemsFuture, choreItemsFuture]);
       // Combine the results
+      print("___________    load 3 _____");
       final shoppingItems = results[0] as List<ShoppingItem>;
+      print("___________    load 4 _____");
       final choreItems = results[1] as List<ChoreItem>;
       final items = [...shoppingItems, ...choreItems];
       emit(state.copyWith(items: items));
