@@ -25,8 +25,13 @@ class _TabsScreenState extends State<TabsScreen> {
   void initState() {
     super.initState();
     if (widget.initialGroupId == null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _chooseGroupDialog(context);
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (widget.initialGroupId == null) {
+          // TODO: The big dialog (_chooseGroupDialog) is being shown over the small one (showChangeUsernameDialog)
+          //    - Make it so group is only shown after username is shown
+          showChangeUsernameDialog(context);
+          _chooseGroupDialog(context);
+        }
       });
     }
   }

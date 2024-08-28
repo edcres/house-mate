@@ -38,7 +38,7 @@ Future<void> showChangeUsernameDialog(BuildContext context) async {
 
                 Navigator.of(context).pop();
               } else {
-                // Show a message or handle the case where the username is empty
+                // TODO: Show a message or handle the case where the username is empty
               }
             },
             child: Text('Save'),
