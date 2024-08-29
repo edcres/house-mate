@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
+import 'package:house_mate/data/models/chore_item.dart';
+import 'package:house_mate/data/models/shopping_item.dart';
 import '../blocs/todo_bloc.dart';
 import 'edit_todo_screen.dart';
 import '../data/models/todo_item.dart';
@@ -72,6 +74,8 @@ class ItemsScreen extends StatelessWidget {
                       showModalBottomSheet(
                         context: context,
                         builder: (context) {
+                          final item = items[index];
+
                           return Container(
                             width: MediaQuery.of(context).size.width,
                             padding: EdgeInsets.all(16.0),
@@ -79,32 +83,238 @@ class ItemsScreen extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  items[index].name,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                if (item.name.isNotEmpty)
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.name,
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
                                   ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Completed: ${items[index].completed ? 'Yes' : 'No'}',
-                                  style: TextStyle(
-                                    fontSize: 16,
+                                if (item.completed != null)
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Completed: ${item.completed ? 'Yes' : 'No'}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
                                   ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  'Type: ${items[index].itemType == ItemType.Shopping ? 'Shopping' : 'Chore'}',
-                                  style: TextStyle(
-                                    fontSize: 16,
+                                if (item.itemType != null)
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Type: ${item.itemType == ItemType.Shopping ? 'Shopping' : 'Chore'}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                    ],
                                   ),
-                                ),
+                                // Fields specific to ShoppingItem
+                                if (item is ShoppingItem) ...[
+                                  if (item.quantity != null &&
+                                      item.quantity > 0)
+                                    Text(
+                                      'Quantity: ${item.quantity}',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  if (item.cost != null && item.cost > 0)
+                                    Text(
+                                      'Cost: \$${item.cost.toStringAsFixed(2)}',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  if (item.purchaseLocation.isNotEmpty)
+                                    Text(
+                                      'Purchase Location: ${item.purchaseLocation}',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                ],
+                                // Fields specific to ChoreItem
+                                if (item is ChoreItem) ...[
+                                  if (item.difficulty != null)
+                                    Text(
+                                      'Difficulty: ${item.difficulty}',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                ],
+                                // Common fields for both ShoppingItem and ChoreItem
+                                if (item.neededBy != null &&
+                                    item.neededBy.isNotEmpty)
+                                  Text(
+                                    'Needed By: ${item.neededBy}', // Format as MM/DD/YYYY
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                if (item.priority != null)
+                                  Text(
+                                    'Priority: ${item.priority}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                if (item.addedBy != null &&
+                                    item.addedBy.isNotEmpty)
+                                  Text(
+                                    'Added By: ${item.addedBy}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                if (item.notes != null && item.notes.isNotEmpty)
+                                  Text(
+                                    'Notes: ${item.notes}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
                               ],
                             ),
                           );
                         },
                       );
+
+                      // showModalBottomSheet(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     final item = items[index];
+
+                      //     return Container(
+                      //       width: MediaQuery.of(context).size.width,
+                      //       padding: EdgeInsets.all(16.0),
+                      //       child: Column(
+                      //         mainAxisSize: MainAxisSize.min,
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           if (item.name.isNotEmpty)
+                      //             Column(
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   item.name,
+                      //                   style: TextStyle(
+                      //                     fontSize: 20,
+                      //                     fontWeight: FontWeight.bold,
+                      //                   ),
+                      //                 ),
+                      //                 SizedBox(height: 10),
+                      //               ],
+                      //             ),
+                      //           if (item.completed != null)
+                      //             Column(
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'Completed: ${item.completed ? 'Yes' : 'No'}',
+                      //                   style: TextStyle(
+                      //                     fontSize: 16,
+                      //                   ),
+                      //                 ),
+                      //                 SizedBox(height: 10),
+                      //               ],
+                      //             ),
+
+                      //           // Add similar checks for other fields
+                      //           if (item is ShoppingItem) ...[
+                      //             if (item.quantity != null &&
+                      //                 item.quantity > 0)
+                      //               Text(
+                      //                 'Quantity: ${item.quantity}',
+                      //                 style: TextStyle(
+                      //                   fontSize: 16,
+                      //                 ),
+                      //               ),
+                      //             if (item.cost != null && item.cost > 0)
+                      //               Text(
+                      //                 'Cost: \$${item.cost.toStringAsFixed(2)}',
+                      //                 style: TextStyle(
+                      //                   fontSize: 16,
+                      //                 ),
+                      //               ),
+                      //             if (item.purchaseLocation.isNotEmpty)
+                      //               Text(
+                      //                 'Purchase Location: ${item.purchaseLocation}',
+                      //                 style: TextStyle(
+                      //                   fontSize: 16,
+                      //                 ),
+                      //               ),
+                      //           ] else if (item is ChoreItem) ...[
+                      //             if (item.difficulty != null)
+                      //               Text(
+                      //                 'Difficulty: ${item.difficulty}',
+                      //                 style: TextStyle(
+                      //                   fontSize: 16,
+                      //                 ),
+                      //               ),
+                      //           ],
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      // );
+
+                      // showModalBottomSheet(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     return Container(
+                      //       width: MediaQuery.of(context).size.width,
+                      //       padding: EdgeInsets.all(16.0),
+                      //       child: Column(
+                      //         mainAxisSize: MainAxisSize.min,
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             items[index].name,
+                      //             style: TextStyle(
+                      //               fontSize: 20,
+                      //               fontWeight: FontWeight.bold,
+                      //             ),
+                      //           ),
+                      //           SizedBox(height: 10),
+                      //           Text(
+                      //             'Completed: ${items[index].completed ? 'Yes' : 'No'}',
+                      //             style: TextStyle(
+                      //               fontSize: 16,
+                      //             ),
+                      //           ),
+                      //           SizedBox(height: 10),
+                      //           Text(
+                      //             'Type: ${items[index].itemType == ItemType.Shopping ? 'Shopping' : 'Chore'}',
+                      //             style: TextStyle(
+                      //               fontSize: 16,
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      // );
                     }
                   : null,
             );
