@@ -16,13 +16,15 @@ void main() async {
   );
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? groupId = prefs.getString(helper.GROUP_ID_SP);
-  runApp(MyApp(groupId: groupId));
+  final String? userName = prefs.getString(helper.USER_NAME_SP);
+  runApp(MyApp(groupId: groupId, userName: userName));
 }
 
 class MyApp extends StatelessWidget {
   final String? groupId;
+  final String? userName;
 
-  MyApp({required this.groupId});
+  MyApp({required this.groupId, required this.userName});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
       create: (context) {
         final bloc = TodoBloc();
         bloc.add(SetGroupId(groupId ?? helper.NULL_STRING));
+        bloc.add(SetUserName(userName ?? helper.ANON_STRING));
         return bloc..add(LoadItems(groupId ?? helper.NULL_STRING));
       },
       child: MaterialApp(
