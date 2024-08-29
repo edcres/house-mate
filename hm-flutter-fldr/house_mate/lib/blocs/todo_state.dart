@@ -38,5 +38,5 @@ class TodoState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [items, isEditMode, groupId, userId, groupIdExists];
+      [items, isEditMode, groupIdExists, groupId, userId, userName];
 }

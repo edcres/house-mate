@@ -35,11 +35,8 @@ Future<void> showChangeUsernameDialog(BuildContext context) async {
                 // Save the username in shared preferences and bloc.
                 await prefs.setString(helper.USER_NAME_SP, userName);
                 context.read<TodoBloc>().add(SetUserName(userName));
-
-                Navigator.of(context).pop();
-              } else {
-                // TODO: Show a message or handle the case where the username is empty
               }
+              Navigator.of(context).pop();
             },
             child: Text('Save'),
           ),
