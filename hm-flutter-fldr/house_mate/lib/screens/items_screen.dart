@@ -4,12 +4,14 @@ import 'package:house_mate/blocs/todo_event.dart';
 import 'package:house_mate/blocs/todo_state.dart';
 import 'package:house_mate/data/models/chore_item.dart';
 import 'package:house_mate/data/models/shopping_item.dart';
+import 'package:house_mate/helper.dart';
 import '../blocs/todo_bloc.dart';
 import 'edit_todo_screen.dart';
 import '../data/models/todo_item.dart';
 
 class ItemsScreen extends StatelessWidget {
   final ItemType itemType;
+  Helper helper = Helper();
 
   ItemsScreen({required this.itemType});
 
@@ -75,128 +77,256 @@ class ItemsScreen extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           final item = items[index];
+                          final TextEditingController volunteerController =
+                              TextEditingController(text: item.volunteer ?? '');
 
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.all(16.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (item.name.isNotEmpty)
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        item.name,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                          return StatefulBuilder(
+                            builder:
+                                (BuildContext context, StateSetter setState) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (item.name.isNotEmpty)
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.name,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                        ],
                                       ),
-                                      SizedBox(height: 10),
+                                    // if (item.completed != null)
+                                    //   Column(
+                                    //     crossAxisAlignment:
+                                    //         CrossAxisAlignment.start,
+                                    //     children: [
+                                    //       Text(
+                                    //         'Completed: ${item.completed ? 'Yes' : 'No'}',
+                                    //         style: TextStyle(
+                                    //           fontSize: 16,
+                                    //         ),
+                                    //       ),
+                                    //       SizedBox(height: 10),
+                                    //     ],
+                                    //   ),
+                                    // if (item.itemType != null)
+                                    //   Column(
+                                    //     crossAxisAlignment:
+                                    //         CrossAxisAlignment.start,
+                                    //     children: [
+                                    //       Text(
+                                    //         'Type: ${item.itemType == ItemType.Shopping ? 'Shopping' : 'Chore'}',
+                                    //         style: TextStyle(
+                                    //           fontSize: 16,
+                                    //         ),
+                                    //       ),
+                                    //       SizedBox(height: 10),
+                                    //     ],
+                                    //   ),
+                                    // Fields specific to ShoppingItem
+                                    if (item is ShoppingItem) ...[
+                                      if (item.quantity != null &&
+                                          item.quantity > 0)
+                                        Text(
+                                          'Quantity: ${item.quantity}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      if (item.cost != null && item.cost > 0)
+                                        Text(
+                                          'Cost: \$${item.cost.toStringAsFixed(2)}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      if (item.purchaseLocation.isNotEmpty)
+                                        Text(
+                                          'Purchase Location: ${item.purchaseLocation}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
                                     ],
-                                  ),
-                                if (item.completed != null)
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
+                                    // Fields specific to ChoreItem
+                                    if (item is ChoreItem) ...[
+                                      if (item.difficulty != null)
+                                        Text(
+                                          'Difficulty: ${item.difficulty}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                    ],
+                                    // Common fields for both ShoppingItem and ChoreItem
+                                    if (item.neededBy != null &&
+                                        item.neededBy.isNotEmpty)
                                       Text(
-                                        'Completed: ${item.completed ? 'Yes' : 'No'}',
+                                        'Needed By: ${item.neededBy}',
                                         style: TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
-                                      SizedBox(height: 10),
-                                    ],
-                                  ),
-                                if (item.itemType != null)
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
+                                    if (item.priority != null)
                                       Text(
-                                        'Type: ${item.itemType == ItemType.Shopping ? 'Shopping' : 'Chore'}',
+                                        'Priority: ${item.priority}',
                                         style: TextStyle(
                                           fontSize: 16,
                                         ),
                                       ),
-                                      SizedBox(height: 10),
-                                    ],
-                                  ),
-                                // Fields specific to ShoppingItem
-                                if (item is ShoppingItem) ...[
-                                  if (item.quantity != null &&
-                                      item.quantity > 0)
+                                    if (item.addedBy != null &&
+                                        item.addedBy != helper.ANON_STRING)
+                                      Text(
+                                        'Added By: ${item.addedBy}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    if (item.notes != null &&
+                                        item.notes.isNotEmpty)
+                                      Text(
+                                        'Notes: ${item.notes}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    // Edit box for volunteer field
+                                    SizedBox(height: 10),
                                     Text(
-                                      'Quantity: ${item.quantity}',
+                                      'Volunteer:',
                                       style: TextStyle(
-                                        fontSize: 16,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    TextFormField(
+                                      controller: volunteerController,
+                                      decoration: InputDecoration(
+                                        hintText: 'Enter volunteer name',
                                       ),
                                     ),
-                                  if (item.cost != null && item.cost > 0)
-                                    Text(
-                                      'Cost: \$${item.cost.toStringAsFixed(2)}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                      ),
+                                    SizedBox(height: 10),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Update the volunteer field in the database
+                                        context.read<TodoBloc>().add(
+                                              UpdateItem(
+                                                item.id,
+                                                volunteerController.text,
+                                                item.itemType,
+                                              ),
+                                            );
+                                        Navigator.of(context)
+                                            .pop(); // Close the bottom sheet after updating
+                                      },
+                                      child: Text('Update Volunteer'),
                                     ),
-                                  if (item.purchaseLocation.isNotEmpty)
-                                    Text(
-                                      'Purchase Location: ${item.purchaseLocation}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                ],
-                                // Fields specific to ChoreItem
-                                if (item is ChoreItem) ...[
-                                  if (item.difficulty != null)
-                                    Text(
-                                      'Difficulty: ${item.difficulty}',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                ],
-                                // Common fields for both ShoppingItem and ChoreItem
-                                if (item.neededBy != null &&
-                                    item.neededBy.isNotEmpty)
-                                  Text(
-                                    'Needed By: ${item.neededBy}', // Format as MM/DD/YYYY
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                if (item.priority != null)
-                                  Text(
-                                    'Priority: ${item.priority}',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                if (item.addedBy != null &&
-                                    item.addedBy.isNotEmpty)
-                                  Text(
-                                    'Added By: ${item.addedBy}',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                if (item.notes != null && item.notes.isNotEmpty)
-                                  Text(
-                                    'Notes: ${item.notes}',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                              ],
-                            ),
+                                  ],
+                                ),
+                              );
+                            },
                           );
                         },
                       );
+
+                      // showModalBottomSheet(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     final item = items[index];
+                      //     final TextEditingController volunteerController =
+                      //         TextEditingController(text: item.volunteer);
+
+                      //     return StatefulBuilder(
+                      //       builder:
+                      //           (BuildContext context, StateSetter setState) {
+                      //         return Container(
+                      //           width: MediaQuery.of(context).size.width,
+                      //           padding: EdgeInsets.all(16.0),
+                      //           child: Column(
+                      //             mainAxisSize: MainAxisSize.min,
+                      //             crossAxisAlignment: CrossAxisAlignment.start,
+                      //             children: [
+                      //               if (item.name.isNotEmpty)
+                      //                 Column(
+                      //                   crossAxisAlignment:
+                      //                       CrossAxisAlignment.start,
+                      //                   children: [
+                      //                     Text(
+                      //                       item.name,
+                      //                       style: TextStyle(
+                      //                         fontSize: 20,
+                      //                         fontWeight: FontWeight.bold,
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(height: 10),
+                      //                   ],
+                      //                 ),
+                      //               if (item.completed != null)
+                      //                 Column(
+                      //                   crossAxisAlignment:
+                      //                       CrossAxisAlignment.start,
+                      //                   children: [
+                      //                     Text(
+                      //                       'Completed: ${item.completed ? 'Yes' : 'No'}',
+                      //                       style: TextStyle(
+                      //                         fontSize: 16,
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(height: 10),
+                      //                   ],
+                      //                 ),
+                      //               // Add other fields as before...
+                      //               if (item.volunteer != null)
+                      //                 Column(
+                      //                   crossAxisAlignment:
+                      //                       CrossAxisAlignment.start,
+                      //                   children: [
+                      //                     TextField(
+                      //                       controller: volunteerController,
+                      //                       decoration: InputDecoration(
+                      //                         labelText: 'Volunteer',
+                      //                         hintText: 'Enter volunteer name',
+                      //                       ),
+                      //                       onChanged: (value) {
+                      //                         setState(() {
+                      //                           item.volunteer =
+                      //                               value; // Update volunteer in state
+                      //                         });
+                      //                       },
+                      //                     ),
+                      //                     SizedBox(height: 10),
+                      //                     ElevatedButton(
+                      //                       onPressed: () {
+                      //                         context
+                      //                             .read<TodoBloc>()
+                      //                             .add(UpdateItem(
+                      //                               item.id,
+                      //                               volunteerController.text,
+                      //                               item.itemType,
+                      //                             ));
+                      //                         Navigator.pop(
+                      //                             context); // Close the bottom sheet after updating
+                      //                       },
+                      //                       child: Text('Update Volunteer'),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //             ],
+                      //           ),
+                      //         );
+                      //       },
+                      //     );
+                      //   },
+                      // );
 
                       // showModalBottomSheet(
                       //   context: context,
@@ -239,8 +369,21 @@ class ItemsScreen extends StatelessWidget {
                       //                 SizedBox(height: 10),
                       //               ],
                       //             ),
-
-                      //           // Add similar checks for other fields
+                      //           if (item.itemType != null)
+                      //             Column(
+                      //               crossAxisAlignment:
+                      //                   CrossAxisAlignment.start,
+                      //               children: [
+                      //                 Text(
+                      //                   'Type: ${item.itemType == ItemType.Shopping ? 'Shopping' : 'Chore'}',
+                      //                   style: TextStyle(
+                      //                     fontSize: 16,
+                      //                   ),
+                      //                 ),
+                      //                 SizedBox(height: 10),
+                      //               ],
+                      //             ),
+                      //           // Fields specific to ShoppingItem
                       //           if (item is ShoppingItem) ...[
                       //             if (item.quantity != null &&
                       //                 item.quantity > 0)
@@ -264,7 +407,9 @@ class ItemsScreen extends StatelessWidget {
                       //                   fontSize: 16,
                       //                 ),
                       //               ),
-                      //           ] else if (item is ChoreItem) ...[
+                      //           ],
+                      //           // Fields specific to ChoreItem
+                      //           if (item is ChoreItem) ...[
                       //             if (item.difficulty != null)
                       //               Text(
                       //                 'Difficulty: ${item.difficulty}',
@@ -273,43 +418,37 @@ class ItemsScreen extends StatelessWidget {
                       //                 ),
                       //               ),
                       //           ],
-                      //         ],
-                      //       ),
-                      //     );
-                      //   },
-                      // );
-
-                      // showModalBottomSheet(
-                      //   context: context,
-                      //   builder: (context) {
-                      //     return Container(
-                      //       width: MediaQuery.of(context).size.width,
-                      //       padding: EdgeInsets.all(16.0),
-                      //       child: Column(
-                      //         mainAxisSize: MainAxisSize.min,
-                      //         crossAxisAlignment: CrossAxisAlignment.start,
-                      //         children: [
-                      //           Text(
-                      //             items[index].name,
-                      //             style: TextStyle(
-                      //               fontSize: 20,
-                      //               fontWeight: FontWeight.bold,
+                      //           // Common fields for both ShoppingItem and ChoreItem
+                      //           if (item.neededBy != null &&
+                      //               item.neededBy.isNotEmpty)
+                      //             Text(
+                      //               'Needed By: ${item.neededBy}', // Format as MM/DD/YYYY
+                      //               style: TextStyle(
+                      //                 fontSize: 16,
+                      //               ),
                       //             ),
-                      //           ),
-                      //           SizedBox(height: 10),
-                      //           Text(
-                      //             'Completed: ${items[index].completed ? 'Yes' : 'No'}',
-                      //             style: TextStyle(
-                      //               fontSize: 16,
+                      //           if (item.priority != null)
+                      //             Text(
+                      //               'Priority: ${item.priority}',
+                      //               style: TextStyle(
+                      //                 fontSize: 16,
+                      //               ),
                       //             ),
-                      //           ),
-                      //           SizedBox(height: 10),
-                      //           Text(
-                      //             'Type: ${items[index].itemType == ItemType.Shopping ? 'Shopping' : 'Chore'}',
-                      //             style: TextStyle(
-                      //               fontSize: 16,
+                      //           if (item.addedBy != null &&
+                      //               item.addedBy.isNotEmpty)
+                      //             Text(
+                      //               'Added By: ${item.addedBy}',
+                      //               style: TextStyle(
+                      //                 fontSize: 16,
+                      //               ),
                       //             ),
-                      //           ),
+                      //           if (item.notes != null && item.notes.isNotEmpty)
+                      //             Text(
+                      //               'Notes: ${item.notes}',
+                      //               style: TextStyle(
+                      //                 fontSize: 16,
+                      //               ),
+                      //             ),
                       //         ],
                       //       ),
                       //     );
