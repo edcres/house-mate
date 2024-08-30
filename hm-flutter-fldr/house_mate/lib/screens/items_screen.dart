@@ -197,8 +197,7 @@ class ItemsScreen extends StatelessWidget {
                                                 item.itemType,
                                               ),
                                             );
-                                        Navigator.of(context)
-                                            .pop(); // Close the bottom sheet after updating
+                                        Navigator.of(context).pop();
                                       },
                                       child: Text('Update Volunteer'),
                                     ),

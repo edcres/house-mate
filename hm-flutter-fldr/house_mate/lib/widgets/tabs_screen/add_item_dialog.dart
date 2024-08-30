@@ -125,8 +125,8 @@ class _AddItemDialogState extends State<AddItemDialog> {
               newItem.priority = _priority ?? 3;
               newItem.notes = _notesController.text;
               context.read<TodoBloc>().add(AddItem(newItem, _selectedItemType));
+              Navigator.of(context).pop();
             }
-            Navigator.of(context).pop();
           },
           child: Text('Add'),
         ),
