@@ -92,15 +92,27 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
+  // Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
+  //   print("_____________________           called");
+  //   final groupId = state.groupId;
+  //   if (groupId != null) {
+  //     _firestoreApiService.updateItem(
+  //         groupId, event.itemType, event.id, event.updatedTask);
+  //     add(LoadItems(groupId));
+  //   } else {
+  //     print("GroupId is null3");
+  //   }
+  // }
+
   Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
-    print("_____________________           called");
     final groupId = state.groupId;
     if (groupId != null) {
+      final updatedItem = state.items.firstWhere((item) => item.id == event.id);
       _firestoreApiService.updateItem(
-          groupId, event.itemType, event.id, event.updatedTask);
+          groupId, event.itemType, event.id, updatedItem);
       add(LoadItems(groupId));
     } else {
-      print("GroupId is null3");
+      print("GroupId is null");
     }
   }
 

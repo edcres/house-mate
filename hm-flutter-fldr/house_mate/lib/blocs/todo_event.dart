@@ -37,15 +37,25 @@ class ToggleItem extends TodoEvent {
   List<Object> get props => [id, itemType];
 }
 
+// class UpdateItem extends TodoEvent {
+//   final String id;
+//   final String updatedTask;
+//   final ItemType itemType;
+
+//   UpdateItem(this.id, this.updatedTask, this.itemType);
+
+//   @override
+//   List<Object> get props => [id, updatedTask, itemType];
+// }
 class UpdateItem extends TodoEvent {
   final String id;
-  final String updatedTask;
+  final TodoItem updatedItem;
   final ItemType itemType;
 
-  UpdateItem(this.id, this.updatedTask, this.itemType);
+  UpdateItem(this.id, this.updatedItem, this.itemType);
 
   @override
-  List<Object> get props => [id, updatedTask, itemType];
+  List<Object> get props => [id, updatedItem, itemType];
 }
 
 class DeleteItem extends TodoEvent {
