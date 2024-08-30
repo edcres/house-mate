@@ -359,10 +359,11 @@ class ItemsScreen extends StatelessWidget {
                                         ElevatedButton(
                                           onPressed: () {
                                             // Update the volunteer field in the database
+                                            // TODO: Change this so it updates only the volunteer
                                             context.read<TodoBloc>().add(
                                                   UpdateItem(
                                                     item.id,
-                                                    volunteerController.text,
+                                                    item,
                                                     item.itemType,
                                                   ),
                                                 );
