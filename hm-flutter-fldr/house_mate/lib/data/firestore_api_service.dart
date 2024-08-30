@@ -91,24 +91,37 @@ class FirestoreApiService {
   }
 
   // Update item
+  // Future<void> updateItem(String groupId, ItemType itemType, String eventId,
+  //     String updatedTask) async {
+  //   final oldDoc = groupIDsDoc
+  //       .collection(_getCollectionPath(groupId, itemType))
+  //       .doc(eventId);
+  //   final oldData = (await oldDoc.get()).data();
+  //   if (oldData != null) {
+  //     await groupIDsDoc
+  //         .collection(_getCollectionPath(groupId, itemType))
+  //         .doc(updatedTask)
+  //         .set({
+  //       'task': updatedTask,
+  //       'isCompleted': oldData['isCompleted'],
+  //       'itemType': oldData['itemType'],
+  //     });
+  //     // TODO: Why is it deleting the old doc???
+  //     await oldDoc.delete();
+  //   }
+  // }
+
   Future<void> updateItem(String groupId, ItemType itemType, String eventId,
-      String updatedTask) async {
-    final oldDoc = groupIDsDoc
+      TodoItem updatedItem) async {
+    final docRef = groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(eventId);
-    final oldData = (await oldDoc.get()).data();
-    if (oldData != null) {
-      await groupIDsDoc
-          .collection(_getCollectionPath(groupId, itemType))
-          .doc(updatedTask)
-          .set({
-        'task': updatedTask,
-        'isCompleted': oldData['isCompleted'],
-        'itemType': oldData['itemType'],
-      });
-      // TODO: Why is it deleting the old doc???
-      await oldDoc.delete();
-    }
+
+    // Use the `toJson` method to get only the relevant fields
+    final updatedData = updatedItem.toJson();
+
+    // Update the document in Firestore without deleting the old one
+    await docRef.set(updatedData, SetOptions(merge: true));
   }
 
   // Delete item
