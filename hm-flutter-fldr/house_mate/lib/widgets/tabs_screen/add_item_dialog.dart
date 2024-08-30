@@ -126,6 +126,8 @@ class _AddItemDialogState extends State<AddItemDialog> {
               newItem.notes = _notesController.text;
               context.read<TodoBloc>().add(AddItem(newItem, _selectedItemType));
               Navigator.of(context).pop();
+            } else {
+              // TODO: Show a warning to type a name
             }
           },
           child: Text('Add'),

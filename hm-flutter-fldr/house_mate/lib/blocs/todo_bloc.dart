@@ -93,6 +93,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
+    print("_____________________           called");
     final groupId = state.groupId;
     if (groupId != null) {
       _firestoreApiService.updateItem(

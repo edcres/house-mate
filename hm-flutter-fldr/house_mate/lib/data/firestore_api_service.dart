@@ -40,6 +40,7 @@ class FirestoreApiService {
   }
 
   // TODO: Implement the stream in the rest of the code
+  //      - I have another bug that i think will be fixed after handling the streams. When a value in a field is updated, it's not updated in the app. If this doesn't work maybe clear the cache when the app opens up.
   Stream<List<ShoppingItem>> getShoppingItems(String groupId) {
     return groupIDsDoc
         .collection(_getCollectionPath(groupId, ItemType.Shopping))
