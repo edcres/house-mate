@@ -84,8 +84,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onToggleItem(ToggleItem event, Emitter<TodoState> emit) async {
     final groupId = state.groupId;
     if (groupId != null) {
-      final item = state.items.firstWhere((item) => item.id == event.id);
-      _firestoreApiService.toggleItem(groupId, event.itemType, item, event.id);
+      _firestoreApiService.toggleItem(
+          groupId, event.item.itemType, !event.item.completed, event.item.name);
       add(LoadItems(groupId));
     } else {
       print("GroupId is null2");

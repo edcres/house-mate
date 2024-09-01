@@ -28,13 +28,14 @@ class AddItem extends TodoEvent {
 }
 
 class ToggleItem extends TodoEvent {
-  final String id;
-  final ItemType itemType;
+  final TodoItem item;
+  // final String itemName;
+  // final ItemType itemType;
 
-  ToggleItem(this.id, this.itemType);
+  ToggleItem(this.item);
 
   @override
-  List<Object> get props => [id, itemType];
+  List<Object> get props => [item];
 }
 
 // class UpdateItem extends TodoEvent {

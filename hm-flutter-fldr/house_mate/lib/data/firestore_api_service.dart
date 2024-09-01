@@ -80,13 +80,13 @@ class FirestoreApiService {
   }
 
   // Toggle Item
-  Future<void> toggleItem(
-      String groupId, ItemType itemType, TodoItem item, String eventId) async {
+  Future<void> toggleItem(String groupId, ItemType itemType, bool completed,
+      String itemName) async {
     await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
-        .doc(eventId)
+        .doc(itemName)
         .update({
-      'isCompleted': !item.completed,
+      'isCompleted': completed,
     });
   }
 

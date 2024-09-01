@@ -66,9 +66,7 @@ class ItemsScreen extends StatelessWidget {
                             : Icons.check_box_outline_blank,
                       ),
                       onPressed: () {
-                        context
-                            .read<TodoBloc>()
-                            .add(ToggleItem(items[index].id, itemType));
+                        context.read<TodoBloc>().add(ToggleItem(items[index]));
                       },
                     ),
               onTap: !state.isEditMode
