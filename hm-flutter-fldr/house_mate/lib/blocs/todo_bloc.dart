@@ -108,7 +108,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     final groupId = state.groupId;
     print("_____________     update 2");
     if (groupId != null) {
-      final updatedItem = state.items.firstWhere((item) => item.id == event.id);
+      final updatedItem = event.updatedItem;
+      // final updatedItem = state.items.firstWhere((item) => item.id == event.id);
       _firestoreApiService.updateItem(groupId, event.itemType, updatedItem);
       print("_____________     update 3   ${event.updatedItem}");
       add(LoadItems(groupId));

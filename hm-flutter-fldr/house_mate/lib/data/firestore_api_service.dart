@@ -117,10 +117,8 @@ class FirestoreApiService {
     final docRef = groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(updatedItem.name);
-
     // Use the `toJson` method to get only the relevant fields
     final updatedData = updatedItem.toJson();
-
     // Update the document in Firestore without deleting the old one
     await docRef.set(updatedData, SetOptions(merge: true));
     print("_____________     update 5");

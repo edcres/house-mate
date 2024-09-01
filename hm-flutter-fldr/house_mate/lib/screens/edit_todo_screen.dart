@@ -161,9 +161,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
       updatedItem.priority = _priority ?? 3;
       updatedItem.notes = _notesController.text;
       print("_____________     update 1");
-      context
-          .read<TodoBloc>()
-          .add(UpdateItem(widget.todo.id, updatedItem, _selectedItemType));
+      context.read<TodoBloc>().add(UpdateItem(updatedItem, _selectedItemType));
       Navigator.of(context).pop();
     } else {
       // TODO: Show a warning to type a name
