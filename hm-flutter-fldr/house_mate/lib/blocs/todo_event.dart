@@ -58,13 +58,13 @@ class UpdateItem extends TodoEvent {
 }
 
 class DeleteItem extends TodoEvent {
-  final String id;
+  final String itemName;
   final ItemType itemType;
 
-  DeleteItem(this.id, this.itemType);
+  DeleteItem(this.itemName, this.itemType);
 
   @override
-  List<Object> get props => [id, itemType];
+  List<Object> get props => [itemName, itemType];
 }
 
 class EnterEditMode extends TodoEvent {}

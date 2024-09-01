@@ -54,7 +54,7 @@ class ItemsScreen extends StatelessWidget {
                           onPressed: () {
                             context
                                 .read<TodoBloc>()
-                                .add(DeleteItem(items[index].id, itemType));
+                                .add(DeleteItem(items[index].name, itemType));
                           },
                         ),
                       ],

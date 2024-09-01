@@ -121,7 +121,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   Future<void> _onDeleteItem(DeleteItem event, Emitter<TodoState> emit) async {
     final groupId = state.groupId;
     if (groupId != null) {
-      _firestoreApiService.deleteItem(groupId, event.itemType, event.id);
+      _firestoreApiService.deleteItem(groupId, event.itemType, event.itemName);
       add(LoadItems(groupId));
     } else {
       print("GroupId is null4");

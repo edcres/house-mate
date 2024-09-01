@@ -127,10 +127,11 @@ class FirestoreApiService {
 
   // Delete item
   Future<void> deleteItem(
-      String groupId, ItemType itemType, String eventId) async {
+      String groupId, ItemType itemType, String itemName) async {
+    print("_____________    itemIdL: ${itemName}");
     await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
-        .doc(eventId)
+        .doc(itemName)
         .delete();
   }
 
