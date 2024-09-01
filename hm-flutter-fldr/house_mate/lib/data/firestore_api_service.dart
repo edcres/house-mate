@@ -82,7 +82,6 @@ class FirestoreApiService {
   // Toggle Item
   Future<void> toggleItem(String groupId, ItemType itemType, bool completed,
       String itemName) async {
-    print("________________        toggle 3");
     final docRef = groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(itemName);
@@ -92,44 +91,18 @@ class FirestoreApiService {
   }
 
   // Update item
-  // Future<void> updateItem(String groupId, ItemType itemType, String eventId,
-  //     String updatedTask) async {
-  //   final oldDoc = groupIDsDoc
-  //       .collection(_getCollectionPath(groupId, itemType))
-  //       .doc(eventId);
-  //   final oldData = (await oldDoc.get()).data();
-  //   if (oldData != null) {
-  //     await groupIDsDoc
-  //         .collection(_getCollectionPath(groupId, itemType))
-  //         .doc(updatedTask)
-  //         .set({
-  //       'task': updatedTask,
-  //       'isCompleted': oldData['isCompleted'],
-  //       'itemType': oldData['itemType'],
-  //     });
-  //     // TODO: Why is it deleting the old doc???
-  //     await oldDoc.delete();
-  //   }
-  // }
-
   Future<void> updateItem(
       String groupId, ItemType itemType, TodoItem updatedItem) async {
-    print("_____________     update 4");
     final docRef = groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(updatedItem.name);
-    // Use the `toJson` method to get only the relevant fields
     final updatedData = updatedItem.toJson();
-    // Update the document in Firestore without deleting the old one
-    // await docRef.set(updatedData, SetOptions(merge: true));
     await docRef.update(updatedData);
-    print("_____________     update 5");
   }
 
   // Delete item
   Future<void> deleteItem(
       String groupId, ItemType itemType, String itemName) async {
-    print("_____________    itemIdL: ${itemName}");
     await groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(itemName)
@@ -153,7 +126,7 @@ class FirestoreApiService {
     final DocumentSnapshot docSnap = await groupIDsDoc.get();
     String newGroupId = "";
     if (docSnap.exists) {
-      // Get the value of the field 'last group added'
+      // Get the value of the last group added field
       final data = docSnap.data() as Map<String, dynamic>;
       String lastGroupId = data[LAST_GROUP_ADDED_FIELD] ?? helper.DEFAULT_ID;
       newGroupId = helper.generateNewID(lastGroupId);

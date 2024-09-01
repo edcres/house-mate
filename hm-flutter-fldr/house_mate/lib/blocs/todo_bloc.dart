@@ -82,15 +82,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _onToggleItem(ToggleItem event, Emitter<TodoState> emit) async {
-    print("________________        toggle 1 triggered");
-    print(
-        "________________        toggle 1 before= ${event.item.name} ${event.item.completed}");
-    print(
-        "________________        toggle 1 before= ${event.item.name} ${!event.item.completed}");
     final groupId = state.groupId;
     if (groupId != null) {
-      print("________________        toggle 2");
-
       _firestoreApiService.toggleItem(
           groupId, event.item.itemType, !event.item.completed, event.item.name);
       add(LoadItems(groupId));
@@ -99,26 +92,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
   }
 
-  // Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
-  //   print("_____________________           called");
-  //   final groupId = state.groupId;
-  //   if (groupId != null) {
-  //     _firestoreApiService.updateItem(
-  //         groupId, event.itemType, event.id, event.updatedTask);
-  //     add(LoadItems(groupId));
-  //   } else {
-  //     print("GroupId is null3");
-  //   }
-  // }
-
   Future<void> _onUpdateItem(UpdateItem event, Emitter<TodoState> emit) async {
     final groupId = state.groupId;
-    print("_____________     update 2");
     if (groupId != null) {
       final updatedItem = event.updatedItem;
-      // final updatedItem = state.items.firstWhere((item) => item.id == event.id);
       _firestoreApiService.updateItem(groupId, event.itemType, updatedItem);
-      print("_____________     update 3   ${event.updatedItem}");
       add(LoadItems(groupId));
     } else {
       print("GroupId is null");

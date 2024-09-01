@@ -36,24 +36,6 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
     _initializeFields();
   }
 
-  // void _initializeFields() {
-  //   _itemNameController.text = widget.todo.name;
-  //   if (widget.todo is ShoppingItem) {
-  //     final shoppingItem = widget.todo as ShoppingItem;
-  //     _quantityController.text = shoppingItem.quantity.toString();
-  //     _locationController.text = shoppingItem.purchaseLocation;
-  //     _costController.text = shoppingItem.cost.toString();
-  //   } else if (widget.todo is ChoreItem) {
-  //     final choreItem = widget.todo as ChoreItem;
-  //     _difficulty = choreItem.difficulty;
-  //   }
-  //   _notesController.text = widget.todo.notes ?? '';
-  //   _dateNeeded = widget.todo.neededBy != null
-  //       ? helper.parseDate(widget.todo.neededBy)
-  //       : null;
-  //   _priority = widget.todo.priority ?? 3;
-  // }
-
   void _initializeFields() {
     _itemNameController.text = widget.todo.name;
     if (widget.todo is ShoppingItem) {
@@ -160,7 +142,6 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
       updatedItem.neededBy = helper.formatDate(_dateNeeded);
       updatedItem.priority = _priority ?? 3;
       updatedItem.notes = _notesController.text;
-      print("_____________     update 1");
       context.read<TodoBloc>().add(UpdateItem(updatedItem, _selectedItemType));
       Navigator.of(context).pop();
     } else {
@@ -254,59 +235,3 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
     );
   }
 }
-
-
-// class EditTodoScreen extends StatefulWidget {
-//   final int index;
-//   final TodoItem todo;
-
-//   EditTodoScreen({required this.index, required this.todo});
-
-//   @override
-//   _EditTodoScreenState createState() => _EditTodoScreenState();
-// }
-
-// class _EditTodoScreenState extends State<EditTodoScreen> {
-//   final _controller = TextEditingController();
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _controller.text = widget.todo.name;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Edit Item'),
-//       ),
-//       body: Padding(
-//         padding: EdgeInsets.all(16.0),
-//         child: Column(
-//           children: [
-//             TextField(
-//               controller: _controller,
-//               decoration: InputDecoration(labelText: 'Item'),
-//             ),
-//             SizedBox(height: 20),
-//             ElevatedButton(
-//               onPressed: () {
-//                 final updatedTask = _controller.text;
-//                 if (updatedTask.isNotEmpty) {
-//                   context.read<TodoBloc>().add(UpdateItem(
-//                         widget.todo.id,
-//                         updatedTask,
-//                         widget.todo.itemType,
-//                       ));
-//                 }
-//                 Navigator.of(context).pop();
-//               },
-//               child: Text('Update'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
