@@ -362,7 +362,6 @@ class ItemsScreen extends StatelessWidget {
                                             // TODO: Change this so it updates only the volunteer
                                             context.read<TodoBloc>().add(
                                                   UpdateItem(
-                                                    item.id,
                                                     item,
                                                     item.itemType,
                                                   ),
