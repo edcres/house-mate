@@ -111,17 +111,19 @@ class FirestoreApiService {
   //   }
   // }
 
-  Future<void> updateItem(String groupId, ItemType itemType, String eventId,
-      TodoItem updatedItem) async {
+  Future<void> updateItem(
+      String groupId, ItemType itemType, TodoItem updatedItem) async {
+    print("_____________     update 4");
     final docRef = groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
-        .doc(eventId);
+        .doc(updatedItem.name);
 
     // Use the `toJson` method to get only the relevant fields
     final updatedData = updatedItem.toJson();
 
     // Update the document in Firestore without deleting the old one
     await docRef.set(updatedData, SetOptions(merge: true));
+    print("_____________     update 5");
   }
 
   // Delete item

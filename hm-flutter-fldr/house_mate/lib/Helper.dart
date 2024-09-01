@@ -127,4 +127,19 @@ class Helper {
       return pastGroups.split(GROUP_ID_SP_SEPARATOR);
     }
   }
+
+  DateTime? stringToDate(String? dateString) {
+    if (dateString == null || dateString.isEmpty) return null;
+    // Assuming date is saved in the "MM/dd/yyyy" format
+    final parts = dateString.split('/');
+    if (parts.length == 3) {
+      final month = int.tryParse(parts[0]);
+      final day = int.tryParse(parts[1]);
+      final year = int.tryParse(parts[2]);
+      if (month != null && day != null && year != null) {
+        return DateTime(year, month, day);
+      }
+    }
+    return null;
+  }
 }

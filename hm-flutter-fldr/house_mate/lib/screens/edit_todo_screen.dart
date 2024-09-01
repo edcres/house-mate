@@ -36,6 +36,24 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
     _initializeFields();
   }
 
+  // void _initializeFields() {
+  //   _itemNameController.text = widget.todo.name;
+  //   if (widget.todo is ShoppingItem) {
+  //     final shoppingItem = widget.todo as ShoppingItem;
+  //     _quantityController.text = shoppingItem.quantity.toString();
+  //     _locationController.text = shoppingItem.purchaseLocation;
+  //     _costController.text = shoppingItem.cost.toString();
+  //   } else if (widget.todo is ChoreItem) {
+  //     final choreItem = widget.todo as ChoreItem;
+  //     _difficulty = choreItem.difficulty;
+  //   }
+  //   _notesController.text = widget.todo.notes ?? '';
+  //   _dateNeeded = widget.todo.neededBy != null
+  //       ? helper.parseDate(widget.todo.neededBy)
+  //       : null;
+  //   _priority = widget.todo.priority ?? 3;
+  // }
+
   void _initializeFields() {
     _itemNameController.text = widget.todo.name;
     if (widget.todo is ShoppingItem) {
@@ -48,9 +66,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
       _difficulty = choreItem.difficulty;
     }
     _notesController.text = widget.todo.notes ?? '';
-    _dateNeeded = widget.todo.neededBy != null
-        ? helper.parseDate(widget.todo.neededBy)
-        : null;
+    _dateNeeded = helper.stringToDate(widget.todo.neededBy);
     _priority = widget.todo.priority ?? 3;
   }
 
@@ -144,6 +160,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
       updatedItem.neededBy = helper.formatDate(_dateNeeded);
       updatedItem.priority = _priority ?? 3;
       updatedItem.notes = _notesController.text;
+      print("_____________     update 1");
       context
           .read<TodoBloc>()
           .add(UpdateItem(widget.todo.id, updatedItem, _selectedItemType));
