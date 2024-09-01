@@ -21,11 +21,18 @@ class FirestoreApiService {
 
   FirestoreApiService() {
     groupIDsDoc = firestore.collection(GENERAL_COLLECTION).doc(GROUP_IDS_DOC);
+    clearFirestoreCache();
   }
 
   // This could go to the helper class
   String _getCollectionPath(String groupId, ItemType itemType) {
     return '$groupId/${itemType == ItemType.Shopping ? SHOPPING_LIST_DOC : CHORES_LIST_DOC}/${itemType == ItemType.Shopping ? SHOPPING_ITEMS_COLLECTION : CHORE_ITEMS_COLLECTION}';
+  }
+
+  Future<void> clearFirestoreCache() async {
+    // TODO: Remove caching when streams are handled
+    // Disable persistence to clear cache
+    await FirebaseFirestore.instance.clearPersistence();
   }
 
   // TODO: Implement the stream in the rest of the code
