@@ -16,17 +16,6 @@ class FirestoreApiService {
 
   final String LAST_GROUP_ADDED_FIELD = "lastGroupAdded";
   final String LAST_CLIENT_ADDED_FIELD = "lastClientAdded";
-  // final String NAME_FIELD = "name";
-  // final String QUANTITY_FIELD = "quantity";
-  // final String ADDED_BY_FIELD = "addedBy";
-  // final String COMPLETED_FIELD = "completed";
-  // final String COST_FIELD = "cost";
-  // final String PURCHASE_LOCATION_FIELD = "purchaseLocation";
-  // final String NEEDED_BY_FIELD = "neededBy";
-  // final String VOLUNTEER_FIELD = "volunteer";
-  // final String PRIORITY_FIELD = "priority";
-  // final String DIFFICULTY_FIELD = "difficulty";
-  // final String NOTES_FIELD = "notes";
   late DocumentReference groupIDsDoc;
   Helper helper = Helper();
 
