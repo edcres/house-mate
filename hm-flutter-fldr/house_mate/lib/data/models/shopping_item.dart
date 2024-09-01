@@ -27,7 +27,6 @@ class ShoppingItem extends TodoItem {
           id: json[TodoItem.fieldId] as String,
           name: json[TodoItem.fieldName] as String,
           addedBy: json[TodoItem.fieldAddedBy] as String,
-          // TODO: delete bottom line
           volunteer: json[TodoItem.fieldVolunteer] as String? ?? "",
           itemType: ItemType.Shopping,
         ) {

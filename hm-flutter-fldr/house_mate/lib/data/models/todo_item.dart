@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:house_mate/data/models/chore_item.dart';
 import 'package:house_mate/data/models/shopping_item.dart';
 
-// TODO: put his inside the class
 enum ItemType { Shopping, Chore }
 
 abstract class TodoItem extends Equatable {
