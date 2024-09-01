@@ -89,6 +89,7 @@ class FirestoreApiService {
   // Update item
   Future<void> updateItem(
       String groupId, ItemType itemType, TodoItem updatedItem) async {
+    print("___________         volunteer 8 ${updatedItem.volunteer} ");
     final docRef = groupIDsDoc
         .collection(_getCollectionPath(groupId, itemType))
         .doc(updatedItem.name);
