@@ -6,7 +6,7 @@ import 'package:house_mate/data/models/shopping_item.dart';
 
 class FirestoreApiService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final String GENERAL_COLLECTION = "todos";
+  final String GENERAL_COLLECTION = "General Collection";
   final String GROUP_IDS_DOC = "Group IDs";
   final String CLIENT_IDS_DOC = "Client IDs";
   final String SHOPPING_LIST_DOC = "Shopping List";
