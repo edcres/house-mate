@@ -7,8 +7,6 @@ App meant for housemates to share a list of items to buy and chores to do in the
 - Users can add shopping and chore items with more data (like priority and who added it)
 - All this data is shared in real time among members of the group
 
-(Only the Android version is completed)
-
 ---
 
 ### Tools and skills used:
