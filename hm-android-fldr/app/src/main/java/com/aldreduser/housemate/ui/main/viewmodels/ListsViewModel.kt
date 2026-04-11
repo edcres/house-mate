@@ -10,6 +10,8 @@ import com.aldreduser.housemate.data.model.CalendarDate
 import com.aldreduser.housemate.data.model.ChoresItem
 import com.aldreduser.housemate.data.model.ShoppingItem
 import com.aldreduser.housemate.util.ListType
+import com.aldreduser.housemate.util.sortChoreItems
+import com.aldreduser.housemate.util.sortShoppingItems
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -124,12 +126,14 @@ class ListsViewModel : ViewModel() {
             when (listTag) {
                 ListType.SHOPPING.toString() ->
                     listsRepository.setUpShoppingRealtimeFetching(clientGroupIDCollection!!)
-                        .collect {
-                            _shoppingItems.postValue(it)
+                        .collect { items ->
+                            _shoppingItems.postValue(sortShoppingItems(items))
                         }
                 ListType.CHORES.toString() ->
                     listsRepository.setUpChoresRealtimeFetching(clientGroupIDCollection!!)
-                        .collect { _choreItems.postValue(it) }
+                        .collect { items ->
+                            _choreItems.postValue(sortChoreItems(items))
+                        }
             }
         }
     }

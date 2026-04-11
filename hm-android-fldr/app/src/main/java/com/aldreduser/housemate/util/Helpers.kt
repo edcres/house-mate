@@ -2,6 +2,8 @@ package com.aldreduser.housemate.util
 
 import android.content.Context
 import android.widget.Toast
+import com.aldreduser.housemate.data.model.ChoresItem
+import com.aldreduser.housemate.data.model.ShoppingItem
 
 const val SHOPPING_ITEM = "Shopping"
 const val CHORE_ITEM = "Chore"
@@ -126,7 +128,19 @@ fun addCommasToOrder(order: String?): String {
 
 fun removeCommas(commaEdOrder: String) = commaEdOrder.split('-').joinToString("")
 
+fun sortShoppingItems(items: List<ShoppingItem>): List<ShoppingItem> {
+    return items.sortedWith(
+        compareBy<ShoppingItem> { it.completed ?: false }
+            .thenBy { it.name?.lowercase() ?: "" }
+    )
+}
 
+fun sortChoreItems(items: List<ChoresItem>): List<ChoresItem> {
+    return items.sortedWith(
+        compareBy<ChoresItem> { it.completed ?: false }
+            .thenBy { it.name?.lowercase() ?: "" }
+    )
+}
 
 fun displayToast(context: Context, msg: String) =
     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
